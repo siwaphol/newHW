@@ -12,19 +12,18 @@ class CreateHomeworkSendingTable extends Migration {
 	 */
 	public function up()
 	{
-//        Schema::create('homework_sending', function(Blueprint $table)
-//        {
-////            $table->engine = 'MyISAM';
-////            $table->char('studentId',9);
-////            $table->char('courseId',6);
-////            $table->increments('homeworkId');
-////            $table->float('sendStatus');
-////            $table->float('checkScore');
-////            $table->float('score');
-////            $table->string('userId', 20);
-////            $table->string('adminId', 20);
-////            $table->primary(['studentId', 'courseId', 'homeworkId']);
-//        });
+        Schema::create('homework_sending', function(Blueprint $table)
+        {
+            $table->char('studentId',9);
+            $table->char('courseId',6);
+            $table->string('homeworkFileName',50);
+            $table->float('sendStatus');
+            $table->float('checkScore');
+            $table->float('score');
+            $table->string('userId', 20);
+            $table->string('adminId', 20);
+            $table->primary(['studentId', 'courseId', 'homeworkFileName']);
+        });
     }
 
     /**
@@ -34,7 +33,7 @@ class CreateHomeworkSendingTable extends Migration {
      */
     public function down()
     {
-//        Schema::drop('homework_sending');
+        Schema::drop('homework_sending');
     }
 
 }

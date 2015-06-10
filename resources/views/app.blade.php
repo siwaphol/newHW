@@ -65,6 +65,9 @@
                                     </ul>
                                 </li>
                             @endif
+                            {{--@if (Auth::user()->role == "ta")--}}
+
+                            {{--@endif--}}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">สรุปผลการบ้าน<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
