@@ -16,8 +16,21 @@ class CreateCourseTable extends Migration {
         {
             $table->char('courseId',6);
             $table->string('courseName',50);
+            $table->string('teacher_id',20);
             $table->primary('courseId');
+
+            $table->foreign('teacher_id')
+                ->references('id')->on('teacher')
+                ->onUpdate('cascade');
         });
+
+        DB::table('course')->insert(
+            array(
+                'courseId' => '201112',
+                'courseName' => 'CS course',
+                'teacher_id' => 'testt'
+            )
+        );
     }
 
     /**

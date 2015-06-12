@@ -14,11 +14,19 @@ class CreateTeacherTable extends Migration {
 	{
         Schema::create('teacher', function(Blueprint $table)
         {
-            $table->string('teacherId',20);
+            $table->string('id',20);
             $table->string('teacherName',50);
             $table->string('teacherPw',4);
-            $table->primary('teacherId');
+            $table->primary('id');
         });
+
+        DB::table('teacher')->insert(
+            array(
+                'id' => 'testt',
+                'teacherName' => 'Test Teacher',
+                'teacherPw' => '1234'
+            )
+        );
     }
 
     /**
