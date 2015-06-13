@@ -6,7 +6,7 @@ class Student extends Model {
 
     protected $table = 'student';
 
-    protected $fillable = ['studentId', 'studentName', 'studentPw', 'email','phone'];
+    protected $fillable = ['id', 'studentName', 'studentPw', 'email','phone'];
 
     /**
      * A student can have many homeworks
