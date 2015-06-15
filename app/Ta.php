@@ -4,8 +4,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ta extends Model {
 
-    protected $table = 'ta';
+    protected $table = 'tas';
 
-    protected $fillable = ['taId', 'taName', 'taPw', 'phone','email'];
+    protected $fillable = ['id', 'taName', 'taPw', 'phone','email'];
+
+    public $incrementing = false;
 
 }

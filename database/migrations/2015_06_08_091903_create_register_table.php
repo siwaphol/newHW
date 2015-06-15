@@ -17,11 +17,33 @@ class CreateRegisterTable extends Migration {
             $table->char('studentId',9);
             $table->char('courseId',6);
             $table->char('sectionId',3);
+            $table->timestamps();
+
             $table->primary(['studentId', 'courseId', 'sectionId']);
+        });
+
+        Schema::create('register_lec', function(Blueprint $table)
+        {
+            $table->char('studentId',9);
+            $table->char('courseId',6);
+            $table->char('sectionId',3);
+            $table->timestamps();
+
+            $table->primary(['studentId','courseId','sectionId']);
+        });
+
+        Schema::create('register_overall', function(Blueprint $table)
+        {
+            $table->char('studentId',9);
+            $table->char('courseId',6);
+            $table->char('sectionId',3);
+            $table->timestamps();
+
+            $table->primary(['studentId','courseId','sectionId']);
         });
     }
 
-    /**
+    /**s
      * Reverse the migrations.
      *
      * @return void
@@ -29,6 +51,8 @@ class CreateRegisterTable extends Migration {
     public function down()
     {
         Schema::drop('register');
+        Schema::drop('register_lec');
+        Schema::drop('register_overall');
     }
 
 }

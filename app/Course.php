@@ -4,12 +4,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model {
 
-    protected $table = 'course';
+    protected $table = 'courses';
 
+    protected $fillable = ['id', 'courseName', 'teacher_id'];
 
+    public $incrementing = false;
+
+    protected $primaryKey = 'id';
 
     public function teacher(){
         return $this->belongsTo('App\Teacher');
+    }
+
+
+    /**
+     * Get the students associated with the given course
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function students(){
+        return $this->belongsToMany('App\Student', 'course_student', 'course_id', 'student_id')->withTimestamps();
     }
 
 }

@@ -4,9 +4,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model {
 
-    protected $table = 'student';
+    protected $table = 'students';
 
     protected $fillable = ['id', 'studentName', 'studentPw', 'email','phone'];
+
+    public $incrementing = false;
 
     /**
      * A student can have many homeworks
@@ -15,6 +17,10 @@ class Student extends Model {
     public function homeworks()
     {
         return $this->hasMany('App\Homework');
+    }
+
+    public function courses(){
+        return $this->belongsToMany('App\Course', 'course_student', 'student_id', 'course_id')->withTimestamps();
     }
 
 }

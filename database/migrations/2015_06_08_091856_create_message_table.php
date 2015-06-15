@@ -20,6 +20,8 @@ class CreateMessageTable extends Migration {
             $table->dateTime('date');
             $table->string('detail',30);
             $table->string('state',10);
+            $table->timestamps();
+
             $table->primary(['courseid', 'sectionid', 'teacherid', 'date', 'detail', 'state']);
         });
     }
