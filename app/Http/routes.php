@@ -14,6 +14,8 @@
 Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
+Route::get('info', 'HomeController@info');
+Route::get('course/{course_id}', 'CourseHomeworkController@show');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

@@ -12,6 +12,7 @@ class Student extends Model {
 
     /**
      * A student can have many homeworks
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function homeworks()

@@ -36,7 +36,10 @@ class UserTableSeeder extends Seeder {
     {
         DB::table('users')->delete();
 
-        User::create(['name' => 'teststudent','email' => 'student@test.com','password' => '12345678','role' => 'student']);
+        User::create(['name' => 'testadmin','email' => 'admin@test.com','password' => '$2y$10$vPFkRIrD3X0v.e0kzlMW2OUDOJi3Qro0IsNMYE.hLyx4J.suWVhkG','role' => 'admin']);
+        User::create(['name' => 'teststudent','email' => 'student@test.com','password' => '$2y$10$vPFkRIrD3X0v.e0kzlMW2OUDOJi3Qro0IsNMYE.hLyx4J.suWVhkG','role' => 'student']);
+        User::create(['name' => 'testteacher','email' => 'teacher@test.com','password' => '$2y$10$vPFkRIrD3X0v.e0kzlMW2OUDOJi3Qro0IsNMYE.hLyx4J.suWVhkG','role' => 'teacher']);
+        User::create(['name' => 'testta','email' => 'ta@test.com','password' => '$2y$10$vPFkRIrD3X0v.e0kzlMW2OUDOJi3Qro0IsNMYE.hLyx4J.suWVhkG','role' => 'ta']);
     }
 
 }
