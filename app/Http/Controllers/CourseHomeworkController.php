@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\Course;
 
 class CourseHomeworkController extends Controller {
 
@@ -46,6 +47,8 @@ class CourseHomeworkController extends Controller {
 	public function show($course_id)
 	{
 		$course = Course::findOrFail($course_id);
+
+        dd($course->courseName);
 
         return view('homework.show', compact('course'));
 	}

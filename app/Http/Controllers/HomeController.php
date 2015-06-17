@@ -37,4 +37,5 @@ class HomeController extends Controller {
         return view('info/info');
     }
 
+
 }

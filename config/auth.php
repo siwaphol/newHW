@@ -12,7 +12,7 @@ return [
 	| attempting to get access to protected areas of your application.
 	|
 	| Supported: "database", "eloquent"
-	|
+	| default is eloquent
 	*/
 
 	'driver' => 'eloquent',
