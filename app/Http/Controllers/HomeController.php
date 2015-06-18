@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use App\Course;
+
 class HomeController extends Controller {
 
 	/*
@@ -36,5 +38,22 @@ class HomeController extends Controller {
     public function info(){
         return view('info/info');
     }
+    public function test()
+    {
+   //$name='boonchuay';
 
+
+       return view('test',array('name'=>'boonchuay','name1'=>'boonchuay1'));
+    }
+    public function assign(){
+        return view('assign',array('course'=>'204219'
+                                    ,'section'=>'001'));
+    }
+
+    public function course(){
+        $model=Course::all();
+        //$users = Course::order_by('list_order', 'ASC')->get();
+       // return $view->with('users', $users)->with('q', $q);
+        return view('course',compact('model'));
+    }
 }
