@@ -16,7 +16,7 @@ class CreateHomeworkAssignmentTable extends Migration {
         {
             $table->char('course_id',6);
             $table->string('name',50);
-            $table->string('type',5);
+            $table->string('type',10);
             $table->string('detail',100);
             $table->string('sub_folder',20);
             $table->date('due_date');
@@ -44,6 +44,15 @@ class CreateHomeworkAssignmentTable extends Migration {
 
             $table->primary('hwTypeName');
         });
+
+        Schema::create('file_type', function(Blueprint $table)
+        {
+            $table->string('id',10);
+            $table->string('type_list',100);
+            $table->timestamps();
+
+            $table->primary('id');
+        });
     }
 
     /**
@@ -56,6 +65,7 @@ class CreateHomeworkAssignmentTable extends Migration {
         Schema::drop('homework_assignment');
         Schema::drop('homework_sending');
         Schema::drop('homework_type');
+        Schema::drop('file_type');
     }
 
 }

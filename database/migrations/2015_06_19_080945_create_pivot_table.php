@@ -47,7 +47,7 @@ class CreatePivotTable extends Migration {
         Schema::create('homework_student', function(Blueprint $table){
             $table->char('course_id',6);
             $table->char('course_section',3);
-            $table->string('homework_name',50);
+            $table->string('homework_filename',50);
             $table->char('student_username',20);
             $table->char('homework_status',1);
             $table->timestamp('submitted_at');
