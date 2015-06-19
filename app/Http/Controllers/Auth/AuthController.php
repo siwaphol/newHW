@@ -81,7 +81,6 @@ class AuthController extends Controller {
     {
         require_once('/itsc/testgetcall.php');
         $first_itsc_authen = authen_with_ITSC_api('siwaphol_boonpan', 'siwaphol01');
-        dd($first_itsc_authen);
         if ($first_itsc_authen->success == true)
         {
             dd('ITSC First Authen is complete');

@@ -49,7 +49,7 @@ class TeacherTableSeeder extends Seeder {
     {
         DB::table('teachers')->delete();
 
-        Teacher::create(['id' => 'testteacher','teacherName' => 'Test Teacher','teacherPw' => '1234']);
+        Teacher::create(['username' => 'siwaphol_boonpan','name' => 'Siwaphol Teacher']);
     }
 }
 
@@ -58,7 +58,16 @@ class StudentTableSeeder extends Seeder {
     {
         DB::table('students')->delete();
 
-        Student::create(['id' => '540510828','studentName' => 'Test Student','studentPw' => '1234', 'email' => 'siwaphol_boonpan@gmail.com', 'phone' => '0821231234']);
+        Student::create(['username' => 'siwaphol_boonpan','id' => '540510828','name' => 'Siwaphol Student', 'email' => 'siwaphol_boonpan@cmu.ac.th', 'phone' => '0821231234']);
+    }
+}
+
+class AdminTableSeeder extends Seeder {
+    public function run()
+    {
+        DB::table('admins')->delete();
+
+        Student::create(['username' => 'siwaphol_boonpan','name' => 'Siwaphol Admin']);
     }
 }
 
@@ -67,8 +76,8 @@ class CourseTableSeeder extends Seeder {
     {
         DB::table('courses')->delete();
 
-        Course::create(['id' => '204112','courseName' => 'CS course','teacher_id' => 'testteacher']);
-        Course::create(['id' => '204211','courseName' => 'CS coding','teacher_id' => 'testteacher']);
+        Course::create(['id' => '204111','name' => 'Fundamental to Com Sci.']);
+        Course::create(['id' => '204211','name' => 'CS coding']);
     }
 }
 
