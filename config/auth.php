@@ -15,7 +15,7 @@ return [
 	| default is eloquent
 	*/
 
-	'driver' => 'eloquent',
+	'driver' => 'custom',
 
 	/*
 	|--------------------------------------------------------------------------

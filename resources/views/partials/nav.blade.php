@@ -26,7 +26,7 @@
                                     </ul>
                                 </li>
                             @endif
-                        @else
+                        @elseif(Auth::user()->role == "ta" || Auth::user()->role == "teacher" || Auth::user()->role == "admin")
                             @if (Auth::user()->role != "ta")
                                 @if (Auth::user()->role == "admin")
                                     <li><a href="{{ url('/') }}">จัดการข้อมูลผู้ใช้</a></li>

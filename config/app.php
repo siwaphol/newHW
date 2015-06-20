@@ -147,7 +147,7 @@ return [
 		'App\Providers\RouteServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 //        'App\Auth\CustomUserProvider',
-//        'App\Providers\CustomAuthProvider'
+        'App\Providers\CustomAuthProvider'
 
 	],
 

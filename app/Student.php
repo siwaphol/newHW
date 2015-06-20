@@ -1,12 +1,18 @@
 <?php namespace App;
 
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
-class Student extends Model {
+class Student extends Model implements AuthenticatableContract {
+
+    use Authenticatable;
 
     protected $table = 'students';
 
-    protected $fillable = ['id', 'studentName', 'studentPw', 'email','phone'];
+    protected $primaryKey = 'username';
+
+    protected $fillable = ['username', 'id', 'name', 'email','phone'];
 
     public $incrementing = false;
 

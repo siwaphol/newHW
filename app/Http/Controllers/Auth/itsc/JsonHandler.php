@@ -1,4 +1,4 @@
-    <?php
+<?php namespace App\Http\Controllers\Auth\Itsc;
     // In normal json_decode there is no telling what causes error in the process ,this will handler the error
     class JsonHandler {
        
@@ -19,6 +19,7 @@
             }
             
             throw new RuntimeException(static::$_messages[json_last_error()]);
+            return null;
         }
         
         public static function decode($json, $assoc = false) {
@@ -30,6 +31,7 @@
             }
             
             throw new RuntimeException(static::$_messages[json_last_error()]);
+            return null;
         }
         
         public static function test($json, $assoc = false) {
@@ -41,6 +43,7 @@
             }
             
             throw new RuntimeException(static::$_messages[json_last_error()]);
+            return null;
         }
         
     }

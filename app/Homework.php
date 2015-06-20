@@ -6,9 +6,11 @@ class Homework extends Model {
 
     protected $table = 'homework_assignment';
 
-    protected $fillable = ['student_id', 'courseId', 'homeworkFileName', 'sendStatus','submitted_at'];
+    protected $fillable = ['course_id', 'name', 'type', 'detail','sub_folder','due_date', 'assign_date'];
 
     public $incrementing = false;
+
+    protected $primaryKey = 'course_id';
 
     /**
      * A homework is owned by a student

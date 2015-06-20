@@ -6,7 +6,9 @@ class Teacher extends Model {
 
     protected $table = 'teachers';
 
-    protected $fillable = ['id', 'teacherName', 'teacherPw'];
+    protected $primaryKey = 'username';
+
+    protected $fillable = ['username', 'name'];
 
     public $incrementing = false;
 
