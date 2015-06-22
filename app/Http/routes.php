@@ -45,4 +45,12 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+//admin
+Route::get('admin','AdminController@index');
+Route::delete('admin/delete/{id}','AdminController@destroy');
+Route::get('admin/show/{id}','AdminController@show');
+Route::get('admin/create','AdminController@create');
+Route::get('admin/{id}/edit','AdminController@edit');
+Route::post('admin/create/save','AdminController@store');
+Route::patch('admin/update/{id}','AdminController@update');
 
