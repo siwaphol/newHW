@@ -57,9 +57,13 @@ function onSubmitMain() {
     </script>
 
 <h3 align="center">เลือกกระบวนวิชา ตอน</h3>
-<form action="" method="post" name="frmMain" id="frmMain" onsubmit="return onSubmitMain()" class="form-control">
-
-					<select id="ddlCourse" name="ddlCourse" onChange = "ListSection(this.value)" class="form-control" placeholder=".col-xs-4">
+<div class="portlet"align="right">
+<div class="portlet-body form"  align="center">
+<form action="" method="post" name="frmMain" id="frmMain" onsubmit="return onSubmitMain()" class="form-horizontal"  align="center">
+<div class="form-body" >
+            <div class="form-group" align="center">
+                    <div class="col-md-4" align="center">
+					<select id="ddlCourse" name="ddlCourse" onChange = "ListSection(this.value)" class="form-control">
 						<option selected value="">เลือกวิชา</option>
 						<?php
 
@@ -73,15 +77,27 @@ function onSubmitMain() {
 						}
 						?>
 					</select>
+					</div>
+			</div>
 
-					<select id="ddlSection" name="ddlSection" class="form-control" placeholder=".col-xs-4">
+			<div class="form-group" align="center">
+					<div class="col-md-4">
+
+					<select id="ddlSection" name="ddlSection" class="form-control">
 						<option selected value="">เลือกตอน</option>
 					</select>
+                      </div>
+            </div>
 
+            <div class="form-group" align="center">
 
-
+                    <div class="col-md-4">
                     <input type="submit" name="ok" value="ตกลง"  class="form-control"/>
-
+                    </div>
+            </div>
+          </div>
           </form>
+          </div>
+          </div>
 
     @endsection
