@@ -53,4 +53,12 @@ Route::get('admin/create','AdminController@create');
 Route::get('admin/{id}/edit','AdminController@edit');
 Route::post('admin/create/save','AdminController@store');
 Route::patch('admin/update/{id}','AdminController@update');
+//ta
 
+Route::get('ta','TasController@index');
+Route::delete('ta/delete/{id}','TasController@destroy');
+Route::get('ta/show/{id}','TasController@show');
+Route::get('ta/create','TasController@create');
+Route::get('ta/{id}/edit','TasController@edit');
+Route::post('ta/create/save','TasController@store');
+Route::patch('ta/update/{id}','TasController@update');
