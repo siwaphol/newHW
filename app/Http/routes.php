@@ -39,6 +39,7 @@ Route::post('course','CourseController@addcourse');
 Route::post('course/saveedit','CourseController@saveedit');
 Route::post('course_section/update','Course_sectionController@update');
 Route::post('test1', 'HomeController@test1');
+Route::post('test2', 'HomeController@test2');
 Route::patch('teachers/update/{id}','TeachersController@update');
 Route::post('teachers/create/save','TeachersController@store');
 Route::controllers([
@@ -62,3 +63,16 @@ Route::get('ta/create','TasController@create');
 Route::get('ta/{id}/edit','TasController@edit');
 Route::post('ta/create/save','TasController@store');
 Route::patch('ta/update/{id}','TasController@update');
+
+//student
+Route::get('students','StudentsController@index');
+Route::delete('students/delete/{id}','StudentsController@destroy');
+Route::get('students/show/{id}','StudentsController@show');
+Route::get('students/create','StudentsController@create');
+Route::get('students/edit/{id}','StudentsController@edit');
+
+Route::post('students/create/save','StudentsController@store');
+Route::patch('students/update/{id}','StudentsController@update');
+//import student
+Route::get('students/import','StudentsController@import');
+Route::post('students/insert','StudentsController@insert');

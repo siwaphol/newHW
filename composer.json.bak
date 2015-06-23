@@ -13,7 +13,8 @@
 		"illuminate/filesystem": "^5.0",
 		"phpdocumentor/reflection-docblock": "2.0.*",
 		"symfony/class-loader": "~2.3",
-		"barryvdh/laravel-ide-helper": "2.0.3"
+		"barryvdh/laravel-ide-helper": "2.0.3",
+        "maatwebsite/excel": "~2.0.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
@@ -50,4 +51,6 @@
 	"config": {
 		"preferred-install": "dist"
 	}
+
+
 }

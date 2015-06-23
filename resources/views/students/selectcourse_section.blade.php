@@ -1,4 +1,11 @@
-
+<?php
+/**
+ * Created by PhpStorm.
+ * User: boonchuay
+ * Date: 22/6/2558
+ * Time: 20:23
+ */
+?>
 @extends('app');
 @section('content')
 
@@ -59,7 +66,7 @@ function onSubmitMain() {
 <h3 align="center">เลือกกระบวนวิชา ตอน</h3>
 <div class="portlet"align="right">
 <div class="portlet-body form"  align="center">
-<form action="tset2" method="post" name="frmMain" id="frmMain" onsubmit="return onSubmitMain()" class="form-horizontal"  align="center">
+<form action="insert" method="post" name="frmMain" id="frmMain" onsubmit="return onSubmitMain()" class="form-horizontal"  align="center">
 <div class="form-body" >
             <div class="form-group" align="center">
                     <div class="col-md-4 col-md-offset-4" align="center" >
@@ -90,7 +97,7 @@ function onSubmitMain() {
             </div>
 
             <div class="form-group" align="center">
-
+                <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                     <div class="col-md-4 col-md-offset-4">
                     <input type="submit" name="ok" value="ตกลง"  class="form-control"/>
                     </div>

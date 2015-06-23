@@ -68,4 +68,11 @@ class HomeController extends Controller {
 
         return $result;
     }
+    public function test2()
+    {
+        $result=Request::get('ddlCourse');
+
+
+        return $result;
+    }
 }
