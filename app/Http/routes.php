@@ -76,3 +76,13 @@ Route::patch('students/update/{id}','StudentsController@update');
 //import student
 Route::get('students/import','StudentsController@import');
 Route::post('students/insert','StudentsController@insert');
+//homework_assignment
+Route::get('homework_assignment','Homework_assignmentController@index');
+Route::delete('homework_assignment/delete/{id}','Homework_assignmentController@destroy');
+Route::get('homework_assignment/show/{id}','Homework_assignmentController@show');
+
+Route::get('homework_assignment/create/{id}','Homework_assignmentController@create');
+Route::get('homework_assignment/{id}/edit','Homework_assignmentController@edit');
+Route::post('homework_assignment/create/save','Homework_assignmentController@store');
+Route::patch('homework_assignment/update/{id}','Homework_assignmentController@update');
+Route::post('homework_assignment/showlist','Homework_assignmentController@showlist');
