@@ -30,4 +30,9 @@ class Student extends Model implements AuthenticatableContract {
         return $this->belongsToMany('App\Course', 'course_student', 'student_id', 'course_id')->withTimestamps();
     }
 
+//    public function roles()
+//    {
+//        return $this->belongsToMany('App\Role', 'role_user', );
+//    }
+
 }
