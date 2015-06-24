@@ -16,6 +16,6 @@ class Homework_assignments extends Model  {
      *
      * @var array
      */
-    protected $fillable = ['id','courseId','homeworkname', 'homeworkFileName', 'homeworkFileType', 'homeworkDetail', 'issubFolder', 'subFolder', 'dueDate', 'assignDate', 'acceptDate'];
+    protected $fillable = ['id','courseId','issec','sectionid','homeworkname', 'homeworkFileName', 'homeworkFileType', 'homeworkDetail', 'issubFolder', 'subFolder', 'dueDate', 'assignDate', 'acceptDate'];
 
 }

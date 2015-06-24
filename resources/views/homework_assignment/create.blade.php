@@ -104,7 +104,7 @@ $(document).ready(function(){
                     <div class="not box"> </div>
                     <div class="yest box">
                         <div class="form-group">
-                        	<select id="type" name="type" onChange = "ListSection(this.value)" class="form-control">
+                        	<select id="homeworkFileType" name="homeworkFileType" onChange = "ListSection(this.value)" class="form-control">
                                             						<option selected value="">เลือกชนิดไฟล์</option>
                                             						<?php
 

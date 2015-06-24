@@ -51,14 +51,21 @@ class Course_SectionController extends Controller
         $courseid = Request::get('courseid');
         $sectionid = Request::get('sectionid');
         $teacherid = Request::get('teacherid');
-        $Course = DB::insert('insert into course_section(courseid,sectionid,teacherid)VALUES (?,?,?)
-                            where courseid=? and sectionid=?', array($courseid, $sectionid, $teacherid, $courseid, $sectionid));
+        $Course = DB::update('update course_section set courseid=?,sectionid=?,teacherid=? where courseid=? and sectionid=?', array($courseid, $sectionid, $teacherid, $courseid, $sectionid));
         return redirect('course_section');
     }
 
     public  function create(){
 
         return view('course_section.create');
+    }
+    public function store(Request $request)
+    {
+         $courseid = $_POST['courseid'];
+        $sectionid = $_POST['sectionid'];
+        $teacherid = $_POST['teacherid'];
+        $Course = DB::insert('insert into course_section(courseid,sectionid,teacherid)VALUES (?,?,?)', array($courseid, $sectionid, $teacherid));
+        return redirect('course_section');
     }
 
 }

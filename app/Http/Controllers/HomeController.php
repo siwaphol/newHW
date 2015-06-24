@@ -75,4 +75,11 @@ class HomeController extends Controller {
 
         return $result;
     }
+    public function xcrud()
+    {
+
+
+
+        return view('testexcrud');
+    }
 }

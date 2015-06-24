@@ -89,7 +89,9 @@ class StudentsController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		Students::destroy($id);
+		Students::destroy($id['id']);
+        $result=DB::delete('delete from register WHERE courseid=? and sectionid=? and studentid=?',array($id['co'],$id['sec'],$id['id']));
+
 		return redirect('students');
 	}
     public function import()
@@ -109,5 +111,12 @@ class StudentsController extends Controller {
         //return $cours;
         return view('students.insert')->with('cours',$cours);
     }
-
+    public function showlist()
+    {
+        $course = $_POST['ddlCourse'];
+        $sec = $_POST['ddlSection'];
+        $cours=array('co'=>$course,'sec'=>$sec);
+        //return $cours;
+        return view('students.showlist')->with('course',$cours);
+    }
 }

@@ -16,11 +16,11 @@ $key=$sql;
 ?>
 
 <h1 align="center">เพิ่มตอน</h1>
-{!! Form::open(['url'=>'course_section']) !!}
+{!! Form::open(['url'=>'course_section/create/save']) !!}
 <div class="form-group">
 
 {!! Form::label('id','รหัส')!!}
-<select name="id" class="form-control">
+<select name="courseid" class="form-control">
 <?php for($i=0;$i<$count;$i++){?>
   <option value={{$key[$i]->id}}>{{$key[$i]->id."   ".$key[$i]->courseName}}</option>
   <?php }?>

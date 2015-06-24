@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class course_section  extends model {
     protected $table='course_section';
-    protected $fillable = ['courseId', 'sectionId', 'teacherId', 'created_at','updated_at'];
+    protected $fillable = ['courseId', 'sectionId', 'teacherId'];
     public $incrementing = false;
 
 } 

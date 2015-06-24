@@ -17,6 +17,7 @@ Route::get('home', 'HomeController@index');
 Route::get('info', 'HomeController@info');
 
 Route::get('test', 'HomeController@test');
+Route::get('xcrud', 'HomeController@xcrud');
 //Route::get('test/{id}', function($id){
    // return $id;
 //});
@@ -26,8 +27,9 @@ Route::get('create', 'CourseController@create');
 Route::get('edit/{id}', 'CourseController@edit');
 Route::get('delete/{id}', 'CourseController@delete');
 Route::get('course/{course_id}', 'CourseController@show');
-Route::get('course_section', 'Course_sectionController@index');
-Route::get('course_section/create', 'Course_sectionController@create');
+Route::get('course_section', 'Course_SectionController@index');
+Route::get('course_section/create', 'Course_SectionController@create');
+Route::post('course_section/create/save', 'Course_SectionController@store');
 Route::get('course_section/edit/{id}', 'Course_SectionController@edit');
 Route::get('test/lis','HomeController@lis');
 Route::get('teachers','TeachersController@index');
@@ -66,12 +68,13 @@ Route::patch('ta/update/{id}','TasController@update');
 
 //student
 Route::get('students','StudentsController@index');
-Route::delete('students/delete/{id}','StudentsController@destroy');
+Route::post('students/delete/{id}','StudentsController@destroy');
 Route::get('students/show/{id}','StudentsController@show');
 Route::get('students/create','StudentsController@create');
 Route::get('students/edit/{id}','StudentsController@edit');
 
 Route::post('students/create/save','StudentsController@store');
+Route::post('students/showlist','StudentsController@showlist');
 Route::patch('students/update/{id}','StudentsController@update');
 //import student
 Route::get('students/import','StudentsController@import');
@@ -86,3 +89,12 @@ Route::get('homework_assignment/{id}/edit','Homework_assignmentController@edit')
 Route::post('homework_assignment/create/save','Homework_assignmentController@store');
 Route::patch('homework_assignment/update/{id}','Homework_assignmentController@update');
 Route::post('homework_assignment/showlist','Homework_assignmentController@showlist');
+
+//assistant
+Route::get('assistants','AssistantsController@index');
+Route::delete('assistants/delete/{id}','AssistantsController@destroy');
+Route::get('assistants/show/{id}','AssistantsController@show');
+Route::get('assistants/create','AssistantsController@create');
+Route::get('assistants/{id}/edit','AssistantsController@edit');
+Route::post('assistants/create/save','AssistantsController@store');
+Route::patch('assistants/update/{id}','AssistantsController@update');
