@@ -106,8 +106,8 @@
   },
   "database":{
     "host": "localhost",
-    "user" : "admin",
-    "pass" : "R71lMJUU",
+    "user" : "root",
+    "pass" : "",
       "db" : "test"
   },
   "ignored_files": [

@@ -15,13 +15,14 @@ error_reporting(E_ERROR);
  */
 
 // require_once('listr-config.php');
-$file    = "config.json";
+$file    = app_path().'/includes/listr/config.json';
 $options = json_decode(file_get_contents($file), true);
 
 if($options['general']['locale'] != null ) {
-    require_once('listr-l10n.php');
+    require_once( app_path() . '/includes/listr/listr-l10n.php');
 }
-require_once('listr-functions.php');
+
+require_once(app_path() . '/includes/listr/listr-functions.php');
 
 // Configure optional table columns
 $table_options = $options['columns'];
@@ -271,11 +272,12 @@ foreach($table_options as $value)
 
 // Open the current directory...
 //$file = "";
-//Nong
-$database = new mysqli($options['database']['host'],$options['database']['user'], $options['database']['pass'], $options['database']['db']);
-$result = $database->query("select * from homework_assignment WHERE course_id = '204111'");
+//Nong query homework_assignment to get homework template
+$result = DB::table('homework_assignment')->where('course_id', '204111')->get();
+$object1 = json_decode(json_encode($result), FALSE);
+
 $folder_path = explode( "/", $navigation_dir);
-while($obj = $result->fetch_object()){
+foreach($object1 as $obj){
     $item['name']          =     $obj->name;
     $item['lname']         =     strtolower($item['name'] );
     $item['bname']         =     $obj->name . "." .  $obj->type;
@@ -822,5 +824,94 @@ if ($options['general']['give_kudos']) {
     $kudos = "<a class=\"pull-".$right." small text-muted\" href=\"https://github.com/idleberg/Bootstrap-Listr\" title=\"Bootstrap Listr on GitHub\" target=\"_blank\">"._('Fork me on GitHub')."</a>" . PHP_EOL;
 }
 
-require_once('listr-template.php');
+//require_once(app_path() . '/includes/listr/listr-template.php');
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<?php echo $header?>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{ asset('/css/listr.min.css') }}" />
+</head>
+<body<?php echo $direction?>>
+  <div class="<?php echo $container ?>">
+<?php echo $breadcrumbs?>
+<?php echo $search ?>
+<?php echo $add_tag ?>
+<?php echo $responsive_open?>
+      <table id="bs-table" class="table <?php echo $options['bootstrap']['table_style']?>">
+        <thead>
+          <tr>
+<?php echo $table_header?>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td colspan="<?php echo $table_count+1?>">
+              <small class="pull-<?php echo $left?> text-muted" dir="ltr"><?php echo $summary ?></small>
+              <?php echo $kudos?>
+            </td>
+          </tr>
+        </tfoot>
+        <tbody>
+<?php echo $table_body?>
+        </tbody>
+      </table>
+<?php echo $responsive_close?>
+<?php if ($options['general']['enable_viewer']) { ?>
+    <div class="modal fade" id="viewer-modal" tabindex="-1" role="dialog" aria-labelledby="file-name" aria-hidden="true">
+      <div class="modal-dialog <?php echo $modal_size ?>">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close pull-<?php echo $right?>" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title text-<?php echo $left?>" id="file-name">&nbsp;</h4>
+            <small class="text-muted" id="file-meta"></small>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+<?php if (($options['general']['enable_highlight'])) { ?>
+            <div class="pull-<?php echo $left?>">
+              <button type="button" class="btn <?php echo $btn_highlight ?> highlight hidden"><?php echo _('Apply syntax highlighting')?></button>
+            </div>
+<?php } ?>
+            <div class="pull-<?php echo $right?>">
+              <button type="button" class="btn <?php echo $btn_default ?>" data-dismiss="modal"><?php echo _('Close')?></button>
+<?php if ($options['general']['share_button']) { ?>
+              <div class="btn-group">
+                <a class="btn <?php echo $btn_primary ?> fullview" data-button="<?php echo _('Open')?>" role="button">
+                </a>
+                <button type="button" class="btn <?php echo $btn_primary ?> dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+<?php if ($options['keys']['dropbox'] !== null ) { ?>
+                  <li role="presentation"><a role="menuitem" class="save-dropbox"><?php echo $icons_dropbox._('Save to Dropbox')?></a></li>
+                  <li role="presentation" class="divider"></li>
+<?php } ?>
+                  <li role="presentation"><a role="menuitem" class="email-link"><?php echo $icons_email ?>Email</a></li>
+                  <li role="presentation"><a role="menuitem" class="facebook-link"><?php echo $icons_facebook ?>Facebook</a></li>
+                  <li role="presentation"><a role="menuitem" class="google-link"><?php echo $icons_gplus ?>Google+</a></li>
+                  <li role="presentation"><a role="menuitem" class="twitter-link"><?php echo $icons_twitter ?>Twitter</a></li>
+                </ul>
+              </div>
+<?php } else { ?>
+            <a class="btn <?php echo $btn_primary ?> fullview" data-button="<?php echo _('Open')?>" role="button"></a>
+<?php } ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<?php } ?>
+  </div>
+<?php echo $footer?>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/stupidtable/0.0.1/stupidtable.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-searcher/0.2.0/jquery.searcher.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ asset('/js/listr.min.js') }}"></script>
+</body>
+</html>

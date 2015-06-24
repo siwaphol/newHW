@@ -65,19 +65,19 @@ function set_header($theme) {
         $header    .= "  <link rel=\"stylesheet\" href=\"$packed_css\" />" . PHP_EOL;
     } else {
 
-        if ($options['general']['dependencies'] == 'cdn') {
-            $bootstrap_css   = $theme;
-            $fontawesome_css = $options['assets']['font_awesome'];
-        } else {
-            $bootstrap_css   = "//".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/assets/css/bootstrap.min.css";
-            $fontawesome_css = "//".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/assets/css/font-awesome.min.css";
-        }
+//        if ($options['general']['dependencies'] == 'cdn') {
+//            $bootstrap_css   = $theme;
+//            $fontawesome_css = $options['assets']['font_awesome'];
+//        } else {
+//            $bootstrap_css   = "//".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/assets/css/bootstrap.min.css";
+//            $fontawesome_css = "//".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/assets/css/font-awesome.min.css";
+//        }
 
-        if ( ($options['bootstrap']['icons'] == 'fontawesome') && ($fontawesome_css) ) {
-            $header .= "  <link rel=\"stylesheet\" href=\"$fontawesome_css\" />" . PHP_EOL;
-        }
-
-        $header .= "  <link rel=\"stylesheet\" href=\"$bootstrap_css\" />" . PHP_EOL;
+//        if ( ($options['bootstrap']['icons'] == 'fontawesome') && ($fontawesome_css) ) {
+//            $header .= "  <link rel=\"stylesheet\" href=\"$fontawesome_css\" />" . PHP_EOL;
+//        }
+//
+//        $header .= "  <link rel=\"stylesheet\" href=\"$bootstrap_css\" />" . PHP_EOL;
 
         if ($options['general']['enable_viewer']) {    
 
@@ -90,7 +90,7 @@ function set_header($theme) {
             }
         }
 
-        $header .= "  <link rel=\"stylesheet\" href=\"//".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/assets/css/listr.min.css\" />" . PHP_EOL;
+//        $header .= "  <link rel=\"stylesheet\" href=\"//".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/assets/css/listr.min.css\" />" . PHP_EOL;
     }
 
     foreach($options['assets']['append_css'] as $append_css) {
@@ -113,17 +113,17 @@ function set_footer(){
     $footer = null;
     global $options;
 
-    if ($options['general']['dependencies'] == 'cdn') {
-        $jquery_js    = $options['assets']['jquery'];
-        $bootstrap_js = $options['assets']['bootstrap_js'];
-    } else {
-        $jquery_js    = "//".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/assets/js/jquery.min.js";
-        $bootstrap_js = "//".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/assets/js/bootstrap.min.js";
-    }
+//    if ($options['general']['dependencies'] == 'cdn') {
+//        $jquery_js    = $options['assets']['jquery'];
+//        $bootstrap_js = $options['assets']['bootstrap_js'];
+//    } else {
+//        $jquery_js    = "//".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/assets/js/jquery.min.js";
+//        $bootstrap_js = "//".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/assets/js/bootstrap.min.js";
+//    }
 
-    if ( ($options['general']['enable_sort']) || ($options['general']['enable_viewer']) ) {
-        $footer .= "  <script type=\"text/javascript\" src=\"$jquery_js\"></script>" . PHP_EOL;
-    }
+//    if ( ($options['general']['enable_sort']) || ($options['general']['enable_viewer']) ) {
+//        $footer .= "  <script type=\"text/javascript\" src=\"$jquery_js\"></script>" . PHP_EOL;
+//    }
 
     if( ($options['general']['enable_viewer']) && ($options['general']['share_button']) && ($options['keys']['dropbox'] !== null ) ){
         $footer .= "  <script type=\"text/javascript\" src=\"//www.dropbox.com/static/api/2/dropins.js\" id=\"dropboxjs\" data-app-key=\"".$options['keys']['dropbox']."\"></script>" . PHP_EOL;
@@ -150,19 +150,19 @@ function set_footer(){
             }
         }
 
-        if ($options['general']['enable_viewer']) {
-            $footer .= "  <script type=\"text/javascript\" src=\"$bootstrap_js\"></script>" . PHP_EOL;
-
-            if($options['general']['enable_highlight'] == true) {
-                 if ( ($options['general']['dependencies'] == 'cdn') && ($options['assets']['highlight_css']) && ($options['assets']['highlight_js']) ) {
-                    $footer .= "  <script type=\"text/javascript\" src=\"".$options['assets']['highlight_js']."\"></script>" . PHP_EOL;
-                } else {
-                    $footer .= "  <script type=\"text/javascript\" src=\"//".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/assets/js/highlight.min.js\"></script>" . PHP_EOL;
-                }
-            }
-        }
-        
-        $footer .= "  <script type=\"text/javascript\" src=\"//".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/assets/js/listr.min.js\"></script>" . PHP_EOL;
+//        if ($options['general']['enable_viewer']) {
+//            $footer .= "  <script type=\"text/javascript\" src=\"$bootstrap_js\"></script>" . PHP_EOL;
+//
+//            if($options['general']['enable_highlight'] == true) {
+//                 if ( ($options['general']['dependencies'] == 'cdn') && ($options['assets']['highlight_css']) && ($options['assets']['highlight_js']) ) {
+//                    $footer .= "  <script type=\"text/javascript\" src=\"".$options['assets']['highlight_js']."\"></script>" . PHP_EOL;
+//                } else {
+//                    $footer .= "  <script type=\"text/javascript\" src=\"//".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/assets/js/highlight.min.js\"></script>" . PHP_EOL;
+//                }
+//            }
+//        }
+//
+//        $footer .= "  <script type=\"text/javascript\" src=\"//".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/assets/js/listr.min.js\"></script>" . PHP_EOL;
     }
 
     foreach($options['assets']['append_js'] as $append_js) {
