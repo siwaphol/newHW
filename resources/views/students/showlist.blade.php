@@ -16,10 +16,17 @@ $count=count($student);
                     <div class="panel-body">
                         <h1 align="center">กระบวนวิชา {{$course['co']}}  ตอน {{$course['sec']}} </h1>
                         <h2><a href="{{ url('/students/create') }}">เพิ่ม</a></h2>
+                         {!! Form::open(['url' => 'students/export']) !!}
+
+                          <input type="hidden" name="course" id="course" value='{{$course['co']}}'>
+                          <input type="hidden" name="sec" id="sec" value='{{$course['sec']}}'>
+
+                          <button type="submit" class="btn btn-link">export csv</button>
+                           {!! Form::close() !!}
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
-                                    <th>ลำดับ</th><th>ชื่อ-นามสกุล</th><th>Actions</th>
+                                    <th>ลำดับ</th><th>ชื่อ-นามสกุล</th><th>edit</th><th>delete</th>
                                 </tr>
                                 {{-- */$x=0;/* --}}
                                 <?php
@@ -28,14 +35,21 @@ $count=count($student);
                                 ?>
 
                                     <tr>
-                                        <td>{{ $x }}</td>
+                                        <td>{{ $x+1 }}</td>
 
                                         <td><a href="{{ url('/students/show', $item[$x]->id) }}">{{ $item[$x]->studentName }}</a></td>
-                                        <td><a href="{{ url('/students/edit/',$item[$x]->id) }}">Edit</a> /
+                                        <td><a href="{{ url('/students/edit/'.$item[$x]->id) }}">Edit</a> </td>
+                                        <td>
                                                <?php
                                                $data=array('id'=>$item[$x]->id,'co'=>$course['co'],'sec'=>$course['sec']);
                                                ?>
-                                            {!! Form::open(['method'=>'delete','action'=>['Homework_assignmentController@destroy',$data]]) !!}<button type="submit" class="btn btn-link">Delete</button>{!! Form::close() !!}
+                                            {!! Form::open(['url' => 'students/delete']) !!}
+
+                                            <input type="hidden" name="course" id="course" value='{{$course['co']}}'>
+                                            <input type="hidden" name="sec" id="sec" value='{{$course['sec']}}'>
+                                            <input type="hidden" name="id" id="id" value='{{$item[$x]->id}}'>
+                                            <button type="submit" class="btn btn-link">Delete</button>
+                                            {!! Form::close() !!}
                                             </td>
                                     </tr>
                                 <?php } ?>

@@ -68,11 +68,11 @@ Route::patch('ta/update/{id}','TasController@update');
 
 //student
 Route::get('students','StudentsController@index');
-Route::post('students/delete/{id}','StudentsController@destroy');
+Route::post('students/delete','StudentsController@destroy');
 Route::get('students/show/{id}','StudentsController@show');
 Route::get('students/create','StudentsController@create');
 Route::get('students/edit/{id}','StudentsController@edit');
-
+Route::post('students/export','StudentsController@export');
 Route::post('students/create/save','StudentsController@store');
 Route::post('students/showlist','StudentsController@showlist');
 Route::patch('students/update/{id}','StudentsController@update');
