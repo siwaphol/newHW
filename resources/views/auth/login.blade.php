@@ -60,6 +60,3 @@
 </div>
 @endsection
 
-@section('javascriptfooter')
-    @include('partials.jquery')
-@encsection

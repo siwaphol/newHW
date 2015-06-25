@@ -558,10 +558,10 @@ if ($options['general']['enable_add'] == true) {
 
     $add_tag  = "    <div class=\"row\" style=\"margin-bottom: 15px;\">" . PHP_EOL;
     $add_tag .= "      <div class=\"col-xs-6 col-sm-3  col-xs-offset-6 col-sm-offset-9\">" . PHP_EOL;
-    $add_tag .= "        <button type=\"button\" class=\"btn btn-default\">";
+    $add_tag .= "        <button type=\"button\" class=\"btn btn-default\" id=\"file_add_btn\">";
     $add_tag .= "           <span class=\"glyphicon glyphicon glyphicon-file\"></span>";
     $add_tag .= "        </button>";
-    $add_tag .= "        <button type=\"button\" class=\"btn btn-default\">";
+    $add_tag .= "        <button type=\"button\" class=\"btn btn-default\" id=\"folder_add_btn\">";
     $add_tag .= "           <span class=\"glyphicon glyphicon glyphicon-folder-open\"></span>";
     $add_tag .= "        </button>";
     $add_tag .= "      </div>" . PHP_EOL;
@@ -834,6 +834,7 @@ if ($options['general']['give_kudos']) {
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="{{ asset('/css/listr.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('/css/bootstrap-dialog.css') }}" />
 </head>
 <body<?php echo $direction?>>
   <div class="<?php echo $container ?>">
@@ -913,5 +914,23 @@ if ($options['general']['give_kudos']) {
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-searcher/0.2.0/jquery.searcher.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ asset('/js/listr.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/bootstrap-dialog.js') }}"></script>
+
+<div class="hidden" id="fileadd">
+	BootstrapDialog.alert('File Add!');
+</div>
+<div class="hidden" id="folderadd">
+	BootstrapDialog.alert('Folder Add!');
+</div>
+<script>
+		var code1 = $("#fileadd").html();
+		var code2 = $("#folderadd").html();
+		$("#file_add_btn").on('click', {code: code1}, function(event){
+			eval(event.data.code);
+		});
+        $("#folder_add_btn").on('click', {code: code2}, function(event){
+            eval(event.data.code);
+        });
+</script>
 </body>
 </html>
