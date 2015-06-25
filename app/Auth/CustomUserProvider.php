@@ -49,6 +49,7 @@ class CustomUserProvider implements UserProvider {
             $this->model = $this->models[0];
             $query = $this->createModel()->newQuery();
             $query->where('username',$credentials['email']);
+
 //            dd($query->first());
             $sinfo = Itscapi::get_student_info($credentials['email'],$sauth->ticket->access_token);
 

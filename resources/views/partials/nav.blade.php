@@ -35,8 +35,8 @@
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">จัดการการบ้าน<span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">กระบวนวิชาที่1</a></li>
-                                        <li><a href="#">กระบวนวิชาที่2</a></li>
+                                        <li><a href="{{ url('/homework/create/204111') }}">204111</a></li>
+                                        <li><a href="{{ url('/homework/create/204211') }}">204211</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">

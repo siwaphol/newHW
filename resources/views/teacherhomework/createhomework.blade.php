@@ -916,11 +916,66 @@ if ($options['general']['give_kudos']) {
 <script type="text/javascript" src="{{ asset('/js/listr.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/bootstrap-dialog.js') }}"></script>
 
+<div id="modal" class="hidden">
+<form class="form-horizontal" role="form"><div class="form-group">
+    <label class="control-label col-sm-2" for="email">Email:</label>
+    <div class="col-sm-4">
+      <input type="email" class="form-control" id="email" placeholder="Enter email">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="pwd">Password:</label>
+    <div class="col-sm-4">
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label><input type="checkbox"> Remember me</label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+  </div>
+</form>
+</div>
 <div class="hidden" id="fileadd">
-	BootstrapDialog.alert('File Add!');
+	BootstrapDialog.show({
+        title: 'เพิ่มการบ้าน',
+        message: $("#modal").html(),
+        buttons: [{
+            label: 'ตกลง',
+            action: function(dialog) {
+                dialog.setTitle('ตกลง');
+            }
+        }, {
+            label: 'ยกเลิก',
+            action: function(dialog) {
+                dialog.setTitle('ยกเลิก');
+            }
+        }]
+    });
 </div>
 <div class="hidden" id="folderadd">
-	BootstrapDialog.alert('Folder Add!');
+	BootstrapDialog.show({
+        title: 'เพิ่มโฟลเดอร์',
+        message: $('<textarea class="form-control" placeholder="Try to input multiple lines here..."></textarea>'),
+        buttons: [{
+            label: 'Title 1',
+            action: function(dialog) {
+                dialog.setTitle('Title 1');
+            }
+        }, {
+            label: 'Title 2',
+            action: function(dialog) {
+                dialog.setTitle('Title 2');
+            }
+        }]
+    });
 </div>
 <script>
 		var code1 = $("#fileadd").html();
