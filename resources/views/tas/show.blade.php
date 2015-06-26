@@ -5,17 +5,17 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
+                    <div class="panel-heading" align="center">ข้อมูลนักศึกษาช่วยสอน</div>
 
                     <div class="panel-body">
-                        <h1>ta</h1>
+
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
-                                    <th>ID.</th><th>Name</th>
+                                    <th>รหัส</th><th>ชื่อ นามสกุล</th>
                                 </tr>
                                 <tr>
-                                    <td>{{ $ta->id }}</td><td>{{ $ta->name }}</td>
+                                    <td>{{ $ta->id }}</td><td>{{ $ta->taName }}</td>
                                 </tr>
                             </table>
                         </div>

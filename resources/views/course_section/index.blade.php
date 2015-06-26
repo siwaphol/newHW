@@ -6,10 +6,16 @@
 //echo var_dump($model);
 $i=1;
 ?>
-<h1 align="center">จัดการตอน</h1>
 <?php
 
 ?>
+<div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading" align="center">กระบวนวิชา ตอน</div>
+
+                    <div class="panel-body">
 {!! Html::link('course_section/create', 'เพิ่มตอน') !!}
 <div class="table-responsive">
     <table class="table table-bordered">
@@ -45,14 +51,10 @@ $i=1;
         </tbody>
     </table>
 </div>
-<?php
-  $sql=DB::select('select * from courses');
-  echo $sql[0]->id;
-  dis(15);
+</div>
+</div>
+</div>
+</div>
+</div>
 
-
-  function dis($id){
-  echo"id id =".$id;
-  }
-?>
   @endsection

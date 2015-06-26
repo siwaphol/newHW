@@ -5,15 +5,14 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
+                    <div class="panel-heading" align="center">นักศึกษาช่วยสอน</div>
                     
                     <div class="panel-body">
-                        <h1>tas</h1>
-                        <h2><a href="{{ url('/ta/create') }}">Create</a></h2>
+                        <h4><a href="{{ url('/ta/create') }}">เพิ่มนักศึกษาช่วยสอน</a></h4>
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
-                                    <th>SL.</th><th>Name</th><th>Actions</th>
+                                    <th>ลำดับ</th><th>ชื่อ นามสกุล</th><th>Actions</th>
                                 </tr>
                                 {{-- */$x=0;/* --}}
                                 @foreach($tas as $item)

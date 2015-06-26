@@ -101,6 +101,11 @@ class StudentsController extends Controller {
 
         return view('students.selectcourse_section');
     }
+    public function manualimport()
+    {
+
+        return view('students.selectmanualcourse_section');
+    }
 
     /**
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -126,5 +131,19 @@ class StudentsController extends Controller {
         $sec=$_POST['sec'];
 
         return view('students.export')->with('course',array('co'=>$course,'sec'=>$sec));
+    }
+    public function manualinsert()
+    {
+        $course = $_POST['ddlCourse'];
+        $sec = $_POST['ddlSection'];
+        $fileupload_name=$_FILES['fileupload']['name'];
+        $cours=array('co'=>$course,'sec'=>$sec,'fileupload'=>$fileupload_name);
+        //return $cours;
+        return view('students.manualinsert')->with('cours',$cours);
+    }
+    public function autoimport()
+    {
+
+        return view('students.autoinsert');
     }
 }

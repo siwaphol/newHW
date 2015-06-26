@@ -56,16 +56,17 @@ function onSubmitMain() {
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
+                    <div class="panel-heading" align="center">นักศึกษาช่วยสอน</div>
 
                     <div class="panel-body">
-                        <h1>Create a new assistant</h1>
+                        <h1 align="center" >เพิ่มนักศึกษาช่วยสอน</h1>
                         <hr/>
 
                         <!--{!! Form::open(['url' => 'assistants/create/save']) !!}
                         -->
                         <form action="create/save" method="post" name="frmMain" id="frmMain" onsubmit="return onSubmitMain()" class="form-horizontal"  align="center">
                         <div class="form-group">
+                        {!! Form::label('courseId', 'กระบวนวิชา ') !!}
                         <select id="courseId" name="courseId" onChange = "ListSection(this.value)" class="form-control">
                         						<option selected value="">เลือกวิชา</option>
                         						<?php
@@ -81,10 +82,12 @@ function onSubmitMain() {
                         						?>
                         					</select>
                     </div><div class="form-group">
+                    {!! Form::label('sectionId', 'ตอน ') !!}
                    <select id="sectionId" name="sectionId" class="form-control">
                    						<option selected value="">เลือกตอน</option>
                    					</select>
                     </div><div class="form-group">
+                    {!! Form::label('taId', 'นักศึกษาช่วยสอน ') !!}
                          <select id="taId" name="taId"  class="form-control">
                                                                     <option selected value="">เลือกนักศึกษาช่วยสอน</option>
                                                 <?php $sql=DB::select('select * from tas');

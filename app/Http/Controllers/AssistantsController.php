@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Assistants;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use DB;
 
 class AssistantsController extends Controller {
 
@@ -50,8 +51,12 @@ class AssistantsController extends Controller {
 	 */
 	public function show($id)
 	{
-		$assistant = Assistants::findOrFail($id);
-		return view('assistants.show', compact('assistant'));
+        $assistant=DB::select('select ass.id as id,ta.id as taid,ta.taName as taname ,ass.courseid as courseid,ass.sectionid as sectionid
+                                from assistants ass
+                                left join tas ta on ass.taid=ta.id
+                                 where ass.id=?',array($id));
+		//$assistant = Assistants::findOrFail($id);
+		return view('assistants.show')->with('assistant',$assistant);
 	}
 
 	/**
@@ -91,5 +96,12 @@ class AssistantsController extends Controller {
 		Assistants::destroy($id);
 		return redirect('assistants');
 	}
-
+    public function showlist()
+    {
+        $course = $_POST['ddlCourse'];
+        $sec = $_POST['ddlSection'];
+        $cours=array('co'=>$course,'sec'=>$sec);
+        //return $cours;
+        return view('assistants.showlist')->with('course',$cours);
+    }
 }

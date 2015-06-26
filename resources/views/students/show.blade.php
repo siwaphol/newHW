@@ -5,14 +5,14 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
+                    <div class="panel-heading">ข้อมูลนักศึกษา</div>
 
                     <div class="panel-body">
                         <h1>student</h1>
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
-                                    <th>ID.</th><th>Name</th><th>Status</th>
+                                    <th>รหัสนักศึกษา</th><th>ชื่อ นามสกุล</th><th>สถานะ</th>
                                 </tr>
                                 <tr>
                                     <td>{{ $student->id }}</td><td>{{ $student->studentName }}</td><td>{{ $student->status }}</td>

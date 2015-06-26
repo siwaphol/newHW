@@ -1,6 +1,9 @@
 
 @extends('app');
 @section('content')
+<div class="container">
+        <div class="row">
+            <div class="col-md-5 col-md-offset-3">
 <h1 align="center">เพิ่มกระบวนวิชา</h1>
 {!! Form::open(['url'=>'course']) !!}
 <div class="form-group">
@@ -13,6 +16,9 @@
 </div>
 <div class="form-group">
 {!! Form::submit('addcourse',['class'=>'btn btn-primary form-control'])!!}
+</div>
+</div>
+</div>
 </div>
 
 {!! Form::close() !!}

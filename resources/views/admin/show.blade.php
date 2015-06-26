@@ -5,14 +5,14 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
+                    <div class="panel-heading" align="center">ผู้ดูแลระบบ</div>
 
                     <div class="panel-body">
-                        <h1>admin</h1>
+                        <h4 align="center">ข้อมูลผู้ดูแลระบบ</h4>
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
-                                    <th>ID.</th><th>Name</th>
+                                    <th>ชื่อผู้ใช้</th><th>ชื่อ นามสกุล</th>
                                 </tr>
                                 <tr>
                                     <td>{{ $admin->id }}</td><td>{{ $admin->adminName }}</td>

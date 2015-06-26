@@ -79,6 +79,9 @@ Route::patch('students/update/{id}','StudentsController@update');
 //import student
 Route::get('students/import','StudentsController@import');
 Route::post('students/insert','StudentsController@insert');
+Route::get('students/manualimport','StudentsController@manualimport');
+Route::post('students/manualinsert','StudentsController@manualinsert');
+Route::get('students/autoimport','StudentsController@autoimport');
 //homework_assignment
 Route::get('homework_assignment','Homework_assignmentController@index');
 Route::delete('homework_assignment/delete/{id}','Homework_assignmentController@destroy');
@@ -98,3 +101,4 @@ Route::get('assistants/create','AssistantsController@create');
 Route::get('assistants/{id}/edit','AssistantsController@edit');
 Route::post('assistants/create/save','AssistantsController@store');
 Route::patch('assistants/update/{id}','AssistantsController@update');
+Route::post('assistants/showlist','AssistantsController@showlist');

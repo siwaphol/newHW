@@ -11,11 +11,14 @@
  @section('content')
  <?php
  require_once '../Classes/PHPExcel/IOFactory.php';
-
+            set_time_limit(0);
+            $sql=DB::select('select *  from course_section');
+            $count=count($sql);
+            for($i=0;$i<$count;$i++){
             //$course =Request::get('ddlCourse');
             //$sec =Request::get('ddlSection');
-            $course = $cours['co'];
-            $sec = $cours['sec'];
+            $course = $sql[$i]->courseId;
+            $sec = $sql[$i]->sectionId;
 
             $fileupload_name = 'https://www3.reg.cmu.ac.th/regist257/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
                         $fileupload='../temp/file.xlsx';
@@ -62,7 +65,7 @@
                                     $reg=DB::select(' select * from register where courseId=? and sectionId=? and studentId=?',array($course,$sec,$code));
                                     $rowstudent=count($stu);
                                     $rowregist=count($reg);
-                                    if ($rowstudent==0 ) {
+                                    if ($rowstudent==0 and $rowregist==0 ) {
 
                                         $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
 
@@ -79,7 +82,9 @@
                                 }
 
                             }
+                        }
+                        }
 
       ?>
-       <h2 align="center"> import successful</h2>
+      <h2 align="center"> import successful</h2>
       @endsection

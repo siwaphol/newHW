@@ -5,10 +5,10 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
+                    <div class="panel-heading" align="center">ผู้ดูแลระบบ</div>
 
                     <div class="panel-body">
-                        <h1>Edit admin</h1>
+                        <h4 align="center">ปรับปรุงข้อมูลผู้ใช้</h4>
                         <hr/>
 
                         {!! Form::model($admin, ['method' => 'PATCH', 'action' => array('AdminController@update', $admin->id)]) !!}

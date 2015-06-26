@@ -15,7 +15,7 @@
                                     <th>ID.</th><th>Name</th>
                                 </tr>
                                 <tr>
-                                    <td>{{ $assistant->id }}</td><td>{{ $assistant->name }}</td>
+                                    <td>{{ $assistant[0]->taid }}</td><td>{{ $assistant[0]->taname }}</td>
                                 </tr>
                             </table>
                         </div>

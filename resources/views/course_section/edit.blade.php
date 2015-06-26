@@ -12,7 +12,14 @@
 
 
 ?>
-<h1 align="center">แก้ไขตอน</h1>
+
+<div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading" align="center">แก้ไขตอ</div>
+
+                    <div class="panel-body">
 @foreach($result as $key)
   {!! Form::open(['url'=>'course_section/update']) !!}
   <div class="form-group">
@@ -33,10 +40,16 @@
   {!! Form::hidden('teacherid',$key->teachername,['class'=>'form-control'])!!}
   </div>
   <div class="form-group">
-  {!! Form::submit('update',['class'=>'btn btn-primary form-control'])!!}
+  {!! Form::submit('ปรับปรุง',['class'=>'btn btn-primary form-control'])!!}
   </div>
 
   {!! Form::close() !!}
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
 @endforeach
 
 

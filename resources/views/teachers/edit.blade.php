@@ -5,10 +5,10 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
+                    <div class="panel-heading" align="center">ปรับปรุงอาจารย์</div>
 
                     <div class="panel-body">
-                        <h1>Edit teacher</h1>
+
                         <hr/>
 
                         {!! Form::model($teacher,array( 'method' => 'PATCH', 'action' => array('TeachersController@update', $teacher->id))) !!}
@@ -21,7 +21,7 @@
                     </div>
                         
                         <div class="form-group">
-                            {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}
+                            {!! Form::submit('ปรับปรุง', ['class' => 'btn btn-primary form-control']) !!}
                         </div>
                         {!! Form::close() !!}
 

@@ -17,7 +17,9 @@
             $course = $cours['co'];
             $sec = $cours['sec'];
 
-            $fileupload_name = 'https://www3.reg.cmu.ac.th/regist257/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
+            //$fileupload_name = 'https://www3.reg.cmu.ac.th/regist257/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
+              $fileupload_name = $cours['fileupload'];
+
                         $fileupload='../temp/file.xlsx';
                         //chmod($fileupload, 0755);
                         	//chmod($fileupload_name, 0755);
@@ -79,6 +81,7 @@
                                 }
 
                             }
+                        }
 
       ?>
        <h2 align="center"> import successful</h2>

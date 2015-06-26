@@ -6,15 +6,15 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
+                    <div class="panel-heading" align="center">อาจารย์</div>
                     
                     <div class="panel-body">
-                        <h1>teachers</h1>
-                        <h2><a href="{{ url('/teachers/create') }}">Create</a></h2>
+
+                        <h4><a href="{{ url('/teachers/create') }}">เพิ่มอาจารย์</a></h4>
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
-                                    <th>SL.</th><th>Name</th><th>Actions</th>
+                                    <th>ลำดับ</th><th>ชื่อนามสกุล</th><th>Actions</th>
                                 </tr>
                                 {{-- */$x=0;/* --}}
                                 @foreach($teachers as $item)

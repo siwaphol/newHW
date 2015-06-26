@@ -6,7 +6,14 @@
 //echo var_dump($model);
 $i=1;
 ?>
-<h1 align="center">จัดการกระบวนวิชา</h1>
+<div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+
+                                    <div class="panel-heading" align="center">จัดการกระบวนวิชา</div>
+                                    <div class="panel-body">
+
 <?php
 /*echo Form::open(array('action' => 'CourseController@create'));
 echo Form::submit('เพิ่มกระบวนวิชา');
@@ -47,6 +54,11 @@ echo Form::close();
           @endforeach
         </tbody>
     </table>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
   @endsection
