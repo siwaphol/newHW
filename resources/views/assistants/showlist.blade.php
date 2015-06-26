@@ -12,22 +12,20 @@ $count=count($assistants);
 $item=$assistants;
 ?>
 
-<?php echo Auth::user()->name;
 
-    ?>
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
+                    <div class="panel-heading" align="center">มอบหมายงานนักศึกษาช่วยสอน</div>
                     
                     <div class="panel-body">
-                        <h1>assistants</h1>
-                        <h2><a href="{{ url('/assistants/create') }}">Create</a></h2>
+                        <h3 align="center" >กระบวนวิชา {{$course['co']}} ตอน {{$course['sec']}}</h3>
+                        <h4><a href="{{ url('/assistants/create') }}">เพิ่ม</a></h4>
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
-                                    <th>SL.</th><th>Name</th><th>Actions</th>
+                                    <th>ลำดับ</th><th>ชื่อ นามสกุล</th><th>Actions</th>
                                 </tr>
                                 {{-- */$x=0;/* --}}
                                 <?php

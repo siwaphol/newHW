@@ -34,7 +34,13 @@ function onSubmitMain() {
     frmMain.ddlSection.options[frmMain.ddlSection.length]= myOption
     <?php
     $intRows = 0;
-    $objQuery =DB::select('SELECT sectionId,courseId FROM course_section ORDER BY sectionId ASC ');
+    $teacher=Auth::user()->name;
+    if(Auth::user()->role=='teacher'){
+    $objQuery =DB::select('SELECT sectionId,courseId FROM course_section  where teacherid=? ORDER BY sectionId ASC ',array($teacher));
+    }
+    if(Auth::user()->role=='admin'){
+        $objQuery =DB::select('SELECT sectionId,courseId FROM course_section  ORDER BY sectionId ASC ');
+        }
     $count=count($objQuery);
     $i=0;
     for($i=0;$i<$count;$i++)
@@ -73,8 +79,14 @@ function onSubmitMain() {
 					<select id="ddlCourse" name="ddlCourse" onChange = "ListSection(this.value)" class="form-control">
 						<option selected value="">เลือกวิชา</option>
 						<?php
+						$teacher=Auth::user()->name;
 
+                        if(Auth::user()->role=='teacher'){
+                        $sql=DB::select('select * from course_section where teacherid=?',array($teacher));
+                        }
+                        if(Auth::user()->role=='admin'){
 						$sql=DB::select('select * from course_section');
+						}
                         $count=count($sql);
                         $i=0;
                           for($i=0;$i<$count;$i++){

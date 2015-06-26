@@ -5,10 +5,10 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
+                    <div class="panel-heading" align="center">เพิ่มนักศึกษาช่วยสอน</div>
 
                     <div class="panel-body">
-                        <h1>Create a new ta</h1>
+
                         <hr/>
 
                         {!! Form::open(['url' => 'ta/create/save']) !!}
