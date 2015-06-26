@@ -11,20 +11,20 @@
 
                         <hr/>
 
-                        {!! Form::open(['url' => 'ta/create/save']) !!}
+                        {{ Form::open(['url' => 'ta/create/save']) }}
                         
                         <div class="form-group">
-                        {!! Form::label('id', 'Id: ') !!}
-                        {!! Form::text('id', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('id', 'Id: ') }}
+                        {{ Form::text('id', null, ['class' => 'form-control']) }}
                     </div><div class="form-group">
-                        {!! Form::label('taName', 'Taname: ') !!}
-                        {!! Form::text('taName', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('taName', 'Taname: ') }}
+                        {{ Form::text('taName', null, ['class' => 'form-control']) }}
                     </div>
 
                         <div class="form-group">
-                            {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
+                            {{ Form::submit('Create', ['class' => 'btn btn-primary form-control']) }}
                         </div>
-                        {!! Form::close() !!}
+                        {{ Form::close() }}
 
                         @if ($errors->any())
                             <ul class="alert alert-danger">

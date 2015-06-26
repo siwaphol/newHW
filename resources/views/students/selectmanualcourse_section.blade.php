@@ -70,7 +70,7 @@ function onSubmitMain() {
 <div class="form-body" >
             <div class="form-group" align="center">
                     <div class="col-md-4 col-md-offset-4" align="center" >
-                    {!! Form::label('ddlCourse', 'วิชา ') !!}
+                    {{ Form::label('ddlCourse', 'วิชา ') }}
 					<select id="ddlCourse" name="ddlCourse" onChange = "ListSection(this.value)" class="form-control">
 						<option selected value="">เลือกวิชา</option>
 						<?php
@@ -90,7 +90,7 @@ function onSubmitMain() {
 
 			<div class="form-group" align="center">
 					<div class="col-md-4 col-md-offset-4">
-                        {!! Form::label('ddlSection', 'ตอน ') !!}
+                        {{ Form::label('ddlSection', 'ตอน ') }}
 					<select id="ddlSection" name="ddlSection" class="form-control">
 						<option selected value="">เลือกตอน</option>
 					</select>
@@ -98,7 +98,7 @@ function onSubmitMain() {
             </div>
             <div class="form-group" align="center">
                 <div class="col-md-4 col-md-offset-4">
-                {!! Form::label('fileupload', 'ไฟล์สำหรับอัพโหลด  .xlsx เท่านั้น ') !!}
+                {{ Form::label('fileupload', 'ไฟล์สำหรับอัพโหลด  .xlsx เท่านั้น ') }}
                    <input type="file" name="fileupload"  class="form-control" />
                    </div>
             </div>

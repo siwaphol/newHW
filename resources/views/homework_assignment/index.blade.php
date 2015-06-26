@@ -88,7 +88,7 @@
                         </div>
               </div>
               -->
-                    <input name="_token" type="hidden" value="{!! csrf_token() !!}" />
+                    <input name="_token" type="hidden" value="{{ csrf_token() }}" />
               <div class="form-group" align="center">
 
                       <div class="col-md-4 col-md-offset-4">

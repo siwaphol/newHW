@@ -11,23 +11,23 @@
                         <h1>Edit assistant</h1>
                         <hr/>
 
-                        {!! Form::model($assistant, ['method' => 'PATCH', 'action' => ['AssistantsController@update', $assistant->id]]) !!}
+                        {{ Form::model($assistant, ['method' => 'PATCH', 'action' => ['AssistantsController@update', $assistant->id]]) }}
 
                         <div class="form-group">
-                        {!! Form::label('courseId', 'Courseid: ') !!}
-                        {!! Form::text('courseId', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('courseId', 'Courseid: ') }}
+                        {{ Form::text('courseId', null, ['class' => 'form-control']) }}
                     </div><div class="form-group">
-                        {!! Form::label('sectionId', 'Sectionid: ') !!}
-                        {!! Form::text('sectionId', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('sectionId', 'Sectionid: ') }}
+                        {{ Form::text('sectionId', null, ['class' => 'form-control']) }}
                     </div><div class="form-group">
-                        {!! Form::label('taId', 'Taid: ') !!}
-                        {!! Form::text('taId', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('taId', 'Taid: ') }}
+                        {{ Form::text('taId', null, ['class' => 'form-control']) }}
                     </div>
                         
                         <div class="form-group">
-                            {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}
+                            {{ Form::submit('Update', ['class' => 'btn btn-primary form-control']) }}
                         </div>
-                        {!! Form::close() !!}
+                        {{ Form::close() }}
 
                         @if ($errors->any())
                             <ul class="alert alert-danger">

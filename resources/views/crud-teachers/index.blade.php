@@ -19,7 +19,7 @@
                                 @foreach($crud-teachers as $item)
                                     {{-- */$x++;/* --}}
                                     <tr>
-                                        <td>{{ $x }}</td><td><a href="{{ url('/crud-teachers', $item->id) }}">{{ $item->name }}</a></td><td><a href="{{ url('/crud-teachers/'.$item->id.'/edit') }}">Edit</a> / {!! Form::open(['method'=>'delete','action'=>['Crud-teachersController@destroy',$item->id]]) !!}<button type="submit" class="btn btn-link">Delete</button>{!! Form::close() !!}</td>
+                                        <td>{{ $x }}</td><td><a href="{{ url('/crud-teachers', $item->id) }}">{{ $item->name }}</a></td><td><a href="{{ url('/crud-teachers/'.$item->id.'/edit') }}">Edit</a> / {{ Form::open(['method'=>'delete','action'=>['Crud-teachersController@destroy',$item->id]]) }}<button type="submit" class="btn btn-link">Delete</button>{{ Form::close() }}</td>
                                     </tr>
                                 @endforeach
                             </table>

@@ -76,7 +76,7 @@
 			<li>
 				<label for=namecard>Name on card</label>
 				<input id=namecard name=namecard type=text placeholder="Exact name as on the card" required>
-				<input type="hidden" name="_token" value="{!! csrf_token() !!}">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			</li>
 		</ol>
 	</fieldset>

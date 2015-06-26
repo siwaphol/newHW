@@ -11,20 +11,20 @@
                         <h4 align="center">ปรับปรุงข้อมูลผู้ใช้</h4>
                         <hr/>
 
-                        {!! Form::model($admin, ['method' => 'PATCH', 'action' => array('AdminController@update', $admin->id)]) !!}
+                        {{ Form::model($admin, ['method' => 'PATCH', 'action' => array('AdminController@update', $admin->id)]) }}
 
                         <div class="form-group">
-                        {!! Form::label('id', 'Id: ') !!}
-                        {!! Form::text('id', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('id', 'Id: ') }}
+                        {{ Form::text('id', null, ['class' => 'form-control']) }}
                     </div><div class="form-group">
-                        {!! Form::label('adminName', 'Adminname: ') !!}
-                        {!! Form::text('adminName', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('adminName', 'Adminname: ') }}
+                        {{ Form::text('adminName', null, ['class' => 'form-control']) }}
                     </div>
                         
                         <div class="form-group">
-                            {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}
+                            {{ Form::submit('Update', ['class' => 'btn btn-primary form-control']) }}
                         </div>
-                        {!! Form::close() !!}
+                        {{ Form::close() }}
 
                         @if ($errors->any())
                             <ul class="alert alert-danger">

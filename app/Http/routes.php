@@ -19,6 +19,11 @@ Route::get('info', 'HomeController@info');
 Route::get('course/{course_id}', 'CourseHomeworkController@show');
 Route::get('homework/create/{course_id}','CourseHomeworkController@create');
 
+Route::controllers([
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
+]);
+
 Route::get('test', 'HomeController@test');
 Route::get('xcrud', 'HomeController@xcrud');
 //Route::get('test/{id}', function($id){
@@ -47,10 +52,7 @@ Route::post('test1', 'HomeController@test1');
 Route::post('test2', 'HomeController@test2');
 Route::patch('teachers/update/{id}','TeachersController@update');
 Route::post('teachers/create/save','TeachersController@store');
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+
 //admin
 Route::get('admin','AdminController@index');
 Route::delete('admin/delete/{id}','AdminController@destroy');

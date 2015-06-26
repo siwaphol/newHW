@@ -16,7 +16,7 @@ $i=1;
                     <div class="panel-heading" align="center">กระบวนวิชา ตอน</div>
 
                     <div class="panel-body">
-{!! Html::link('course_section/create', 'เพิ่มตอน') !!}
+{{ Html::link('course_section/create', 'เพิ่มตอน') }}
 <div class="table-responsive">
     <table class="table table-bordered">
         <thead>
@@ -41,8 +41,8 @@ $i=1;
                 <td>{{$key->coursename}}</td>
                 <td>{{$key->sectionid}}</td>
                  <td>{{$key->teachername}}</td>
-                <td>{!! Html::link('course_section/edit/'.$key->courseid.$key->sectionid, 'แก้ไข') !!}</td>
-                <td>{!! Html::link('delete/'.$key->courseid, 'ลบ') !!}</td>
+                <td>{{ Html::link('course_section/edit/'.$key->courseid.$key->sectionid, 'แก้ไข') }}</td>
+                <td>{{ Html::link('delete/'.$key->courseid, 'ลบ') }}</td>
 
 
             </tr>

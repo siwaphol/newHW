@@ -11,41 +11,41 @@
                         <h1>Edit homework_assignment</h1>
                         <hr/>
 
-                        {!! Form::model($homework_assignment, ['method' => 'PATCH', 'action' => ['Homework_assignmentController@update', $homework_assignment->id]]) !!}
+                        {{ Form::model($homework_assignment, ['method' => 'PATCH', 'action' => ['Homework_assignmentController@update', $homework_assignment->id]]) }}
 
                         <div class="form-group">
-                        {!! Form::label('courseId', 'Courseid: ') !!}
-                        {!! Form::text('courseId', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('courseId', 'Courseid: ') }}
+                        {{ Form::text('courseId', null, ['class' => 'form-control']) }}
                     </div><div class="form-group">
-                        {!! Form::label('homeworkFileName', 'Homeworkfilename: ') !!}
-                        {!! Form::text('homeworkFileName', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('homeworkFileName', 'Homeworkfilename: ') }}
+                        {{ Form::text('homeworkFileName', null, ['class' => 'form-control']) }}
                     </div><div class="form-group">
-                        {!! Form::label('homworkFileType', 'Homworkfiletype: ') !!}
-                        {!! Form::text('homworkFileType', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('homworkFileType', 'Homworkfiletype: ') }}
+                        {{ Form::text('homworkFileType', null, ['class' => 'form-control']) }}
                     </div><div class="form-group">
-                        {!! Form::label('homeworkDetail', 'Homeworkdetail: ') !!}
-                        {!! Form::text('homeworkDetail', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('homeworkDetail', 'Homeworkdetail: ') }}
+                        {{ Form::text('homeworkDetail', null, ['class' => 'form-control']) }}
                     </div><div class="form-group">
-                        {!! Form::label('issubFolder', 'Issubfolder: ') !!}
-                        {!! Form::text('issubFolder', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('issubFolder', 'Issubfolder: ') }}
+                        {{ Form::text('issubFolder', null, ['class' => 'form-control']) }}
                     </div><div class="form-group">
-                        {!! Form::label('subFolder', 'Subfolder: ') !!}
-                        {!! Form::text('subFolder', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('subFolder', 'Subfolder: ') }}
+                        {{ Form::text('subFolder', null, ['class' => 'form-control']) }}
                     </div><div class="form-group">
-                        {!! Form::label('dueDtae', 'Duedtae: ') !!}
-                        {!! Form::text('dueDtae', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('dueDtae', 'Duedtae: ') }}
+                        {{ Form::text('dueDtae', null, ['class' => 'form-control']) }}
                     </div><div class="form-group">
-                        {!! Form::label('assignDate', 'Assigndate: ') !!}
-                        {!! Form::text('assignDate', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('assignDate', 'Assigndate: ') }}
+                        {{ Form::text('assignDate', null, ['class' => 'form-control']) }}
                     </div><div class="form-group">
-                        {!! Form::label('acceptDate', 'Acceptdate: ') !!}
-                        {!! Form::text('acceptDate', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('acceptDate', 'Acceptdate: ') }}
+                        {{ Form::text('acceptDate', null, ['class' => 'form-control']) }}
                     </div>
                         
                         <div class="form-group">
-                            {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}
+                            {{ Form::submit('Update', ['class' => 'btn btn-primary form-control']) }}
                         </div>
-                        {!! Form::close() !!}
+                        {{ Form::close() }}
 
                         @if ($errors->any())
                             <ul class="alert alert-danger">

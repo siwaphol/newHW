@@ -33,7 +33,7 @@ $item=$assistants;
                                 ?>
 
                                     <tr>
-                                        <td>{{ $x+1 }}</td><td><a href="{{ url('/assistants/show', $item[$x]->id) }}">{{ $item[$x]->taname }}</a></td><td><a href="{{ url('/assistants/'.$item[$x]->id.'/edit') }}">Edit</a> / {!! Form::open(['method'=>'delete','action'=>['AssistantsController@destroy',$item[$x]->id]]) !!}<button type="submit" class="btn btn-link">Delete</button>{!! Form::close() !!}</td>
+                                        <td>{{ $x+1 }}</td><td><a href="{{ url('/assistants/show', $item[$x]->id) }}">{{ $item[$x]->taname }}</a></td><td><a href="{{ url('/assistants/'.$item[$x]->id.'/edit') }}">Edit</a> / {{ Form::open(['method'=>'delete','action'=>['AssistantsController@destroy',$item[$x]->id]]) }}<button type="submit" class="btn btn-link">Delete</button>{{ Form::close() }}</td>
                                     </tr>
                                     <?php  } ?>
                             </table>

@@ -11,20 +11,20 @@
                         <h1>Create a new admin</h1>
                         <hr/>
 
-                        {!! Form::open(['url' => 'admin/create/save']) !!}
+                        {{ Form::open(['url' => 'admin/create/save']) }}
                         
                         <div class="form-group">
-                        {!! Form::label('id', 'Id: ') !!}
-                        {!! Form::text('id', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('id', 'Id: ') }}
+                        {{ Form::text('id', null, ['class' => 'form-control']) }}
                     </div><div class="form-group">
-                        {!! Form::label('adminName', 'Adminname: ') !!}
-                        {!! Form::text('adminName', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('adminName', 'Adminname: ') }}
+                        {{ Form::text('adminName', null, ['class' => 'form-control']) }}
                     </div>
 
                         <div class="form-group">
-                            {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
+                            {{ Form::submit('Create', ['class' => 'btn btn-primary form-control']) }}
                         </div>
-                        {!! Form::close() !!}
+                        {{ Form::close() }}
 
                         @if ($errors->any())
                             <ul class="alert alert-danger">

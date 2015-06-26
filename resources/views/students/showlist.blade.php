@@ -16,13 +16,13 @@ $count=count($student);
                     <div class="panel-body">
                         <h1 align="center">กระบวนวิชา {{$course['co']}}  ตอน {{$course['sec']}} </h1>
                         <h2><a href="{{ url('/students/create') }}">เพิ่ม</a></h2>
-                         {!! Form::open(['url' => 'students/export']) !!}
+                         {{ Form::open(['url' => 'students/export']) }}
 
                           <input type="hidden" name="course" id="course" value='{{$course['co']}}'>
                           <input type="hidden" name="sec" id="sec" value='{{$course['sec']}}'>
 
                           <button type="submit" class="btn btn-link">export csv</button>
-                           {!! Form::close() !!}
+                           {{ Form::close() }}
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
@@ -43,13 +43,13 @@ $count=count($student);
                                                <?php
                                                $data=array('id'=>$item[$x]->id,'co'=>$course['co'],'sec'=>$course['sec']);
                                                ?>
-                                            {!! Form::open(['url' => 'students/delete']) !!}
+                                            {{ Form::open(['url' => 'students/delete']) }}
 
                                             <input type="hidden" name="course" id="course" value='{{$course['co']}}'>
                                             <input type="hidden" name="sec" id="sec" value='{{$course['sec']}}'>
                                             <input type="hidden" name="id" id="id" value='{{$item[$x]->id}}'>
                                             <button type="submit" class="btn btn-link">Delete</button>
-                                            {!! Form::close() !!}
+                                            {{ Form::close() }}
                                             </td>
                                     </tr>
                                 <?php } ?>

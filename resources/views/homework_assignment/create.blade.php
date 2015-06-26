@@ -43,7 +43,7 @@ $(document).ready(function(){
                         <h1 align="center">กระบวนวิชา {{$course['co']}}</h1>
                         <hr/>
 
-                        {!! Form::open(['url' => 'homework_assignment/create/save']) !!}
+                        {{ Form::open(['url' => 'homework_assignment/create/save']) }}
                         <input type="hidden" name="courseId" value={{$course['co']}}>
                     <div class="form-control">
                             <label><input type="radio" name="issec" value="yes" checked="checked"> แยกตอน</label>
@@ -73,8 +73,8 @@ $(document).ready(function(){
                     </div>
                         <!--
                         <div class="form-group">
-                        {!! Form::label('sectionid', 'ตอน ') !!}
-                        {!! Form::text('sectionid', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('sectionid', 'ตอน ') }}
+                        {{ Form::text('sectionid', null, ['class' => 'form-control']) }}
                         </div>
                         -->
 
@@ -82,20 +82,20 @@ $(document).ready(function(){
                         </div>
                         <!--
                         <div class="form-group">
-                        {!! Form::label('sectionid', 'ตอน ') !!}
-                        {!! Form::text('sectionid', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('sectionid', 'ตอน ') }}
+                        {{ Form::text('sectionid', null, ['class' => 'form-control']) }}
                     </div>
                     -->
                     <div class="form-group">
-                        {!! Form::label('homeworkname', 'ชื่อการบ้าน: ') !!}
-                        {!! Form::text('homeworkname', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('homeworkname', 'ชื่อการบ้าน: ') }}
+                        {{ Form::text('homeworkname', null, ['class' => 'form-control']) }}
                    </div>
                     <div class="form-group">
-                        {!! Form::label('homeworkFileName', 'ชื่อไฟล์: ') !!}
-                        {!! Form::text('homeworkFileName', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('homeworkFileName', 'ชื่อไฟล์: ') }}
+                        {{ Form::text('homeworkFileName', null, ['class' => 'form-control']) }}
                     </div>
                      <div class="form-control">
-                           {!! Form::label('homeworkFileType', 'ชนิดไฟล์: ') !!}
+                           {{ Form::label('homeworkFileType', 'ชนิดไฟล์: ') }}
                          <label><input type="radio" name="istype" value="yest" checked="checked"> กำหนด</label>
                          <label><input type="radio" name="istype" value="not" >ไม่กำหนด</label>
 
@@ -121,17 +121,17 @@ $(document).ready(function(){
                         </div>
                     </div>
                     <div class="form-group">
-                        {!! Form::label('homeworkDetail', 'รายละเอียด: ') !!}
-                        {!! Form::text('homeworkDetail', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('homeworkDetail', 'รายละเอียด: ') }}
+                        {{ Form::text('homeworkDetail', null, ['class' => 'form-control']) }}
                     </div>
                     <!--
                     <div class="form-group">
-                        {!! Form::label('issubFolder', 'Issubfolder: ') !!}
-                        {!! Form::text('issubFolder', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('issubFolder', 'Issubfolder: ') }}
+                        {{ Form::text('issubFolder', null, ['class' => 'form-control']) }}
                     </div>
                     -->
                      <div class="form-control">
-                                               {!! Form::label('issubFoldee', 'สร้างไดเร็คทอรี์: ') !!}
+                                               {{ Form::label('issubFoldee', 'สร้างไดเร็คทอรี์: ') }}
                                              <label><input type="radio" name="issubFolder" value="yestt" checked="checked"> สร้าง</label>
                                              <label><input type="radio" name="issubFolder" value="nott" >ไม่สร้าง</label>
 
@@ -141,28 +141,28 @@ $(document).ready(function(){
                        <div class="yestt box">
                     <div class="form-group">
 
-                        {!! Form::text('subFolder', null, ['class' => 'form-control']) !!}
+                        {{ Form::text('subFolder', null, ['class' => 'form-control']) }}
                     </div>
                     </div>
                     <div class="form-group">
-                        {!! Form::label('dueDtae', 'วันกำหนดส่ง: ') !!}
-                        {!! Form::input('date','dueDtae', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('dueDtae', 'วันกำหนดส่ง: ') }}
+                        {{ Form::input('date','dueDtae', null, ['class' => 'form-control']) }}
                     </div>
                     <!--
                     <div class="form-group">
-                        {!! Form::label('assignDate', 'วันที่กำหนดการบ้าน: ') !!}
-                        {!! Form::input('date','assignDate', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('assignDate', 'วันที่กำหนดการบ้าน: ') }}
+                        {{ Form::input('date','assignDate', null, ['class' => 'form-control']) }}
                     </div>
                     -->
                     <div class="form-group">
-                        {!! Form::label('acceptDate', 'วันที่ส่งช้าที่สุด: ') !!}
-                        {!! Form::input('date','acceptDate', null, ['class' => 'form-control']) !!}
+                        {{ Form::label('acceptDate', 'วันที่ส่งช้าที่สุด: ') }}
+                        {{ Form::input('date','acceptDate', null, ['class' => 'form-control']) }}
                     </div>
 
                         <div class="form-group">
-                            {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
+                            {{ Form::submit('Create', ['class' => 'btn btn-primary form-control']) }}
                         </div>
-                        {!! Form::close() !!}
+                        {{ Form::close() }}
 
                         @if ($errors->any())
                             <ul class="alert alert-danger">

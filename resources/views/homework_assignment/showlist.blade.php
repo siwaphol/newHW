@@ -22,7 +22,7 @@
                                     <tr>
                                         <td>{{ $x }}</td><td><a href="{{ url('homework_assignment/show', $item->id) }}">{{ $item->homeworkFileName }}</a></td>
                                         <td><a href="{{ url('/homework_assignment/'.$item->id.'/edit') }}">Edit</a> /
-                                        {!! Form::open(['method'=>'delete','action'=>['Homework_assignmentController@destroy',$item->id]]) !!}<button type="submit" class="btn btn-link">Delete</button>{!! Form::close() !!}</td>
+                                        {{ Form::open(['method'=>'delete','action'=>['Homework_assignmentController@destroy',$item->id]]) }}<button type="submit" class="btn btn-link">Delete</button>{{ Form::close() }}</td>
                                     </tr>
                                 @endforeach
                             </table>
