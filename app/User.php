@@ -31,6 +31,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+    public function setPasswordAttribute($pass){
+
+        $this->attributes['password'] = bcrypt($pass);
+
+    }
+
     public function courses(){
         return $this->belongsToMany('App\Course', 'course_student', 'student_id', 'course_id')->withTimestamps();
     }

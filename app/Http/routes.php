@@ -16,6 +16,9 @@ Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 Route::get('info', 'HomeController@info');
 
+Route::get('course/{course_id}', 'CourseHomeworkController@show');
+Route::get('homework/create/{course_id}','CourseHomeworkController@create');
+
 Route::get('test', 'HomeController@test');
 Route::get('xcrud', 'HomeController@xcrud');
 //Route::get('test/{id}', function($id){

@@ -6,7 +6,7 @@ class Course extends Model {
 
     protected $table = 'courses';
 
-    protected $fillable = ['id', 'courseName', 'teacher_id'];
+    protected $fillable = ['id', 'name'];
 
     public $incrementing = false;
 

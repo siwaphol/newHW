@@ -12,10 +12,10 @@ return [
 	| attempting to get access to protected areas of your application.
 	|
 	| Supported: "database", "eloquent"
-	|
+	| default is eloquent
 	*/
 
-	'driver' => 'eloquent',
+	'driver' => 'custom',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ return [
 	|
 	*/
 
-	'model' => 'App\User',
+	'model' => 'App\Teacher',
 
 	/*
 	|--------------------------------------------------------------------------

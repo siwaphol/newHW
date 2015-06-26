@@ -41,9 +41,6 @@ class HomeController extends Controller {
     }
     public function test()
     {
-   //$name='boonchuay';
-
-
        return view('test');
     }
     public function assign(){
@@ -65,21 +62,16 @@ class HomeController extends Controller {
     {
         $result=Request::get('name');
 
-
         return $result;
     }
     public function test2()
     {
         $result=Request::get('ddlCourse');
 
-
         return $result;
     }
     public function xcrud()
     {
-
-
-
         return view('testexcrud');
     }
 }
