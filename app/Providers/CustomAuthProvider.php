@@ -15,8 +15,7 @@ class CustomAuthProvider extends ServiceProvider {
     {
         $this->app['auth']->extend('custom',function()
         {
-//            return new CustomUserProvider($this->app['hash'],$this->app['config']['auth.model']);
-            return new CustomUserProvider(['App\Teacher','App\Ta','App\Admin']);
+            return new CustomUserProvider(['App\User']);
         });
     }
 

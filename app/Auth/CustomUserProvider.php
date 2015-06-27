@@ -25,17 +25,7 @@ class CustomUserProvider implements UserProvider {
         $this->model = $this->models[0];
         return $this->createModel()->newQuery()->find($identifier);
     }
-//
-//    public function retrieveByToken($identifier, $token)
-//    {
-//        dd('Inside retrieveByToken');
-//    }
-//
-//    public function updateRememberToken(UserContract $user, $token)
-//    {
-//        dd('Inside updateRememberToken');
-//    }
-//
+
     public function retrieveByCredentials(array $credentials)
     {
         $sauth = Itscapi::authen_with_ITSC_api($credentials['email'], $credentials['password']);
@@ -66,50 +56,6 @@ class CustomUserProvider implements UserProvider {
     {
 
     }
-//
-//    public function validateCredentials(UserContract $user, array $credentials)
-//    {
-//        return true;
-//    }
-//
-//===========================================
-//    /**
-//     * The hasher implementation.
-//     *
-//     * @var \Illuminate\Contracts\Hashing\Hasher
-//     */
-//    protected $hasher;
-//
-//    /**
-//     * The Eloquent user model.
-//     *
-//     * @var string
-//     */
-//    protected $model;
-//
-//    /**
-//     * Create a new database user provider.
-//     *
-//     * @param  \Illuminate\Contracts\Hashing\Hasher  $hasher
-//     * @param  string  $model
-//     * @return void
-//     */
-//    public function __construct(HasherContract $hasher, $model)
-//    {
-//        $this->model = $model;
-//        $this->hasher = $hasher;
-//    }
-
-//    /**
-//     * Retrieve a user by their unique identifier.
-//     *
-//     * @param  mixed  $identifier
-//     * @return \Illuminate\Contracts\Auth\Authenticatable|null
-//     */
-//    public function retrieveById($identifier)
-//    {
-//        return $this->createModel()->newQuery()->find($identifier);
-//    }
 
     /**
      * Retrieve a user by their unique identifier and "remember me" token.
