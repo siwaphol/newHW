@@ -34,7 +34,7 @@ class CreateCourseTable extends Migration {
         {
             $table->char('course_id',6);
             $table->char('section',3);
-            $table->string('student_username',100);
+            $table->char('student_id',9);
             $table->timestamps();
         });
 

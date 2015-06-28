@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder {
 		Model::unguard();
 
         $this->call('UsersTableSeeder');
+        $this->call('CoursesTableSeeder');
+        $this->call('HomeworkTableSeeder');
 
     }
 
@@ -111,7 +113,7 @@ class CoursesTableSeeder extends Seeder
         DB::table('course_student')->insert([
                 'course_id' => '204111',
                 'section' => '001',
-                'student_username' => 'siwaphol_boonpan',
+                'student_id' => '540510828',
                 'created_at' => '2015-06-22 00:00:00',
                 'updated_at' => '2015-06-22 00:00:00']);
         DB::table('course_ta')->insert([
