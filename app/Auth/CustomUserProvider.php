@@ -5,6 +5,8 @@ use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 use App\Http\Controllers\Auth\Itsc\Itscapi;
+use DB;
+use App\User;
 
 class CustomUserProvider implements UserProvider {
 
@@ -29,14 +31,31 @@ class CustomUserProvider implements UserProvider {
 //        dd($sauth);
         if ($sauth->success == true)
         {
-//            $parts = explode('@', $credentials['email']);
-//            $username = $parts[0];
-            $email = $credentials['email'] . '@cmu.ac.th';
             $query = $this->createModel()->newQuery();
             $query->where('username',$credentials['email']);
 
-//            dd($query->first());
-            $sinfo = Itscapi::get_student_info($credentials['email'],$sauth->ticket->access_token);
+            if($query->first() == null){
+                $sinfo = Itscapi::get_student_info($credentials['email'],$sauth->ticket->access_token);
+
+                $qresult = DB::select('select * from course_student where student_id=?',array($sinfo->student->id));
+
+                if(count($qresult) > 0 ){
+                    $user = new User;
+                    $user->username = $credentials['email'];
+                    $user->role_id = '0001';
+                    $user->student_id = $sinfo->student->id;
+                    $user->prefix_th = $sinfo->student->prefix->th_TH;
+                    $user->prefix_en = $sinfo->student->prefix->en_US;
+                    $user->firstname_th = $sinfo->student->firstName->th_TH;
+                    $user->firstname_en = $sinfo->student->firstName->en_US;
+                    $user->lastname_th = $sinfo->student->lastName->th_TH;
+                    $user->lastname_en = $sinfo->student->lastName->en_US;
+                    $user->email = $credentials['email'] . '@cmu.ac.th';
+                    $user->faculty_id = $sinfo->student->faculty->code;
+                    $user->save();
+                }
+
+            }
 
             return $query->first();
         }
