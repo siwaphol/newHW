@@ -50,28 +50,7 @@ class HomeController extends Controller {
 
     public function course(){
         $model=Course::all();
-        //$users = Course::order_by('list_order', 'ASC')->get();
-       // return $view->with('users', $users)->with('q', $q);
+
         return view('course',compact('model'));
-    }
-    public function lis(){
-
-    return view('lis');
-}
-    public function test1()
-    {
-        $result=Request::get('name');
-
-        return $result;
-    }
-    public function test2()
-    {
-        $result=Request::get('ddlCourse');
-
-        return $result;
-    }
-    public function xcrud()
-    {
-        return view('testexcrud');
     }
 }

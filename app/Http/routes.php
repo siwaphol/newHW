@@ -24,11 +24,6 @@ Route::controllers([
     'password' => 'Auth\PasswordController',
 ]);
 
-Route::get('test', 'HomeController@test');
-Route::get('xcrud', 'HomeController@xcrud');
-//Route::get('test/{id}', function($id){
-   // return $id;
-//});
 Route::get('assign', 'HomeController@assign');
 Route::get('course', 'CourseController@course');
 Route::get('create', 'CourseController@create');

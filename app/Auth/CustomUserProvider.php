@@ -10,19 +10,15 @@ class CustomUserProvider implements UserProvider {
 
     protected $model;
 
-    protected $models;
-
     protected $spec_model;
 
-    public function __construct($models)
+    public function __construct($model)
     {
-        $this->models = $models;
-        $model = "";
+        $this->model = $model;
     }
 
     public function retrieveById($identifier)
     {
-        $this->model = $this->models[0];
         return $this->createModel()->newQuery()->find($identifier);
     }
 
@@ -36,7 +32,6 @@ class CustomUserProvider implements UserProvider {
 //            $parts = explode('@', $credentials['email']);
 //            $username = $parts[0];
             $email = $credentials['email'] . '@cmu.ac.th';
-            $this->model = $this->models[0];
             $query = $this->createModel()->newQuery();
             $query->where('username',$credentials['email']);
 

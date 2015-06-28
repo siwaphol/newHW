@@ -20,10 +20,10 @@ class CreateHomeworkAssignmentTable extends Migration {
             $table->string('type_id',10);
             $table->string('detail',100);
             $table->string('sub_folder',100);
-            $table->date('due_date');
-            $table->date('assign_date');
-            $table->integer('num_late_days');
-            $table->string('creator_username',100);
+            $table->timestamp('assign_date');
+            $table->timestamp('due_date');
+            $table->timestamp('accept_date');
+            $table->string('created_by',100);
             $table->timestamps();
 
             $table->primary(['course_id','section','name']);

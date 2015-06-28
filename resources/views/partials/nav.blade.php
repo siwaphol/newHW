@@ -15,7 +15,7 @@
                         @if (!Auth::guest())
                             <li><a href="{{ url('/') }}">หน้าหลัก</a></li>
                             <li><a href="{{ url('/info') }}">ข้อมูลส่วนตัว</a></li>
-                            @if (Auth::user()->role == "student")
+                            @if (Auth::user()->role_id == "0001")
                                 @if(Auth::user()->courses()->count()> 0)
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">กระบวนวิชา<span class="caret"></span></a>
@@ -27,8 +27,8 @@
                                     </li>
                                 @endif
                             @else
-                                @if (Auth::user()->role != "ta")
-                                    @if (Auth::user()->role == "admin")
+                                @if (Auth::user()->role_id != "0010")
+                                    @if (Auth::user()->role_id == "1000")
                                          <li class="dropdown">
                                               <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">จัดการผู้ใช้<span class="caret"></span></a>
                                                     <ul class="dropdown-menu" role="menu">
@@ -50,7 +50,7 @@
                                                      </ul>
                                           </li>
                                     @endif
-                                    @if(Auth::user()->role == "teacher")
+                                    @if(Auth::user()->role_id == "0100")
                                     <li><a href="{{url('students')}}">รายชื่อนักศึกษา</a></li>
                                     @endif
                                     <li class="dropdown">
@@ -91,7 +91,7 @@
 						{{--<li><a href="{{ url('/auth/register') }}">Register</a></li>--}}
 					@else
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} ({{ Auth::user()->role }}) <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->firstname_th . " " . Auth::user()->lastname_th }} ({{ Auth::user()->role_id }}) <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ url('/auth/logout') }}">Logout</a></li>
 							</ul>

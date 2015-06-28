@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder {
             'lastname_th' => 'บุญปั๋น',
             'lastname_en' => 'Boonpan',
             'email' => 'siwaphol_boonpan@gmail.com',
-            'faculty_id' => '015',
+            'faculty_id' => '05',
             'created_at' => '2015-06-22 00:00:00',
             'updated_at' => '2015-06-22 00:00:00']);
 
@@ -75,7 +75,7 @@ class UsersTableSeeder extends Seeder {
                 'updated_at' => '2015-06-22 00:00:00']);
 
         DB::table('faculties')->insert([
-            'id' => '015',
+            'id' => '05',
             'name_th' => 'คณะวิทยาศาสตร์',
             'name_en' => 'Faculty of Science',
             'created_at' => '2015-06-22 00:00:00',
@@ -147,10 +147,10 @@ class HomeworkTableSeeder extends Seeder
                 'type_id' => 'word',
                 'detail' => 'Homework description goes here.',
                 'sub_folder' => './lab01/',
-                'due_date' => '2015-06-30 00:00:00',
                 'assign_date' => '2015-06-26 00:00:00',
-                'num_late_days' => 3,
-                'creator_username' => 'siwaphol_boonpan',
+                'due_date' => '2015-06-30 00:00:00',
+                'accept_date' => '2015-07-01 00:00:00',
+                'created_by' => 'siwaphol_boonpan',
                 'created_at' => '2015-06-22 00:00:00',
                 'updated_at' => '2015-06-22 00:00:00']);
 

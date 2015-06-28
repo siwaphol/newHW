@@ -200,7 +200,7 @@ class AuthController extends Controller {
 
         if ($this->auth->attempt($credentials, $request->has('remember')))
         {
-//            dd($this->auth);
+//            dd($this->redirectPath());
             return redirect()->intended($this->redirectPath());
         }
 

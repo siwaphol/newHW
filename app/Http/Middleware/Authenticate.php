@@ -32,8 +32,10 @@ class Authenticate {
 	 */
 	public function handle($request, Closure $next)
 	{
+//        dd($request);
 		if ($this->auth->guest())
 		{
+//            dd($this->auth);
 			if ($request->ajax())
 			{
 				return response('Unauthorized.', 401);
@@ -43,6 +45,7 @@ class Authenticate {
 				return redirect()->guest('auth/login');
 			}
 		}
+
 		return $next($request);
 	}
 

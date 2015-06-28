@@ -15,7 +15,7 @@ class CustomAuthProvider extends ServiceProvider {
     {
         $this->app['auth']->extend('custom',function()
         {
-            return new CustomUserProvider(['App\User']);
+            return new CustomUserProvider('App\User');
         });
     }
 

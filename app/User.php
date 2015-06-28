@@ -2,13 +2,11 @@
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
+class User extends Model implements AuthenticatableContract {
 
-	use Authenticatable, CanResetPassword;
+	use Authenticatable;
 
 	/**
 	 * The database table used by the model.
@@ -22,13 +20,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'email', 'role', 'password'];
+	protected $fillable = ['username', 'role_id', 'student_id', 'prefix_th',
+                            'prefix_en','firstname_th','firstname_en','lastname_th',
+                            'lastname_en','email','faculty_id'];
 
-    public function setPasswordAttribute($pass){
+    protected $primaryKey = 'username';
 
-        $this->attributes['password'] = bcrypt($pass);
-
-    }
+    public $incrementing = false;
 
     public function courses(){
         return $this->belongsToMany('App\Course', 'course_student', 'student_id', 'course_id')->withTimestamps();

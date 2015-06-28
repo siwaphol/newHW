@@ -16,15 +16,15 @@ class CreateUsersTable extends Migration {
 		{
 			$table->string('username',100)->unique();
 			$table->char('role_id',4);
-            $table->char('student_id',9);
-            $table->string('prefix_th',30);
-            $table->string('prefix_en',30);
-            $table->string('firstname_th',100);
-            $table->string('firstname_en',100);
-            $table->string('lastname_th',100);
-            $table->string('lastname_en',100);
-            $table->string('email',100);
-            $table->char('faculty_id',3);
+            $table->char('student_id',9)->nullable();
+            $table->string('prefix_th',30)->nullable();
+            $table->string('prefix_en',30)->nullable();
+            $table->string('firstname_th',100)->nullable();
+            $table->string('firstname_en',100)->nullable();
+            $table->string('lastname_th',100)->nullable();
+            $table->string('lastname_en',100)->nullable();
+            $table->string('email',100)->nullable();
+            $table->char('faculty_id',2)->nullable();
 			$table->timestamps();
 
             $table->primary('username');
@@ -51,7 +51,7 @@ class CreateUsersTable extends Migration {
 
         Schema::create('faculties', function(Blueprint $table)
         {
-            $table->char('id',3)->unique();
+            $table->char('id',2)->unique();
             $table->string('name_th');
             $table->string('name_en');
             $table->timestamps();
