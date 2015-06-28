@@ -32,4 +32,50 @@ class User extends Model implements AuthenticatableContract {
         return $this->belongsToMany('App\Course', 'course_student', 'student_id', 'course_id')->withTimestamps();
     }
 
+    /**
+     * @param $query
+     * @return mixed
+     *
+     * @Sample usage $users = User::admin()->orderBy('created_at')->get();
+     */
+    public function scopeAdmin($query)
+    {
+        return $query->where('role_id', 'like', '1___');
+    }
+    public function scopeTeacher($query)
+    {
+        return $query->where('role_id', 'like', '_1__');
+    }
+    public function scopeTa($query)
+    {
+        return $query->where('role_id', 'like', '__1_');
+    }
+    public function scopeStudent($query)
+    {
+        return $query->where('role_id', 'like', '___1');
+    }
+
+    /**
+     * Accessor Function
+     */
+    public function getFirstNameEnAttribute()
+    {
+        return ucfirst($this->attributes['firstname_en']);
+    }
+    public function isAdmin()
+    {
+        return substr($this->attributes['role_id'],0,1) == '1';
+    }
+    public function isTeacher()
+    {
+        return substr($this->attributes['role_id'],1,1) == '1';
+    }
+    public function isTa()
+    {
+        return substr($this->attributes['role_id'],2,1) == '1';
+    }
+    public function isStudent()
+    {
+        return substr($this->attributes['role_id'],3,1) == '1';
+    }
 }

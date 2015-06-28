@@ -121,6 +121,7 @@ class CoursesTableSeeder extends Seeder
                 'course_id' => '204111',
                 'section' => '001',
                 'student_id' => '540510828',
+                'status' => ' ',
                 'created_at' => '2015-06-22 00:00:00',
                 'updated_at' => '2015-06-22 00:00:00']);
         DB::table('course_ta')->insert([
