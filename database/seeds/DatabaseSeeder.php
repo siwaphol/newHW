@@ -47,23 +47,28 @@ class UsersTableSeeder extends Seeder {
             [            'id' => '0000',
                 'detail' => 'no role',
                 'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00'],
+                'updated_at' => '2015-06-22 00:00:00']);
+        DB::table('ref_roles')->insert(
             [            'id' => '0001',
                 'detail' => 'student',
                 'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00'],
+                'updated_at' => '2015-06-22 00:00:00']);
+        DB::table('ref_roles')->insert(
             [            'id' => '0010',
                 'detail' => 'ta',
                 'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00'],
+                'updated_at' => '2015-06-22 00:00:00']);
+        DB::table('ref_roles')->insert(
             [            'id' => '0100',
                 'detail' => 'student',
                 'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00'],
+                'updated_at' => '2015-06-22 00:00:00']);
+        DB::table('ref_roles')->insert(
             [            'id' => '1000',
                 'detail' => 'admin',
                 'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00'],
+                'updated_at' => '2015-06-22 00:00:00']);
+        DB::table('ref_roles')->insert(
             [            'id' => '0011',
                 'detail' => 'student,ta',
                 'created_at' => '2015-06-22 00:00:00',
@@ -93,8 +98,9 @@ class CoursesTableSeeder extends Seeder
             'name' => 'C programming',
             'detail' => '...',
             'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00'],
-            [   'id' => '204211',
+            'updated_at' => '2015-06-22 00:00:00']);
+        DB::table('courses')->insert([
+               'id' => '204211',
                 'name' => 'OOP programming',
                 'detail' => '...',
                 'created_at' => '2015-06-22 00:00:00',
@@ -104,8 +110,9 @@ class CoursesTableSeeder extends Seeder
                 'section' => '001',
                 'teacher_username' => 'siwaphol_boonpan',
                 'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00'],
-            [   'course_id' => '204211',
+                'updated_at' => '2015-06-22 00:00:00']);
+        DB::table('course_section')->insert([
+               'course_id' => '204211',
                 'section' => '001',
                 'teacher_username' => 'siwaphol_boonpan',
                 'created_at' => '2015-06-22 00:00:00',
@@ -131,7 +138,7 @@ class HomeworkTableSeeder extends Seeder
     {
         DB::table('homework')->delete();
         DB::table('homework_student')->delete();
-        DB::table('homework_type')->delete();
+        DB::table('homework_types')->delete();
 
         DB::table('homework')->insert([
                 'course_id' => '204111',
@@ -157,16 +164,16 @@ class HomeworkTableSeeder extends Seeder
                 'created_at' => '2015-06-22 00:00:00',
                 'updated_at' => '2015-06-22 00:00:00']);
 
-        DB::table('homework_type')->insert(
+        DB::table('homework_types')->insert(
             ['id' => 'word',
             'extension' => 'doc,docx',
             'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00'],
-            ['id' => 'excel',
+            'updated_at' => '2015-06-22 00:00:00']);
+        DB::table('homework_types')->insert(['id' => 'excel',
                 'extension' => 'xls,xlsx',
                 'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00'],
-            ['id' => 'c',
+                'updated_at' => '2015-06-22 00:00:00']);
+        DB::table('homework_types')->insert(['id' => 'c',
                 'extension' => 'c,cpp',
                 'created_at' => '2015-06-22 00:00:00',
                 'updated_at' => '2015-06-22 00:00:00']);

@@ -61,7 +61,7 @@ class CreateHomeworkAssignmentTable extends Migration {
     {
         Schema::drop('homework');
         Schema::drop('homework_student');
-        Schema::drop('homework_type');
+        Schema::drop('homework_types');
     }
 
 }
