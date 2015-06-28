@@ -16,7 +16,7 @@ class Course_SectionController extends Controller
                               ,t.teachername as teachername
                               ,co.coursename as coursename
                               from course_section cs
-                              left join teachers t on cs.teacherid=t.id
+                              left join ีt on cs.teacherid=t.id
                               left join courses co on cs.courseid=co.id
                               ');
 

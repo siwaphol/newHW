@@ -12,17 +12,17 @@ $key=$course;
 
                     <div class="panel-body">
 
-{{ Form::open(['url'=>'course/saveedit']) }}
+{!! Form::open(['url'=>'course/saveedit']) !!}
 <div class="form-group">
-{{ Form::label('id','รหัส')}}
-{{ Form::text('id',$course->id,['class'=>'form-control'])}}
+{!! Form::label('id','รหัส')!!}
+{!! Form::text('id',$course->id,['class'=>'form-control'])!!}
 </div>
 <div class="form-group">
-{{ Form::label('courseName','ชื่อกระบวนวิชา')}}
-{{ Form::text('courseName',$course->courseName,['class'=>'form-control'])}}
+{!! Form::label('name','ชื่อกระบวนวิชา')!!}
+{!! Form::text('name',$course->name,['class'=>'form-control'])!!}
 </div>
 <div class="form-group">
-{{ Form::submit('addcourse',['class'=>'btn btn-primary form-control'])}}
+{!! Form::submit('ปรับปรุง',['class'=>'btn btn-primary form-control'])!!}
 </div>
 </div>
 </div>
@@ -30,7 +30,7 @@ $key=$course;
 </div>
 </div>
 
-{{ Form::close() }}
+{!! Form::close() !!}
 
 
   @endsection

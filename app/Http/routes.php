@@ -16,7 +16,7 @@ Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 Route::get('info', 'HomeController@info');
 
-Route::get('course/{course_id}', 'CourseHomeworkController@show');
+//Route::get('course/{course_id}', 'CourseHomeworkController@show');
 Route::get('homework/create/{course_id}','CourseHomeworkController@create');
 
 Route::controllers([
@@ -26,7 +26,8 @@ Route::controllers([
 
 Route::get('assign', 'HomeController@assign');
 Route::get('course', 'CourseController@course');
-Route::get('create', 'CourseController@create');
+Route::get('course/create', 'CourseController@create');
+Route::post('course/create/save', 'CourseController@addcourse');
 Route::get('edit/{id}', 'CourseController@edit');
 Route::get('delete/{id}', 'CourseController@delete');
 Route::get('course/{course_id}', 'CourseController@show');

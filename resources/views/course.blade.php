@@ -24,7 +24,7 @@ echo Form::submit('เพิ่มกระบวนวิชา');
 echo Form::close();
 */
 ?>
-{{ Html::link('create', 'เพิ่มกระบวนวิชา') }}
+{!! Html::link('course/create', 'เพิ่มกระบวนวิชา') !!}
 <div class="table-responsive">
     <table class="table table-bordered">
         <thead>
@@ -44,9 +44,9 @@ echo Form::close();
             <tr>
                 <td>{{$i}}</td>
                 <td>{{$key->id}}</td>
-                <td>{{$key->courseName}}</td>
-                <td>{{ Html::link('edit/'.$key->id, 'แก้ไข') }}</td>
-                <td>{{ Html::link('delete/'.$key->id, 'ลบ') }}</td>
+                <td>{{$key->name}}</td>
+                <td>{!! Html::link('edit/'.$key->id, 'แก้ไข') !!}</td>
+                <td>{!! Html::link('delete/'.$key->id, 'ลบ') !!}</td>
 
 
             </tr>
