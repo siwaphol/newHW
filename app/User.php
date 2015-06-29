@@ -62,6 +62,9 @@ class User extends Model implements AuthenticatableContract {
     {
         return ucfirst($this->attributes['firstname_en']);
     }
+    /**
+     * Custom functions
+     */
     public function isAdmin()
     {
         return substr($this->attributes['role_id'],0,1) == '1';

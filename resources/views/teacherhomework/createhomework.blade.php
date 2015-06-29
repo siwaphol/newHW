@@ -273,7 +273,7 @@ foreach($table_options as $value)
 // Open the current directory...
 //$file = "";
 //Nong query homework_assignment to get homework template
-$result = DB::table('homework_assignment')->where('course_id', '204111')->get();
+$result = DB::table('homework')->where('course_id', '204111')->get();
 $object1 = json_decode(json_encode($result), FALSE);
 
 $folder_path = explode( "/", $navigation_dir);
@@ -623,8 +623,9 @@ if(($folder_list) || ($file_list) ) {
                 $tr_links = null;
             }
 
-            $table_body .= "<a href=\"" . htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8') . "/\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
-            
+            //$table_body .= "<a href=\"" . htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8') . "/\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
+            $table_body .= "<a href=\"" . 'testfolder' . "/\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
+
             if ($table_options['size']) {
                 $table_body .= "            <td";
                 if ($options['general']['enable_sort']) {
@@ -783,7 +784,8 @@ if(($folder_list) || ($file_list) ) {
                 $file_attr = null;
             }
 
-            $table_body .= "<a href=\"" . htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8') . "\"$file_attr$file_data$virtual_attr$modified_attr>" . utf8ify($display_name) . "</a></td>" . PHP_EOL;
+            //$table_body .= "<a href=\"" . htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8') . "\"$file_attr$file_data$virtual_attr$modified_attr>" . utf8ify($display_name) . "</a></td>" . PHP_EOL;
+            $table_body .= "<a href=\"" . 'test' . "\"$file_attr$file_data$virtual_attr$modified_attr>" . utf8ify($display_name) . "</a></td>" . PHP_EOL;
 
             // Size
             if ($table_options['size']) {
@@ -916,37 +918,30 @@ if ($options['general']['give_kudos']) {
 <script type="text/javascript" src="{{ asset('/js/listr.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/bootstrap-dialog.js') }}"></script>
 
-<div id="modal" class="hidden">
-<form class="form-horizontal" role="form"><div class="form-group">
-    <label class="control-label col-sm-2" for="email">Email:</label>
+<div id="modal" class="hidden"><form class="form-horizontal" role="form"><div class="form-group">
+    <label class="control-label col-sm-2" for="email">Section</label>
     <div class="col-sm-4">
-      <input type="email" class="form-control" id="email" placeholder="Enter email">
+      <input type="text" class="form-control" id="section" placeholder="Enter course section (blank for all)">
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-2" for="pwd">Password:</label>
+    <label class="control-label col-sm-2" for="pwd">Name</label>
     <div class="col-sm-4">
-      <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+      <input type="text" class="form-control" id="homeworkname" placeholder="Enter homework name">
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <div class="checkbox">
-        <label><input type="checkbox"> Remember me</label>
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Submit</button>
+      <button type="submit" class="btn btn-default">ตกลง</button>
     </div>
   </div>
 </form>
 </div>
+
 <div class="hidden" id="fileadd">
 	BootstrapDialog.show({
         title: 'เพิ่มการบ้าน',
-        message: $("#modal").html(),
+        message: fileAddWithReplace(),
         buttons: [{
             label: 'ตกลง',
             action: function(dialog) {
@@ -986,6 +981,12 @@ if ($options['general']['give_kudos']) {
         $("#folder_add_btn").on('click', {code: code2}, function(event){
             eval(event.data.code);
         });
+
+        function fileAddWithReplace() {
+            var s = $("#modal").html();
+            s = s.replace(/(\r\n|\n|\r|[ ](?=[^\>]*?(?:\<|$)))/gm,"");
+            return s;
+        }
 </script>
 </body>
 </html>
