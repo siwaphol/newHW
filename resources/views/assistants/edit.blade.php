@@ -10,24 +10,25 @@
                     <div class="panel-body">
                         <h1>Edit assistant</h1>
                         <hr/>
-
-                        {{ Form::model($assistant, ['method' => 'PATCH', 'action' => ['AssistantsController@update', $assistant->id]]) }}
+                         @foreach($assistant as $key)
+                        {!! Form::open(['url' => 'assistants/update']) !!}
 
                         <div class="form-group">
-                        {{ Form::label('courseId', 'Courseid: ') }}
-                        {{ Form::text('courseId', null, ['class' => 'form-control']) }}
+                        {!! Form::label('course_id', 'รหัสกระบวนวิชา: ') !!}
+                        {!! Form::text('course_id',$key->course_id, ['class' => 'form-control']) !!}
                     </div><div class="form-group">
-                        {{ Form::label('sectionId', 'Sectionid: ') }}
-                        {{ Form::text('sectionId', null, ['class' => 'form-control']) }}
+                        {!! Form::label('section', 'ตอน: ') !!}
+                        {!! Form::text('section', $key->section, ['class' => 'form-control']) !!}
                     </div><div class="form-group">
-                        {{ Form::label('taId', 'Taid: ') }}
-                        {{ Form::text('taId', null, ['class' => 'form-control']) }}
+                        {!! Form::label('ta_username', 'นักศึกษาช่วยสอน ') !!}
+                        {!! Form::text('ta_username',$key->student_id, ['class' => 'form-control']) !!}
                     </div>
                         
                         <div class="form-group">
-                            {{ Form::submit('Update', ['class' => 'btn btn-primary form-control']) }}
+                            {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}
                         </div>
-                        {{ Form::close() }}
+                        {!! Form::close() !!}
+                        @endforeach
 
                         @if ($errors->any())
                             <ul class="alert alert-danger">

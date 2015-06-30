@@ -1,22 +1,26 @@
 @extends('app')
 
 @section('content')
+
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">ข้อมูลนักศึกษา</div>
+                    <div class="panel-heading" align="center">ข้อมูลนักศึกษา</div>
 
                     <div class="panel-body">
-                        <h1>student</h1>
+
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
-                                    <th>รหัสนักศึกษา</th><th>ชื่อ นามสกุล</th><th>สถานะ</th>
+                                    <th>รหัส</th><th>ชื่อ นามสกุล</th><th>คณะ</th><th>อีเมล</th><th>สถานะ</th>
                                 </tr>
+
+                                @foreach( $student as $result)
                                 <tr>
-                                    <td>{{ $student->id }}</td><td>{{ $student->studentName }}</td><td>{{ $student->status }}</td>
+                                    <td>{{$result->student_id}}</td><td>{{$result->firstname." ".$result->lastname}}</td><td>{{$result->faculty}}</td><td>{{$result->email}}</td><td></td>
                                 </tr>
+                                @endforeach
                             </table>
                         </div>
                     </div>

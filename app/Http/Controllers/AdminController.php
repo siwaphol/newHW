@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Admins;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+use DB;
 class AdminController extends Controller {
 
 	/**
@@ -16,7 +16,8 @@ class AdminController extends Controller {
 	 */
 	public function index()
 	{
-		$admins = Admins::latest()->get();
+		//$admins = Admins::latest()->get();
+        $admins=DB::select('select * from users where role_id=1000');
 		return view('admin.index', compact('admins'));
 	}
 

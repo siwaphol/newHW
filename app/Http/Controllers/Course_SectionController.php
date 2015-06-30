@@ -11,13 +11,16 @@ class Course_SectionController extends Controller
     //
     public function index()
     {
-        $result = DB::select('select cs.courseid as courseid
-                              ,cs.sectionid as sectionid
-                              ,t.teachername as teachername
-                              ,co.coursename as coursename
+        $result = DB::select('select cs.course_id as courseid
+                              ,cs.section as sectionid
+                              ,t.firstname_th as firstname
+                              ,t.lastname_th as lastname
+                              ,co.name as coursename
                               from course_section cs
-                              left join ีt on cs.teacherid=t.id
-                              left join courses co on cs.courseid=co.id
+                              left join users t on cs.teacher_username=t.username
+                              left join courses co on cs.course_id=co.id
+                              WHERE  t.role_id=0100
+                              order by cs.course_id,cs.section
                               ');
 
         return view('course_section.index', compact('result'));
@@ -27,19 +30,20 @@ class Course_SectionController extends Controller
      * @param $id
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit()
     {
-        $courseid = substr($id, 0, 6);
-        $sectionid = substr($id, 6, 9);
-        $result = DB::select('select cs.courseid as courseid
-                              ,cs.sectionid as sectionid
-                              ,t.teachername as teachername
-                              ,co.coursename as coursename
-                              ,cs.teacherid as teacherid
+        $courseid = $_GET['course'];
+        $sectionid = $_GET['sec'];
+        $result = DB::select('select cs.course_id as courseid
+                              ,cs.section as sectionid
+                              ,t.firstname_th as firstname
+                              ,t.lastname_th as lastname
+                              ,co.name as coursename
+                              ,cs.teacher_username as teacherid
                               from course_section cs
-                              left join teachers t on cs.teacherid=t.id
-                              left join courses co on cs.courseid=co.id
-                              where cs.courseid=? and cs.sectionid=?
+                              left join users t on cs.teacher_username=t.username
+                              left join courses co on cs.course_id=co.id
+                              where cs.course_id=? and cs.section=?
                               ', array($courseid, $sectionid));
 
         return view('course_section.edit', compact('result'));
@@ -48,10 +52,10 @@ class Course_SectionController extends Controller
     public function update()
     {
 
-        $courseid = Request::get('courseid');
-        $sectionid = Request::get('sectionid');
-        $teacherid = Request::get('teacherid');
-        $Course = DB::update('update course_section set courseid=?,sectionid=?,teacherid=? where courseid=? and sectionid=?', array($courseid, $sectionid, $teacherid, $courseid, $sectionid));
+        $courseid = $_POST['courseid'];
+        $sectionid =$_POST['sectionid'];
+        $teacherid =$_POST['teacherid'];
+        $course = DB::update('update course_section set course_id=?,section=?,teacher_username=? where course_id=? and section=?', array($courseid, $sectionid, $teacherid, $courseid, $sectionid));
         return redirect('course_section');
     }
 
@@ -64,8 +68,13 @@ class Course_SectionController extends Controller
          $courseid = $_POST['courseid'];
         $sectionid = $_POST['sectionid'];
         $teacherid = $_POST['teacherid'];
-        $Course = DB::insert('insert into course_section(courseid,sectionid,teacherid)VALUES (?,?,?)', array($courseid, $sectionid, $teacherid));
+        $Course = DB::insert('insert into course_section(course_id,section,teacher_username)VALUES (?,?,?)', array($courseid, $sectionid, $teacherid));
         return redirect('course_section');
     }
-
+    public function delete(){
+            $course=$_GET['course'];
+            $sec=$_GET['sec'];
+            $result=DB::delete('delete from course_section where course_id=? and section=?',array($course,$sec));
+        return redirect('course_section');
+    }
 }

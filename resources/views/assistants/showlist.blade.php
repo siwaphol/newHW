@@ -2,12 +2,13 @@
 
 @section('content')
 <?php
-$assistants=DB::select('select ass.id as id
-                        ,ta.id as taid
-                        ,ta.taName as taname
-                        from assistants ass
-                        left join tas ta on ass.taid=ta.id
-                      where courseid=? and  sectionid=?',array($course['co'],$course['sec']));
+$assistants=DB::select('select  ta.username as username
+                        ,ta.student_id as taid
+                        ,ta.firstname_th as firstname
+                        ,ta.lastname_th as lastname
+                        from course_ta ass
+                        left join users ta on ass.ta_username=ta.username and ta.role_id=0011
+                      where ass.course_id=? and  section=?',array($course['co'],$course['sec']));
 $count=count($assistants);
 $item=$assistants;
 ?>
@@ -33,9 +34,13 @@ $item=$assistants;
                                 ?>
 
                                     <tr>
-                                        <td>{{ $x+1 }}</td><td><a href="{{ url('/assistants/show', $item[$x]->id) }}">{{ $item[$x]->taname }}</a></td><td><a href="{{ url('/assistants/'.$item[$x]->id.'/edit') }}">Edit</a> / {{ Form::open(['method'=>'delete','action'=>['AssistantsController@destroy',$item[$x]->id]]) }}<button type="submit" class="btn btn-link">Delete</button>{{ Form::close() }}</td>
+                                        <td>{{ $x+1 }}</td><td><a href="{{ url('/assistants/show', $item[$x]->username) }}">{{ $item[$x]->firstname." ".$item[$x]->lastname }}</a></td>
+                                        <td><a>{!! link_to_action('AssistantsController@edit','แก้ไข',array('username'=>$item[$x]->username,'course'=>$course['co'],'sec'=>$course['sec']))!!}</a>
+ /                                              <a>{!! link_to_action('AssistantsController@destroy','ลบ',array('username'=>$item[$x]->username,'course'=>$course['co'],'sec'=>$course['sec']))!!}</a></td>
+
                                     </tr>
                                     <?php  } ?>
+
                             </table>
                         </div>
                     </div>

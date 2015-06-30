@@ -15,16 +15,17 @@ require_once '../Classes/PHPExcel.php';
 
 // Create new PHPExcel object
 $objPHPExcel = new PHPExcel();
-$result =DB::select('SELECT id,studentname FROM students st
-          left join register re on st.id=re.studentid
-          where re.courseid=? and re.sectionid=?',array($course['co'],$course['sec']));
+$result =DB::select('SELECT re.student_id,st.firstname_th,st.lastname_th,st.email FROM users st
+          left join course_student re on st.student_id=re.student_id
+          where st.role_id=0001 and re.course_id=? and re.section=?',array($course['co'],$course['sec']));
 
 $count=count($result);
 
 $row = 1;
 $objPHPExcel->getActiveSheet()->setCellValue('A'.$row, 'ที่')
                               ->setCellValue('B'.$row, 'รหัสนักศึกษา')
-                              ->setCellValue('C'.$row, 'ชื่อ นามสกุล');
+                              ->setCellValue('C'.$row, 'ชื่อ นามสกุล')
+                              ->setCellValue('D'.$row, 'อีเมล');
 
 
 $row++;
@@ -32,7 +33,8 @@ $row++;
 for($i=0;$i<$count;$i++) {
     $objPHPExcel->getActiveSheet()->setCellValue('A'.$row, $i+1)
                                   ->setCellValue('B'.$row, $result[$i]->id)
-                                  ->setCellValue('C'.$row, $result[$i]->studentname);
+                                  ->setCellValue('C'.$row, $result[$i]->firstname_th." ".$result[$i]->lastname_th)
+                                  ->setCellValue('C'.$row, $result[$i]->email);
 
    $row++;
 }

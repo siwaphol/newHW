@@ -59,26 +59,27 @@
                                 $fullnames=$fname."  ".$lname;
                                 //echo $no;
                                 if ($no>0 && $no<=200) {
-                                    $stu=DB::select('select *  from students Where id=?',array($code));
+                                                                    //$stu=DB::select('select *  from users Where id=? and role_id=0001',array($code));
 
-                                    $reg=DB::select(' select * from register where courseId=? and sectionId=? and studentId=?',array($course,$sec,$code));
-                                    $rowstudent=count($stu);
-                                    $rowregist=count($reg);
-                                    if ($rowstudent==0 ) {
+                                                                    $reg=DB::select(' select * from course_student where course_id=? and section=? and student_id=?',array($course,$sec,$code));
+                                                                    //$rowstudent=count($stu);
 
-                                        $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
+                                                                    $rowregist=count($reg);
+                                                                    if ($rowregist==0 ) {
 
-                                        $regis =DB::insert('insert into register (studentId,courseId,sectionId) values (?,?,?)',array($code,$course,$sec));
+                                                                      //  $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
 
-
-
-                                    }elseif ($rowstudent>=1 && $rowregist==0) {
-                                        $regis =DB::insert('insert into register (studentId,courseId,sectionId) values (?,?,?)',array($code,$course,$sec));
+                                                                        $regis =DB::insert('insert into course_student(student_id,course_id,section) values (?,?,?)',array($code,$course,$sec));
 
 
 
-                                    }
-                                }
+                                                                    }
+                                                                    //elseif ($rowstudent>=1 && $rowregist==0) {
+                                                                        //$regis =DB::insert('insert into register (studentId,courseId,sectionId) values (?,?,?)',array($code,$course,$sec));
+
+
+
+                                                                    }
 
                             }
                         }

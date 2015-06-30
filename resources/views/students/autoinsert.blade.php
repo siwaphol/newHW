@@ -17,8 +17,8 @@
             for($i=0;$i<$count;$i++){
             //$course =Request::get('ddlCourse');
             //$sec =Request::get('ddlSection');
-            $course = $sql[$i]->courseId;
-            $sec = $sql[$i]->sectionId;
+            $course = $sql[$i]->course_id;
+            $sec = $sql[$i]->section;
 
             $fileupload_name = 'https://www3.reg.cmu.ac.th/regist257/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
                         $fileupload='../temp/file.xlsx';
@@ -59,27 +59,26 @@
                                 */
                                 $fullnames=$fname."  ".$lname;
                                 //echo $no;
-                                if ($no>0 && $no<=200) {
-                                    $stu=DB::select('select *  from students Where id=?',array($code));
+                               if ($no>0 && $no<=200) {
+                                                                   //$stu=DB::select('select *  from users Where id=? and role_id=0001',array($code));
 
-                                    $reg=DB::select(' select * from register where courseId=? and sectionId=? and studentId=?',array($course,$sec,$code));
-                                    $rowstudent=count($stu);
-                                    $rowregist=count($reg);
-                                    if ($rowstudent==0 and $rowregist==0 ) {
+                                                                   $reg=DB::select(' select * from course_student where course_id=? and section=? and student_id=?',array($course,$sec,$code));
+                                                                   //$rowstudent=count($stu);
 
-                                        $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
+                                                                   $rowregist=count($reg);
+                                                                   if ($rowregist==0 ) {
 
-                                        $regis =DB::insert('insert into register (studentId,courseId,sectionId) values (?,?,?)',array($code,$course,$sec));
+                                                                     //  $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
 
-
-
-                                    }elseif ($rowstudent>=1 && $rowregist==0) {
-                                        $regis =DB::insert('insert into register (studentId,courseId,sectionId) values (?,?,?)',array($code,$course,$sec));
+                                                                       $regis =DB::insert('insert into course_student(student_id,course_id,section) values (?,?,?)',array($code,$course,$sec));
 
 
 
-                                    }
-                                }
+                                                                   }
+
+
+
+                                                                   }
 
                             }
                         }
@@ -87,4 +86,5 @@
 
       ?>
       <h2 align="center"> import successful</h2>
+
       @endsection

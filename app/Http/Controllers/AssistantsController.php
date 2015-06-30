@@ -17,8 +17,8 @@ class AssistantsController extends Controller {
 	 */
 	public function index()
 	{
-		$assistants = Assistants::latest()->get();
-		return view('assistants.index', compact('assistants'));
+
+		return view('assistants.index');
 	}
 
 	/**
@@ -51,10 +51,10 @@ class AssistantsController extends Controller {
 	 */
 	public function show($id)
 	{
-        $assistant=DB::select('select ass.id as id,ta.id as taid,ta.taName as taname ,ass.courseid as courseid,ass.sectionid as sectionid
-                                from assistants ass
-                                left join tas ta on ass.taid=ta.id
-                                 where ass.id=?',array($id));
+        $assistant=DB::select('select ta.student_id as student_id, ta.username as tausername,ta.firstname_th as firstname,ta.lastname_th as lastname ,ass.course_id as courseid,ass.section as sectionid
+                                from course_ta ass
+                                left join users ta on ass.ta_username=ta.username
+                                 where ta.username=?',array($id));
 		//$assistant = Assistants::findOrFail($id);
 		return view('assistants.show')->with('assistant',$assistant);
 	}
@@ -65,9 +65,20 @@ class AssistantsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit()
 	{
-		$assistant = Assistants::findOrFail($id);
+        $course=$_GET['course'];
+        $sec=$_GET['sec'];
+        $ta_username=$_GET['username'];
+        $assistant=DB::select('select st.course_id as course_id
+                                ,st.section as section
+                                ,ta.student_id as student_id
+                                ,ta.firstname_th as firstname
+                                ,ta.lastname_th as lastname
+                                from course_ta st
+                                left join users ta on st.ta_username=ta.username
+                                where st.course_id=? and st.section=? and st.ta_username=?',array($course,$sec,$ta_username));
+		//$assistant = Assistants::findOrFail($id);
 		return view('assistants.edit', compact('assistant'));
 	}
 
@@ -77,8 +88,11 @@ class AssistantsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, Request $request)
+	public function update()
 	{
+        $course_id=$_POST['course_id'];
+        $section=$_POST['section'];
+        $student_id=$_POST['student_id'];
 		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
 		$assistant = Assistants::findOrFail($id);
 		$assistant->update($request->all());
@@ -91,9 +105,12 @@ class AssistantsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy()
 	{
-		Assistants::destroy($id);
+        $course=$_GET['course'];
+        $sec=$_GET['sec'];
+        $ta_username=$_GET['username'];
+		$result=DB::delete('delete from course_ta where course_id=? and section=? and ta_username=?',array($course,$sec,$ta_username));
 		return redirect('assistants');
 	}
     public function showlist()

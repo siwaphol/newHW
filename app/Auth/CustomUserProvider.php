@@ -126,7 +126,6 @@ class CustomUserProvider implements UserProvider {
         return redirect('/login')->withErrors([
             'email' => 'The credentials you entered did not match our records. Try again?',
         ]);
-
     }
 
     protected function findUser($userDetails)

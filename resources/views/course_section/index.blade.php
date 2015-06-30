@@ -9,6 +9,7 @@ $i=1;
 <?php
 
 ?>
+
 <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -16,7 +17,7 @@ $i=1;
                     <div class="panel-heading" align="center">กระบวนวิชา ตอน</div>
 
                     <div class="panel-body">
-{{ Html::link('course_section/create', 'เพิ่มตอน') }}
+{!! Html::link('course_section/create', 'เพิ่มตอน') !!}
 <div class="table-responsive">
     <table class="table table-bordered">
         <thead>
@@ -40,9 +41,9 @@ $i=1;
                 <td>{{$key->courseid}}</td>
                 <td>{{$key->coursename}}</td>
                 <td>{{$key->sectionid}}</td>
-                 <td>{{$key->teachername}}</td>
-                <td>{{ Html::link('course_section/edit/'.$key->courseid.$key->sectionid, 'แก้ไข') }}</td>
-                <td>{{ Html::link('delete/'.$key->courseid, 'ลบ') }}</td>
+                 <td>{{$key->firstname}}  {{$key->lastname}}</td>
+                <td>{!! link_to_action('Course_SectionController@edit','แก้ไข',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
+                 <td>{!! link_to_action('Course_SectionController@delete','ลบ',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
 
 
             </tr>

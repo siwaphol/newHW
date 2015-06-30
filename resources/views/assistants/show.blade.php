@@ -12,10 +12,10 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
-                                    <th>ID.</th><th>Name</th>
+                                    <th>รหัส</th><th>ชื่อ นามสกุล</th>
                                 </tr>
                                 <tr>
-                                    <td>{{ $assistant[0]->taid }}</td><td>{{ $assistant[0]->taname }}</td>
+                                    <td>{{ $assistant[0]->student_id }}</td><td>{{ $assistant[0]->firstname." ".$assistant[0]->lastname }}</td>
                                 </tr>
                             </table>
                         </div>

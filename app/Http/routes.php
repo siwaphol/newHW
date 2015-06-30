@@ -33,8 +33,9 @@ Route::get('delete/{id}', 'CourseController@delete');
 Route::get('course/{course_id}', 'CourseController@show');
 Route::get('course_section', 'Course_SectionController@index');
 Route::get('course_section/create', 'Course_SectionController@create');
+Route::get('course_section/delete/', 'Course_SectionController@delete');
 Route::post('course_section/create/save', 'Course_SectionController@store');
-Route::get('course_section/edit/{id}', 'Course_SectionController@edit');
+Route::get('course_section/edit/', 'Course_SectionController@edit');
 Route::get('test/lis','HomeController@lis');
 Route::get('teachers','TeachersController@index');
 Route::get('teachers/create','TeachersController@create');
@@ -96,10 +97,10 @@ Route::post('homework_assignment/showlist','Homework_assignmentController@showli
 
 //assistant
 Route::get('assistants','AssistantsController@index');
-Route::delete('assistants/delete/{id}','AssistantsController@destroy');
+Route::get('assistants/delete/','AssistantsController@destroy');
 Route::get('assistants/show/{id}','AssistantsController@show');
 Route::get('assistants/create','AssistantsController@create');
-Route::get('assistants/{id}/edit','AssistantsController@edit');
+Route::get('assistants/edit','AssistantsController@edit');
 Route::post('assistants/create/save','AssistantsController@store');
-Route::patch('assistants/update/{id}','AssistantsController@update');
+Route::post('assistants/update','AssistantsController@update');
 Route::post('assistants/showlist','AssistantsController@showlist');

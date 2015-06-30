@@ -17,8 +17,9 @@ class StudentsController extends Controller {
 	 */
 	public function index()
 	{
-		$students = Students::latest()->get();
-		return view('students.index', compact('students'));
+		$students =DB::select('select * from users WHERE  role_id=0001');
+		//return view('students.index', compact('students'));
+        return view('students.index');
 	}
 
 	/**
@@ -51,7 +52,16 @@ class StudentsController extends Controller {
 	 */
 	public function show($id)
 	{
-		$student = Students::findOrFail($id);
+		//$student = Student::findOrFail($id);
+        $student=DB::select('select cs.student_id as student_id
+                              ,stu.firstname_th as firstname
+                              ,stu.lastname_th as lastname
+                              ,stu.email as email
+                              ,fac.name_th as faculty
+                              from course_student cs
+                              left join users stu on cs.student_id=stu.student_id
+                              left join faculties fac on stu.faculty_id=fac.id
+                               where stu.role_id=0001 and cs.student_id=?',array($id));
 		return view('students.show', compact('student'));
 	}
 
@@ -91,8 +101,9 @@ class StudentsController extends Controller {
 	{   $id=$_POST['id'];
         $course=$_POST['course'];
         $sec=$_POST['sec'];
-		Students::destroy($id);
-        $result=DB::delete('delete from register WHERE courseid=? and sectionid=? and studentid=?',array($course,$sec,$id));
+		//Students::destroy($id);
+        $result1=DB::delete('delete from users where student_id=?',array($id));
+        $result=DB::delete('delete from course_student WHERE course_id=? and section=? and student_id=?',array($course,$sec,$id));
 
 		return redirect('students');
 	}

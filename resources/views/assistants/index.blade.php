@@ -33,13 +33,14 @@ function onSubmitMain() {
     var myOption = new Option('เลือกตอน','')
     frmMain.ddlSection.options[frmMain.ddlSection.length]= myOption
     <?php
+    $objQuery=array();
     $intRows = 0;
-    $teacher=Auth::user()->name;
-        if(Auth::user()->role=='teacher'){
-        $objQuery =DB::select('SELECT sectionId,courseId FROM course_section  where teacherid=? ORDER BY sectionId ASC ',array($teacher));
+    $teacher=Auth::user()->username;
+        if(Auth::user()->role_id=='0100'){
+        $objQuery =DB::select('SELECT section,course_id FROM course_section  where teacher_username=? ORDER BY section ASC ',array($teacher));
         }
-        if(Auth::user()->role=='admin'){
-            $objQuery =DB::select('SELECT sectionId,courseId FROM course_section  ORDER BY sectionId ASC ');
+        if(Auth::user()->role_id=='1000'){
+            $objQuery =DB::select('SELECT section,course_id FROM course_section  ORDER BY section ASC ');
             }
     //$objQuery =DB::select('SELECT sectionId,courseId FROM course_section ORDER BY sectionId ASC ');
     $count=count($objQuery);
@@ -50,8 +51,8 @@ function onSubmitMain() {
     ?>
     x = <?php echo $intRows;?>;
     mySubList = new Array();
-    strGroup = "<?php echo $objQuery[$i]->courseId;?>";
-    strValue = "<?php echo $objQuery[$i]->sectionId;?>";
+    strGroup = "<?php echo $objQuery[$i]->course_id;?>";
+    strValue = "<?php echo $objQuery[$i]->section;?>";
     mySubList[x,0] = strGroup;
     mySubList[x,1] = strValue;
     if (mySubList[x,0] == SelectValue){
@@ -80,20 +81,20 @@ function onSubmitMain() {
 					<select id="ddlCourse" name="ddlCourse" onChange = "ListSection(this.value)" class="form-control">
 						<option selected value="">เลือกวิชา</option>
 						<?php
+                        $sql=array();
+						$teacher=Auth::user()->username;
 
-						$teacher=Auth::user()->name;
-
-                                                if(Auth::user()->role=='teacher'){
-                                                $sql=DB::select('select * from course_section where teacherid=?',array($teacher));
+                                                if(Auth::user()->role_id=='0100'){
+                                                $sql=DB::select('select * from course_section where teacher_username=?',array($teacher));
                                                 }
-                                                if(Auth::user()->role=='admin'){
+                                                if(Auth::user()->role_id=='1000'){
                         						$sql=DB::select('select * from course_section');
                         						}
                         $count=count($sql);
                         $i=0;
                           for($i=0;$i<$count;$i++){
 						?>
-						<option value={{$sql[$i]->courseId}}>{{$sql[$i]->courseId}}</option>
+						<option value={{$sql[$i]->course_id}}>{{$sql[$i]->course_id}}</option>
 						<?php
 						}
 						?>

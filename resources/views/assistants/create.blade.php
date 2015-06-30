@@ -26,7 +26,7 @@ function onSubmitMain() {
     frmMain.sectionId.options[frmMain.sectionId.length]= myOption
     <?php
     $intRows = 0;
-    $objQuery =DB::select('SELECT sectionId,courseId FROM course_section ORDER BY sectionId ASC ');
+    $objQuery =DB::select('SELECT section,course_id FROM course_section ORDER BY section ASC ');
     $count=count($objQuery);
     $i=0;
     for($i=0;$i<$count;$i++)
@@ -35,8 +35,8 @@ function onSubmitMain() {
     ?>
     x = <?php echo $intRows;?>;
     mySubList = new Array();
-    strGroup = "<?php echo $objQuery[$i]->courseId;?>";
-    strValue = "<?php echo $objQuery[$i]->sectionId;?>";
+    strGroup = "<?php echo $objQuery[$i]->course_id;?>";
+    strValue = "<?php echo $objQuery[$i]->section;?>";
     mySubList[x,0] = strGroup;
     mySubList[x,1] = strValue;
     if (mySubList[x,0] == SelectValue){
@@ -62,11 +62,11 @@ function onSubmitMain() {
                         <h1 align="center" >เพิ่มนักศึกษาช่วยสอน</h1>
                         <hr/>
 
-                        <!--{{ Form::open(['url' => 'assistants/create/save']) }}
+                        <!--{!! Form::open(['url' => 'assistants/create/save']) !!}
                         -->
                         <form action="create/save" method="post" name="frmMain" id="frmMain" onsubmit="return onSubmitMain()" class="form-horizontal"  align="center">
                         <div class="form-group">
-                        {{ Form::label('courseId', 'กระบวนวิชา ') }}
+                        {!! Form::label('courseId', 'กระบวนวิชา ') !!}
                         <select id="courseId" name="courseId" onChange = "ListSection(this.value)" class="form-control">
                         						<option selected value="">เลือกวิชา</option>
                         						<?php
@@ -76,27 +76,27 @@ function onSubmitMain() {
                                                 $i=0;
                                                   for($i=0;$i<$count;$i++){
                         						?>
-                        						<option value={{$sql[$i]->courseId}}>{{$sql[$i]->courseId}}</option>
+                        						<option value={{$sql[$i]->course_id}}>{{$sql[$i]->course_id}}</option>
                         						<?php
                         						}
                         						?>
                         					</select>
                     </div><div class="form-group">
-                    {{ Form::label('sectionId', 'ตอน ') }}
+                    {!! Form::label('sectionId', 'ตอน ') !!}
                    <select id="sectionId" name="sectionId" class="form-control">
                    						<option selected value="">เลือกตอน</option>
                    					</select>
                     </div><div class="form-group">
-                    {{ Form::label('taId', 'นักศึกษาช่วยสอน ') }}
+                    {!! Form::label('taId', 'นักศึกษาช่วยสอน ') !!}
                          <select id="taId" name="taId"  class="form-control">
                                                                     <option selected value="">เลือกนักศึกษาช่วยสอน</option>
-                                                <?php $sql=DB::select('select * from tas');
+                                                <?php $sql=DB::select('select * from users where role_id=0011');
                                                                        $count=count($sql);
                                                                         for($i=0;$i<$count;$i++){
                                                                         ?>
 
 
-                                                                    					<option value ={{$sql[$i]->id}}>{{$sql[$i]->taName}} </option>
+                                                                    					<option value ={{$sql[$i]->student_id}}>{{$sql[$i]->firstname_th." ".$sql[$i]->lastname_th}} </option>
 
 
 
@@ -106,7 +106,7 @@ function onSubmitMain() {
                     </div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-group">
-                            {{ Form::submit('Create', ['class' => 'btn btn-primary form-control']) }}
+                            {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
                         </div>
                         </form>>
                         <!--{{ Form::close() }}
