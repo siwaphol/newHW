@@ -91,7 +91,7 @@
 						{{--<li><a href="{{ url('/auth/register') }}">Register</a></li>--}}
 					@else
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->firstname_th . " " . Auth::user()->lastname_th }} ({{ Auth::user()->role_id }}) <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->firstname_th . " " . Auth::user()->lastname_th }} ({{ Auth::user()->role() }}) <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ url('/auth/logout') }}">Logout</a></li>
 							</ul>

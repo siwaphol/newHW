@@ -81,4 +81,20 @@ class User extends Model implements AuthenticatableContract {
     {
         return substr($this->attributes['role_id'],3,1) == '1';
     }
+    public function role()
+    {
+        if($this->isAdmin()){
+            return "Admin";
+        }else if($this->isTeacher()){
+            return "Teacher";
+        }else if($this->isTa()){
+            if($this->isStudent()){
+                return "Admin, Student";
+            }
+            return "Ta";
+        }else if($this->isStudent()){
+            return "Student";
+        }
+        return "";
+    }
 }
