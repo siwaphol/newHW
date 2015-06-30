@@ -39,11 +39,7 @@ function check_availability(){
         var sec = $('#sectionid').val();
 
         //use ajax to run the check
-<<<<<<< HEAD
-        $.post("check()", { course: course,sec: sec },
-=======
         $.post("course_section/check/", {course: course,sec: sec },
->>>>>>> origin/james
             function(result){
                 //if the result is 1
                 if(result == 1){
@@ -68,11 +64,7 @@ function check_availability(){
 {!! Form::open(['url'=>'course_section/create/save']) !!}
 <div class="form-group">
 
-<<<<<<< HEAD
-{!! Form::label('id','รหัส')!!}
-=======
 {!! Form::label('courseid','รหัส')!!}
->>>>>>> origin/james
 <select name="courseid" class="form-control">
 <?php for($i=0;$i<$count;$i++){?>
   <option value={{$key[$i]->id}}>{{$key[$i]->id."   ".$key[$i]->name}}</option>
@@ -116,22 +108,7 @@ for($i=0;$i<$count;$i++){?>
 </div>
 </div>
 </div>
-<?
-function check(){
-$course = mysql_real_escape_string($_POST['course']);
-$sec = mysql_real_escape_string($_POST['sec']);
 
-$result=DB::select('select * from course_section where course_id=? and section=? ',array($course,$sec));
-$count=count($result);
-if($count>0){
-   echo 0;
-
-}else{
-    echo 1;
-}
-}
-
-?>
   @endsection
 
 

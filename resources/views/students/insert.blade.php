@@ -62,10 +62,6 @@
                                     //$stu=DB::select('select *  from users Where id=? and role_id=0001',array($code));
 
                                     $reg=DB::select(' select * from course_student where course_id=? and section=? and student_id=?',array($course,$sec,$code));
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/james
                                     //$rowstudent=count($stu);
 
                                     $rowregist=count($reg);

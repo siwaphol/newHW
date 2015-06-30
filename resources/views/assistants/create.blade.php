@@ -88,33 +88,11 @@ function onSubmitMain() {
                    					</select>
                     </div><div class="form-group">
                     {!! Form::label('taId', 'นักศึกษาช่วยสอน ') !!}
-<<<<<<< HEAD
-                         <select id="taId" name="taId"  class="form-control">
-                                                                    <option selected value="">เลือกนักศึกษาช่วยสอน</option>
-                                                <?php $sql=DB::select('select * from users where role_id=0011');
-                                                                       $count=count($sql);
-                                                                        for($i=0;$i<$count;$i++){
-                                                                        ?>
-
-
-                                                                    					<option value ={{$sql[$i]->student_id}}>{{$sql[$i]->firstname_th." ".$sql[$i]->lastname_th}} </option>
-
-
-
-
-                                                                        <?php } ?>
-                                                                        </select>
-                    </div>
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <div class="form-group">
-                            {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
-=======
                       <input type="text" name="taId" class="form-control" >
                     </div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-group">
                             {!! Form::submit('เพิ่ม', ['class' => 'btn btn-primary form-control']) !!}
->>>>>>> origin/james
                         </div>
                         </form>>
                         <!--{{ Form::close() }}
