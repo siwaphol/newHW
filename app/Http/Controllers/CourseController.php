@@ -8,7 +8,9 @@
  namespace App\Http\Controllers;
 
 use App\Course;
-use Request;
+
+//use Request;
+use App\Http\Requests\CourseRequest;
 
 class CourseController extends Controller {
 
@@ -41,18 +43,23 @@ class CourseController extends Controller {
 
 
     public function course(){
-    $model=Course::all();
-    //$users = Course::order_by('list_order', 'ASC')->get();
-    // return $view->with('users', $users)->with('q', $q);
-    return view('course',compact('model'));
-}
+
+        $model=Course::all();
+        return view('course',compact('model'));
+    }
     public function create(){
 
         return view('creatcourse');
     }
-    public function addcourse()
+    public function addcourse(CourseRequest $request)
     {
-        $input = Request::all();
+        $input = $request->all();
+
+        if(count(Course::find($input['course_id']))){
+            return redirect('/course/create')->withErrors([
+                'duplicate' => 'รหัสวิชาซ้ำ',
+            ]);
+        }
         $Course=Course::create($input);
 
         return redirect('course');
