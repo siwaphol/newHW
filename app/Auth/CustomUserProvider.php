@@ -26,9 +26,16 @@ class CustomUserProvider implements UserProvider {
 
     public function retrieveByCredentials(array $credentials)
     {
-        $sauth = Itscapi::authen_with_ITSC_api($credentials['email'], $credentials['password']);
+//        $sauth = Itscapi::authen_with_ITSC_api($credentials['email'], $credentials['password']);
+//dont leave it here
 
+        $query = $this->createModel()->newQuery();
+        $query->where('username',$credentials['email']);
+
+        return $query->first();
+        ///
 //        dd($sauth);
+<<<<<<< HEAD
         if ($sauth->success == true)
         {
             $query = $this->createModel()->newQuery();
@@ -122,6 +129,38 @@ class CustomUserProvider implements UserProvider {
             }
             return $query->first();
         }
+=======
+//        if ($sauth->success == true)
+//        {
+//            $query = $this->createModel()->newQuery();
+//            $query->where('username',$credentials['email']);
+//
+//            if($query->first() == null){
+//                $sinfo = Itscapi::get_student_info($credentials['email'],$sauth->ticket->access_token);
+//
+//                $qresult = DB::select('select * from course_student where student_id=?',array($sinfo->student->id));
+//
+//                if(count($qresult) > 0 ){
+//                    $user = new User;
+//                    $user->username = $credentials['email'];
+//                    $user->role_id = '0001';
+//                    $user->student_id = $sinfo->student->id;
+//                    $user->prefix_th = $sinfo->student->prefix->th_TH;
+//                    $user->prefix_en = $sinfo->student->prefix->en_US;
+//                    $user->firstname_th = $sinfo->student->firstName->th_TH;
+//                    $user->firstname_en = $sinfo->student->firstName->en_US;
+//                    $user->lastname_th = $sinfo->student->lastName->th_TH;
+//                    $user->lastname_en = $sinfo->student->lastName->en_US;
+//                    $user->email = $credentials['email'] . '@cmu.ac.th';
+//                    $user->faculty_id = $sinfo->student->faculty->code;
+//                    $user->save();
+//                }
+//
+//            }
+//
+//            return $query->first();
+//        }
+>>>>>>> origin/james
 
         return redirect('/login')->withErrors([
             'email' => 'The credentials you entered did not match our records. Try again?',

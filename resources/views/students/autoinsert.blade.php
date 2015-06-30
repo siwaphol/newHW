@@ -25,10 +25,12 @@
                         $fileupload='../temp/file.xlsx';
                         //chmod($fileupload, 0755);
                         	//chmod($fileupload_name, 0755);
-                        copy($fileupload_name,$fileupload);
+
+                        dd(copy($fileupload_name,$fileupload));
 
                         //$objPHPExcel = new PHPExcel();
                         $objPHPExcel = PHPExcel_IOFactory::load($fileupload);
+
                         //$objPHPExcel ->load($fileupload)->get();
                         foreach ($objPHPExcel->getWorksheetIterator() as $worksheet) {
                             $worksheetTitle     = $worksheet->getTitle();

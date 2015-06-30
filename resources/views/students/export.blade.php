@@ -33,9 +33,15 @@ $row++;
 for($i=0;$i<$count;$i++) {
     $objPHPExcel->getActiveSheet()->setCellValue('A'.$row, $i+1)
 <<<<<<< HEAD
+<<<<<<< HEAD
                                   ->setCellValue('B'.$row, $result[$i]->id)
                                   ->setCellValue('C'.$row, $result[$i]->firstname_th." ".$result[$i]->lastname_th)
                                   ->setCellValue('C'.$row, $result[$i]->email);
+=======
+                                  ->setCellValue('B'.$row, $result[$i]->student_id)
+                                  ->setCellValue('C'.$row, $result[$i]->firstname_th." ".$result[$i]->lastname_th)
+                                  ->setCellValue('D'.$row, $result[$i]->email);
+>>>>>>> origin/james
 =======
                                   ->setCellValue('B'.$row, $result[$i]->student_id)
                                   ->setCellValue('C'.$row, $result[$i]->firstname_th." ".$result[$i]->lastname_th)

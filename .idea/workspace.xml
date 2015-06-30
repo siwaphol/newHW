@@ -3,10 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="8cd1a208-c18f-455b-b016-08687f65382f" name="Default" comment="">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2015_06_08_091644_create_course_table.php" afterPath="$PROJECT_DIR$/database/migrations/2015_06_08_091644_create_course_table.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2015_06_08_091832_create_homework_assignment_table.php" afterPath="$PROJECT_DIR$/database/migrations/2015_06_08_091832_create_homework_assignment_table.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Auth/CustomUserProvider.php" afterPath="$PROJECT_DIR$/app/Auth/CustomUserProvider.php" />
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/temp/file.xlsx" afterPath="$PROJECT_DIR$/temp/file.xlsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/students/autoinsert.blade.php" afterPath="$PROJECT_DIR$/resources/views/students/autoinsert.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/students/export.blade.php" afterPath="$PROJECT_DIR$/resources/views/students/export.blade.php" />
+>>>>>>> origin/james
 =======
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/temp/file.xlsx" afterPath="$PROJECT_DIR$/temp/file.xlsx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/students/autoinsert.blade.php" afterPath="$PROJECT_DIR$/resources/views/students/autoinsert.blade.php" />
@@ -61,10 +67,13 @@
         <entry file="file://$PROJECT_DIR$/resources/views/course_section/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <state vertical-scroll-proportion="-14.068966" vertical-offset="532" max-vertical-offset="1600">
               <caret line="48" column="34" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
               <folding />
 =======
+=======
+>>>>>>> origin/james
             <state vertical-scroll-proportion="24.846153" vertical-offset="1836" max-vertical-offset="2346">
               <caret line="75" column="38" selection-start-line="75" selection-start-column="38" selection-end-line="75" selection-end-column="38" />
               <folding>
@@ -72,11 +81,15 @@
                 <marker date="1435635533847" expanded="true" signature="2867:2923" placeholder="select * fro..users..." />
                 <marker date="1435635533847" expanded="true" signature="3541:3601" placeholder="select * fro..course_section..." />
               </folding>
+<<<<<<< HEAD
+>>>>>>> origin/james
+=======
 >>>>>>> origin/james
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <file leaf-file-name="CustomUserProvider.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Auth/CustomUserProvider.php">
@@ -88,10 +101,19 @@
                 <marker date="1435647279248" expanded="true" signature="1307:1350" placeholder="select * fro..course_ta..." />
                 <marker date="1435647279248" expanded="true" signature="3707:3760" placeholder="select * fro..course_section..." />
               </folding>
+=======
+      <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/course_section/index.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-9.153846" vertical-offset="51" max-vertical-offset="1122">
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding />
+>>>>>>> origin/james
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="Itscapi.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/itsc/Itscapi.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -105,10 +127,23 @@
               <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
 >>>>>>> origin/james
               <folding />
+=======
+      <file leaf-file-name="autoinsert.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/students/autoinsert.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.8846154" vertical-offset="0" max-vertical-offset="1581">
+              <caret line="13" column="46" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
+              <folding>
+                <marker date="1435646516602" expanded="true" signature="296:325" placeholder="select * fro..course_section..." />
+                <marker date="1435646516602" expanded="true" signature="3351:3428" placeholder="select * fro..course_student..." />
+                <marker date="1435646516602" expanded="true" signature="4017:4088" placeholder="insert into ..." />
+              </folding>
+>>>>>>> origin/james
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="autoinsert.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/students/autoinsert.blade.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -133,6 +168,13 @@
             <state vertical-scroll-proportion="-0.65384614" vertical-offset="0" max-vertical-offset="646">
               <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
 >>>>>>> origin/james
+=======
+      <file leaf-file-name="app.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/app.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.65384614" vertical-offset="0" max-vertical-offset="646">
+              <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+>>>>>>> origin/james
               <folding />
             </state>
           </provider>
@@ -142,20 +184,27 @@
         <entry file="file://$PROJECT_DIR$/resources/views/students/export.blade.php">
           <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <state vertical-scroll-proportion="2.4827585" vertical-offset="692" max-vertical-offset="1420">
               <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
               <folding />
 =======
+=======
+>>>>>>> origin/james
             <state vertical-scroll-proportion="0.73333335" vertical-offset="238" max-vertical-offset="1139">
               <caret line="36" column="51" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
               <folding>
                 <marker date="1435646842183" expanded="true" signature="384:595" placeholder="SELECT re.st..users..." />
               </folding>
+<<<<<<< HEAD
+>>>>>>> origin/james
+=======
 >>>>>>> origin/james
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <file leaf-file-name="DatabaseSeeder.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database/seeds/DatabaseSeeder.php">
@@ -173,6 +222,14 @@
               <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
               <folding />
 >>>>>>> origin/james
+=======
+      <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/students/create.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="153" max-vertical-offset="833">
+              <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
+              <folding />
+>>>>>>> origin/james
             </state>
           </provider>
         </entry>
@@ -181,10 +238,13 @@
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Course_SectionController.php">
           <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.0" vertical-offset="440" max-vertical-offset="1760">
               <caret line="24" column="64" selection-start-line="24" selection-start-column="64" selection-end-line="24" selection-end-column="64" />
               <folding />
 =======
+=======
+>>>>>>> origin/james
             <state vertical-scroll-proportion="4.6153846" vertical-offset="460" max-vertical-offset="1462">
               <caret line="20" column="54" selection-start-line="20" selection-start-column="54" selection-end-line="20" selection-end-column="54" />
               <folding>
@@ -195,13 +255,19 @@
                 <marker date="1435635533785" expanded="true" signature="2577:2653" placeholder="insert into ..." />
                 <marker date="1435635533785" expanded="true" signature="2878:2936" placeholder="delete from ..." />
               </folding>
+<<<<<<< HEAD
+>>>>>>> origin/james
+=======
 >>>>>>> origin/james
             </state>
           </provider>
         </entry>
       </file>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/james
       <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/assistants/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -248,10 +314,13 @@
         <option value="$PROJECT_DIR$/app/User.php" />
         <option value="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" />
 <<<<<<< HEAD
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/app/Auth/CustomUserProvider.php" />
         <option value="$PROJECT_DIR$/database/migrations/2015_06_08_091644_create_course_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2015_06_08_091832_create_homework_assignment_table.php" />
 =======
+=======
+>>>>>>> origin/james
         <option value="$PROJECT_DIR$/resources/views/course_section/edit.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/students/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/students/selectcourse_section.blade.php" />
@@ -280,6 +349,9 @@
         <option value="$PROJECT_DIR$/resources/views/course_section/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/students/autoinsert.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/students/export.blade.php" />
+<<<<<<< HEAD
+>>>>>>> origin/james
+=======
 >>>>>>> origin/james
       </list>
     </option>
@@ -975,6 +1047,9 @@
         <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.showlist.blade.php" />
       </list>
     </recent_temporary>
+<<<<<<< HEAD
+>>>>>>> origin/james
+=======
 >>>>>>> origin/james
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -1033,7 +1108,11 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22837633" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+=======
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25037822" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+>>>>>>> origin/james
 =======
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25037822" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
 >>>>>>> origin/james
@@ -1066,7 +1145,11 @@
   </component>
   <component name="editorHistoryManager">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/resources/views/students/manualinsert.blade.php">
+=======
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Formadmin.php">
+>>>>>>> origin/james
 =======
     <entry file="file://$PROJECT_DIR$/app/Http/Requests/Formadmin.php">
 >>>>>>> origin/james
@@ -1273,6 +1356,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php">
+<<<<<<< HEAD
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="9.807693" vertical-offset="255" max-vertical-offset="816">
+=======
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="9.807693" vertical-offset="255" max-vertical-offset="816">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1282,10 +1369,52 @@
     <entry file="file://$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="535">
+>>>>>>> origin/james
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="535">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/AuthController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.461538" vertical-offset="3952" max-vertical-offset="4488">
+          <caret line="254" column="7" selection-start-line="254" selection-start-column="7" selection-end-line="254" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/AuthController_bk20150616.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="7.1923075" vertical-offset="187" max-vertical-offset="697">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Auth/CustomUserProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-35.96154" vertical-offset="221" max-vertical-offset="2669">
+          <caret line="74" column="6" selection-start-line="74" selection-start-column="6" selection-end-line="74" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/students/showlist.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.423077" vertical-offset="548" max-vertical-offset="1173">
+          <caret line="39" column="70" selection-start-line="39" selection-start-column="39" selection-end-line="40" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="544">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/AuthController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.461538" vertical-offset="3952" max-vertical-offset="4488">
@@ -1326,58 +1455,117 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="544">
           <caret line="7" column="60" selection-start-line="7" selection-start-column="60" selection-end-line="7" selection-end-column="60" />
+>>>>>>> origin/james
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/resources/views/assistants/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="544">
+          <caret line="7" column="60" selection-start-line="7" selection-start-column="60" selection-end-line="7" selection-end-column="60" />
+=======
     <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1173" max-vertical-offset="1751">
           <caret line="104" column="11" selection-start-line="104" selection-start-column="11" selection-end-line="104" selection-end-column="11" />
+>>>>>>> origin/james
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1173" max-vertical-offset="1751">
+          <caret line="104" column="11" selection-start-line="104" selection-start-column="11" selection-end-line="104" selection-end-column="11" />
+=======
     <entry file="file://$PROJECT_DIR$/resources/views/assistants/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="931" max-vertical-offset="2193">
           <caret line="42" column="49" selection-start-line="42" selection-start-column="49" selection-end-line="42" selection-end-column="49" />
+>>>>>>> origin/james
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/resources/views/assistants/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="931" max-vertical-offset="2193">
+          <caret line="42" column="49" selection-start-line="42" selection-start-column="49" selection-end-line="42" selection-end-column="49" />
+=======
     <entry file="file://$PROJECT_DIR$/resources/views/assistants/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="850">
           <caret line="12" column="38" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
+>>>>>>> origin/james
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/resources/views/assistants/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="850">
+          <caret line="12" column="38" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
+=======
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AssistantsController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1212" max-vertical-offset="2091">
           <caret line="96" column="21" selection-start-line="96" selection-start-column="21" selection-end-line="96" selection-end-column="49" />
+>>>>>>> origin/james
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AssistantsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1212" max-vertical-offset="2091">
+          <caret line="96" column="21" selection-start-line="96" selection-start-column="21" selection-end-line="96" selection-end-column="49" />
+=======
     <entry file="file://$PROJECT_DIR$/resources/views/assistants/showlist.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="200" max-vertical-offset="952">
           <caret line="28" column="87" selection-start-line="28" selection-start-column="87" selection-end-line="28" selection-end-column="87" />
+>>>>>>> origin/james
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/resources/views/assistants/showlist.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="200" max-vertical-offset="952">
+          <caret line="28" column="87" selection-start-line="28" selection-start-column="87" selection-end-line="28" selection-end-column="87" />
+=======
     <entry file="file://$PROJECT_DIR$/resources/views/admin/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="782">
           <caret line="26" column="44" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
+>>>>>>> origin/james
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="782">
+          <caret line="26" column="44" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
+=======
+    <entry file="file://$PROJECT_DIR$/resources/views/assistants/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.1923075" vertical-offset="1224" max-vertical-offset="2227">
+          <caret line="83" column="50" selection-start-line="82" selection-start-column="53" selection-end-line="83" selection-end-column="50" />
+>>>>>>> origin/james
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/Providers/CustomAuthProvider.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -1417,11 +1605,23 @@
         <state vertical-scroll-proportion="-9.655172" vertical-offset="720" max-vertical-offset="1760">
           <caret line="50" column="45" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="45" />
           <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/resources/views/course_section/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="24.846153" vertical-offset="1836" max-vertical-offset="2346">
+          <caret line="75" column="38" selection-start-line="75" selection-start-column="38" selection-end-line="75" selection-end-column="38" />
+          <folding>
+            <marker date="1435635533847" expanded="true" signature="155:176" placeholder="select * fro..courses..." />
+            <marker date="1435635533847" expanded="true" signature="2867:2923" placeholder="select * fro..users..." />
+            <marker date="1435635533847" expanded="true" signature="3541:3601" placeholder="select * fro..course_section..." />
+          </folding>
+>>>>>>> origin/james
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2015_06_08_091644_create_course_table.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Course_SectionController.php">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="-7.172414" vertical-offset="752" max-vertical-offset="1460">
           <caret line="49" column="33" selection-start-line="49" selection-start-column="33" selection-end-line="49" selection-end-column="33" />
 =======
@@ -1439,6 +1639,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Course_SectionController.php">
       <provider selected="true" editor-type-id="text-editor">
+=======
+>>>>>>> origin/james
         <state vertical-scroll-proportion="4.6153846" vertical-offset="460" max-vertical-offset="1462">
           <caret line="20" column="54" selection-start-line="20" selection-start-column="54" selection-end-line="20" selection-end-column="54" />
           <folding>
@@ -1449,6 +1651,7 @@
             <marker date="1435635533785" expanded="true" signature="2577:2653" placeholder="insert into ..." />
             <marker date="1435635533785" expanded="true" signature="2878:2936" placeholder="delete from ..." />
           </folding>
+<<<<<<< HEAD
         </state>
       </provider>
     </entry>
@@ -1472,10 +1675,20 @@
         <state vertical-scroll-proportion="-0.0" vertical-offset="153" max-vertical-offset="833">
           <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
 >>>>>>> origin/james
+=======
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/course_section/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.153846" vertical-offset="51" max-vertical-offset="1122">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+>>>>>>> origin/james
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -1499,10 +1712,37 @@
         <state vertical-scroll-proportion="-0.65384614" vertical-offset="0" max-vertical-offset="646">
           <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
 >>>>>>> origin/james
+=======
+    <entry file="file://$PROJECT_DIR$/resources/views/students/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="153" max-vertical-offset="833">
+          <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/students/autoinsert.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.8846154" vertical-offset="0" max-vertical-offset="1581">
+          <caret line="13" column="46" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
+          <folding>
+            <marker date="1435646516602" expanded="true" signature="296:325" placeholder="select * fro..course_section..." />
+            <marker date="1435646516602" expanded="true" signature="3351:3428" placeholder="select * fro..course_student..." />
+            <marker date="1435646516602" expanded="true" signature="4017:4088" placeholder="insert into ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/app.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.65384614" vertical-offset="0" max-vertical-offset="646">
+          <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+>>>>>>> origin/james
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/Auth/CustomUserProvider.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -1512,6 +1752,14 @@
             <marker date="1435647279248" expanded="true" signature="1185:1232" placeholder="select * fro..course_student..." />
             <marker date="1435647279248" expanded="true" signature="1307:1350" placeholder="select * fro..course_ta..." />
             <marker date="1435647279248" expanded="true" signature="3707:3760" placeholder="select * fro..course_section..." />
+=======
+    <entry file="file://$PROJECT_DIR$/resources/views/students/export.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.73333335" vertical-offset="238" max-vertical-offset="1139">
+          <caret line="36" column="51" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
+          <folding>
+            <marker date="1435646842183" expanded="true" signature="384:595" placeholder="SELECT re.st..users..." />
+>>>>>>> origin/james
 =======
     <entry file="file://$PROJECT_DIR$/resources/views/students/export.blade.php">
       <provider selected="true" editor-type-id="text-editor">

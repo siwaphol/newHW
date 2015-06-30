@@ -36,6 +36,10 @@ Route::get('course_section/create', 'Course_SectionController@create');
 Route::get('course_section/delete/', 'Course_SectionController@delete');
 Route::post('course_section/create/save', 'Course_SectionController@store');
 Route::get('course_section/edit/', 'Course_SectionController@edit');
+<<<<<<< HEAD
+=======
+Route::post('course_section/check/', 'Course_SectionController@check');
+>>>>>>> origin/james
 Route::get('test/lis','HomeController@lis');
 Route::get('teachers','TeachersController@index');
 Route::get('teachers/create','TeachersController@create');

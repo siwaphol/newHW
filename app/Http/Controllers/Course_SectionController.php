@@ -69,6 +69,7 @@ class Course_SectionController extends Controller
         $sectionid = $_POST['sectionid'];
         $teacherid = $_POST['teacherid'];
         $Course = DB::insert('insert into course_section(course_id,section,teacher_username)VALUES (?,?,?)', array($courseid, $sectionid, $teacherid));
+<<<<<<< HEAD
         return redirect('course_section');
     }
     public function delete(){
@@ -77,4 +78,30 @@ class Course_SectionController extends Controller
             $result=DB::delete('delete from course_section where course_id=? and section=?',array($course,$sec));
         return redirect('course_section');
     }
+=======
+        return redirect('course_section');
+    }
+    public function delete(){
+            $course=$_GET['course'];
+            $sec=$_GET['sec'];
+            $result=DB::delete('delete from course_section where course_id=? and section=?',array($course,$sec));
+        return redirect('course_section');
+    }
+    public function check(){
+        $course = $_POST['course'];
+        $sec = $_POST['sec'];
+
+        $result=DB::select('select * from course_section where course_id=? and section=? ',array($course,$sec));
+       dd($result);
+        $count=count($result);
+        if($count>0){
+            return 0;
+
+        }else{
+            return 1;
+        }
+
+
+    }
+>>>>>>> origin/james
 }

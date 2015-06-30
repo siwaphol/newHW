@@ -4,6 +4,7 @@ use App\Http\Requests\Formtas;
 use App\Http\Controllers\Controller;
 
 use App\Tas;
+use DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -16,7 +17,7 @@ class TasController extends Controller {
 	 */
 	public function index()
 	{
-		$tas = Tas::latest()->get();
+        $tas =DB::select('select * from users where role_id=0011');
 		return view('tas.index', compact('tas'));
 	}
 

@@ -19,12 +19,14 @@
 
             $fileupload_name = 'https://www3.reg.cmu.ac.th/regist257/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
                         $fileupload='../temp/file.xlsx';
+
                         //chmod($fileupload, 0755);
                         	//chmod($fileupload_name, 0755);
                         copy($fileupload_name,$fileupload);
 
                         //$objPHPExcel = new PHPExcel();
                         $objPHPExcel = PHPExcel_IOFactory::load($fileupload);
+
                         //$objPHPExcel ->load($fileupload)->get();
                         foreach ($objPHPExcel->getWorksheetIterator() as $worksheet) {
                             $worksheetTitle     = $worksheet->getTitle();
@@ -60,6 +62,10 @@
                                     //$stu=DB::select('select *  from users Where id=? and role_id=0001',array($code));
 
                                     $reg=DB::select(' select * from course_student where course_id=? and section=? and student_id=?',array($course,$sec,$code));
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/james
                                     //$rowstudent=count($stu);
 
                                     $rowregist=count($reg);
