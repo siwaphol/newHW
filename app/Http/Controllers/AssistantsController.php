@@ -36,8 +36,12 @@ class AssistantsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store()
 	{
+        $course=$_POST['courseId'];
+        $sec=$_POST['sectionId'];
+        $ta_username=$_POST['taId'];
+        $result=DB::insert('insert into course_ta');
 		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
 		Assistants::create($request->all());
 		return redirect('assistants');
