@@ -11,6 +11,7 @@
  @section('content')
  <?php
  require_once '../Classes/PHPExcel/IOFactory.php';
+            libxml_use_internal_errors(false);
             set_time_limit(0);
             $sql=DB::select('select *  from course_section');
             $count=count($sql);
