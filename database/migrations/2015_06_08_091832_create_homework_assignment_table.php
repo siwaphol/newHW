@@ -14,6 +14,7 @@ class CreateHomeworkAssignmentTable extends Migration {
 	{
         Schema::create('homework', function(Blueprint $table)
         {
+            $table->increments('id');
             $table->char('course_id',6);
             $table->char('section',3);
             $table->string('name',50);
@@ -25,12 +26,11 @@ class CreateHomeworkAssignmentTable extends Migration {
             $table->timestamp('accept_date');
             $table->string('created_by',100);
             $table->timestamps();
-
-            $table->primary(['course_id','section','name']);
         });
 
         Schema::create('homework_student', function(Blueprint $table)
         {
+            $table->increments('id');
             $table->char('course_id',6);
             $table->char('section',3);
             $table->string('homework_name',50);
@@ -38,7 +38,6 @@ class CreateHomeworkAssignmentTable extends Migration {
             $table->integer('status');
             $table->timestamp('submitted_at');
             $table->timestamps();
-            
         });
 
         Schema::create('homework_types', function(Blueprint $table)

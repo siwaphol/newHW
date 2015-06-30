@@ -24,6 +24,7 @@ class CreateCourseTable extends Migration {
 
         Schema::create('course_section', function(Blueprint $table)
         {
+            $table->increments('id');
             $table->char('course_id',6);
             $table->char('section',3);
             $table->string('teacher_username',100);
@@ -32,6 +33,7 @@ class CreateCourseTable extends Migration {
 
         Schema::create('course_student', function(Blueprint $table)
         {
+            $table->increments('id');
             $table->char('course_id',6);
             $table->char('section',3);
             $table->char('student_id',9);
@@ -41,6 +43,7 @@ class CreateCourseTable extends Migration {
 
         Schema::create('course_ta', function(Blueprint $table)
         {
+            $table->increments('id');
             $table->char('course_id',6);
             $table->char('section',3);
             $table->string('ta_username',100);

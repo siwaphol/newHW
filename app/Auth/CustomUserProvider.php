@@ -35,28 +35,91 @@ class CustomUserProvider implements UserProvider {
             $query->where('username',$credentials['email']);
 
             if($query->first() == null){
+
                 $sinfo = Itscapi::get_student_info($credentials['email'],$sauth->ticket->access_token);
-
-                $qresult = DB::select('select * from course_student where student_id=?',array($sinfo->student->id));
-
-                if(count($qresult) > 0 ){
+                if($sinfo->success){
+                    $qresult = DB::select('select * from course_student where student_id=?',array($sinfo->student->id));
+                    $taresult = DB::select('select * from course_ta where ta_username=?',array($credentials['email']));
                     $user = new User;
-                    $user->username = $credentials['email'];
-                    $user->role_id = '0001';
-                    $user->student_id = $sinfo->student->id;
-                    $user->prefix_th = $sinfo->student->prefix->th_TH;
-                    $user->prefix_en = $sinfo->student->prefix->en_US;
-                    $user->firstname_th = $sinfo->student->firstName->th_TH;
-                    $user->firstname_en = $sinfo->student->firstName->en_US;
-                    $user->lastname_th = $sinfo->student->lastName->th_TH;
-                    $user->lastname_en = $sinfo->student->lastName->en_US;
-                    $user->email = $credentials['email'] . '@cmu.ac.th';
-                    $user->faculty_id = $sinfo->student->faculty->code;
-                    $user->save();
+                    if(count($qresult) > 0 ){
+                        $user->username = $credentials['email'];
+                        $user->role_id = '0001';
+                        if(count($taresult)>0){
+                            $user->role_id = '0011';
+                        }
+                        $user->student_id = $sinfo->student->id;
+                        $user->prefix_th = $sinfo->student->prefix->th_TH;
+                        $user->prefix_en = $sinfo->student->prefix->en_US;
+                        $user->firstname_th = $sinfo->student->firstName->th_TH;
+                        $user->firstname_en = $sinfo->student->firstName->en_US;
+                        $user->lastname_th = $sinfo->student->lastName->th_TH;
+                        $user->lastname_en = $sinfo->student->lastName->en_US;
+                        $user->email = $credentials['email'] . '@cmu.ac.th';
+                        $user->faculty_id = $sinfo->student->faculty->code;
+                        $user->save();
+                    }else if(count($taresult)>0){
+                        $user->username = $credentials['email'];
+                        $user->role_id = '0010';
+                        $user->student_id = $sinfo->student->id;
+                        $user->prefix_th = $sinfo->student->prefix->th_TH;
+                        $user->prefix_en = $sinfo->student->prefix->en_US;
+                        $user->firstname_th = $sinfo->student->firstName->th_TH;
+                        $user->firstname_en = $sinfo->student->firstName->en_US;
+                        $user->lastname_th = $sinfo->student->lastName->th_TH;
+                        $user->lastname_en = $sinfo->student->lastName->en_US;
+                        $user->email = $credentials['email'] . '@cmu.ac.th';
+                        $user->faculty_id = $sinfo->student->faculty->code;
+                        $user->save();
+                    }else{
+                        return redirect('/login')->withErrors([
+                            'email' => 'No user in database.',
+                        ]);
+                    }
+                }else{
+                    $sinfo = Itscapi::get_employee_info($credentials['email'] ,$sauth->ticket->access_token);
+
+                    $qresult = DB::select('select * from course_section where teacher_username=?',array($credentials['email']));
+                    if(count($qresult) > 0 ){
+                        $user = new User;
+                        $user->username = $credentials['email'];
+                        $user->role_id = '0100';
+                        $user->student_id = '';
+                        $user->prefix_th = $sinfo->employee->prefix->th_TH;
+                        $user->prefix_en = $sinfo->employee->prefix->en_US;
+                        $user->firstname_th = $sinfo->employee->firstName->th_TH;
+                        $user->firstname_en = $sinfo->employee->firstName->en_US;
+                        $user->lastname_th = $sinfo->employee->lastName->th_TH;
+                        $user->lastname_en = $sinfo->employee->lastName->en_US;
+                        $user->email = $credentials['email'] . '@cmu.ac.th';
+                        $user->faculty_id = $sinfo->employee->organization->code;
+                        $user->save();
+                    }else{
+                        return redirect('/login')->withErrors([
+                            'email' => 'No user in database.',
+                        ]);
+                    }
                 }
 
             }
 
+            if($query->first()->role_id[0] == '1' && ($query->first()->firstname_en == '' || $query->first()->username == null)){
+                $admin = $query->first();
+
+                $admin_info = Itscapi::get_employee_info($credentials['email'] ,$sauth->ticket->access_token);
+
+                $admin->student_id = '';
+                $admin->prefix_th = $admin_info->employee->prefix->th_TH;
+                $admin->prefix_en = $admin_info->employee->prefix->en_US;
+                $admin->firstname_th = $admin_info->employee->firstName->th_TH;
+                $admin->firstname_en = $admin_info->employee->firstName->en_US;
+                $admin->lastname_th = $admin_info->employee->lastName->th_TH;
+                $admin->lastname_en = $admin_info->employee->lastName->en_US;
+                $admin->email = $credentials['email'] . '@cmu.ac.th';
+                $admin->faculty_id = $admin_info->employee->organization->code;
+                $admin->save();
+
+                return $admin;
+            }
             return $query->first();
         }
 
@@ -101,30 +164,6 @@ class CustomUserProvider implements UserProvider {
 //
 //        $user->save();
     }
-
-//    /**
-//     * Retrieve a user by the given credentials.
-//     *
-//     * @param  array  $credentials
-//     * @return \Illuminate\Contracts\Auth\Authenticatable|null
-//     */
-//    public function retrieveByCredentials(array $credentials)
-//    {
-//        // First we will add each credential element to the query as a where clause.
-//        // Then we can execute the query and, if we found a user, return it in a
-//        // Eloquent User "model" that will be utilized by the Guard instances.
-//        $query = $this->createModel()->newQuery();
-//
-//        foreach ($credentials as $key => $value)
-//        {
-//            if ( ! str_contains($key, 'password'))
-//            {
-//                $query->where($key, $value);
-//            }
-//        }
-//
-//        return $query->first();
-//    }
 
     /**
      * Validate a user against the given credentials.
