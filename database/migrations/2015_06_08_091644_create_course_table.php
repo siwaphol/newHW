@@ -28,6 +28,8 @@ class CreateCourseTable extends Migration {
             $table->char('course_id',6);
             $table->char('section',3);
             $table->string('teacher_username',100);
+            $table->char('semester',1);
+            $table->char('year',4);
             $table->timestamps();
         });
 
@@ -38,6 +40,8 @@ class CreateCourseTable extends Migration {
             $table->char('section',3);
             $table->char('student_id',9);
             $table->char('status',1);
+            $table->char('semester',1);
+            $table->char('year',4);
             $table->timestamps();
         });
 
@@ -47,6 +51,8 @@ class CreateCourseTable extends Migration {
             $table->char('course_id',6);
             $table->char('section',3);
             $table->string('ta_username',100);
+            $table->char('semester',1);
+            $table->char('year',4);
             $table->timestamps();
         });
 

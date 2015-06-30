@@ -1,5 +1,5 @@
 
-@extends('app');
+@extends('app')
 @section('content')
 
 <script type="text/javascript">

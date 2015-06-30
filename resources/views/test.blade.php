@@ -1,5 +1,5 @@
 
-@extends('app');
+@extends('app')
 @section('content')
  <?php
     $result=DB::select('select * from students');

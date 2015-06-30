@@ -1,12 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: boonchuay
- * Date: 19/6/2558
- * Time: 10:53
- */
- ?>
-@extends('app');
+@extends('app')
 @section('content')
 <?php
 $sql=DB::select('select * from courses');

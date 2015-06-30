@@ -3,7 +3,7 @@
     $xcrud = Xcrud::get_instance();
     $xcrud->table('courses');
     ?>
-@extends('app');
+@extends('app')
 @section('content')
 
 

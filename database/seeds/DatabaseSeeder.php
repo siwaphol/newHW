@@ -29,11 +29,10 @@ class UsersTableSeeder extends Seeder {
         DB::table('ref_roles')->delete();
         DB::table('faculties')->delete();
 
-        DB::table('users')->insert(['username' => 'siwaphol_boonpan',
+        DB::table('users')->insert([
+            'id' => '000000001',
+            'username' => 'siwaphol_boonpan',
             'role_id' => '0100',
-            'student_id' => '540510828',
-            'prefix_th' => 'นาย',
-            'prefix_en' => 'Mister',
             'firstname_th' => 'ศิวพล',
             'firstname_en' => 'Siwaphol',
             'lastname_th' => 'บุญปั๋น',
@@ -100,34 +99,42 @@ class CoursesTableSeeder extends Seeder
             'created_at' => '2015-06-22 00:00:00',
             'updated_at' => '2015-06-22 00:00:00']);
         DB::table('courses')->insert([
-               'id' => '204211',
-                'name' => 'OOP programming',
-                'detail' => '...',
-                'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00']);
+            'id' => '204211',
+            'name' => 'OOP programming',
+            'detail' => '...',
+            'created_at' => '2015-06-22 00:00:00',
+            'updated_at' => '2015-06-22 00:00:00']);
         DB::table('course_section')->insert([
-                'course_id' => '204111',
-                'section' => '001',
-                'teacher_username' => 'siwaphol_boonpan',
-                'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00']);
+            'course_id' => '204111',
+            'section' => '001',
+            'teacher_username' => 'siwaphol_boonpan',
+            'semester' => '1',
+            'year' => '2558',
+            'created_at' => '2015-06-22 00:00:00',
+            'updated_at' => '2015-06-22 00:00:00']);
         DB::table('course_section')->insert([
-               'course_id' => '204211',
-                'section' => '001',
-                'teacher_username' => 'siwaphol_boonpan',
-                'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00']);
+            'course_id' => '204211',
+            'section' => '001',
+            'teacher_username' => 'siwaphol_boonpan',
+            'semester' => '1',
+            'year' => '2558',
+            'created_at' => '2015-06-22 00:00:00',
+            'updated_at' => '2015-06-22 00:00:00']);
         DB::table('course_student')->insert([
-                'course_id' => '204111',
-                'section' => '001',
-                'student_id' => '540510828',
-                'status' => ' ',
-                'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00']);
+            'course_id' => '204111',
+            'section' => '001',
+            'student_id' => '540510828',
+            'status' => ' ',
+            'semester' => '1',
+            'year' => '2558',
+            'created_at' => '2015-06-22 00:00:00',
+            'updated_at' => '2015-06-22 00:00:00']);
         DB::table('course_ta')->insert([
             'course_id' => '204111',
             'section' => '001',
             'ta_username' => 'siwaphol_boonpan',
+            'semester' => '1',
+            'year' => '2558',
             'created_at' => '2015-06-22 00:00:00',
             'updated_at' => '2015-06-22 00:00:00']);
     }

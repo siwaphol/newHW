@@ -13,8 +13,8 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         @if (!Auth::guest())
-                            <li><a href="{{ url('/') }}">หน้าหลัก</a></li>
-                            <li><a href="{{ url('/info') }}">ข้อมูลส่วนตัว</a></li>
+                            {{--<li><a href="{{ url('/') }}">หน้าหลัก</a></li>--}}
+                            {{--<li><a href="{{ url('/info') }}">ข้อมูลส่วนตัว</a></li>--}}
                             @if (Auth::user()->role_id == "0001")
                                 @if(Auth::user()->courses()->count()> 0)
                                     <li class="dropdown">

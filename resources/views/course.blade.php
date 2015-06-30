@@ -1,9 +1,7 @@
-
-@extends('app');
+@extends('app')
 @section('content')
 <?php
 
-//echo var_dump($model);
 $i=1;
 ?>
 <div class="container">

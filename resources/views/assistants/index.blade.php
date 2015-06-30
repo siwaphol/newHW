@@ -6,7 +6,7 @@
  * Time: 20:23
  */
 ?>
-@extends('app');
+@extends('app')
 @section('content')
 
 <script type="text/javascript">

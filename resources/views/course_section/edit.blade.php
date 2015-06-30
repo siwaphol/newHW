@@ -6,7 +6,7 @@
  * Time: 10:53
  */
  ?>
-@extends('app');
+@extends('app')
 @section('content')
 <?php
 
