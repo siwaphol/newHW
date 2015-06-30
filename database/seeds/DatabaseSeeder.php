@@ -31,13 +31,37 @@ class UsersTableSeeder extends Seeder {
 
         DB::table('users')->insert([
             'id' => '000000001',
-            'username' => 'siwaphol_boonpan',
+            'username' => 'manee_meejai',
             'role_id' => '0100',
-            'firstname_th' => 'ศิวพล',
-            'firstname_en' => 'Siwaphol',
-            'lastname_th' => 'บุญปั๋น',
-            'lastname_en' => 'Boonpan',
-            'email' => 'siwaphol_boonpan@gmail.com',
+            'firstname_th' => 'มานี',
+            'firstname_en' => 'Manee',
+            'lastname_th' => 'มีใจ',
+            'lastname_en' => 'Meejai',
+            'email' => 'manee_meejai@cmu.ac.th',
+            'faculty_id' => '05',
+            'created_at' => '2015-06-22 00:00:00',
+            'updated_at' => '2015-06-22 00:00:00']);
+        DB::table('users')->insert([
+            'id' => '540510828',
+            'username' => 'tamee_tasa',
+            'role_id' => '0001',
+            'firstname_th' => 'ตามี',
+            'firstname_en' => 'Tamee',
+            'lastname_th' => 'ตาสา',
+            'lastname_en' => 'Tasa',
+            'email' => 'tamee_tasa@cmu.ac.th',
+            'faculty_id' => '05',
+            'created_at' => '2015-06-22 00:00:00',
+            'updated_at' => '2015-06-22 00:00:00']);
+        DB::table('users')->insert([
+            'id' => '000000002',
+            'username' => 'tanom_kongjai',
+            'role_id' => '1000',
+            'firstname_th' => 'ถนอม',
+            'firstname_en' => 'Tanom',
+            'lastname_th' => 'กองใจ',
+            'lastname_en' => 'Kongjai',
+            'email' => 'tanom_kongjai@cmu.ac.th',
             'faculty_id' => '05',
             'created_at' => '2015-06-22 00:00:00',
             'updated_at' => '2015-06-22 00:00:00']);
@@ -107,7 +131,7 @@ class CoursesTableSeeder extends Seeder
         DB::table('course_section')->insert([
             'course_id' => '204111',
             'section' => '001',
-            'teacher_username' => 'siwaphol_boonpan',
+            'teacher_id' => '000000001',
             'semester' => '1',
             'year' => '2558',
             'created_at' => '2015-06-22 00:00:00',
@@ -115,7 +139,7 @@ class CoursesTableSeeder extends Seeder
         DB::table('course_section')->insert([
             'course_id' => '204211',
             'section' => '001',
-            'teacher_username' => 'siwaphol_boonpan',
+            'teacher_id' => '000000001',
             'semester' => '1',
             'year' => '2558',
             'created_at' => '2015-06-22 00:00:00',
@@ -132,7 +156,7 @@ class CoursesTableSeeder extends Seeder
         DB::table('course_ta')->insert([
             'course_id' => '204111',
             'section' => '001',
-            'ta_username' => 'siwaphol_boonpan',
+            'student_id' => '540510828',
             'semester' => '1',
             'year' => '2558',
             'created_at' => '2015-06-22 00:00:00',
@@ -149,28 +173,28 @@ class HomeworkTableSeeder extends Seeder
         DB::table('homework_types')->delete();
 
         DB::table('homework')->insert([
-                'course_id' => '204111',
-                'section' => '001',
-                'name' => 'lab01_[0-9]{9}',
-                'type_id' => 'word',
-                'detail' => 'Homework description goes here.',
-                'sub_folder' => './lab01/',
-                'assign_date' => '2015-06-26 00:00:00',
-                'due_date' => '2015-06-30 00:00:00',
-                'accept_date' => '2015-07-01 00:00:00',
-                'created_by' => 'siwaphol_boonpan',
-                'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00']);
+            'course_id' => '204111',
+            'section' => '001',
+            'name' => 'lab01_[0-9]{9}',
+            'type_id' => 'word',
+            'detail' => 'Homework description goes here.',
+            'sub_folder' => './lab01/',
+            'assign_date' => '2015-06-26 00:00:00',
+            'due_date' => '2015-06-30 00:00:00',
+            'accept_date' => '2015-07-01 00:00:00',
+            'created_by' => 'siwaphol_boonpan',
+            'created_at' => '2015-06-22 00:00:00',
+            'updated_at' => '2015-06-22 00:00:00']);
 
         DB::table('homework_student')->insert([
-                'course_id' => '204111',
-                'section' => '001',
-                'homework_name' => 'lab01_540510828.doc',
-                'student_id' => '540510828',
-                'status' => '1',
-                'submitted_at' => '2015-06-26 00:00:00',
-                'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00']);
+            'course_id' => '204111',
+            'section' => '001',
+            'homework_name' => 'lab01_540510828.doc',
+            'student_id' => '540510828',
+            'status' => '1',
+            'submitted_at' => '2015-06-26 00:00:00',
+            'created_at' => '2015-06-22 00:00:00',
+            'updated_at' => '2015-06-22 00:00:00']);
 
         DB::table('homework_types')->insert(
             ['id' => 'word',
@@ -178,13 +202,13 @@ class HomeworkTableSeeder extends Seeder
             'created_at' => '2015-06-22 00:00:00',
             'updated_at' => '2015-06-22 00:00:00']);
         DB::table('homework_types')->insert(['id' => 'excel',
-                'extension' => 'xls,xlsx',
-                'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00']);
+            'extension' => 'xls,xlsx',
+            'created_at' => '2015-06-22 00:00:00',
+            'updated_at' => '2015-06-22 00:00:00']);
         DB::table('homework_types')->insert(['id' => 'c',
-                'extension' => 'c,cpp',
-                'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00']);
+            'extension' => 'c,cpp',
+            'created_at' => '2015-06-22 00:00:00',
+            'updated_at' => '2015-06-22 00:00:00']);
     }
 }
 
