@@ -8,6 +8,7 @@ use App\Teachers;
 use Carbon\Carbon;
 use Response;
 use View;
+use DB;
 
 
 class TeachersController extends Controller {
@@ -19,7 +20,7 @@ class TeachersController extends Controller {
 	 */
 	public function index()
 	{
-		$teachers = Teachers::latest()->get();
+		$teachers =DB::select('select * from users where role_id=0100');
 		return view('teachers.index', compact('teachers'));
 	}
 

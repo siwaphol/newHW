@@ -17,7 +17,7 @@ class Course_SectionController extends Controller
                               ,t.lastname_th as lastname
                               ,co.name as coursename
                               from course_section cs
-                              left join users t on cs.teacher_username=t.username
+                              left join users t on cs.teacher_id=t.id
                               left join courses co on cs.course_id=co.id
                               WHERE  t.role_id=0100
                               order by cs.course_id,cs.section
@@ -39,9 +39,9 @@ class Course_SectionController extends Controller
                               ,t.firstname_th as firstname
                               ,t.lastname_th as lastname
                               ,co.name as coursename
-                              ,cs.teacher_username as teacherid
+                              ,cs.teacher_id as teacherid
                               from course_section cs
-                              left join users t on cs.teacher_username=t.username
+                              left join users t on cs.teacher_id=t.id
                               left join courses co on cs.course_id=co.id
                               where cs.course_id=? and cs.section=?
                               ', array($courseid, $sectionid));
@@ -55,7 +55,7 @@ class Course_SectionController extends Controller
         $courseid = $_POST['courseid'];
         $sectionid =$_POST['sectionid'];
         $teacherid =$_POST['teacherid'];
-        $course = DB::update('update course_section set course_id=?,section=?,teacher_username=? where course_id=? and section=?', array($courseid, $sectionid, $teacherid, $courseid, $sectionid));
+        $course = DB::update('update course_section set course_id=?,section=?,teacher_id=? where course_id=? and section=?', array($courseid, $sectionid, $teacherid, $courseid, $sectionid));
         return redirect('course_section');
     }
 
@@ -68,7 +68,7 @@ class Course_SectionController extends Controller
          $courseid = $_POST['courseid'];
         $sectionid = $_POST['sectionid'];
         $teacherid = $_POST['teacherid'];
-        $Course = DB::insert('insert into course_section(course_id,section,teacher_username)VALUES (?,?,?)', array($courseid, $sectionid, $teacherid));
+        $Course = DB::insert('insert into course_section(course_id,section,teacher_id)VALUES (?,?,?)', array($courseid, $sectionid, $teacherid));
 
         return redirect('course_section');
     }

@@ -27,8 +27,10 @@ class AssistantsController extends Controller {
 	 * @return Response
 	 */
 	public function create()
-	{
-		return view('assistants.create');
+	{   $course = $_GET['course'];
+        $sec = $_GET['sec'];
+
+		return view('assistants.create')->with('cosec',array('course'=>$course,'sec'=>$sec));
 	}
 
 	/**

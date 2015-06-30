@@ -10,20 +10,20 @@
                     <div class="panel-body">
                         <hr/>
 
-                        {{ Form::open(['url' => 'teachers/create/save']) }}
+                        {!! Form::open(['url' => 'teachers/create/save']) !!}
                         
                         <div class="form-group">
-                        {{ Form::label('id', 'Id: ') }}
-                        {{ Form::text('id', null, ['class' => 'form-control']) }}
+                        {!! Form::label('id', 'Id: ') !!}
+                        {!! Form::text('id', null, ['class' => 'form-control']) !!}
                     </div><div class="form-group">
-                        {{ Form::label('teacherName', 'Teachername: ') }}
-                        {{ Form::text('teacherName', null, ['class' => 'form-control']) }}
+                        {!! Form::label('teacherName', 'Teachername: ') !!}
+                        {!! Form::text('teacherName', null, ['class' => 'form-control']) !!}
                     </div>
 
                         <div class="form-group">
-                            {{ Form::submit('เพิ่ม', ['class' => 'btn btn-primary form-control']) }}
+                            {!! Form::submit('เพิ่ม', ['class' => 'btn btn-primary form-control']) !!}
                         </div>
-                        {{ Form::close() }}
+                        {!! Form::close() !!}
 
                         @if ($errors->any())
                             <ul class="alert alert-danger">
