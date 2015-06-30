@@ -918,21 +918,30 @@ if ($options['general']['give_kudos']) {
 <script type="text/javascript" src="{{ asset('/js/listr.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/bootstrap-dialog.js') }}"></script>
 
-<div id="modal" class="hidden"><form class="form-horizontal" role="form"><div class="form-group">
-    <label class="control-label col-sm-2" for="email">Section</label>
-    <div class="col-sm-4">
+<div id="modal" class="hidden"><form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="section">Section</label>
+    <div class="col-sm-8">
       <input type="text" class="form-control" id="section" placeholder="Enter course section (blank for all)">
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-2" for="pwd">Name</label>
-    <div class="col-sm-4">
+    <label class="control-label col-sm-2" for="homeworkname">Name</label>
+    <div class="col-sm-8">
       <input type="text" class="form-control" id="homeworkname" placeholder="Enter homework name">
     </div>
   </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="filetype">Type</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="filetype" placeholder="Choose file type">
+      </div>
+    </div>
   <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">ตกลง</button>
+    <label class="control-label col-sm-2" for="filedetail">Detail</label>
+    <div class="col-sm-8">
+      {{--<input type="text" class="form-control" id="filedetail" placeholder="Enter file detail">--}}
+      <textarea style="resize:none" class="form-control" id="filedetail" rows="3" placeholder="Enter file detail" required></textarea>
     </div>
   </div>
 </form>
