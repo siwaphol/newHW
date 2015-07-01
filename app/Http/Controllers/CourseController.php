@@ -55,7 +55,7 @@ class CourseController extends Controller {
     {
         $input = $request->all();
 
-        if(count(Course::find($input['course_id']))){
+        if(count(Course::find($input['course_id'])) > 0){
             return redirect('/course/create')->withErrors([
                 'duplicate' => 'รหัสวิชาซ้ำ',
             ]);

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class DatabaseSeeder extends Seeder {
 
@@ -29,31 +30,37 @@ class UsersTableSeeder extends Seeder {
         DB::table('ref_roles')->delete();
         DB::table('faculties')->delete();
 
-        DB::table('users')->insert([
+        User::create([
             'id' => '000000001',
-            'username' => 'manee_meejai',
+            'username' => 'kanokkorn_tumma',
             'role_id' => '0100',
-            'firstname_th' => 'มานี',
-            'firstname_en' => 'Manee',
-            'lastname_th' => 'มีใจ',
-            'lastname_en' => 'Meejai',
-            'email' => 'manee_meejai@cmu.ac.th',
-            'faculty_id' => '05',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
-        DB::table('users')->insert([
+            'firstname_th' => 'กนกกร',
+            'firstname_en' => 'Kanokkorn',
+            'lastname_th' => 'ธรรมมา',
+            'lastname_en' => 'Tumma',
+            'email' => 'kanokkorn_tumma@cmu.ac.th',
+            'faculty_id' => '05']);
+        User::create([
             'id' => '540510828',
-            'username' => 'tamee_tasa',
+            'username' => 'siwaphol_boonpan',
+            'role_id' => '0011',
+            'firstname_th' => 'ศิวพล',
+            'firstname_en' => 'Siwaphol',
+            'lastname_th' => 'บุญปั๋น',
+            'lastname_en' => 'Boonpan',
+            'email' => 'siwaphol_boonpan@cmu.ac.th',
+            'faculty_id' => '05']);
+        User::create([
+            'id' => '540510795',
+            'username' => 'boonchuay_ruk',
             'role_id' => '0001',
-            'firstname_th' => 'ตามี',
-            'firstname_en' => 'Tamee',
-            'lastname_th' => 'ตาสา',
-            'lastname_en' => 'Tasa',
-            'email' => 'tamee_tasa@cmu.ac.th',
-            'faculty_id' => '05',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
-        DB::table('users')->insert([
+            'firstname_th' => 'เจม',
+            'firstname_en' => 'Jame',
+            'lastname_th' => 'บุญช่วย',
+            'lastname_en' => 'Boonchuay',
+            'email' => 'boonchuay_ruk@cmu.ac.th',
+            'faculty_id' => '05']);
+        User::create([
             'id' => '000000002',
             'username' => 'tanom_kongjai',
             'role_id' => '1000',
@@ -62,9 +69,55 @@ class UsersTableSeeder extends Seeder {
             'lastname_th' => 'กองใจ',
             'lastname_en' => 'Kongjai',
             'email' => 'tanom_kongjai@cmu.ac.th',
-            'faculty_id' => '05',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'faculty_id' => '05']);
+//        DB::table('users')->insert([
+//            'id' => '000000001',
+//            'username' => 'kanokkorn_tumma',
+//            'role_id' => '0100',
+//            'firstname_th' => 'กนกกร',
+//            'firstname_en' => 'Kanokkorn',
+//            'lastname_th' => 'ธรรมมา',
+//            'lastname_en' => 'Tumma',
+//            'email' => 'kanokkorn_tumma@cmu.ac.th',
+//            'faculty_id' => '05',
+//            'created_at' => '2015-06-22 00:00:00',
+//            'updated_at' => '2015-06-22 00:00:00']);
+//        DB::table('users')->insert([
+//            'id' => '540510828',
+//            'username' => 'siwaphol_boonpan',
+//            'role_id' => '0011',
+//            'firstname_th' => 'ศิวพล',
+//            'firstname_en' => 'Siwaphol',
+//            'lastname_th' => 'บุญปั๋น',
+//            'lastname_en' => 'Boonpan',
+//            'email' => 'siwaphol_boonpan@cmu.ac.th',
+//            'faculty_id' => '05',
+//            'created_at' => '2015-06-22 00:00:00',
+//            'updated_at' => '2015-06-22 00:00:00']);
+//        DB::table('users')->insert([
+//            'id' => '540510795',
+//            'username' => 'boonchuay_ruk',
+//            'role_id' => '0001',
+//            'firstname_th' => 'เจม',
+//            'firstname_en' => 'Jame',
+//            'lastname_th' => 'บุญช่วย',
+//            'lastname_en' => 'Boonchuay',
+//            'email' => 'boonchuay_ruk@cmu.ac.th',
+//            'faculty_id' => '05',
+//            'created_at' => '2015-06-22 00:00:00',
+//            'updated_at' => '2015-06-22 00:00:00']);
+//        DB::table('users')->insert([
+//            'id' => '000000002',
+//            'username' => 'tanom_kongjai',
+//            'role_id' => '1000',
+//            'firstname_th' => 'ถนอม',
+//            'firstname_en' => 'Tanom',
+//            'lastname_th' => 'กองใจ',
+//            'lastname_en' => 'Kongjai',
+//            'email' => 'tanom_kongjai@cmu.ac.th',
+//            'faculty_id' => '05',
+//            'created_at' => '2015-06-22 00:00:00',
+//            'updated_at' => '2015-06-22 00:00:00']);
 
         DB::table('ref_roles')->insert(
             [            'id' => '0000',
@@ -148,6 +201,15 @@ class CoursesTableSeeder extends Seeder
             'course_id' => '204111',
             'section' => '001',
             'student_id' => '540510828',
+            'status' => ' ',
+            'semester' => '1',
+            'year' => '2558',
+            'created_at' => '2015-06-22 00:00:00',
+            'updated_at' => '2015-06-22 00:00:00']);
+        DB::table('course_student')->insert([
+            'course_id' => '204111',
+            'section' => '001',
+            'student_id' => '540510795',
             'status' => ' ',
             'semester' => '1',
             'year' => '2558',
