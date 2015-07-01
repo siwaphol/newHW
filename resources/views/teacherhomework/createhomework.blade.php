@@ -280,7 +280,7 @@ $folder_path = explode( "/", $navigation_dir);
 foreach($object1 as $obj){
     $item['name']          =     $obj->name;
     $item['lname']         =     strtolower($item['name'] );
-    $item['bname']         =     $obj->name . "." .  $obj->type;
+    $item['bname']         =     $obj->name . " (" .  $obj->type_id . ")";
     $item['lbname']        =     strtolower($item['bname'] );
     $item['ext']            = $obj->type;
     $item['lext']           = strtolower($item['ext']);
@@ -623,8 +623,8 @@ if(($folder_list) || ($file_list) ) {
                 $tr_links = null;
             }
 
-            //$table_body .= "<a href=\"" . htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8') . "/\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
-            $table_body .= "<a href=\"" . 'testfolder' . "/\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
+            $table_body .= "<a href=\"" . htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8') . "/\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
+            //$table_body .= "<a href=\"" . 'testfolder' . "/\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
 
             if ($table_options['size']) {
                 $table_body .= "            <td";
@@ -784,8 +784,8 @@ if(($folder_list) || ($file_list) ) {
                 $file_attr = null;
             }
 
-            //$table_body .= "<a href=\"" . htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8') . "\"$file_attr$file_data$virtual_attr$modified_attr>" . utf8ify($display_name) . "</a></td>" . PHP_EOL;
-            $table_body .= "<a href=\"" . 'test' . "\"$file_attr$file_data$virtual_attr$modified_attr>" . utf8ify($display_name) . "</a></td>" . PHP_EOL;
+            $table_body .= "<a href=\"" . htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8') . "\"$file_attr$file_data$virtual_attr$modified_attr>" . utf8ify($display_name) . "</a></td>" . PHP_EOL;
+            //$table_body .= "<a href=\"" . 'testfile' . "\"$file_attr$file_data$virtual_attr$modified_attr>" . utf8ify($display_name) . "</a></td>" . PHP_EOL;
 
             // Size
             if ($table_options['size']) {
