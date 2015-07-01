@@ -36,9 +36,11 @@ function onSubmitMain() {
 
     $intRows = 0;
     $objQuery=array();
-    $teacher=Auth::user()->name;
+    $teacher=Auth::user()->username;
     if(Auth::user()->role_id=='0100'){
-    $objQuery =DB::select('SELECT section,course_id FROM course_section  where teacher_username=? ORDER BY section ASC ',array($teacher));
+    $objQuery =DB::select('SELECT section,course_id FROM course_section cs
+                            left join users  tea on cs.teacher_id=tea.id
+                            where tea.username=? ORDER BY section ASC ',array($teacher));
     }
     if(Auth::user()->role_id=='1000'){
         $objQuery =DB::select('SELECT section,course_id FROM course_section  ORDER BY section ASC ');
@@ -81,10 +83,12 @@ function onSubmitMain() {
 					<select id="ddlCourse" name="ddlCourse" onChange = "ListSection(this.value)" class="form-control">
 						<option selected value="">เลือกวิชา</option>
 						<?php
-						$teacher=Auth::user()->name;
+						$teacher=Auth::user()->username;
                         $sql=array();
                         if(Auth::user()->role_id=='0100'){
-                        $sql=DB::select('select * from course_section where teacher_username=?',array($teacher));
+                        $sql=DB::select('SELECT * FROM course_section cs
+                                                                     left join users  tea on cs.teacher_id=tea.id
+                                                                     where tea.username=? ORDER BY section ASC ',array($teacher));
                         }
                         if(Auth::user()->role_id=='1000'){
 						$sql=DB::select('select * from course_section');

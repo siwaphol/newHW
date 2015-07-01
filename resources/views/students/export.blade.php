@@ -16,8 +16,8 @@ require_once '../Classes/PHPExcel.php';
 // Create new PHPExcel object
 $objPHPExcel = new PHPExcel();
 $result =DB::select('SELECT re.student_id,st.firstname_th,st.lastname_th,st.email FROM users st
-          left join course_student re on st.student_id=re.student_id
-          where st.role_id=0001 and re.course_id=? and re.section=?',array($course['co'],$course['sec']));
+          left join course_student re on st.id=re.student_id
+          where  re.course_id=? and re.section=?',array($course['co'],$course['sec']));
 
 $count=count($result);
 

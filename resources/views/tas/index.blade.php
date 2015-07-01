@@ -20,7 +20,7 @@
                                 @foreach($tas as $item)
                                     {{-- */$x++;/* --}}
                                     <tr>
-                                        <td>{{ $x }}</td><td><a href="{{ url('/ta/show', $item->student_id) }}">{{ $item->firstname_th." ".$item->lastname_th }}</a></td><td><a href="{{ url('/ta/'.$item->student_id.'/edit') }}">Edit</a> / {{ Form::open(['method'=>'delete','action'=>array('TasController@destroy',$item->student_id)]) }}<button type="submit" class="btn btn-link">Delete</button>{{ Form::close() }}</td>
+                                        <td>{{ $x }}</td><td><a href="{{ url('/ta/show', $item->id) }}">{{ $item->firstname_th." ".$item->lastname_th }}</a></td><td><a href="{{ url('/ta/'.$item->id.'/edit') }}">Edit</a> / {!! Form::open(['method'=>'delete','action'=>array('TasController@destroy',$item->id)]) !!}<button type="submit" class="btn btn-link">Delete</button>{!! Form::close() !!}</td>
                                     </tr>
                                 @endforeach
                             </table>
