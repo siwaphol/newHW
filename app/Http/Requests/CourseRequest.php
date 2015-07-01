@@ -16,11 +16,11 @@ class CourseRequest extends Request {
 		return true;
 	}
 
-    protected function formatErrors(Validator $validator)
-    {
-        dd($validator);
-        return $validator->errors()->getMessages();
-    }
+//    protected function formatErrors(Validator $validator)
+//    {
+//        dd($validator);
+//        return $validator->errors()->getMessages();
+//    }
 	/**
 	 * Get the validation rules that apply to the request.
 	 *
