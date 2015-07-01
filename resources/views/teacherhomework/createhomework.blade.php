@@ -821,11 +821,6 @@ if(($folder_list) || ($file_list) ) {
         $table_body .= "          </tr>" . PHP_EOL;
 }
 
-// Give kudos
-if ($options['general']['give_kudos']) {
-    $kudos = "<a class=\"pull-".$right." small text-muted\" href=\"https://github.com/idleberg/Bootstrap-Listr\" title=\"Bootstrap Listr on GitHub\" target=\"_blank\">"._('Fork me on GitHub')."</a>" . PHP_EOL;
-}
-
 //require_once(app_path() . '/includes/listr/listr-template.php');
 ?>
 
