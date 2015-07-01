@@ -41,8 +41,21 @@ class TeachersController extends Controller {
 	 */
 	public function store(Formteachers $request)
 	{
+        $findid=DB::select('select max(id) as maxid from users where role_id=1000 or role_id=0100');
+
+        $id=intval($findid[0]->maxid);
+        $id+=1;
+
+        $username=$request->get('username');
+        $firstname_th=$request->get('firstname_th');
+        $firstname_en=$request->get('firstname_en');
+        $lastname_th=$request->get('lastname_th');
+        $lastname_en=$request->get('lastname_en');
+        $email=$request->get('email');
+
+        $teacher=DB::insert('insert into users (id,username,role_id,firstname_th,firstname_en,lastname_th,lastname_en,email)values(?,?,0100,?,?,?,?,?)',array($id,$username,$firstname_th,$firstname_en,$lastname_th,$lastname_en,$email));
 		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
-		Teachers::create($request->all());
+		//Teachers::create($request->all());
 		return redirect('teachers');
 	}
 

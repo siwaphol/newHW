@@ -13,11 +13,27 @@
                         {!! Form::open(['url' => 'teachers/create/save']) !!}
                         
                         <div class="form-group">
-                        {!! Form::label('id', 'Id: ') !!}
-                        {!! Form::text('id', null, ['class' => 'form-control']) !!}
+                        {!! Form::label('username', 'username: ') !!}
+                        {!! Form::text('username', null, ['class' => 'form-control']) !!}
                     </div><div class="form-group">
-                        {!! Form::label('teacherName', 'Teachername: ') !!}
-                        {!! Form::text('teacherName', null, ['class' => 'form-control']) !!}
+                        {!! Form::label('firstname_th', 'firstname_th: ') !!}
+                        {!! Form::text('firstname_th', null, ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('firstname_en', 'firstname_en: ') !!}
+                        {!! Form::text('firstname_en', null, ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('lastname_th', 'lastname_th: ') !!}
+                        {!! Form::text('lastname_th', null, ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('lastname_en', 'lastname_en: ') !!}
+                        {!! Form::text('lastname_en', null, ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('email', 'email: ') !!}
+                        {!! Form::text('email', null, ['class' => 'form-control']) !!}
                     </div>
 
                         <div class="form-group">
