@@ -60,15 +60,13 @@ function onSubmitMain() {
                     <div class="panel-heading" align="center">เพิ่มนักศึกษาช่วยสอน</div>
 
                     <div class="panel-body">
-                        <h4 align="center">กระบวนวิชา {{$cosec['course']}} ตอน {{$cosec['sec']}}</h4>
+
                         <hr/>
 
                         <!--{!! Form::open(['url' => 'assistants/create/save']) !!}
                         -->
                         <form action="create/save" method="post" name="frmMain" id="frmMain" onsubmit="return onSubmitMain()" class="form-horizontal"  align="center">
-                       <!--
                         <div class="form-group">
-
                         {!! Form::label('courseId', 'กระบวนวิชา ') !!}
                         <select id="courseId" name="courseId" onChange = "ListSection(this.value)" class="form-control">
                         						<option selected value="">เลือกวิชา</option>
@@ -89,11 +87,7 @@ function onSubmitMain() {
                    <select id="sectionId" name="sectionId" class="form-control">
                    						<option selected value="">เลือกตอน</option>
                    					</select>
-                    </div>
-                    -->
-                    <input type="hidden" name="courseId" value="{{$cosec['course']}}">
-                    <input type="hidden" name="sectionId" value="{{$cosec['sec']}}">
-                    <div class="form-group">
+                    </div><div class="form-group">
                     {!! Form::label('taId', 'นักศึกษาช่วยสอน ') !!}
                       <input type="text" name="taId" class="form-control" >
                     </div>

@@ -17,7 +17,7 @@ class TasController extends Controller {
 	 */
 	public function index()
 	{
-        $tas =DB::select('select * from users where role_id=0011');
+        $tas =DB::select('select * from users where (role_id=0011 or role_id=0010)');
 		return view('tas.index', compact('tas'));
 	}
 

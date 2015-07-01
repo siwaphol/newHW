@@ -4,7 +4,7 @@
 <?php
 $student=DB::select('select re.student_id as studentid,stu.firstname_th as firstname_th,stu.lastname_th as lastname_th
                       from course_student  re
-                      left join users stu on re.student_id=stu.student_id
+                      left join users stu on re.student_id=stu.id
                       where re.course_id=? and  re.section=?',array($course['co'],$course['sec']));
 $count=count($student);
 ?>

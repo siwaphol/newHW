@@ -27,8 +27,10 @@ class AssistantsController extends Controller {
 	 * @return Response
 	 */
 	public function create()
-	{
-		return view('assistants.create');
+	{   $course = $_GET['course'];
+        $sec = $_GET['sec'];
+
+		return view('assistants.create')->with('cosec',array('course'=>$course,'sec'=>$sec));
 	}
 
 	/**
@@ -40,10 +42,8 @@ class AssistantsController extends Controller {
 	{
         $course=$_POST['courseId'];
         $sec=$_POST['sectionId'];
-        $ta_username=$_POST['taId'];
-        $result=DB::insert('insert into course_ta');
-		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
-		Assistants::create($request->all());
+        $ta_id=$_POST['taId'];
+        $result=DB::insert('insert into course_ta (course_id,section,student_id)values(?,?,?)',array($course,$sec,$ta_id));
 		return redirect('assistants');
 	}
 
@@ -55,9 +55,9 @@ class AssistantsController extends Controller {
 	 */
 	public function show($id)
 	{
-        $assistant=DB::select('select ta.student_id as student_id, ta.username as tausername,ta.firstname_th as firstname,ta.lastname_th as lastname ,ass.course_id as courseid,ass.section as sectionid
+        $assistant=DB::select('select ta.id as student_id, ta.username as tausername,ta.firstname_th as firstname,ta.lastname_th as lastname ,ass.course_id as courseid,ass.section as sectionid
                                 from course_ta ass
-                                left join users ta on ass.ta_username=ta.username
+                                left join users ta on ass.student_id=ta.id
                                  where ta.username=?',array($id));
 		//$assistant = Assistants::findOrFail($id);
 		return view('assistants.show')->with('assistant',$assistant);
@@ -76,12 +76,12 @@ class AssistantsController extends Controller {
         $ta_username=$_GET['username'];
         $assistant=DB::select('select st.course_id as course_id
                                 ,st.section as section
-                                ,ta.student_id as student_id
+                                ,ta.id as student_id
                                 ,ta.firstname_th as firstname
                                 ,ta.lastname_th as lastname
                                 from course_ta st
-                                left join users ta on st.ta_username=ta.username
-                                where st.course_id=? and st.section=? and st.ta_username=?',array($course,$sec,$ta_username));
+                                left join users ta on st.student_id=ta.id
+                                where st.course_id=? and st.section=? and ta.username=?',array($course,$sec,$ta_username));
 		//$assistant = Assistants::findOrFail($id);
 		return view('assistants.edit', compact('assistant'));
 	}
@@ -113,8 +113,8 @@ class AssistantsController extends Controller {
 	{
         $course=$_GET['course'];
         $sec=$_GET['sec'];
-        $ta_username=$_GET['username'];
-		$result=DB::delete('delete from course_ta where course_id=? and section=? and ta_username=?',array($course,$sec,$ta_username));
+        $ta_id=$_GET['id'];
+		$result=DB::delete('delete from course_ta where course_id=? and section=? and student_id=?',array($course,$sec,$ta_id));
 		return redirect('assistants');
 	}
     public function showlist()

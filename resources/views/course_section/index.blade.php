@@ -34,6 +34,7 @@ $i=1;
 
             </tr>
         </thead>
+
         @foreach($result as $key)
         <tbody>
             <tr>
