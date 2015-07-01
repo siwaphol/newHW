@@ -13,9 +13,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         @if (!Auth::guest())
-                            {{--<li><a href="{{ url('/') }}">หน้าหลัก</a></li>--}}
-                            {{--<li><a href="{{ url('/info') }}">ข้อมูลส่วนตัว</a></li>--}}
-                            @if (Auth::user()->role_id == "0001")
+                            @if (Auth::user()->isStudent())
                                 @if(Auth::user()->courses()->count()> 0)
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">กระบวนวิชา<span class="caret"></span></a>
@@ -26,54 +24,8 @@
                                         </ul>
                                     </li>
                                 @endif
-                            @else
-                                @if (Auth::user()->role_id != "0010")
-                                    @if (Auth::user()->role_id == "1000")
-                                         <li class="dropdown">
-                                              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">จัดการผู้ใช้<span class="caret"></span></a>
-                                                    <ul class="dropdown-menu" role="menu">
-                                                         <li><a href="{{url('students')}}">นักศึกษา</a></li>
-                                                         <li><a href="{{url('ta')}}">นักศึกษาช่วยสอน</a></li>
-                                                         <li><a href="{{url('teachers')}}">อาจารย์ผู้สอน</a></li>
-                                                         <li><a href="{{url('admin')}}">ผู้ดูแลระบบ</a></li>
-                                                    </ul>
-                                          </li>
-                                        <li><a href="{{url('course')}}">จัดการกระบวนวิชา</a></li>
-                                        <li><a href="{{url('course_section')}}">จัดการตอน</a></li>
-                                         <li class="dropdown">
-                                               <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">นำเข้าข้อมูลนักศึกษา<span class="caret"></span></a>
-                                                     <ul class="dropdown-menu" role="menu">
-                                                          <li><a href="{{url('students/manualimport')}}">ใช้ไฟล์</a></li>
-                                                          <li><a href="{{url('students/import')}}">semiauto</a></li>
-                                                          <li><a href="{{url('students/autoimport')}}">auto</a></li>
-
-                                                     </ul>
-                                          </li>
-                                    @endif
-                                    @if(Auth::user()->role_id == "0100")
-                                    <li><a href="{{url('students')}}">รายชื่อนักศึกษา</a></li>
-                                    @endif
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">จัดการการบ้าน<span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">กระบวนวิชาที่1</a></li>
-                                            <li><a href="#">กระบวนวิชาที่2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="{{url('assistants')}}">เพิ่ม TA</a></li>
-                                   <!--
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">เพิ่ม TA<span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">กระบวนวิชาที่1</a></li>
-                                            <li><a href="#">กระบวนวิชาที่2</a></li>
-                                        </ul>
-                                    </li>
-                                    -->
-                                @endif
-                                {{--@if (Auth::user()->role == "ta")--}}
-
-                                {{--@endif--}}
+                            @endif
+                            @if (Auth::user()->isTa() || Auth::user()->isTeacher() || Auth::user()->isAdmin())
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">สรุปผลการบ้าน<span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
@@ -81,6 +33,39 @@
                                         <li><a href="#">กระบวนวิชาที่2</a></li>
                                     </ul>
                                 </li>
+                            @endif
+                            @if (Auth::user()->isAdmin())
+                                 <li class="dropdown">
+                                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">จัดการผู้ใช้<span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                         <li><a href="{{url('students')}}">นักศึกษา</a></li>
+                                         <li><a href="{{url('ta')}}">นักศึกษาช่วยสอน</a></li>
+                                         <li><a href="{{url('teachers')}}">อาจารย์ผู้สอน</a></li>
+                                         <li><a href="{{url('admin')}}">ผู้ดูแลระบบ</a></li>
+                                    </ul>
+                                  </li>
+                                <li><a href="{{url('course')}}">จัดการกระบวนวิชา</a></li>
+                                <li><a href="{{url('course_section')}}">จัดการตอน</a></li>
+                                 <li class="dropdown">
+                                       <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">นำเข้าข้อมูลนักศึกษา<span class="caret"></span></a>
+                                             <ul class="dropdown-menu" role="menu">
+                                                  <li><a href="{{url('students/manualimport')}}">ใช้ไฟล์</a></li>
+                                                  <li><a href="{{url('students/import')}}">semiauto</a></li>
+                                                  <li><a href="{{url('students/autoimport')}}">auto</a></li>
+
+                                             </ul>
+                                  </li>
+                            @endif
+                            @if(Auth::user()->isTeacher() || Auth::user()->isAdmin())
+                                <li><a href="{{url('students')}}">รายชื่อนักศึกษา</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">จัดการการบ้าน<span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">กระบวนวิชาที่1</a></li>
+                                        <li><a href="#">กระบวนวิชาที่2</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="{{url('assistants')}}">เพิ่ม TA</a></li>
                             @endif
                         @endif
                     </ul>

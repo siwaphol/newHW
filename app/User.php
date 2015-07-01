@@ -20,11 +20,10 @@ class User extends Model implements AuthenticatableContract {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['username', 'role_id', 'student_id', 'prefix_th',
-                            'prefix_en','firstname_th','firstname_en','lastname_th',
+	protected $fillable = [ 'id','username', 'role_id','firstname_th','firstname_en','lastname_th',
                             'lastname_en','email','faculty_id'];
 
-    protected $primaryKey = 'username';
+    protected $primaryKey = 'id';
 
     public $incrementing = false;
 
@@ -89,7 +88,7 @@ class User extends Model implements AuthenticatableContract {
             return "Teacher";
         }else if($this->isTa()){
             if($this->isStudent()){
-                return "Admin, Student";
+                return "Ta, Student";
             }
             return "Ta";
         }else if($this->isStudent()){
