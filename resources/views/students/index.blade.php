@@ -86,12 +86,12 @@ function onSubmitMain() {
 						$teacher=Auth::user()->username;
                         $sql=array();
                         if(Auth::user()->role_id=='0100'){
-                        $sql=DB::select('SELECT * FROM course_section cs
+                        $sql=DB::select('SELECT DISTINCT course_id FROM course_section cs
                                                                      left join users  tea on cs.teacher_id=tea.id
                                                                      where tea.username=? ORDER BY section ASC ',array($teacher));
                         }
                         if(Auth::user()->role_id=='1000'){
-						$sql=DB::select('select * from course_section');
+						$sql=DB::select('select DISTINCT course_id from course_section');
 						}
                         $count=count($sql);
 
