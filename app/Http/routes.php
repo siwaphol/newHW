@@ -51,7 +51,7 @@ Route::post('course/saveedit','CourseController@saveedit');
 Route::post('course_section/update','Course_sectionController@update');
 Route::post('test1', 'HomeController@test1');
 Route::post('test2', 'HomeController@test2');
-Route::patch('teachers/update/{id}','TeachersController@update');
+Route::post('teachers/update','TeachersController@update');
 Route::post('teachers/create/save','TeachersController@store');
 
 //admin
@@ -61,7 +61,7 @@ Route::get('admin/show/{id}','AdminController@show');
 Route::get('admin/create','AdminController@create');
 Route::get('admin/{id}/edit','AdminController@edit');
 Route::post('admin/create/save','AdminController@store');
-Route::patch('admin/update/{id}','AdminController@update');
+Route::post('admin/update/','AdminController@update');
 //ta
 
 Route::get('ta','TasController@index');
