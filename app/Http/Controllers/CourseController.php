@@ -60,7 +60,7 @@ class CourseController extends Controller {
                 'duplicate' => 'รหัสวิชาซ้ำ',
             ]);
         }
-        $Course=Course::create($input);
+        $Course=Course::create(['id' => $input['course_id'], 'name' => $input['course_name']]);
 
         return redirect('course');
     }
