@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration {
             $table->string('lastname_en',100)->nullable();
             $table->string('email',100)->nullable();
             $table->char('faculty_id',2)->nullable();
+            $table->char('semester',1)->nullable();
+            $table->char('year',4)->nullable();
 			$table->timestamps();
 
             $table->primary('id');

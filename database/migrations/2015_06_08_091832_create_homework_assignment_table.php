@@ -25,6 +25,8 @@ class CreateHomeworkAssignmentTable extends Migration {
             $table->timestamp('due_date');
             $table->timestamp('accept_date');
             $table->string('created_by',100);
+            $table->char('semester',1);
+            $table->char('year',4);
             $table->timestamps();
         });
 
@@ -37,6 +39,8 @@ class CreateHomeworkAssignmentTable extends Migration {
             $table->char('student_id',9);
             $table->integer('status');
             $table->timestamp('submitted_at');
+            $table->char('semester',1);
+            $table->char('year',4);
             $table->timestamps();
         });
 

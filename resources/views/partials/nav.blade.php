@@ -25,15 +25,6 @@
                                     </li>
                                 @endif
                             @endif
-                            @if (Auth::user()->isTa() || Auth::user()->isTeacher() || Auth::user()->isAdmin())
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">สรุปผลการบ้าน<span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">กระบวนวิชาที่1</a></li>
-                                        <li><a href="#">กระบวนวิชาที่2</a></li>
-                                    </ul>
-                                </li>
-                            @endif
                             @if (Auth::user()->isAdmin())
                                  <li class="dropdown">
                                   <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">จัดการผู้ใช้<span class="caret"></span></a>
@@ -66,6 +57,15 @@
                                     </ul>
                                 </li>
                                 <li><a href="{{url('assistants')}}">เพิ่ม TA</a></li>
+                            @endif
+                            @if (Auth::user()->isTa() || Auth::user()->isTeacher() || Auth::user()->isAdmin())
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">สรุปผลการบ้าน<span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">กระบวนวิชาที่1</a></li>
+                                        <li><a href="#">กระบวนวิชาที่2</a></li>
+                                    </ul>
+                                </li>
                             @endif
                         @endif
                     </ul>
