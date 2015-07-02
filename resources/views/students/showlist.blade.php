@@ -27,7 +27,7 @@ $count=count($student);
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
-                                    <th>ลำดับ</th><th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>edit</th><th>delete</th>
+                                    <th>ลำดับ</th><th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>delete</th>
                                 </tr>
                                 {{-- */$x=0;/* --}}
                                 <?php
@@ -39,7 +39,9 @@ $count=count($student);
                                         <td>{{ $x+1 }}</td>
                                         <td><a href="{{ url('/students/show', $item[$x]->studentid) }}">{{ $item[$x]->studentid }}</a></td>
                                         <td><a href="{{ url('/students/show', $item[$x]->studentid) }}">{{ $item[$x]->firstname_th." ".$item[$x]->lastname_th }}</a></td>
+                                        <!--
                                         <td><a href="{{ url('/students/edit/'.$item[$x]->studentid) }}">Edit</a> </td>
+                                        -->
                                         <td>
                                                <?php
                                                $data=array('id'=>$item[$x]->studentid,'co'=>$course['co'],'sec'=>$course['sec']);

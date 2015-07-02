@@ -59,9 +59,9 @@ class StudentsController extends Controller {
                               ,stu.email as email
                               ,fac.name_th as faculty
                               from course_student cs
-                              left join users stu on cs.student_id=stu.student_id
+                              left join users stu on cs.student_id=stu.id
                               left join faculties fac on stu.faculty_id=fac.id
-                               where stu.role_id=0001 and cs.student_id=?',array($id));
+                               where (stu.role_id=0001 OR stu.role_id=0011) and cs.student_id=?',array($id));
 		return view('students.show', compact('student'));
 	}
 
@@ -73,7 +73,7 @@ class StudentsController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$student = Students::findOrFail($id);
+		$student=DB::select('select * from users where id=?',array($id));
 		return view('students.edit', compact('student'));
 	}
 
@@ -102,7 +102,7 @@ class StudentsController extends Controller {
         $course=$_POST['course'];
         $sec=$_POST['sec'];
 		//Students::destroy($id);
-        $result1=DB::delete('delete from users where student_id=?',array($id));
+        $result1=DB::delete('delete from users where id=?',array($id));
         $result=DB::delete('delete from course_student WHERE course_id=? and section=? and student_id=?',array($course,$sec,$id));
 
 		return redirect('students');
