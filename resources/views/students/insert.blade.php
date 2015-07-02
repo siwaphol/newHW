@@ -69,7 +69,7 @@
 
                                         //  $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
 
-                                          $regis =DB::insert('insert into course_student(student_id,course_id,section,status) values (?,?,?)',array($code,$course,$sec,$status));
+                                          $regis =DB::insert('insert into course_student(student_id,course_id,section,status) values (?,?,?,?)',array($code,$course,$sec,$status));
 
 
 

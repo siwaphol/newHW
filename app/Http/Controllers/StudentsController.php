@@ -27,9 +27,11 @@ class StudentsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create($id)
+
 	{
-		return view('students.create');
+        $course=DB::select('select * from course_section where id=?',array($id));
+		return view('students.create',compact('course'));
 	}
 
 	/**
@@ -39,8 +41,11 @@ class StudentsController extends Controller {
 	 */
 	public function store(Formstudents $request)
 	{
-		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
-		Students::create($request->all());
+		$course_id=$request->get('course_id');
+        $section=$request->get('section');
+        $student_id=$request->get('student_id');
+        $status=$request->get('status');
+        $insert=DB::insert('insert into course_student (course_id,section,student_id,status) VALUES (?,?,?,?)',array($course_id,$section,$student_id,$status));
 		return redirect('students');
 	}
 
