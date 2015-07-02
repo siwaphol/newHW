@@ -3,6 +3,7 @@
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use DB;
 
 class User extends Model implements AuthenticatableContract {
 
@@ -95,5 +96,16 @@ class User extends Model implements AuthenticatableContract {
             return "Student";
         }
         return "";
+    }
+
+    public function getCourseList(){
+        if($this->isAdmin()){
+            $course_list = DB::select('SELECT DISTINCT id FROM courses');
+            return $course_list;
+        }else if($this->isTeacher()){
+            $course_list = DB::select('SELECT DISTINCT id FROM courses WHERE id IN
+                    (SELECT DISTINCT course_id FROM course_section WHERE teacher_id = ?)',[$this->attributes['id']]);
+            return $course_list;
+        }
     }
 }

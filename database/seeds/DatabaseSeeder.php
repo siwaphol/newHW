@@ -250,7 +250,15 @@ class HomeworkTableSeeder extends Seeder
             'year' => '2557',
             'created_at' => '2015-06-22 00:00:00',
             'updated_at' => '2015-06-22 00:00:00']);
-
+        DB::table('homework_folder')->insert([
+            'course_id' => '204111',
+            'section' => '001',
+            'name' => 'lab01',
+            'path' => '.',
+            'semester' => '1',
+            'year' => '2557',
+            'created_at' => '2015-06-22 00:00:00',
+            'updated_at' => '2015-06-22 00:00:00']);
         DB::table('homework_types')->insert(
             ['id' => 'word',
             'extension' => 'doc,docx',

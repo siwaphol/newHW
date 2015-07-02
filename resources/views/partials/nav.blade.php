@@ -7,7 +7,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">CS CMU MIS</a>
+                    <a class="navbar-brand" href="{{url('home')}}">CS CMU MIS</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -52,11 +52,11 @@
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">จัดการการบ้าน<span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">กระบวนวิชาที่1</a></li>
-                                        <li><a href="#">กระบวนวิชาที่2</a></li>
+                                        @foreach(Auth::user()->getCourseList() as $course)
+                                            <li><a href="{{url('homework/create/')}}{{'/' . $course->id}}">{{$course->id}}</a></li>
+                                        @endforeach
                                     </ul>
                                 </li>
-                                <li><a href="{{url('assistants')}}">เพิ่ม TA</a></li>
                             @endif
                             @if (Auth::user()->isTa() || Auth::user()->isTeacher() || Auth::user()->isAdmin())
                                 <li class="dropdown">

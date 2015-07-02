@@ -26,7 +26,7 @@ class CourseHomeworkController extends Controller {
 	 */
 	public function create($course_id)
 	{
-        return view('teacherhomework.createhomework2');
+        return view('teacherhomework.createhomework2',['course_id'=>$course_id]);
 	}
 
 	/**
