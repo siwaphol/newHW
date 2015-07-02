@@ -67,7 +67,7 @@
                                     $rowregist=count($reg);
                                    if ($rowregist==0 ) {
 
-                                        //  $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
+                                        $command =DB::insert('insert into users (id,firstname_th,lastname_th) values (?,?,?)',array($code,$fname,$lname)) ;
 
                                           $regis =DB::insert('insert into course_student(student_id,course_id,section,status) values (?,?,?,?)',array($code,$course,$sec,$status));
 
