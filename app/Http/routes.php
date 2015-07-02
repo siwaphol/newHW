@@ -52,7 +52,7 @@ Route::post('course/saveedit','CourseController@saveedit');
 Route::post('course_section/update','Course_sectionController@update');
 Route::post('test1', 'HomeController@test1');
 Route::post('test2', 'HomeController@test2');
-Route::patch('teachers/update/{id}','TeachersController@update');
+Route::post('teachers/update','TeachersController@update');
 Route::post('teachers/create/save','TeachersController@store');
 
 //admin
@@ -62,7 +62,7 @@ Route::get('admin/show/{id}','AdminController@show');
 Route::get('admin/create','AdminController@create');
 Route::get('admin/{id}/edit','AdminController@edit');
 Route::post('admin/create/save','AdminController@store');
-Route::patch('admin/update/{id}','AdminController@update');
+Route::post('admin/update/','AdminController@update');
 //ta
 
 Route::get('ta','TasController@index');
@@ -77,7 +77,7 @@ Route::patch('ta/update/{id}','TasController@update');
 Route::get('students','StudentsController@index');
 Route::post('students/delete','StudentsController@destroy');
 Route::get('students/show/{id}','StudentsController@show');
-Route::get('students/create','StudentsController@create');
+Route::get('students/create/{id}','StudentsController@create');
 Route::get('students/edit/{id}','StudentsController@edit');
 Route::post('students/export','StudentsController@export');
 Route::post('students/create/save','StudentsController@store');

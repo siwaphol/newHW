@@ -63,25 +63,31 @@
                                 $fullnames=$fname."  ".$lname;
                                 //echo $no;
                                if ($no>0 && $no<=200) {
-                                                                   //$stu=DB::select('select *  from users Where id=? and role_id=0001',array($code));
+                               //$stu=DB::select('select *  from users Where id=? and role_id=0001',array($code));
 
-                                                                   $reg=DB::select(' select * from course_student where course_id=? and section=? and student_id=?',array($course,$sec,$code));
-                                                                   //$rowstudent=count($stu);
+                               $reg=DB::select(' select * from course_student where course_id=? and section=? and student_id=?',array($course,$sec,$code));
+                               //$rowstudent=count($stu);
 
-                                                                   $rowregist=count($reg);
-                                                                   if ($rowregist==0 ) {
+                               $rowregist=count($reg);
+                               if ($rowregist==0 ) {
 
-                                                                     //  $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
+                                 //  $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
 
-                                                                       $regis =DB::insert('insert into course_student(student_id,course_id,section) values (?,?,?)',array($code,$course,$sec));
-
-
-
-                                                                   }
+                                   $regis =DB::insert('insert into course_student(student_id,course_id,section,status) values (?,?,?,?)',array($code,$course,$sec,$status));
 
 
 
-                                                                   }
+                               }
+                               if($rowregist>0){
+                                   if($reg[0]->status!=$status){
+                                      $update=DB::update('update course_student set status=? where student_id=?',array($status,$code));
+                                   }
+
+                               }
+
+
+
+                               }
 
                             }
                         }

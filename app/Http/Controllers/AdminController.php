@@ -38,8 +38,22 @@ class AdminController extends Controller {
 	 */
 	public function store(Formadmin $request)
 	{
-		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
-		Admins::create($request->all());
+        $findid=DB::select('select max(id) as maxid from users where role_id=1000 or role_id=0100');
+
+        $id=intval($findid[0]->maxid);
+        $id+=1;
+
+        $username=$request->get('username');
+        $firstname_th=$request->get('firstname_th');
+        $firstname_en=$request->get('firstname_en');
+        $lastname_th=$request->get('lastname_th');
+        $lastname_en=$request->get('lastname_en');
+        $email=$request->get('email');
+
+        $teacher=DB::insert('insert into users (id,username,role_id,firstname_th,firstname_en,lastname_th,lastname_en,email)values(?,?,1000,?,?,?,?,?)',array($id,$username,$firstname_th,$firstname_en,$lastname_th,$lastname_en,$email));
+
+        //$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
+	    //Admins::create($request->all());
 		return redirect('admin');
 	}
 
@@ -51,7 +65,7 @@ class AdminController extends Controller {
 	 */
 	public function show($id)
 	{
-		$admin = Admins::findOrFail($id);
+		$admin =DB::select('select * from users where id=?',array($id));
 		return view('admin.show', compact('admin'));
 	}
 
@@ -63,7 +77,7 @@ class AdminController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$admin = Admins::findOrFail($id);
+		$admin = DB::select('select * from users where id=?',array($id));
 		return view('admin.edit', compact('admin'));
 	}
 
@@ -73,12 +87,18 @@ class AdminController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, Formadmin $request)
+	public function update( Formadmin $request)
 	{
-		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
-		$admin = Admins::findOrFail($id);
-		$admin->update($request->all());
-		return redirect('admin');
+        $id=$request->get('id');
+        $username=$request->get('username');
+        $firstname_th=$request->get('firstname_th');
+        $firstname_en=$request->get('firstname_en');
+        $lastname_th=$request->get('lastname_th');
+        $lastname_en=$request->get('lastname_en');
+        $email=$request->get('email');
+        $update=DB::update('update users set username=?,firstname_th=?,firstname_en=?,lastname_th=?,lastname_en=?,email=? where id=?',array($username,$firstname_th,$firstname_en,$lastname_th,$lastname_en,$email,$id));
+
+        return redirect('admin');
 	}
 
 	/**
@@ -89,7 +109,7 @@ class AdminController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		Admins::destroy($id);
+        $admin=DB::delete('delete from users where id=?',array($id));
 		return redirect('admin');
 	}
 

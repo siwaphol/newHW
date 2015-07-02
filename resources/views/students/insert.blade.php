@@ -65,20 +65,21 @@
                                     //$rowstudent=count($stu);
 
                                     $rowregist=count($reg);
-                                    if ($rowregist==0 ) {
+                                   if ($rowregist==0 ) {
 
-                                      //  $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
+                                        //  $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
 
-                                        $regis =DB::insert('insert into course_student(student_id,course_id,section) values (?,?,?)',array($code,$course,$sec));
-
-
-
-                                    }
-                                    //elseif ($rowstudent>=1 && $rowregist==0) {
-                                        //$regis =DB::insert('insert into register (studentId,courseId,sectionId) values (?,?,?)',array($code,$course,$sec));
+                                          $regis =DB::insert('insert into course_student(student_id,course_id,section,status) values (?,?,?,?)',array($code,$course,$sec,$status));
 
 
 
+                                      }
+                                      if($rowregist>0){
+                                          if($reg[0]->status!=$status){
+                                             $update=DB::update('update course_student set status=? where student_id=?',array($status,$code));
+                                          }
+
+                                      }
                                     }
                                 }
 

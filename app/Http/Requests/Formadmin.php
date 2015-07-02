@@ -9,8 +9,10 @@ class Formadmin extends FormRequest{
     public function rules()
     {
         return [
-            'id' => 'required',
-            'adminName' => 'required'
+            'username' => 'required',
+            'firstname_th' => 'required',
+            'lastname_th' => 'required',
+            'email' => 'required'
         ];
     }
 

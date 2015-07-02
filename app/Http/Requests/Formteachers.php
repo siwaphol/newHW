@@ -13,8 +13,10 @@ class Formteachers extends FormRequest {
     public function rules()
     {
         return [
-            'id' => 'required',
-            'teacherName' => 'required'
+            'username' => 'required',
+            'firstname_th' => 'required',
+            'lastname_th' => 'required',
+            'email' => 'required'
         ];
     }
 

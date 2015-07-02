@@ -7,6 +7,7 @@ $student=DB::select('select re.student_id as studentid,stu.firstname_th as first
                       left join users stu on re.student_id=stu.id
                       where re.course_id=? and  re.section=?',array($course['co'],$course['sec']));
 $count=count($student);
+ $coid=DB::select('select * from course_section where course_id=? and section=? ',array($course['co'],$course['sec']));
 ?>
     <div class="container">
         <div class="row">
@@ -16,7 +17,9 @@ $count=count($student);
                     
                     <div class="panel-body">
                         <h1 align="center">กระบวนวิชา {{$course['co']}}  ตอน {{$course['sec']}} </h1>
-                        <h2><a href="{{ url('/students/create') }}">เพิ่ม</a></h2>
+
+                        <h2><a href="{{ url('/students/create/'.$coid[0]->id) }}">เพิ่มนักศึกษา</a></h2>
+
                          {!! Form::open(['url' => 'students/export']) !!}
 
                           <input type="hidden" name="course" id="course" value='{{$course['co']}}'>
@@ -27,7 +30,7 @@ $count=count($student);
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
-                                    <th>ลำดับ</th><th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>edit</th><th>delete</th>
+                                    <th>ลำดับ</th><th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>delete</th>
                                 </tr>
                                 {{-- */$x=0;/* --}}
                                 <?php
@@ -39,7 +42,9 @@ $count=count($student);
                                         <td>{{ $x+1 }}</td>
                                         <td><a href="{{ url('/students/show', $item[$x]->studentid) }}">{{ $item[$x]->studentid }}</a></td>
                                         <td><a href="{{ url('/students/show', $item[$x]->studentid) }}">{{ $item[$x]->firstname_th." ".$item[$x]->lastname_th }}</a></td>
+                                        <!--
                                         <td><a href="{{ url('/students/edit/'.$item[$x]->studentid) }}">Edit</a> </td>
+                                        -->
                                         <td>
                                                <?php
                                                $data=array('id'=>$item[$x]->studentid,'co'=>$course['co'],'sec'=>$course['sec']);

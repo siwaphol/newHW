@@ -21,7 +21,7 @@
                                 @foreach($admins as $item)
                                     {{-- */$x++;/* --}}
                                     <tr>
-                                        <td>{{ $x }}</td><td><a href="{{ url('admin/show', $item->username) }}">{{ $item->firstname_th.' '.$item->lastname_th }}</a></td><td><a href="{{ url('/admin/'.$item->username.'/edit') }}">Edit</a> / {!! Form::open(['method'=>'delete','action'=>array('AdminController@destroy',$item->username)]) !!}<button type="submit" class="btn btn-link">Delete</button>{!! Form::close() !!}</td>
+                                        <td>{{ $x }}</td><td><a href="{{ url('admin/show', $item->id) }}">{{ $item->firstname_th.' '.$item->lastname_th }}</a></td><td><a href="{{ url('/admin/'.$item->id.'/edit') }}">Edit</a> / {!! Form::open(['method'=>'delete','action'=>array('AdminController@destroy',$item->id)]) !!}<button type="submit" class="btn btn-link">Delete</button>{!! Form::close() !!}</td>
                                     </tr>
                                 @endforeach
                             </table>

@@ -41,8 +41,21 @@ class TeachersController extends Controller {
 	 */
 	public function store(Formteachers $request)
 	{
+        $findid=DB::select('select max(id) as maxid from users where role_id=1000 or role_id=0100');
+
+        $id=intval($findid[0]->maxid);
+        $id+=1;
+
+        $username=$request->get('username');
+        $firstname_th=$request->get('firstname_th');
+        $firstname_en=$request->get('firstname_en');
+        $lastname_th=$request->get('lastname_th');
+        $lastname_en=$request->get('lastname_en');
+        $email=$request->get('email');
+
+        $teacher=DB::insert('insert into users (id,username,role_id,firstname_th,firstname_en,lastname_th,lastname_en,email)values(?,?,0100,?,?,?,?,?)',array($id,$username,$firstname_th,$firstname_en,$lastname_th,$lastname_en,$email));
 		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
-		Teachers::create($request->all());
+		//Teachers::create($request->all());
 		return redirect('teachers');
 	}
 
@@ -54,7 +67,7 @@ class TeachersController extends Controller {
 	 */
 	public function show($id)
 	{
-		$teacher = Teachers::findOrFail($id);
+        $teacher =DB::select('select * from users where id=?',array($id));
 		return view('teachers.show', compact('teacher'));
 	}
 
@@ -66,7 +79,7 @@ class TeachersController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$teacher = Teachers::findOrFail($id);
+        $teacher =DB::select('select * from users where id=?',array($id));
 		return view('teachers.edit', compact('teacher'));
 	}
 
@@ -76,11 +89,17 @@ class TeachersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, Formteachers $request)
+	public function update( Formteachers $request)
 	{
 		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
-		$teacher = Teachers::findOrFail($id);
-		$teacher->update($request->all());
+        $id=$request->get('id');
+        $username=$request->get('username');
+        $firstname_th=$request->get('firstname_th');
+        $firstname_en=$request->get('firstname_en');
+        $lastname_th=$request->get('lastname_th');
+        $lastname_en=$request->get('lastname_en');
+        $email=$request->get('email');
+        $update=DB::update('update users set username=?,firstname_th=?,firstname_en=?,lastname_th=?,lastname_en=?,email=? where id=?',array($username,$firstname_th,$firstname_en,$lastname_th,$lastname_en,$email,$id));
 		return redirect('teachers');
 	}
 
@@ -93,7 +112,7 @@ class TeachersController extends Controller {
 	public function destroy($id)
 	{
 
-		Teachers::destroy($id);
+		$Teachers=DB::delete('delete from users where id=?',array($id));
 		return redirect('teachers');
 	}
 

@@ -12,11 +12,13 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
-                                    <th>ID.</th><th>Name</th>
+                                    <th>ID.</th><th>username</th><th>Name</th><th>email</th>
                                 </tr>
+                                @foreach($teacher as $item)
                                 <tr>
-                                    <td>{{ $teacher->id }}</td><td>{{ $teacher->teacherName }}</td>
+                                    <td>{{ $item->id }}</td><td>{{ $item->username }}</td><td>{{ $item->firstname_th." ".$item->lastname_th }}</td><td>{{ $item->email }}</td>
                                 </tr>
+                                @endforeach
                             </table>
                         </div>
                     </div>

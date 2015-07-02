@@ -27,9 +27,11 @@ class StudentsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create($id)
+
 	{
-		return view('students.create');
+        $course=DB::select('select * from course_section where id=?',array($id));
+		return view('students.create',compact('course'));
 	}
 
 	/**
@@ -39,8 +41,11 @@ class StudentsController extends Controller {
 	 */
 	public function store(Formstudents $request)
 	{
-		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
-		Students::create($request->all());
+		$course_id=$request->get('course_id');
+        $section=$request->get('section');
+        $student_id=$request->get('student_id');
+        $status=$request->get('status');
+        $insert=DB::insert('insert into course_student (course_id,section,student_id,status) VALUES (?,?,?,?)',array($course_id,$section,$student_id,$status));
 		return redirect('students');
 	}
 
@@ -59,9 +64,9 @@ class StudentsController extends Controller {
                               ,stu.email as email
                               ,fac.name_th as faculty
                               from course_student cs
-                              left join users stu on cs.student_id=stu.student_id
+                              left join users stu on cs.student_id=stu.id
                               left join faculties fac on stu.faculty_id=fac.id
-                               where stu.role_id=0001 and cs.student_id=?',array($id));
+                               where (stu.role_id=0001 OR stu.role_id=0011) and cs.student_id=?',array($id));
 		return view('students.show', compact('student'));
 	}
 
@@ -73,7 +78,7 @@ class StudentsController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$student = Students::findOrFail($id);
+		$student=DB::select('select * from users where id=?',array($id));
 		return view('students.edit', compact('student'));
 	}
 
@@ -102,7 +107,7 @@ class StudentsController extends Controller {
         $course=$_POST['course'];
         $sec=$_POST['sec'];
 		//Students::destroy($id);
-        $result1=DB::delete('delete from users where student_id=?',array($id));
+        $result1=DB::delete('delete from users where id=?',array($id));
         $result=DB::delete('delete from course_student WHERE course_id=? and section=? and student_id=?',array($course,$sec,$id));
 
 		return redirect('students');
