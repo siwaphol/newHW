@@ -44,7 +44,8 @@ class AssistantsController extends Controller {
         $sec=$_POST['sectionId'];
         $ta_id=$_POST['taId'];
         $result=DB::insert('insert into course_ta (course_id,section,student_id)values(?,?,?)',array($course,$sec,$ta_id));
-		return redirect('assistants');
+		//return redirect('assistants');
+        return view('assistants.showlist')->with('course',array('co'=>$course,'sec'=>$sec));
 	}
 
 	/**
@@ -61,6 +62,7 @@ class AssistantsController extends Controller {
                                  where ta.username=?',array($id));
 		//$assistant = Assistants::findOrFail($id);
 		return view('assistants.show')->with('assistant',$assistant);
+
 	}
 
 	/**

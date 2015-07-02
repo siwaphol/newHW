@@ -46,7 +46,8 @@ class StudentsController extends Controller {
         $student_id=$request->get('student_id');
         $status=$request->get('status');
         $insert=DB::insert('insert into course_student (course_id,section,student_id,status) VALUES (?,?,?,?)',array($course_id,$section,$student_id,$status));
-		return redirect('students');
+		//return redirect('students/showlist');
+        return view('students.showlist')->with('course',array('co'=>$course_id,'sec'=>$section));
 	}
 
 	/**
