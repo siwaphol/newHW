@@ -12,7 +12,7 @@
                         <hr/>
                          @foreach($assistant as $key)
                         {!! Form::open(['url' => 'assistants/update']) !!}
-
+                        <input type="hidden" name="id" value="{{$key->id}}">
                         <div class="form-group">
                         {!! Form::label('course_id', 'รหัสกระบวนวิชา: ') !!}
                         {!! Form::text('course_id',$key->course_id, ['class' => 'form-control']) !!}

@@ -88,10 +88,10 @@ function onSubmitMain() {
                         if(Auth::user()->role_id=='0100'){
                         $sql=DB::select('SELECT DISTINCT course_id FROM course_section cs
                                                                      left join users  tea on cs.teacher_id=tea.id
-                                                                     where tea.username=? ORDER BY section ASC ',array($teacher));
+                                                                     where tea.username=? ORDER BY course_id ASC ',array($teacher));
                         }
                         if(Auth::user()->role_id=='1000'){
-                        $sql=DB::select('select DISTINCT course_id from course_section');
+                        $sql=DB::select('select DISTINCT course_id from course_section ORDER BY course_id ASC');
                         }
                         $count=count($sql);
                         $i=0;

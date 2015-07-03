@@ -22,6 +22,7 @@
                     <div class="panel-body">
 @foreach($result as $key)
   {!!Form::open(['url'=>'course_section/update']) !!}
+  <input type="hidden" name="id" value="{{$key->id}}">
   <div class="form-group">
   {!! Form::label('courseid','รหัส')!!}
   {!! Form::text('courseid',$key->courseid,['class'=>'form-control'])!!}

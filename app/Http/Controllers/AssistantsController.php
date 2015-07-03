@@ -8,6 +8,7 @@ use App\Assistants;
 use Carbon\Carbon;
 use DB;
 use App\Http\Requests\AsistantRequest;
+use App\Asistant;
 
 class AssistantsController extends Controller {
 
@@ -51,7 +52,14 @@ class AssistantsController extends Controller {
                 ->withErrors(['duplicate' => 'รหัสนักศึกษา '.$ta_id.' ซ้ำ']);
 
         }
-        $result=DB::insert('insert into course_ta (course_id,section,student_id)values(?,?,?)',array($course,$sec,$ta_id));
+
+        $asis=new Asistant();
+        $asis->course_id=$course;
+        $asis->section=$sec;
+        $asis->student_id=$ta_id;
+        $asis->save();
+
+        //$result=DB::insert('insert into course_ta (course_id,section,student_id)values(?,?,?)',array($course,$sec,$ta_id));
 		//return redirect('assistants');
         return view('assistants.showlist')->with('course',array('co'=>$course,'sec'=>$sec));
 	}

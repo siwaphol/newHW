@@ -4,7 +4,7 @@ use App\Http\Requests\course_section;
 use App\Http\Controllers\Controller;
 use DB;
 use Illuminate\Http\Request;
-
+use App\Course_Section as CS;
 class Course_SectionController extends Controller
 {
 
@@ -34,7 +34,8 @@ class Course_SectionController extends Controller
     {
         $courseid = $_GET['course'];
         $sectionid = $_GET['sec'];
-        $result = DB::select('select cs.course_id as courseid
+        $result = DB::select('select cs.id as id
+                              ,cs.course_id as courseid
                               ,cs.section as sectionid
                               ,t.firstname_th as firstname
                               ,t.lastname_th as lastname
@@ -51,11 +52,17 @@ class Course_SectionController extends Controller
 
     public function update()
     {
-
+        $id=$_POST['id'];
         $courseid = $_POST['courseid'];
         $sectionid =$_POST['sectionid'];
         $teacherid =$_POST['teacherid'];
-        $course = DB::update('update course_section set course_id=?,section=?,teacher_id=? where course_id=? and section=?', array($courseid, $sectionid, $teacherid, $courseid, $sectionid));
+        $cs = CS::find($id);
+        $cs->course_id=$courseid;
+        $cs->section=$sectionid;
+        $cs->teacher_id=$teacherid;
+        $cs->save();
+
+        // $course = DB::update('update course_section set course_id=?,section=?,teacher_id=? where course_id=? and section=?', array($courseid, $sectionid, $teacherid, $courseid, $sectionid));
         return redirect('course_section');
     }
 
@@ -63,6 +70,11 @@ class Course_SectionController extends Controller
 
         return view('course_section.create');
     }
+
+    /**
+     * @param course_section $request
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function store(course_section $request)
     {
          $courseid = $request->get('courseid');
@@ -76,7 +88,13 @@ class Course_SectionController extends Controller
             return redirect()->back()
                 ->withErrors(['duplicate' => 'กระบวนวิชา '.$courseid.' ตอน '.$sectionid.' อาจารย ์'.$check[0]->firstname.' '.$check[0]->lastname.' ซ้ำ']);
         }
-        $Course = DB::insert('insert into course_section(course_id,section,teacher_id)VALUES (?,?,?)', array($courseid, $sectionid, $teacherid));
+        $cs=new CS();
+        $cs->course_id=$courseid;
+        $cs->section=$sectionid;
+        $cs->teacher_id=$teacherid;
+        $cs->save();
+
+        //$Course = DB::insert('insert into course_section(course_id,section,teacher_id)VALUES (?,?,?)', array($courseid, $sectionid, $teacherid));
 
         return redirect('course_section');
     }
