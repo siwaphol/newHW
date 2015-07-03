@@ -56,45 +56,6 @@ $root_dir       = dirname($_SERVER['PHP_SELF']);
 $absolute_path  = str_replace(str_replace("%2F", "/", rawurlencode($this_folder)), '', $_SERVER['REQUEST_URI']);
 $dir_name       = explode("/", $this_folder);
 
-//if(substr($navigation_dir, -1) != "/"){
-//    if(file_exists($navigation_dir)){
-//
-//        // GET MIME
-//        $mime_file = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $navigation_dir);
-//
-//        // Direct download
-//        if($mime_file == "inode/x-empty" || $mime_file == ""){
-//            header('Content-Description: File Transfer');
-//            header('Content-Type: application/octet-stream');
-//            header('Content-Disposition: attachment; filename="'.basename($navigation_dir).'"');
-//        }
-//        // Recognizable mime
-//        else{
-//            header('Content-Type: ' . $mime_file);
-//        }
-//        header('Expires: 0');
-//        header('Cache-Control: must-revalidate');
-//        header('Accept-Ranges: bytes');
-//        header('Pragma: public');
-//        header('Content-Length: ' . filesize($navigation_dir));
-//        ob_clean();
-//        flush();
-//        if ($options['general']['read_chunks'] == true) {
-//            readfile_chunked($navigation_dir);
-//        } else {
-//            readfile($navigation_dir);
-//        }
-//    } else {
-//        set_404_error();
-//    }
-//    exit;
-//} else {
-//    if(!file_exists($navigation_dir)){
-//        set_404_error();
-//        exit;
-//    }
-//}
-
 // Declare vars used beyond this point.
 $file_list = array();
 $folder_list = array();
@@ -270,51 +231,49 @@ foreach($table_options as $value)
     $table_count++;
 }
 
-// Open the current directory...
-//$file = "";
 //Nong query homework_assignment to get homework template
+$folder_path = explode( "/", $navigation_dir);
+
+//find folder structure
+$folder_list_query = DB::table('homework_folder')->where('course_id', $course_id)->get();
+$course_folder_obj = json_decode(json_encode($folder_list_query), FALSE);
+foreach($course_folder_obj as $obj){
+    $a_folder['name']           = $obj->name;
+    $a_folder['lname']          = strtolower($a_folder['name'] );
+    $a_folder['bname']          = $obj->name;
+    $a_folder['lbname']         = strtolower($a_folder['bname'] );
+    $a_folder['ext']            = $obj->type;
+    $a_folder['lext']           = strtolower($a_folder['ext']);
+    $folder_icon                = 'glyphicon glyphicon-folder-close';
+    $a_folder['class']          = "glyphicon glyphicon-file";
+    $a_folder['bytes']          = 0;
+    $a_folder['size']['num']    = 0;
+    $a_folder['size']['str']    = "KB";
+    $a_folder['mtime']          = 0;
+    $a_folder['iso_mtime']      = "";
+
+    if($obj->path===$navigation_dir){
+        array_push($folder_list, $a_folder);
+    }
+}
+
 $result = DB::table('homework')->where('course_id', $course_id)->get();
 $object1 = json_decode(json_encode($result), FALSE);
-
-$folder_path = explode( "/", $navigation_dir);
 foreach($object1 as $obj){
-    $item['name']          =     $obj->name;
-    $item['lname']         =     strtolower($item['name'] );
-    $item['bname']         =     $obj->name . " (" .  $obj->type_id . ")";
-    $item['lbname']        =     strtolower($item['bname'] );
+    $item['name']           = $obj->name;
+    $item['lname']          = strtolower($item['name'] );
+    $item['bname']          = $obj->name . " (" .  $obj->type_id . ")";
+    $item['lbname']         = strtolower($item['bname'] );
     $item['ext']            = $obj->type;
     $item['lext']           = strtolower($item['ext']);
-    $item['class'] = "glyphicon glyphicon-file";
-    $item['bytes'] = 0;
-    $item['size']['num'] = 0;
-    $item['size']['str'] = "KB";
-    $item['mtime'] = 0;
-    $item['iso_mtime'] = "";
+    $item['class']          = "glyphicon glyphicon-file";
+    $item['bytes']          = 0;
+    $item['size']['num']    = 0;
+    $item['size']['str']    = "KB";
+    $item['mtime']          = 0;
+    $item['iso_mtime']      = "";
 
-    $sub_folder_path = explode( "/", $obj->sub_folder);
-    // Add files to the file list...
-    $subcount = count($sub_folder_path);
-    $parentcount = count($folder_path);
-    $temp = strpos($obj->sub_folder,$navigation_dir);
-//    if($subcount >= $parentcount && $sub_folder_path[$parentcount-2] === $folder_path[$parentcount-2] && $sub_folder_path[$parentcount-1] != ""){
-      if(strpos($obj->sub_folder,$navigation_dir) !== false && $subcount > $parentcount){
-        $item2['name']          = $sub_folder_path[$parentcount];
-        $item2['lname']         = strtolower($item2['name'] );
-        $item2['bname']         = $sub_folder_path[$parentcount];
-        $item2['lbname']        = strtolower($item2['bname'] );
-        $item2['ext']           = ".";
-        $item2['lext']          = strtolower($item2['ext']);
-        $folder_icon   = 'glyphicon glyphicon-folder-close';
-        $item2['class'] = 'glyphicon glyphicon-file';
-//        $item2['class']         = "glyphicon glyphicon-file";
-        $item2['bytes']         = 0;
-        $item2['size']['num']   = 0;
-        $item2['size']['str']   = "KB";
-        $item2['mtime']         = 0;
-        $item2['iso_mtime']     = "";
-        array_push($folder_list, $item2);
-    }
-    // ...and folders to the folder list.
+    // add file to file list
     if($obj->sub_folder===$navigation_dir){
         array_push($file_list, $item);
     }

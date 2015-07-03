@@ -32,6 +32,7 @@ class CustomUserProvider implements UserProvider {
         if(count($query)){
             return $query->first();
         }
+
         //ITSC authentication use this if run in production
 //
 //        $sauth = Itscapi::authen_with_ITSC_api($credentials['email'], $credentials['password']);

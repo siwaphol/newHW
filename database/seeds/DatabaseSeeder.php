@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('UsersTableSeeder');
         $this->call('CoursesTableSeeder');
         $this->call('HomeworkTableSeeder');
-
+        $this->call('CurrentSemesterYearTableSeeder');
     }
 
 }
@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder {
 class UsersTableSeeder extends Seeder {
     public function run()
     {
+        $date = new \DateTime;
         DB::table('users')->delete();
         DB::table('ref_roles')->delete();
         DB::table('faculties')->delete();
@@ -82,40 +83,40 @@ class UsersTableSeeder extends Seeder {
         DB::table('ref_roles')->insert(
             [            'id' => '0000',
                 'detail' => 'no role',
-                'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00']);
+                'created_at' => $date,
+                'updated_at' => $date]);
         DB::table('ref_roles')->insert(
             [            'id' => '0001',
                 'detail' => 'student',
-                'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00']);
+                'created_at' => $date,
+                'updated_at' => $date]);
         DB::table('ref_roles')->insert(
             [            'id' => '0010',
                 'detail' => 'ta',
-                'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00']);
+                'created_at' => $date,
+                'updated_at' => $date]);
         DB::table('ref_roles')->insert(
             [            'id' => '0100',
                 'detail' => 'student',
-                'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00']);
+                'created_at' => $date,
+                'updated_at' => $date]);
         DB::table('ref_roles')->insert(
             [            'id' => '1000',
                 'detail' => 'admin',
-                'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00']);
+                'created_at' => $date,
+                'updated_at' => $date]);
         DB::table('ref_roles')->insert(
             [            'id' => '0011',
                 'detail' => 'student,ta',
-                'created_at' => '2015-06-22 00:00:00',
-                'updated_at' => '2015-06-22 00:00:00']);
+                'created_at' => $date,
+                'updated_at' => $date]);
 
         DB::table('faculties')->insert([
             'id' => '05',
             'name_th' => 'คณะวิทยาศาสตร์',
             'name_en' => 'Faculty of Science',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
 
     }
 }
@@ -124,6 +125,7 @@ class CoursesTableSeeder extends Seeder
 {
     public function run()
     {
+        $date = new \DateTime;
         DB::table('courses')->delete();
         DB::table('course_section')->delete();
         DB::table('course_student')->delete();
@@ -133,44 +135,44 @@ class CoursesTableSeeder extends Seeder
             'id' => '204111',
             'name' => 'FUNDAMENTALS OF COMP SC',
             'detail' => '...',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
         DB::table('courses')->insert([
             'id' => '204100',
             'name' => 'IT AND MODERN LIFE',
             'detail' => '...',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
         DB::table('courses')->insert([
             'id' => '204211',
             'name' => 'OBJECT-ORIENTED PROGRAMMING',
             'detail' => '...',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
         DB::table('course_section')->insert([
             'course_id' => '204100',
             'section' => '001',
             'teacher_id' => '000000001',
             'semester' => '1',
             'year' => '2557',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
         DB::table('course_section')->insert([
             'course_id' => '204111',
             'section' => '001',
             'teacher_id' => '000000001',
             'semester' => '1',
             'year' => '2557',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
         DB::table('course_section')->insert([
             'course_id' => '204211',
             'section' => '001',
             'teacher_id' => '000000001',
             'semester' => '1',
             'year' => '2557',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
         DB::table('course_student')->insert([
             'course_id' => '204111',
             'section' => '001',
@@ -178,8 +180,8 @@ class CoursesTableSeeder extends Seeder
             'status' => ' ',
             'semester' => '1',
             'year' => '2557',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
         DB::table('course_student')->insert([
             'course_id' => '204111',
             'section' => '001',
@@ -187,16 +189,16 @@ class CoursesTableSeeder extends Seeder
             'status' => ' ',
             'semester' => '1',
             'year' => '2557',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
         DB::table('course_ta')->insert([
             'course_id' => '204111',
             'section' => '001',
             'student_id' => '540510828',
             'semester' => '1',
             'year' => '2557',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
     }
 }
 
@@ -204,6 +206,7 @@ class HomeworkTableSeeder extends Seeder
 {
     public function run()
     {
+        $date = new \DateTime;
         DB::table('homework')->delete();
         DB::table('homework_student')->delete();
         DB::table('homework_types')->delete();
@@ -221,8 +224,8 @@ class HomeworkTableSeeder extends Seeder
             'created_by' => '000000001',
             'semester' => '1',
             'year' => '2557',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
         DB::table('homework')->insert([
             'course_id' => '204100',
             'section' => '001',
@@ -236,8 +239,8 @@ class HomeworkTableSeeder extends Seeder
             'created_by' => '000000001',
             'semester' => '1',
             'year' => '2557',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
 
         DB::table('homework_student')->insert([
             'course_id' => '204111',
@@ -248,8 +251,8 @@ class HomeworkTableSeeder extends Seeder
             'submitted_at' => '2015-06-26 00:00:00',
             'semester' => '1',
             'year' => '2557',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
         DB::table('homework_folder')->insert([
             'course_id' => '204111',
             'section' => '001',
@@ -257,21 +260,34 @@ class HomeworkTableSeeder extends Seeder
             'path' => '.',
             'semester' => '1',
             'year' => '2557',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
         DB::table('homework_types')->insert(
             ['id' => 'word',
             'extension' => 'doc,docx',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
         DB::table('homework_types')->insert(['id' => 'excel',
             'extension' => 'xls,xlsx',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
         DB::table('homework_types')->insert(['id' => 'c',
             'extension' => 'c,cpp',
-            'created_at' => '2015-06-22 00:00:00',
-            'updated_at' => '2015-06-22 00:00:00']);
+            'created_at' => $date,
+            'updated_at' => $date]);
+    }
+}
+
+class CurrentSemesterYearTableSeeder extends Seeder
+{
+    public function run()
+    {
+        $date = new \DateTime;
+        DB::table('current_semester_year')->insert([
+            'semester' => '1',
+            'year' => '2557',
+            'created_at' => $date,
+            'updated_at' => $date]);
     }
 }
 
