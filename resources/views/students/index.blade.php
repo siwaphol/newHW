@@ -38,12 +38,12 @@ function onSubmitMain() {
     $objQuery=array();
     $teacher=Auth::user()->username;
     if(Auth::user()->role_id=='0100'){
-    $objQuery =DB::select('SELECT section,course_id FROM course_section cs
+    $objQuery =DB::select('SELECT DISTINCT section,course_id FROM course_section cs
                             left join users  tea on cs.teacher_id=tea.id
                             where tea.username=? ORDER BY section ASC ',array($teacher));
     }
     if(Auth::user()->role_id=='1000'){
-        $objQuery =DB::select('SELECT section,course_id FROM course_section  ORDER BY section ASC ');
+        $objQuery =DB::select('SELECT DISTINCT section,course_id FROM course_section  ORDER BY section ASC ');
         }
     $count=count($objQuery);
     $i=0;
