@@ -3,6 +3,7 @@
 @section('content')
 <?php
 $assistants=DB::select('select  ta.username as username
+                        ,ass.id as id
                         ,ass.student_id as taid
                         ,ta.firstname_th as firstname
                         ,ta.lastname_th as lastname

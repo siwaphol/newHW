@@ -8,16 +8,24 @@
                     <div class="panel-heading" align="center">เพิ่มนักศึกษา</div>
                     @foreach($course as  $item)
                     <div class="panel-body">
-                        <h4 align="center">กระบวนวิชา {{$item->course_id}} ตอน {{$item->section}}</h4>
+
                         <hr/>
 
                         {!! Form::open(['url' => 'students/create/save']) !!}
-                        
+                         <div class="form-group">
+                            {!! Form::label('course_id', 'กระบวนวิชา: ') !!}
+                            {!! Form::text('course_id', $item->course_id, ['class' => 'form-control','disabled' => 'disabled']) !!}
                         <div class="form-group">
-                        {!! Form::label('student_id', 'student_id: ') !!}
+                            {!! Form::label('section', 'ตอน: ') !!}
+                            {!! Form::text('section', $item->section, ['class' => 'form-control','disabled' => 'disabled'])!!}
+                        </div>
+                        <div class="form-group">
+                        {!! Form::label('student_id', 'รหัสนักศึกษา: ') !!}
                         {!! Form::text('student_id', null, ['class' => 'form-control']) !!}
                     <div class="form-group">
-                        {!! Form::label('status', 'Status: ') !!}
+                        {!! Form::label('status', 'สถานะ: ') !!}
+                        {!! Form::radio('status', 'drop') !!} drop
+                        {!! Form::radio('status', 'no',true) !!} no
                         {!! Form::text('status', null, ['class' => 'form-control'])!!}
                     </div>
                     <input type="hidden" name="course_id" value="{{$item->course_id}}">

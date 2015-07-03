@@ -45,8 +45,15 @@ class StudentsController extends Controller {
         $section=$request->get('section');
         $student_id=$request->get('student_id');
         $status=$request->get('status');
+        $check=DB::select('select * from course_student where course_id=? and section=? and student_id=?',array($course_id,$section,$student_id));
+        if(count($check)>0){
+            return redirect()->back()
+                ->withErrors(['duplicate' => 'รหัสนักศึกษา '.$student_id.' ซ้ำ']);
+        }
         $insert=DB::insert('insert into course_student (course_id,section,student_id,status) VALUES (?,?,?,?)',array($course_id,$section,$student_id,$status));
-		return redirect('students');
+
+		//return redirect('students/showlist');
+        return view('students.showlist')->with('course',array('co'=>$course_id,'sec'=>$section));
 	}
 
 	/**

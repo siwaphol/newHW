@@ -4,9 +4,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Assistants;
-use Illuminate\Http\Request;
+
 use Carbon\Carbon;
 use DB;
+use App\Http\Requests\AsistantRequest;
+use App\Asistant;
 
 class AssistantsController extends Controller {
 
@@ -38,13 +40,28 @@ class AssistantsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(AsistantRequest $request)
 	{
-        $course=$_POST['courseId'];
-        $sec=$_POST['sectionId'];
-        $ta_id=$_POST['taId'];
-        $result=DB::insert('insert into course_ta (course_id,section,student_id)values(?,?,?)',array($course,$sec,$ta_id));
-		return redirect('assistants');
+        $course=$request->get('courseId');
+        $sec=$request->get('sectionId');
+        $ta_id=$request->get('taId');
+        $assistant=DB::select('select * from course_ta where course_id=? and section=? and student_id=?',array($course,$sec,$ta_id));
+        $count=count($assistant);
+        if($count>0){
+            return redirect()->back()
+                ->withErrors(['duplicate' => 'รหัสนักศึกษา '.$ta_id.' ซ้ำ']);
+
+        }
+
+        $asis=new Asistant();
+        $asis->course_id=$course;
+        $asis->section=$sec;
+        $asis->student_id=$ta_id;
+        $asis->save();
+
+        //$result=DB::insert('insert into course_ta (course_id,section,student_id)values(?,?,?)',array($course,$sec,$ta_id));
+		//return redirect('assistants');
+        return view('assistants.showlist')->with('course',array('co'=>$course,'sec'=>$sec));
 	}
 
 	/**
@@ -61,6 +78,7 @@ class AssistantsController extends Controller {
                                  where ta.username=?',array($id));
 		//$assistant = Assistants::findOrFail($id);
 		return view('assistants.show')->with('assistant',$assistant);
+
 	}
 
 	/**
