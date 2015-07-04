@@ -109,3 +109,12 @@ Route::get('assistants/edit','AssistantsController@edit');
 Route::post('assistants/create/save','AssistantsController@store');
 Route::post('assistants/update','AssistantsController@update');
 Route::post('assistants/showlist','AssistantsController@showlist');
+//semester year
+Route::get('semesteryear','SemesteryearController@index');
+Route::delete('semesteryear/delete/{id}','SemesteryearController@destroy');
+Route::get('semesteryear/show/{id}','SemesteryearController@show');
+Route::get('semesteryear/create','SemesteryearController@create');
+Route::get('semesteryear/{id}/edit','SemesteryearController@edit');
+Route::post('semesteryear/create/save','SemesteryearController@store');
+Route::patch('semesteryear/update/{id}','SemesteryearController@update');
+Route::post('semesteryear/showlist','SemesteryearController@showlist');
