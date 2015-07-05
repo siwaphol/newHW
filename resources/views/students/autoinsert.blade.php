@@ -13,15 +13,19 @@
  require_once '../Classes/PHPExcel/IOFactory.php';
             libxml_use_internal_errors(false);
             set_time_limit(0);
+
+            $semester=Session::get('semester');
+           $year=substr(Session::get('year'),-2);
             $sql=DB::select('select *  from course_section');
             $count=count($sql);
+
             for($i=0;$i<$count;$i++){
             //$course =Request::get('ddlCourse');
             //$sec =Request::get('ddlSection');
             $course = $sql[$i]->course_id;
             $sec = $sql[$i]->section;
 
-            $fileupload_name = 'https://www3.reg.cmu.ac.th/regist257/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
+            $fileupload_name = 'https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
                         $fileupload='../temp/file.xlsx';
                         //chmod($fileupload, 0755);
                         	//chmod($fileupload_name, 0755);

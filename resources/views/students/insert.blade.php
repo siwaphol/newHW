@@ -16,8 +16,10 @@
             //$sec =Request::get('ddlSection');
             $course = $cours['co'];
             $sec = $cours['sec'];
+            $semester=Session::get('semester');
+            $year=substr(Session::get('year'),-2);
 
-            $fileupload_name = 'https://www3.reg.cmu.ac.th/regist257/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
+            $fileupload_name = 'https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
                         $fileupload='../temp/file.xlsx';
 
                         //chmod($fileupload, 0755);
@@ -90,7 +92,8 @@
        $student=DB::select('select re.student_id as studentid,stu.firstname_th as firstname_th,stu.lastname_th as lastname_th
                              from course_student  re
                              left join users stu on re.student_id=stu.id
-                             where re.course_id=? and  re.section=?
+                             left join semester_year sy on re.semester=sy.semester and re.year=sy.semester
+                             where re.course_id=? and  re.section=? and sy.use=1
                              order by re.student_id
                              ',array($course,$sec));
        $count=count($student);

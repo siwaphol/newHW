@@ -16,8 +16,10 @@
             //$sec =Request::get('ddlSection');
             $course = $cours['co'];
             $sec = $cours['sec'];
+            $semester=Session::get('semester');
+            $year=substr(Session::get('year'),-2);
 
-            //$fileupload_name = 'https://www3.reg.cmu.ac.th/regist257/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
+            $fileupload_name = 'https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
               $fileupload_name = $cours['fileupload'];
 
                         $fileupload='../temp/file.xlsx';

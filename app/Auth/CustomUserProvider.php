@@ -9,6 +9,7 @@ use DB;
 use App\User;
 use Session;
 
+
 class CustomUserProvider implements UserProvider {
 
     protected $model;
@@ -41,7 +42,12 @@ class CustomUserProvider implements UserProvider {
                     }
                 }
                 Session::put('course_list',$course_list_str);
+
             }
+            //set semester and year to session
+            $sql=DB::select('select * from semester_year sy where sy.use=1');
+            Session::put('semester',$sql[0]->semester);
+            Session::put('year',$sql[0]->year);
             return $query->first();
         }
 

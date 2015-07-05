@@ -15,6 +15,7 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 Route::get('info', 'HomeController@info');
+Route::post('semester', 'HomeController@semester');
 
 //Route::get('course/{course_id}', 'CourseHomeworkController@show');
 Route::get('homework/create/{course_id}','CourseHomeworkController@create');

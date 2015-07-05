@@ -20,8 +20,8 @@
                         {!! Form::label('section', 'ตอน: ') !!}
                         {!! Form::text('section', $key->section, ['class' => 'form-control']) !!}
                     </div><div class="form-group">
-                        {!! Form::label('ta_username', 'นักศึกษาช่วยสอน ') !!}
-                        {!! Form::text('ta_username',$key->student_id, ['class' => 'form-control']) !!}
+                        {!! Form::label('student_id', 'นักศึกษาช่วยสอน ') !!}
+                        {!! Form::text('student_id',$key->student_id, ['class' => 'form-control']) !!}
                     </div>
                         
                         <div class="form-group">

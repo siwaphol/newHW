@@ -2,7 +2,7 @@
 
 use App\Course;
 use Request;
-
+use Session;
 class HomeController extends Controller {
 
 	/*
@@ -52,5 +52,16 @@ class HomeController extends Controller {
         $model=Course::all();
 
         return view('course',compact('model'));
+    }
+
+    /**
+     * @return array
+     */
+    public function semester(){
+        $model=Request::all();
+        Session::put('semester',Request::get('semester'));
+        Session::put('year',Request::get('year'));
+        return view('home');
+        //return view('course',compact('model'));
     }
 }
