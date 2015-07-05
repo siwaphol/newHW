@@ -13,15 +13,16 @@
 
                         {!! Form::model($semesteryear, ['method' => 'PATCH', 'action' => ['SemesteryearController@update', $semesteryear->id]]) !!}
 
-                        <div class="form-group">
-                        {!! Form::label('id', 'Id: ') !!}
-                        {!! Form::text('id', null, ['class' => 'form-control']) !!}
-                    </div><div class="form-group">
+                       <div class="form-group">
                         {!! Form::label('semester', 'Semester: ') !!}
                         {!! Form::text('semester', null, ['class' => 'form-control']) !!}
                     </div><div class="form-group">
                         {!! Form::label('year', 'Year: ') !!}
                         {!! Form::text('year', null, ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('status', 'status: ') !!}
+                        {!! Form::text('status', null, ['class' => 'form-control']) !!}
                     </div>
                         
                         <div class="form-group">
