@@ -634,13 +634,13 @@ if(($folder_list) || ($file_list) ) {
   {{--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />--}}
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{{ asset('/css/listr.min.css') }}" />
-  <link rel="stylesheet" href="{{ asset('/css/bootstrap-dialog.css') }}" />
   <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
 @endsection
 
 @section('content')
 
     <div class="container">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <?php echo $breadcrumbs?>
         <?php echo $search ?>
         <?php echo $add_tag ?>
@@ -710,109 +710,38 @@ if(($folder_list) || ($file_list) ) {
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/stupidtable/0.0.1/stupidtable.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-searcher/0.2.0/jquery.searcher.min.js"></script>
 <script type="text/javascript" src="{{ asset('/js/listr.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/js/bootstrap-dialog.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/bootstrap-datetimepicker.min.js') }}"></script>
 
-<div id="modal" class="hidden"><form class="form-horizontal" role="form">
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="section">Section</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" id="section" placeholder="Enter course section (blank for all)">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="homeworkname">Name</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" id="homeworkname" placeholder="Ex. lab01_{id} ,lab01_{section}_{id}">
-    </div>
-  </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="filetype">Type</label>
-      <div class="col-sm-8">
-        <input type="text" class="form-control" id="filetype" placeholder="Choose file type">
-      </div>
-    </div>
-    <div class="form-group">
-    <label class="control-label col-sm-2" for="filedetail">Detail</label>
-        <div class="col-sm-8">
-          <textarea style="resize:none" class="form-control" id="filedetail" rows="3" placeholder="Enter file detail" required></textarea>
-        </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="duedate">Due date</label>
-      <div class="col-sm-8">
-        <textarea style="resize:none" class="form-control" id="duedate" rows="3" placeholder="Enter file detail" required></textarea>
-      </div>
-    </div>
-            <div class="form-group">
-                <div class='input-group date' id='datetimepicker1'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
-</form>
-</div>
+<!-- Add File Modal -->
+@include('partials.file_add_dialog')
+<!-- Add Folder Modal -->
+@include('partials.folder_add_dialog')
 
-<div class="hidden" id="fileadd">
-	BootstrapDialog.show({
-        title: 'เพิ่มการบ้าน',
-        message: fileAddWithReplace(),
-        buttons: [{
-            label: 'ตกลง',
-            action: function(dialog) {
-                dialog.setTitle('ตกลง');
-            }
-        }, {
-            label: 'ยกเลิก',
-            action: function(dialog) {
-                dialog.setTitle('ยกเลิก');
-            }
-        }]
-    });
-</div>
-<div class="hidden" id="folderadd">
-	BootstrapDialog.show({
-        title: 'เพิ่มโฟลเดอร์',
-        message: $('<textarea class="form-control" placeholder="Try to input multiple lines here..."></textarea>'),
-        buttons: [{
-            label: 'Title 1',
-            action: function(dialog) {
-                dialog.setTitle('Title 1');
-            }
-        }, {
-            label: 'Title 2',
-            action: function(dialog) {
-                dialog.setTitle('Title 2');
-            }
-        }]
-    });
-</div>
 {{--datetimepicker--}}
 <script type="text/javascript">
     $(function () {
-        $('#datetimepicker1').datetimepicker({
-            locale: 'en',
-            format: 'DD/MM/YYYY LT',
-            defaultDate: moment("11:59:00","hh:mm:ss")
+        $("#addFileOK").click(function(){
+            var temp = $('form.addFileForm').serialize();
+            var urlPath = window.location.pathname.split('/');
+            $.ajax({
+              url: urlPath[urlPath.length-1],
+              type: "POST",
+              data: {sent_data: temp, _token: $('input[name=_token]').val()},
+              success: function(data){
+                alert(data);
+              }
+            });
+        });
+        $("#addFolderOK").click(function(){
+            var temp = $('form.addFolderForm').serialize();
+            alert(temp);
+        });
+        $("#file_add_btn").on('click',  function(){
+            $('#addFileModal').modal('toggle');
+        });
+        $("#folder_add_btn").on('click', function(){
+            $('#addFolderModal').modal('toggle');
         });
     });
-</script>
-<script>
-		var code1 = $("#fileadd").html();
-		var code2 = $("#folderadd").html();
-		$("#file_add_btn").on('click', {code: code1}, function(event){
-			eval(event.data.code);
-		});
-        $("#folder_add_btn").on('click', {code: code2}, function(event){
-            eval(event.data.code);
-        });
-
-        function fileAddWithReplace() {
-            var s = $("#modal").html();
-            s = s.replace(/(\r\n|\n|\r|[ ](?=[^\>]*?(?:\<|$)))/gm,"");
-            return s;
-        }
 </script>
 @endsection

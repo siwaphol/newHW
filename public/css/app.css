@@ -3438,7 +3438,7 @@ tbody.collapse.in {
 }
 .input-group[class*="col-"] {
   float: none;
-  padding-left: 0;
+  /*padding-left: 0;*/
   padding-right: 0;
 }
 .input-group .form-control {
@@ -6230,4 +6230,8 @@ body,
 label,
 .checkbox label {
   font-weight: 300;
+}
+
+.clsDatePicker {
+    z-index: 100000;
 }

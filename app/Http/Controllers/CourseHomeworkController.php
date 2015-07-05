@@ -29,6 +29,14 @@ class CourseHomeworkController extends Controller {
         return view('teacherhomework.createhomework2',['course_id'=>$course_id]);
 	}
 
+    public function create_post($course_id){
+
+        if(\Request::ajax()) {
+            $data = \Input::all();
+            \Log::info('Ajax test on ' . $course_id . ' course: ',$data);
+        }
+        return $data;
+    }
 	/**
 	 * Store a newly created resource in storage.
 	 *
