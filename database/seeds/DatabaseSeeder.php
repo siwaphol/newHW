@@ -283,9 +283,16 @@ class CurrentSemesterYearTableSeeder extends Seeder
     public function run()
     {
         $date = new \DateTime;
-        DB::table('current_semester_year')->insert([
+        DB::table('semester_year')->insert([
             'semester' => '1',
             'year' => '2557',
+            'use' => '1',
+            'created_at' => $date,
+            'updated_at' => $date]);
+        DB::table('semester_year')->insert([
+            'semester' => '2',
+            'year' => '2556',
+            'use' => '0',
             'created_at' => $date,
             'updated_at' => $date]);
     }
