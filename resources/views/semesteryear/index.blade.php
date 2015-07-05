@@ -13,7 +13,7 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
-                                    <th>SL.</th><th>Semester</th><th>Year</th><th>Actions</th>
+                                    <th>SL.</th><th>Semester</th><th>Year</th><th>status</th><th>Actions</th>
                                 </tr>
                                 {{-- */$x=0;/* --}}
                                 @foreach($semesteryears as $item)
@@ -22,6 +22,7 @@
                                         <td>{{ $x }}</td>
                                         <td><a href="{{ url('/semesteryear/show', $item->id) }}">{{ $item->semester }}</a></td>
                                         <td><a href="{{ url('/semesteryear/show', $item->id) }}">{{ $item->year }}</a></td>
+                                        <td>{{$item->status}}</td>
                                         <td><a href="{{ url('/semesteryear/'.$item->id.'/edit') }}">Edit</a> / {!! Form::open(['method'=>'delete','action'=>['SemesteryearController@destroy',$item->id]]) !!}<button type="submit" class="btn btn-link">Delete</button>{!! Form::close() !!}</td>
                                     </tr>
                                 @endforeach

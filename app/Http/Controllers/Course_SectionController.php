@@ -19,9 +19,11 @@ class Course_SectionController extends Controller
                               from course_section cs
                               left join users t on cs.teacher_id=t.id
                               left join courses co on cs.course_id=co.id
+                              left join current_semester_year csy on cs.semester=csy.semester and cs.year=csy.year
                               WHERE  t.role_id=0100
+                              and csy.status=?
                               order by cs.course_id,cs.section
-                              ');
+                              ',array('Y'));
 
         return view('course_section.index', compact('result'));
     }

@@ -38,7 +38,11 @@ class SemesteryearController extends Controller {
 	public function store(Request $request)
 	{
 		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
-		Semesteryears::create($request->all());
+        $semester=new Semesteryears();
+        $semester->semester=$request->get('semester');
+        $semester->year=$request->get('year');
+        $semester->save();
+		//Semesteryears::create($request->all());
 		return redirect('semesteryear');
 	}
 
@@ -75,8 +79,13 @@ class SemesteryearController extends Controller {
 	public function update($id, Request $request)
 	{
 		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
-		$semesteryear = Semesteryears::findOrFail($id);
-		$semesteryear->update($request->all());
+        $semester=Semesteryears::find($id);
+        $semester->semester=$request->get('semester');
+        $semester->year=$request->get('year');
+        $semester->status=$request->get('status');
+        $semester->save();
+//        $semesteryear = Semesteryears::findOrFail($id);
+//		$semesteryear->update($request->all());
 		return redirect('semesteryear');
 	}
 

@@ -11,12 +11,9 @@
                         <h1>Create a new semesteryear</h1>
                         <hr/>
 
-                        {!! Form::open(['url' => 'semesteryear']) !!}
+                        {!! Form::open(['url' => 'semesteryear/create/save']) !!}
                         
-                        <div class="form-group">
-                        {!! Form::label('id', 'Id: ') !!}
-                        {!! Form::text('id', null, ['class' => 'form-control']) !!}
-                    </div><div class="form-group">
+                      <div class="form-group">
                         {!! Form::label('semester', 'Semester: ') !!}
                         {!! Form::text('semester', null, ['class' => 'form-control']) !!}
                     </div><div class="form-group">

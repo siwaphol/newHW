@@ -16,7 +16,7 @@ class Semesteryears extends Model  {
      *
      * @var array
      */
-    protected $fillable = ['id', 'semester', 'year'];
+    protected $fillable = ['id', 'semester', 'year','status'];
     protected $primaryKey = 'id';
 
     public $incrementing = true;
