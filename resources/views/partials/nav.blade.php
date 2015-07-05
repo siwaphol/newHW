@@ -52,8 +52,9 @@
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">จัดการการบ้าน<span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
-                                        @foreach(Auth::user()->getCourseList() as $course)
-                                            <li><a href="{{url('homework/create/')}}{{'/' . $course->id}}">{{$course->id}}</a></li>
+                                        <?php $course_list_menu = explode(',',\Session::get('course_list'));?>
+                                        @foreach($course_list_menu as $course)
+                                            <li><a href="{{url('homework/create/')}}{{'/' . $course}}">{{$course}}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
@@ -62,8 +63,10 @@
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">สรุปผลการบ้าน<span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">กระบวนวิชาที่1</a></li>
-                                        <li><a href="#">กระบวนวิชาที่2</a></li>
+                                        <?php $course_list_menu = explode(',',\Session::get('course_list'));?>
+                                        @foreach($course_list_menu as $course)
+                                            <li><a href="#">{{$course}}</a></li>
+                                        @endforeach
                                     </ul>
                                 </li>
                             @endif

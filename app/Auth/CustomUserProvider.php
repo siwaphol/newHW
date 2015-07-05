@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 use App\Http\Controllers\Auth\Itsc\Itscapi;
 use DB;
 use App\User;
+use Session;
 
 class CustomUserProvider implements UserProvider {
 
@@ -28,8 +29,19 @@ class CustomUserProvider implements UserProvider {
     {
         $query = $this->createModel()->newQuery();
         $query->where('username',$credentials['email']);
-
-        if(count($query)){
+        if($query->count() > 0){
+            if(!Session::has('course_list')){
+                $course_list = $query->first()->getCourseList();
+                $course_list_str = "";
+                foreach($course_list as $course){
+                    if($course_list_str === ''){
+                        $course_list_str = $course->id;
+                    }else{
+                        $course_list_str = $course_list_str . ',' . $course->id;
+                    }
+                }
+                Session::put('course_list',$course_list_str);
+            }
             return $query->first();
         }
 
