@@ -69,22 +69,24 @@
                                if ($no>0 && $no<=200) {
                                //$stu=DB::select('select *  from users Where id=? and role_id=0001',array($code));
 
-                               $reg=DB::select(' select * from course_student where course_id=? and section=? and student_id=?',array($course,$sec,$code));
+                               $reg=DB::select(' select * from course_student where course_id=? and section=? and student_id=?
+                                                  and semester=? and year=?',array($course,$sec,$code,Session::get('semester'),Session::get('year')));
                                //$rowstudent=count($stu);
 
                                $rowregist=count($reg);
                                if ($rowregist==0 ) {
 
                                  //  $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
-
-                                   $regis =DB::insert('insert into course_student(student_id,course_id,section,status) values (?,?,?,?)',array($code,$course,$sec,$status));
+                                    $command =DB::insert('insert into users (id,firstname_th,lastname_th,role_id) values (?,?,?,?)',array($code,$fname,$lname,'0001')) ;
+                                   $regis =DB::insert('insert into course_student(student_id,course_id,section,status,semester,year) values (?,?,?,?,?,?)',array($code,$course,$sec,$status,Session::get('semester'),Session::get('year')));
 
 
 
                                }
                                if($rowregist>0){
                                    if($reg[0]->status!=$status){
-                                      $update=DB::update('update course_student set status=? where student_id=?',array($status,$code));
+                                      $update=DB::update('update course_student set status=? where student_id=?
+                                                          and semester=? and year=?',array($status,$code),Session::get('semester'),Session::get('year'));
                                    }
 
                                }

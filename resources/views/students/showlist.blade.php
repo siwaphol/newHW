@@ -5,12 +5,11 @@
 $student=DB::select('select re.student_id as studentid,stu.firstname_th as firstname_th,stu.lastname_th as lastname_th
                       from course_student  re
                       left join users stu on re.student_id=stu.id
-                      left join semester_year sy on re.semester=sy.semester and re.year=sy.semester
-                      where re.course_id=? and  re.section=? and sy.use=1
+                      where re.course_id=? and  re.section=? and re.semester=? and re.year=?
                       order by re.student_id
-                      ',array($course['co'],$course['sec']));
+                      ',array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
 $count=count($student);
- $coid=DB::select('select * from course_section where course_id=? and section=? ',array($course['co'],$course['sec']));
+ $coid=DB::select('select * from course_section c where c.course_id=? and c.section=? and c.semester=? and c.year=?',array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
 ?>
     <div class="container">
         <div class="row">

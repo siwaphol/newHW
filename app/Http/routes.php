@@ -83,7 +83,7 @@ Route::get('students/edit/{id}','StudentsController@edit');
 Route::post('students/export','StudentsController@export');
 Route::post('students/create/save','StudentsController@store');
 Route::post('students/showlist','StudentsController@showlist');
-Route::patch('students/update/{id}','StudentsController@update');
+Route::post('students/update/','StudentsController@update');
 //import student
 Route::get('students/import','StudentsController@import');
 Route::post('students/insert','StudentsController@insert');
