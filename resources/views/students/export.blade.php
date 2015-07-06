@@ -39,7 +39,7 @@ for($i=0;$i<$count;$i++) {
 
    $row++;
 }
-$objPHPExcel->getActiveSheet()->setTitle('รายชื่อนักศึกษากระบวนวิชา'.$course['co'].' ตอน '.$course['sec']);
+$objPHPExcel->getActiveSheet()->setTitle('นักศึกษาวิชา'.$course['co'].' ตอน '.$course['sec']);
 $name='รายชื่อนักศึกษากระบวนวิชา'.$course['co'].' ตอน '.$course['sec'];
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
                 $objPHPExcel->setActiveSheetIndex(0);
@@ -47,7 +47,7 @@ $name='รายชื่อนักศึกษากระบวนวิช�
 
                 // Redirect output to a client’s web browser (Excel5)
                 header('Content-Type: application/vnd.ms-excel');
-                header('Content-Disposition: attachment;filename=$name');
+                header('Content-Disposition: attachment;filename=$name.csv');
                 header('Cache-Control: max-age=0');
                 // If you're serving to IE 9, then the following may be needed
                 header('Cache-Control: max-age=1');
