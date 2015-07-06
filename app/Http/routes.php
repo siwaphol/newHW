@@ -39,7 +39,7 @@ Route::get('course_section/create', 'Course_SectionController@create');
 Route::get('course_section/delete/', 'Course_SectionController@delete');
 Route::post('course_section/create/save', 'Course_SectionController@store');
 Route::get('course_section/edit/', 'Course_SectionController@edit');
-
+Route::post('course_section/update/','Course_sectionController@update');
 
 Route::post('course_section/check/', 'Course_SectionController@check');
 
@@ -51,7 +51,7 @@ Route::get('teachers/show/{id}','TeachersController@show');
 Route::post('teachers/delete/{id}','TeachersController@destroy');
 Route::post('course','CourseController@addcourse');
 Route::post('course/saveedit','CourseController@saveedit');
-Route::post('course_section/update','Course_sectionController@update');
+
 Route::post('test1', 'HomeController@test1');
 Route::post('test2', 'HomeController@test2');
 Route::post('teachers/update','TeachersController@update');

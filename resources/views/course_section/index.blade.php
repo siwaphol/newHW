@@ -44,7 +44,7 @@ $i=1;
                 <td>{{$key->sectionid}}</td>
                  <td>{{$key->firstname}}  {{$key->lastname}}</td>
                 <td>{!! link_to_action('Course_SectionController@edit','แก้ไข',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
-                 <td>{!! link_to_action('Course_SectionController@delete','ลบ',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
+                 <td>{!! link_to_action('Course_SectionController@delete','ลบ',array('id'=>$key->id,'course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
 
 
             </tr>

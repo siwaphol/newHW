@@ -17,6 +17,7 @@ class Course_SectionController extends Controller
                               ,t.firstname_th as firstname
                               ,t.lastname_th as lastname
                               ,co.name as coursename
+                              ,cs.id as id
                               from course_section cs
                               left join users t on cs.teacher_id=t.id
                               left join courses co on cs.course_id=co.id
@@ -55,12 +56,12 @@ class Course_SectionController extends Controller
     public function update()
     {
         $id=$_POST['id'];
-        $courseid = $_POST['courseid'];
-        $sectionid =$_POST['sectionid'];
+        //$courseid =$_POST['courseid'];
+       // $sectionid =$_POST['sectionid'];
         $teacherid =$_POST['teacherid'];
         $cs = CS::find($id);
-        $cs->course_id=$courseid;
-        $cs->section=$sectionid;
+//        $cs->course_id=$courseid;
+//        $cs->section=$sectionid;
         $cs->teacher_id=$teacherid;
         $cs->save();
 
@@ -91,7 +92,7 @@ class Course_SectionController extends Controller
             return redirect()->back()
                 ->withErrors(['duplicate' => 'กระบวนวิชา '.$courseid.' ตอน '.$sectionid.' อาจารย ์'.$check[0]->firstname.' '.$check[0]->lastname.' ซ้ำ']);
         }
-        $
+
         $cs=new CS();
         $cs->course_id=$courseid;
         $cs->section=$sectionid;
@@ -107,8 +108,9 @@ class Course_SectionController extends Controller
     public function delete(){
             $course=$_GET['course'];
             $sec=$_GET['sec'];
+            $id=$_GET['id'];
             $result=DB::delete('delete from course_section where course_id=? and section=?
-                                and semester=? and year=?',array($course,$sec,Session::get('semester'),Session::get('year')));
+                                and semester=? and year=? and id=?',array($course,$sec,Session::get('semester'),Session::get('year'),$id));
         return redirect('course_section');
     }
     public function check(){
