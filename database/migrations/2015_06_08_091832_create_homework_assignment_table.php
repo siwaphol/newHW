@@ -16,15 +16,15 @@ class CreateHomeworkAssignmentTable extends Migration {
         {
             $table->increments('id');
             $table->char('course_id',6);
-            $table->char('section',3);
+            $table->char('section',3)->nullable();
             $table->string('name',50);
-            $table->string('type_id',10);
-            $table->string('detail',100);
+            $table->string('type_id',10)->nullable();
+            $table->string('detail',100)->nullable();
             $table->string('sub_folder',255);
             $table->timestamp('assign_date');
             $table->timestamp('due_date');
             $table->timestamp('accept_date');
-            $table->string('created_by',100);
+            $table->string('created_by',100)->nullable();
             $table->char('semester',1);
             $table->char('year',4);
             $table->timestamps();

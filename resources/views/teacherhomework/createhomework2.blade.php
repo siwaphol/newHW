@@ -690,16 +690,6 @@ if(($folder_list) || ($file_list) ) {
               </div>
             </div>
         <?php } ?>
-            {{--datetimepicker--}}
-            {{--<div class="form-group">--}}
-                {{--<div class='input-group date' id='datetimepicker1'>--}}
-                    {{--<input type='text' class="form-control" />--}}
-                    {{--<span class="input-group-addon">--}}
-                        {{--<span class="glyphicon glyphicon-calendar"></span>--}}
-                    {{--</span>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--datetimepicker end--}}
           </div>
     </div>
 @endsection
