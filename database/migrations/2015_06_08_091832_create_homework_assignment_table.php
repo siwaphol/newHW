@@ -20,7 +20,7 @@ class CreateHomeworkAssignmentTable extends Migration {
             $table->string('name',50);
             $table->string('type_id',10)->nullable();
             $table->string('detail',100)->nullable();
-            $table->string('sub_folder',255);
+            $table->string('path',255);
             $table->timestamp('assign_date');
             $table->timestamp('due_date');
             $table->timestamp('accept_date');

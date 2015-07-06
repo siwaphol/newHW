@@ -8,7 +8,13 @@
       <div class="modal-body">
         <form class="form-horizontal addFolderForm" role="form">
           <div class="form-group">
-            <label class="control-label col-sm-2" for="folderName">Section</label>
+            <label class="control-label col-sm-2" for="folderSection">Section</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="folderSection" id="folderSection" placeholder="Enter course section (blank for all)">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="folderName">Folder Name</label>
             <div class="col-sm-8">
               <input type="text" class="form-control" name="folderName" id="folderName" placeholder="Enter Folder name here">
             </div>

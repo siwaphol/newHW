@@ -274,7 +274,7 @@ foreach($object1 as $obj){
     $item['iso_mtime']      = "";
 
     // add file to file list
-    if($obj->sub_folder===$navigation_dir){
+    if($obj->path===$navigation_dir){
         array_push($file_list, $item);
     }
 }
@@ -321,7 +321,7 @@ $footer = set_footer();
 
 // Set breadcrumbs
 $breadcrumbs  = "    <ol class=\"breadcrumb$breadcrumb_style\"".$direction.">" . PHP_EOL;
-$breadcrumbs .= "      <li><a href=\"".htmlentities($root_dir, ENT_QUOTES, 'utf-8')."\">".$icons['home']."</a></li>" . PHP_EOL;
+$breadcrumbs .= "      <li><a href=\"".htmlentities($root_dir, ENT_QUOTES, 'utf-8')."/homework/create/" . $course_id . "\">".$icons['home']."</a></li>" . PHP_EOL;
 foreach($dir_name as $dir => $name) :
     if(($name != ' ') && ($name != '') && ($name != '.') && ($name != '/')):
         $parent = '';
@@ -428,7 +428,7 @@ if(($folder_list) || ($file_list) ) {
                 $tr_links = null;
             }
 
-            $table_body .= "<a href=\"" . htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8') . "/\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
+            $table_body .= "<a href=\""  . $course_id . "/" .htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8')  ."\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
             //$table_body .= "<a href=\"" . 'testfolder' . "/\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
 
             if ($table_options['size']) {
@@ -587,8 +587,8 @@ if(($folder_list) || ($file_list) ) {
                 $file_attr = null;
             }
 
-            $table_body .= "<a href=\"" . htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8') . "\"$file_attr$file_data$virtual_attr$modified_attr>" . utf8ify($display_name) . "</a></td>" . PHP_EOL;
-            //$table_body .= "<a href=\"" . 'testfile' . "\"$file_attr$file_data$virtual_attr$modified_attr>" . utf8ify($display_name) . "</a></td>" . PHP_EOL;
+            //$table_body .= "<a href=\"" . htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8') . "\"$file_attr$file_data$virtual_attr$modified_attr>" . utf8ify($display_name) . "</a></td>" . PHP_EOL;
+            $table_body .= "<a href=\"" . 'testfile' . "\"$file_attr$file_data$virtual_attr$modified_attr>" . utf8ify($display_name) . "</a></td>" . PHP_EOL;
 
             // Size
             if ($table_options['size']) {
@@ -624,7 +624,6 @@ if(($folder_list) || ($file_list) ) {
         $table_body .= "          </tr>" . PHP_EOL;
 }
 
-//require_once(app_path() . '/includes/listr/listr-template.php');
 ?>
 @extends('app')
 
@@ -712,19 +711,32 @@ if(($folder_list) || ($file_list) ) {
     $(function () {
         $("#addFileOK").click(function(){
             var temp = $('form.addFileForm').serialize();
-            var urlPath = window.location.pathname.split('/');
+//            var n = window.location.pathname.indexOf('homework/create/');
+            var paths = window.location.pathname.split('/');
+            //alert(window.location.pathname.substring(n+16,window.location.pathname.length));
+//            alert(paths[paths.length-1]);
             $.ajax({
-              url: urlPath[urlPath.length-1],
+              url: paths[paths.length-1],
               type: "POST",
-              data: {sent_data: temp, _token: $('input[name=_token]').val()},
+              data: {new_file: temp, _token: $('input[name=_token]').val()},
               success: function(data){
-                alert(data);
+                location.reload();
               }
             });
         });
         $("#addFolderOK").click(function(){
             var temp = $('form.addFolderForm').serialize();
-            alert(temp);
+//            var n = window.location.pathname.indexOf('homework/create/');
+            var paths = window.location.pathname.split('/');
+//            alert(window.location.pathname.substring(n+16,window.location.pathname.length));
+            $.ajax({
+              url: paths[paths.length-1],
+              type: "POST",
+              data: {new_folder: temp, _token: $('input[name=_token]').val()},
+              success: function(data){
+                location.reload();
+              }
+            });
         });
         $("#file_add_btn").on('click',  function(){
             $('#addFileModal').modal('toggle');

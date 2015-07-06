@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Homework;
+use App\HomeworkFolder;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -33,34 +34,102 @@ class CourseHomeworkController extends Controller {
     public function create_post($course_id){
 
         if(\Request::ajax()) {
-            $data = \Input::only('sent_data');
-            $params = array();
-            parse_str($_POST['sent_data'], $params);
+            if(\Input::has('new_file')) {
+                $params = array();
+                parse_str($_POST['new_file'], $params);
 
-            $homework_template = new Homework;
-            $homework_template->course_id = $course_id;
-            $homework_template->section = $params['section'];
-            $homework_template->name = $params['homeworkname'];
-            $homework_template->type_id = $params['filetype'];
-            $homework_template->detail = $params['filedetail'];
-            $homework_template->sub_folder = '.';
-            $date = new \DateTime;
-            $homework_template->assign_date = $date;
-            $homework_template->due_date = $this->convertDatepickerFormat($params['dueDate']);
-            $homework_template->accept_date = $this->convertDatepickerFormat($params['acceptUntil']);
-            $homework_template->created_by = \Auth::user()->id;
-            $homework_template->semester = '1';
-            $homework_template->year = '2557';
-            $saved = $homework_template->save();
+                $homework_template = new Homework;
+                $homework_template->course_id = $course_id;
+                $homework_template->section = $params['section'];
+                $homework_template->name = $params['homeworkname'];
+                $homework_template->type_id = $params['filetype'];
+                $homework_template->detail = $params['filedetail'];
+                $homework_template->path = '.';
+                $date = new \DateTime;
+                $homework_template->assign_date = $date;
+                $homework_template->due_date = $this->convertDatepickerFormat($params['dueDate']);
+                $homework_template->accept_date = $this->convertDatepickerFormat($params['acceptUntil']);
+                $homework_template->created_by = \Auth::user()->id;
+                $homework_template->semester = \Session::get('semester');
+                $homework_template->year = \Session::get('year');
+                $saved = $homework_template->save();
 
-            if(!$saved){
-                return "error";
+                if (!$saved) {
+                    return "error";
+                }
+                return "success";
+            }else if(\Input::has('new_folder')){
+                $params = array();
+                parse_str($_POST['new_folder'], $params);
+
+                $hw_folder_template = new HomeworkFolder;
+                $hw_folder_template->course_id = $course_id;
+                $hw_folder_template->section = $params['folderSection'];
+                $hw_folder_template->name = $params['folderName'];
+                $hw_folder_template->path = '.';
+                $hw_folder_template->semester = \Session::get('semester');
+                $hw_folder_template->year = \Session::get('year');
+                $saved = $hw_folder_template->save();
+
+                if (!$saved) {
+                    return "error";
+                }
+                return "success";
             }
-            return "success";
         }
         return "error";
     }
+    public function create_get_long($course_id,$path){
+        $_GET['path'] = $path;
+        return view('teacherhomework.createhomework2',['course_id'=>$course_id]);
+    }
+    public function create_post_long($course_id,$path){
+        if(\Request::ajax()) {
+            if(\Input::has('new_file')) {
+                $params = array();
+                parse_str($_POST['new_file'], $params);
 
+                $homework_template = new Homework;
+                $homework_template->course_id = $course_id;
+                $homework_template->section = $params['section'];
+                $homework_template->name = $params['homeworkname'];
+                $homework_template->type_id = $params['filetype'];
+                $homework_template->detail = $params['filedetail'];
+                $homework_template->path = './' . $path;
+                $date = new \DateTime;
+                $homework_template->assign_date = $date;
+                $homework_template->due_date = $this->convertDatepickerFormat($params['dueDate']);
+                $homework_template->accept_date = $this->convertDatepickerFormat($params['acceptUntil']);
+                $homework_template->created_by = \Auth::user()->id;
+                $homework_template->semester = \Session::get('semester');
+                $homework_template->year = \Session::get('year');
+                $saved = $homework_template->save();
+
+                if(!$saved){
+                    return "error";
+                }
+                return "success";
+            }else if(\Input::has('new_folder')){
+                $params = array();
+                parse_str($_POST['new_folder'], $params);
+
+                $hw_folder_template = new HomeworkFolder;
+                $hw_folder_template->course_id = $course_id;
+                $hw_folder_template->section = $params['folderSection'];
+                $hw_folder_template->name = $params['folderName'];
+                $hw_folder_template->path = './' . $path;
+                $hw_folder_template->semester = \Session::get('semester');
+                $hw_folder_template->year = \Session::get('year');
+                $saved = $hw_folder_template->save();
+
+                if (!$saved) {
+                    return "error";
+                }
+                return "success";
+            }
+        }
+        return "error";
+    }
     //accept input date as 06%2F07%2F2015+11%3A59+AM from serialized string
     protected  function convertDatepickerFormat($date){
         $parts = explode(' ',$date);
