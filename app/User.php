@@ -4,6 +4,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use DB;
+use Session;
 
 class User extends Model implements AuthenticatableContract {
 
@@ -99,12 +100,13 @@ class User extends Model implements AuthenticatableContract {
     }
 
     public function getCourseList(){
+
         if($this->isAdmin()){
-            $course_list = DB::select('SELECT DISTINCT id FROM courses');
+
+            $course_list = DB::select('SELECT DISTINCT course_id FROM course_section where semester=? and year=?',array(Session::get('semester'),Session::get('year')));
             return $course_list;
         }else if($this->isTeacher()){
-            $course_list = DB::select('SELECT DISTINCT id FROM courses WHERE id IN
-                    (SELECT DISTINCT course_id FROM course_section WHERE teacher_id = ?)',[$this->attributes['id']]);
+            $course_list = DB::select('SELECT DISTINCT course_id FROM course_section WHERE teacher_id = ? and semester=? and year=?)',array($this->attributes['id'],Session::get('semester'),Session::get('year')));
             return $course_list;
         }
     }

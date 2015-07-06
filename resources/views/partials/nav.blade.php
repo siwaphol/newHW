@@ -48,8 +48,9 @@
                                              </ul>
                                   </li>
                             @endif
+
                             @if(Auth::user()->isTeacher() || Auth::user()->isAdmin())
-                                <li><a href="{{url('students')}}">รายชื่อนักศึกษา</a></li>
+
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">จัดการการบ้าน<span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
@@ -59,6 +60,10 @@
                                         @endforeach
                                     </ul>
                                 </li>
+                            @endif
+                            @if(Auth::user()->isTeacher())
+                            <li><a href="{{url('students')}}">รายชื่อนักศึกษา</a></li>
+                            <li><a href="{{url('assistants')}}">นักศึกษาช่วยสอน</a></li>
                             @endif
                             @if (Auth::user()->isTa() || Auth::user()->isTeacher() || Auth::user()->isAdmin())
                                 <li class="dropdown">

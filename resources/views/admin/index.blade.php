@@ -15,13 +15,16 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
-                                    <th>ที่</th><th>ชื่อ นามสกุล</th><th>Actions</th>
+                                    <th>ที่</th><th>ชื่อ นามสกุล</th><th>edit</th><th>delete</th>
                                 </tr>
                                 {{-- */$x=0;/* --}}
                                 @foreach($admins as $item)
                                     {{-- */$x++;/* --}}
                                     <tr>
-                                        <td>{{ $x }}</td><td><a href="{{ url('admin/show', $item->id) }}">{{ $item->firstname_th.' '.$item->lastname_th }}</a></td><td><a href="{{ url('/admin/'.$item->id.'/edit') }}">Edit</a> / {!! Form::open(['method'=>'delete','action'=>array('AdminController@destroy',$item->id)]) !!}<button type="submit" class="btn btn-link">Delete</button>{!! Form::close() !!}</td>
+                                        <td>{{ $x }}</td>
+                                        <td><a href="{{ url('admin/show', $item->id) }}">{{ $item->firstname_th.' '.$item->lastname_th }}</a></td>
+                                        <td><a href="{{ url('/admin/'.$item->id.'/edit') }}">Edit</a></td>
+                                        <td> {!! Form::open(['method'=>'delete','action'=>array('AdminController@destroy',$item->id)]) !!}<button type="submit" class="btn btn-link">Delete</button>{!! Form::close() !!}</td>
                                     </tr>
                                 @endforeach
                             </table>

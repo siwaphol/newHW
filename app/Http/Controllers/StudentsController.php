@@ -72,6 +72,7 @@ class StudentsController extends Controller {
                               ,stu.lastname_th as lastname
                               ,stu.email as email
                               ,fac.name_th as faculty
+                              ,cs.status as status
                               from course_student cs
                               left join users stu on cs.student_id=stu.id
                               left join faculties fac on stu.faculty_id=fac.id
