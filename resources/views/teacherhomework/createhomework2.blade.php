@@ -328,7 +328,8 @@ foreach($dir_name as $dir => $name) :
         for ($i = 0; $i <= $dir; $i++):
             $parent .= rawurlencode($dir_name[$i]) . '/';
         endfor;
-        $breadcrumbs .= "      <li><a href=\"".htmlentities($absolute_path.$parent, ENT_QUOTES, 'utf-8')."\">".$name."</a></li>" . PHP_EOL;
+        $mypath = $absolute_path.$parent;
+        $breadcrumbs .= "      <li><a href=\"".htmlentities(substr($absolute_path.$parent,0,strlen($mypath)-1) , ENT_QUOTES, 'utf-8')."\">".$name."</a></li>" . PHP_EOL;
     endif;
 endforeach;
 $breadcrumbs = $breadcrumbs."    </ol>" . PHP_EOL;
@@ -428,7 +429,11 @@ if(($folder_list) || ($file_list) ) {
                 $tr_links = null;
             }
 
-            $table_body .= "<a href=\""  . $course_id . "/" .htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8')  ."\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
+            if($_GET['path'] == null){
+                $table_body .= "<a href=\"" . $course_id . '/' .htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8')  ."\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
+            }else{
+                $table_body .= "<a href=\"" . $_GET['path'] . '/' .htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8')  ."\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
+            }
             //$table_body .= "<a href=\"" . 'testfolder' . "/\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
 
             if ($table_options['size']) {
