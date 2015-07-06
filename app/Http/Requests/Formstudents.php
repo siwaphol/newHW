@@ -13,7 +13,7 @@ class Formstudents extends FormRequest {
     public function rules()
     {
         return [
-            'student_id' => 'required',
+            'id' => 'required',
 
         ];
     }

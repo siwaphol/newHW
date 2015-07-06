@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Semesteryears;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use DB;
 
 class SemesteryearController extends Controller {
 
@@ -16,7 +17,7 @@ class SemesteryearController extends Controller {
 	 */
 	public function index()
 	{
-		$semesteryears = Semesteryears::latest()->get();
+		$semesteryears =DB::select('select * from semester_year ORDER BY  year desc,semester desc ');
 		return view('semesteryear.index', compact('semesteryears'));
 	}
 
@@ -41,6 +42,7 @@ class SemesteryearController extends Controller {
         $semester=new Semesteryears();
         $semester->semester=$request->get('semester');
         $semester->year=$request->get('year');
+        $semester->use=0;
         $semester->save();
 		//Semesteryears::create($request->all());
 		return redirect('semesteryear');
@@ -82,7 +84,7 @@ class SemesteryearController extends Controller {
         $semester=Semesteryears::find($id);
         $semester->semester=$request->get('semester');
         $semester->year=$request->get('year');
-        $semester->status=$request->get('status');
+        $semester->use=$request->get('use');
         $semester->save();
 //        $semesteryear = Semesteryears::findOrFail($id);
 //		$semesteryear->update($request->all());

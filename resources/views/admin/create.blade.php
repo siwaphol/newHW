@@ -5,39 +5,39 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
+                    <div class="panel-heading" align="center">เพิ่มผู้ดุแลระบบ</div>
 
                     <div class="panel-body">
-                        <h1>Create a new admin</h1>
+
                         <hr/>
 
                         {!! Form::open(['url' => 'admin/create/save']) !!}
                         
                        <div class="form-group">
-                           {!! Form::label('username', 'username: ') !!}
+                           {!! Form::label('username', 'รหัสผู้ใช้: ') !!}
                            {!! Form::text('username', null, ['class' => 'form-control']) !!}
                        </div><div class="form-group">
-                           {!! Form::label('firstname_th', 'firstname_th: ') !!}
+                           {!! Form::label('firstname_th', 'ชื่อ: ') !!}
                            {!! Form::text('firstname_th', null, ['class' => 'form-control']) !!}
                        </div>
                        <div class="form-group">
-                           {!! Form::label('firstname_en', 'firstname_en: ') !!}
+                           {!! Form::label('firstname_en', 'firstname: ') !!}
                            {!! Form::text('firstname_en', null, ['class' => 'form-control']) !!}
                        </div>
                        <div class="form-group">
-                           {!! Form::label('lastname_th', 'lastname_th: ') !!}
+                           {!! Form::label('lastname_th', 'นามสกุล: ') !!}
                            {!! Form::text('lastname_th', null, ['class' => 'form-control']) !!}
                        </div>
                        <div class="form-group">
-                           {!! Form::label('lastname_en', 'lastname_en: ') !!}
+                           {!! Form::label('lastname_en', 'lastname: ') !!}
                            {!! Form::text('lastname_en', null, ['class' => 'form-control']) !!}
                        </div>
                        <div class="form-group">
-                           {!! Form::label('email', 'email: ') !!}
+                           {!! Form::label('email', 'อีเมล: ') !!}
                            {!! Form::text('email', null, ['class' => 'form-control']) !!}
                        </div>
                         <div class="form-group">
-                            {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
+                            {!! Form::submit('เพิ่ม', ['class' => 'btn btn-primary form-control']) !!}
                         </div>
                         {!! Form::close() !!}
 

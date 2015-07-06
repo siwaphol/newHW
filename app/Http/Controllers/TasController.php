@@ -7,6 +7,7 @@ use App\Tas;
 use DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Session;
 
 class TasController extends Controller {
 
@@ -17,7 +18,10 @@ class TasController extends Controller {
 	 */
 	public function index()
 	{
-        $tas =DB::select('select * from users where (role_id=0011 or role_id=0010)');
+        $tas =DB::select('select u.id as student_id,ta.id as id,firstname_th,lastname_th from users u
+                          left join course_ta ta on u.id=ta.student_id
+                          where (role_id=0011 or role_id=0010)
+                          and ta.semester=? and ta.year=?',array(Session::get('semester'),Session::get('year')));
 		return view('tas.index', compact('tas'));
 	}
 

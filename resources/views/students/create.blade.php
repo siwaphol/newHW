@@ -22,13 +22,14 @@
                         <div class="form-group">
                         {!! Form::label('student_id', 'รหัสนักศึกษา: ') !!}
                         {!! Form::text('student_id', null, ['class' => 'form-control']) !!}
-                    <div class="form-group">
-                        {!! Form::label('status', 'สถานะ: ') !!}
-                        {!! Form::radio('status', 'drop') !!} drop
-                        {!! Form::radio('status', 'no',true) !!} no
-                        {!! Form::text('status', null, ['class' => 'form-control'])!!}
-                    </div>
+                    {{--<div class="form-group">--}}
+                        {{--{!! Form::label('status', 'สถานะ: ') !!}--}}
+                        {{--{!! Form::radio('status', 'drop') !!} drop--}}
+                        {{--{!! Form::radio('status', 'no',true) !!} no--}}
+                        {{--{!! Form::text('status', null, ['class' => 'form-control'])!!}--}}
+                    {{--</div>--}}
                     <input type="hidden" name="course_id" value="{{$item->course_id}}">
+                    <input type="hidden" name="status" value="">
                      <input type="hidden" name="section" value="{{$item->section}}">
                         <div class="form-group">
                             {!! Form::submit('Create', ['class' => 'btn btn-primary form-control'])!!}

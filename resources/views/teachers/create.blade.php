@@ -13,26 +13,26 @@
                         {!! Form::open(['url' => 'teachers/create/save']) !!}
                         
                         <div class="form-group">
-                        {!! Form::label('username', 'username: ') !!}
+                        {!! Form::label('username', 'รหัสผู้ใช้: ') !!}
                         {!! Form::text('username', null, ['class' => 'form-control']) !!}
                     </div><div class="form-group">
-                        {!! Form::label('firstname_th', 'firstname_th: ') !!}
+                        {!! Form::label('firstname_th', 'ชื่อ: ') !!}
                         {!! Form::text('firstname_th', null, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('firstname_en', 'firstname_en: ') !!}
+                        {!! Form::label('firstname_en', 'firstname: ') !!}
                         {!! Form::text('firstname_en', null, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('lastname_th', 'lastname_th: ') !!}
+                        {!! Form::label('lastname_th', 'นามสกุล: ') !!}
                         {!! Form::text('lastname_th', null, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('lastname_en', 'lastname_en: ') !!}
+                        {!! Form::label('lastname_en', 'lastname: ') !!}
                         {!! Form::text('lastname_en', null, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('email', 'email: ') !!}
+                        {!! Form::label('email', 'อีเมล: ') !!}
                         {!! Form::text('email', null, ['class' => 'form-control']) !!}
                     </div>
 

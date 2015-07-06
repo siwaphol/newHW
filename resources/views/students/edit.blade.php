@@ -11,23 +11,37 @@
 
                         <hr/>
 
-                        {{ Form::model($student, ['method' => 'PATCH', 'action' => ['StudentsController@update', $student->id]]) }}
-
+                       @foreach($student as $item)
+                          {!! Form::open(['url' => 'students/update']) !!}
+                       <div class="form-group">
+                           {!! Form::label('username', 'รหัสผู้ใช้: ') !!}
+                           {!! Form::text('username', $item->username, ['class' => 'form-control']) !!}
+                       </div><div class="form-group">
+                           {!! Form::label('firstname_th', 'ชื่อ: ') !!}
+                           {!! Form::text('firstname_th', $item->firstname_th, ['class' => 'form-control']) !!}
+                       </div>
+                       <div class="form-group">
+                           {!! Form::label('firstname_en', 'firstname: ') !!}
+                           {!! Form::text('firstname_en', $item->firstname_en, ['class' => 'form-control']) !!}
+                       </div>
+                       <div class="form-group">
+                           {!! Form::label('lastname_th', 'นามสกุล: ') !!}
+                           {!! Form::text('lastname_th', $item->lastname_th, ['class' => 'form-control']) !!}
+                       </div>
+                       <div class="form-group">
+                           {!! Form::label('lastname_en', 'lastname: ') !!}
+                           {!! Form::text('lastname_en', $item->lastname_en, ['class' => 'form-control']) !!}
+                       </div>
+                       <div class="form-group">
+                           {!! Form::label('email', 'อีเมล: ') !!}
+                           {!! Form::text('email', $item->email, ['class' => 'form-control']) !!}
+                       </div>
+                        <input type="hidden" name="id" value="{{$item->id}}">
                         <div class="form-group">
-                        {{ Form::label('id', 'Id: ') }}
-                        {{ Form::text('id', null, ['class' => 'form-control']) }}
-                    </div><div class="form-group">
-                        {{ Form::label('studentName', 'Studentname: ') }}
-                        {{ Form::text('studentName', null, ['class' => 'form-control']) }}
-                    </div><div class="form-group">
-                        {{ Form::label('status', 'Status: ') }}
-                        {{ Form::text('status', null, ['class' => 'form-control']) }}
-                    </div>
-
-                        <div class="form-group">
-                            {{ Form::submit('Update', ['class' => 'btn btn-primary form-control']) }}
+                            {!! Form::submit('ปรับปรุง', ['class' => 'btn btn-primary form-control']) !!}
                         </div>
-                        {{ Form::close() }}
+                        {!! Form::close() !!}
+                        @endforeach
 
                         @if ($errors->any())
                             <ul class="alert alert-danger">

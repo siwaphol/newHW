@@ -1,6 +1,5 @@
 @extends('app')
 @section('content')
-
 <?php
 $sql=DB::select('select * from courses');
 $count=count($sql);
@@ -52,7 +51,6 @@ for($i=0;$i<$count;$i++){?>
 
 </select>
 </div>
-
 <div class="form-group">
 {!! Form::submit('เพิ่มตอน',['class'=>'btn btn-primary form-control'])!!}
 </div>
@@ -70,7 +68,6 @@ for($i=0;$i<$count;$i++){?>
 </div>
 </div>
 </div>
-
 
   @endsection
 

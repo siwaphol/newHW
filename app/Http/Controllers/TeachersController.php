@@ -45,7 +45,7 @@ class TeachersController extends Controller {
 
         $id=intval($findid[0]->maxid);
         $id+=1;
-
+        $id=str_pad($id, 9, "0", STR_PAD_LEFT);
         $username=$request->get('username');
         $firstname_th=$request->get('firstname_th');
         $firstname_en=$request->get('firstname_en');

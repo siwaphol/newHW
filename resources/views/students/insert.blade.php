@@ -16,8 +16,10 @@
             //$sec =Request::get('ddlSection');
             $course = $cours['co'];
             $sec = $cours['sec'];
+            $semester=Session::get('semester');
+            $year=substr(Session::get('year'),-2);
 
-            $fileupload_name = 'https://www3.reg.cmu.ac.th/regist257/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
+            $fileupload_name = 'https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
                         $fileupload='../temp/file.xlsx';
 
                         //chmod($fileupload, 0755);
@@ -61,22 +63,24 @@
                                 if ($no>0 && $no<=200) {
                                     //$stu=DB::select('select *  from users Where id=? and role_id=0001',array($code));
 
-                                    $reg=DB::select(' select * from course_student where course_id=? and section=? and student_id=?',array($course,$sec,$code));
+                                    $reg=DB::select(' select * from course_student where course_id=? and section=? and student_id=?
+                                                    and semester=? and year=?',array($course,$sec,$code,Session::get('semester'),Session::get('year')));
                                     //$rowstudent=count($stu);
 
                                     $rowregist=count($reg);
                                    if ($rowregist==0 ) {
 
-                                        $command =DB::insert('insert into users (id,firstname_th,lastname_th) values (?,?,?)',array($code,$fname,$lname)) ;
+                                        $command =DB::insert('insert into users (id,firstname_th,lastname_th,role_id) values (?,?,?,?)',array($code,$fname,$lname,'0001')) ;
 
-                                          $regis =DB::insert('insert into course_student(student_id,course_id,section,status) values (?,?,?,?)',array($code,$course,$sec,$status));
+                                          $regis =DB::insert('insert into course_student(student_id,course_id,section,status,semester,year) values (?,?,?,?,?,?)',array($code,$course,$sec,$status,Session::get('semester'),Session::get('year')));
 
 
 
                                       }
                                       if($rowregist>0){
                                           if($reg[0]->status!=$status){
-                                             $update=DB::update('update course_student set status=? where student_id=?',array($status,$code));
+                                             $update=DB::update('update course_student set status=? where student_id=?
+                                                               and semester=? and year=?',array($status,$code,Session::get('semester'),Session::get('year')));
                                           }
 
                                       }
@@ -88,13 +92,13 @@
       ?>
        <?php
        $student=DB::select('select re.student_id as studentid,stu.firstname_th as firstname_th,stu.lastname_th as lastname_th
-                             from course_student  re
-                             left join users stu on re.student_id=stu.id
-                             where re.course_id=? and  re.section=?
-                             order by re.student_id
-                             ',array($course,$sec));
+                                          from course_student  re
+                                          left join users stu on re.student_id=stu.id
+                                          where re.course_id=? and  re.section=? and re.semester=? and re.year=?
+                                          order by re.student_id
+                                          ',array($course,$sec,Session::get('semester'),Session::get('year')));
        $count=count($student);
-        $coid=DB::select('select * from course_section where course_id=? and section=? ',array($course,$sec));
+        $coid=DB::select('select * from course_section c where c.course_id=? and c.section=? and c.semester=? and c.year=?',array($course,$sec,Session::get('semester'),Session::get('year')));
        ?>
            <div class="container">
                <div class="row">

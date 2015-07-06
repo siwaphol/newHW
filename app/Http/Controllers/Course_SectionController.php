@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use Illuminate\Http\Request;
 use App\Course_Section as CS;
+use Session;
 class Course_SectionController extends Controller
 {
 
@@ -19,11 +20,10 @@ class Course_SectionController extends Controller
                               from course_section cs
                               left join users t on cs.teacher_id=t.id
                               left join courses co on cs.course_id=co.id
-                              left join current_semester_year csy on cs.semester=csy.semester and cs.year=csy.year
                               WHERE  t.role_id=0100
-                              and csy.status=?
+                              and cs.semester=? and cs.year=?
                               order by cs.course_id,cs.section
-                              ',array('Y'));
+                              ',array(Session::get('semester'),Session::get('year')));
 
         return view('course_section.index', compact('result'));
     }
@@ -46,8 +46,8 @@ class Course_SectionController extends Controller
                               from course_section cs
                               left join users t on cs.teacher_id=t.id
                               left join courses co on cs.course_id=co.id
-                              where cs.course_id=? and cs.section=?
-                              ', array($courseid, $sectionid));
+                              where cs.course_id=? and cs.section=? and cs.semester=? and cs.year=?
+                              ', array($courseid, $sectionid,Session::get('semester'),Session::get('year')));
 
         return view('course_section.edit', compact('result'));
     }
@@ -84,16 +84,20 @@ class Course_SectionController extends Controller
         $teacherid = $request->get('teacherid');
         $check=DB::select('select tea.firstname_th as firstname,tea.lastname_th as lastname from course_section cs
                           left JOIN users tea on cs.teacher_id=tea.id
-                          where cs.course_id=? and cs.section=? and cs.teacher_id=?',array($courseid,$sectionid,$teacherid));
+                          where cs.course_id=? and cs.section=? and cs.teacher_id=?
+                          and cs.semester=? and cs.year=?',array($courseid,$sectionid,$teacherid,Session::get('semester'),Session::get('year')));
 
         if(count($check)>0){
             return redirect()->back()
                 ->withErrors(['duplicate' => 'กระบวนวิชา '.$courseid.' ตอน '.$sectionid.' อาจารย ์'.$check[0]->firstname.' '.$check[0]->lastname.' ซ้ำ']);
         }
+        $
         $cs=new CS();
         $cs->course_id=$courseid;
         $cs->section=$sectionid;
         $cs->teacher_id=$teacherid;
+        $cs->semester=Session::get('semester');
+        $cs->year=Session::get('year');
         $cs->save();
 
         //$Course = DB::insert('insert into course_section(course_id,section,teacher_id)VALUES (?,?,?)', array($courseid, $sectionid, $teacherid));
@@ -103,7 +107,8 @@ class Course_SectionController extends Controller
     public function delete(){
             $course=$_GET['course'];
             $sec=$_GET['sec'];
-            $result=DB::delete('delete from course_section where course_id=? and section=?',array($course,$sec));
+            $result=DB::delete('delete from course_section where course_id=? and section=?
+                                and semester=? and year=?',array($course,$sec,Session::get('semester'),Session::get('year')));
         return redirect('course_section');
     }
     public function check(){

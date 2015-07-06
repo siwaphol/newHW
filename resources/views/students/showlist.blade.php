@@ -2,14 +2,14 @@
 
 @section('content')
 <?php
-$student=DB::select('select re.student_id as studentid,stu.firstname_th as firstname_th,stu.lastname_th as lastname_th
+$student=DB::select('select re.student_id as studentid,stu.firstname_th as firstname_th,stu.lastname_th as lastname_th,re.status as status
                       from course_student  re
                       left join users stu on re.student_id=stu.id
-                      where re.course_id=? and  re.section=?
+                      where re.course_id=? and  re.section=? and re.semester=? and re.year=?
                       order by re.student_id
-                      ',array($course['co'],$course['sec']));
+                      ',array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
 $count=count($student);
- $coid=DB::select('select * from course_section where course_id=? and section=? ',array($course['co'],$course['sec']));
+ $coid=DB::select('select * from course_section c where c.course_id=? and c.section=? and c.semester=? and c.year=?',array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
 ?>
     <div class="container">
         <div class="row">
@@ -32,7 +32,7 @@ $count=count($student);
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
-                                    <th>ลำดับ</th><th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>delete</th>
+                                    <th>ลำดับ</th><th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>สถานะ</th><th>delete</th>
                                 </tr>
                                 {{-- */$x=0;/* --}}
                                 <?php
@@ -44,6 +44,7 @@ $count=count($student);
                                         <td>{{ $x+1 }}</td>
                                         <td><a href="{{ url('/students/show', $item[$x]->studentid) }}">{{ $item[$x]->studentid }}</a></td>
                                         <td><a href="{{ url('/students/show', $item[$x]->studentid) }}">{{ $item[$x]->firstname_th." ".$item[$x]->lastname_th }}</a></td>
+                                        <td>{{ $item[$x]->status}}</td>
                                         <!--
                                         <td><a href="{{ url('/students/edit/'.$item[$x]->studentid) }}">Edit</a> </td>
                                         -->

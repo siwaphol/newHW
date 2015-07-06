@@ -9,14 +9,14 @@ class Semesteryears extends Model  {
      *
      * @var string
      */
-    protected $table = 'current_semester_year';
+    protected $table = 'semester_year';
 
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['id', 'semester', 'year','status'];
+    protected $fillable = ['id', 'semester', 'year','use'];
     protected $primaryKey = 'id';
 
     public $incrementing = true;

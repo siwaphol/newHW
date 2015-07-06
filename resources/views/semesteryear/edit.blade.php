@@ -21,8 +21,8 @@
                         {!! Form::text('year', null, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('status', 'status: ') !!}
-                        {!! Form::text('status', null, ['class' => 'form-control']) !!}
+                        {!! Form::label('use', 'status: ') !!}
+                        {!! Form::text('use', null, ['class' => 'form-control']) !!}
                     </div>
                         
                         <div class="form-group">

@@ -2,7 +2,8 @@
 
 use App\Course;
 use Request;
-
+use Session;
+use DB;
 class HomeController extends Controller {
 
 	/*
@@ -52,5 +53,27 @@ class HomeController extends Controller {
         $model=Course::all();
 
         return view('course',compact('model'));
+    }
+
+    /**
+     * @return array
+     */
+    public function semester(){
+        $model=Request::all();
+        Session::put('semester',Request::get('semester'));
+        Session::put('year',Request::get('year'));
+        Session::forget('course_list');
+        $sql=DB::select('select * from course_section where semester=? and year=?',array(Session::get('semester'),Session::get('year')));
+        $course_list_str = "";
+        foreach($sql as $course){
+            if($course_list_str === ''){
+                $course_list_str = $course->course_id;
+            }else{
+                $course_list_str = $course_list_str . ',' . $course->course_id;
+            }
+        }
+        Session::put('course_list',$course_list_str);
+        return view('home');
+        //return view('course',compact('model'));
     }
 }

@@ -4,9 +4,10 @@ use App\Http\Requests\Formstudents;
 use App\Http\Controllers\Controller;
 
 use App\Students;
+use App\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+use Session;
 use DB;
 class StudentsController extends Controller {
 
@@ -30,7 +31,7 @@ class StudentsController extends Controller {
 	public function create($id)
 
 	{
-        $course=DB::select('select * from course_section where id=?',array($id));
+        $course=DB::select('select * from course_section  where id=?',array($id));
 		return view('students.create',compact('course'));
 	}
 
@@ -45,12 +46,13 @@ class StudentsController extends Controller {
         $section=$request->get('section');
         $student_id=$request->get('student_id');
         $status=$request->get('status');
-        $check=DB::select('select * from course_student where course_id=? and section=? and student_id=?',array($course_id,$section,$student_id));
+        $check=DB::select('select * from course_student where course_id=? and section=? and student_id=?
+                            and semester=? and year=?',array($course_id,$section,$student_id,Session::get('semester'),Session::get('year')));
         if(count($check)>0){
             return redirect()->back()
                 ->withErrors(['duplicate' => 'รหัสนักศึกษา '.$student_id.' ซ้ำ']);
         }
-        $insert=DB::insert('insert into course_student (course_id,section,student_id,status) VALUES (?,?,?,?)',array($course_id,$section,$student_id,$status));
+        $insert=DB::insert('insert into course_student (course_id,section,student_id,status,semester,year) VALUES (?,?,?,?,?,?)',array($course_id,$section,$student_id,$status,Session::get('semester'),Session::get('year')));
 
 		//return redirect('students/showlist');
         return view('students.showlist')->with('course',array('co'=>$course_id,'sec'=>$section));
@@ -70,10 +72,12 @@ class StudentsController extends Controller {
                               ,stu.lastname_th as lastname
                               ,stu.email as email
                               ,fac.name_th as faculty
+                              ,cs.status as status
                               from course_student cs
                               left join users stu on cs.student_id=stu.id
                               left join faculties fac on stu.faculty_id=fac.id
-                               where (stu.role_id=0001 OR stu.role_id=0011) and cs.student_id=?',array($id));
+                               where (stu.role_id=0001 OR stu.role_id=0011) and cs.student_id=?
+                               and cs.semester=? and cs.year=?',array($id,Session::get('semester'),Session::get('year')));
 		return view('students.show', compact('student'));
 	}
 
@@ -95,11 +99,16 @@ class StudentsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, Formstudents $request)
+	public function update(Formstudents $request)
 	{
-		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
-		$student = Students::findOrFail($id);
-		$student->update($request->all());
+        $id=$request->get('id');
+        $username=$request->get('username');
+        $firstname_th=$request->get('firstname_th');
+        $firstname_en=$request->get('firstname_en');
+        $lastname_th=$request->get('lastname_th');
+        $lastname_en=$request->get('lastname_en');
+        $email=$request->get('email');
+        $update=DB::update('update users set username=?,firstname_th=?,firstname_en=?,lastname_th=?,lastname_en=?,email=? where id=?',array($username,$firstname_th,$firstname_en,$lastname_th,$lastname_en,$email,$id));
 		return redirect('students');
 	}
 
@@ -115,9 +124,10 @@ class StudentsController extends Controller {
         $sec=$_POST['sec'];
 		//Students::destroy($id);
         $result1=DB::delete('delete from users where id=?',array($id));
-        $result=DB::delete('delete from course_student WHERE course_id=? and section=? and student_id=?',array($course,$sec,$id));
-
-		return redirect('students');
+        $result=DB::delete('delete from course_student WHERE course_id=? and section=? and student_id=?
+                            and semester=? and year=?',array($course,$sec,$id,Session::get('semester'),Session::get('year')));
+        return redirest()->back();
+		//return redirect('students');
 	}
     public function import()
     {

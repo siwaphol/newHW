@@ -39,10 +39,13 @@ function onSubmitMain() {
         if(Auth::user()->role_id=='0100'){
         $objQuery =DB::select('SELECT DISTINCT  section,course_id FROM course_section cs
                                                            left join users  tea on cs.teacher_id=tea.id
-                                                           where tea.username=? ORDER BY section ASC ',array($teacher));
+                                                           where tea.username=?
+                                                           and cs.semester=? and cs.year=?
+                                                            ORDER BY section ASC ',array($teacher,Session::get('semester'),Session::get('year')));
         }
         if(Auth::user()->role_id=='1000'){
-            $objQuery =DB::select('SELECT  DISTINCT section,course_id FROM course_section  ORDER BY section ASC ');
+            $objQuery =DB::select('SELECT  DISTINCT section,course_id FROM course_section cs
+                                    where cs.semester=? and cs.year=? ORDER BY section ASC ',array(Session::get('semester'),Session::get('year')));
             }
     //$objQuery =DB::select('SELECT sectionId,courseId FROM course_section ORDER BY sectionId ASC ');
     $count=count($objQuery);
@@ -88,10 +91,14 @@ function onSubmitMain() {
                         if(Auth::user()->role_id=='0100'){
                         $sql=DB::select('SELECT DISTINCT course_id FROM course_section cs
                                                                      left join users  tea on cs.teacher_id=tea.id
-                                                                     where tea.username=? ORDER BY course_id ASC ',array($teacher));
+                                                                     where tea.username=?
+                                                                     and cs.semester=? and cs.year=?
+                                                                      ORDER BY course_id ASC ',array($teacher,Session::get('semester'),Session::get('year')));
                         }
                         if(Auth::user()->role_id=='1000'){
-                        $sql=DB::select('select DISTINCT course_id from course_section ORDER BY course_id ASC');
+                        $sql=DB::select('select DISTINCT course_id from course_section cs
+                                          where  cs.semester=? and cs.year=?
+                                          ORDER BY course_id ASC',array(Session::get('semester'),Session::get('year')));
                         }
                         $count=count($sql);
                         $i=0;

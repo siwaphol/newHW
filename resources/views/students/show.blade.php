@@ -18,7 +18,7 @@
 
                                 @foreach( $student as $result)
                                 <tr>
-                                    <td>{{$result->student_id}}</td><td>{{$result->firstname." ".$result->lastname}}</td><td>{{$result->faculty}}</td><td>{{$result->email}}</td><td></td>
+                                    <td>{{$result->student_id}}</td><td>{{$result->firstname." ".$result->lastname}}</td><td>{{$result->faculty}}</td><td>{{$result->email}}</td><td>{{$result->status}}</td>
                                 </tr>
                                 @endforeach
                             </table>

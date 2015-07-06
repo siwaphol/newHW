@@ -9,7 +9,8 @@ use Carbon\Carbon;
 use DB;
 use App\Http\Requests\AsistantRequest;
 use App\Asistant;
-
+use App\Semesteryears;
+use Session;
 class AssistantsController extends Controller {
 
 	/**
@@ -52,11 +53,13 @@ class AssistantsController extends Controller {
                 ->withErrors(['duplicate' => 'รหัสนักศึกษา '.$ta_id.' ซ้ำ']);
 
         }
-
+        $semester=DB::select('select * from semester_year sy where sy.use=1');
         $asis=new Asistant();
         $asis->course_id=$course;
         $asis->section=$sec;
         $asis->student_id=$ta_id;
+        $asis->semester=$semester[0]->semester;
+        $asis->year=$semester[0]->year;
         $asis->save();
 
         //$result=DB::insert('insert into course_ta (course_id,section,student_id)values(?,?,?)',array($course,$sec,$ta_id));
@@ -93,13 +96,15 @@ class AssistantsController extends Controller {
         $sec=$_GET['sec'];
         $ta_username=$_GET['username'];
         $assistant=DB::select('select st.course_id as course_id
+                                ,st.id as id
                                 ,st.section as section
                                 ,ta.id as student_id
                                 ,ta.firstname_th as firstname
                                 ,ta.lastname_th as lastname
                                 from course_ta st
+                                left join semester_year sy on st.semester=sy.semester and st.year=sy.year
                                 left join users ta on st.student_id=ta.id
-                                where st.course_id=? and st.section=? and ta.username=?',array($course,$sec,$ta_username));
+                                where st.course_id=? and st.section=? and ta.username=? and sy.use=1',array($course,$sec,$ta_username));
 		//$assistant = Assistants::findOrFail($id);
 		return view('assistants.edit', compact('assistant'));
 	}
