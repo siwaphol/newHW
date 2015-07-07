@@ -5,35 +5,29 @@
         <h4 class="js-title-step"></h4>
       </div>
       <div class="modal-body">
-        <div class="row hide" data-step="1" data-title="Input necessary data">
+        <div class="row hide" data-step="1" data-title="กำหนดรายละเอียดการบ้าน">
           <div class="well">
             <form class="form-horizontal addFileForm" role="form">
               <div class="form-group">
-                <label class="control-label col-sm-2" for="section">Section</label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" name="section" id="section" placeholder="Enter course section (blank for all)">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-sm-2" for="homeworkname">Name</label>
+                <label class="control-label col-sm-2" for="homeworkname">ชื่อ</label>
                 <div class="col-sm-8">
                   <input type="text" class="form-control" name="homeworkname" id="homeworkname" placeholder="Ex. lab01_{id} ,lab01_{section}_{id}">
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-sm-2" for="filetype">Type</label>
+                <label class="control-label col-sm-2" for="filetype">ประเภท</label>
                 <div class="col-sm-8">
                   <input type="text" class="form-control" name="filetype" id="filetype" placeholder="Choose file type">
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-sm-2" for="filedetail">Detail</label>
+                <label class="control-label col-sm-2" for="filedetail">รายละเอียดเพิ่มเติม</label>
                 <div class="col-sm-8">
                   <textarea style="resize:none" class="form-control" name="filedetail" id="filedetail" rows="3" placeholder="Enter file detail" required></textarea>
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-sm-2" for="dueDate">Due Date</label>
+                <label class="control-label col-sm-2" for="dueDate">กำหนดส่ง</label>
                 <div class='col-sm-8 input-group date clsDatePicker' id='datetimepicker1'>
                   <input type='text' class="form-control" name="dueDate" id="dueDate"/>
                   <span class="input-group-addon">
@@ -42,7 +36,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-sm-2" for="acceptUntil">Accept Until</label>
+                <label class="control-label col-sm-2" for="acceptUntil">วันส่งสุดท้าย</label>
                 <div class='col-sm-8 input-group date clsDatePicker' id='datetimepicker2'>
                   <input type='text' class="form-control" name="acceptUntil" id="acceptUntil"/>
                   <span class="input-group-addon">
@@ -55,19 +49,18 @@
         </div>
         <div class="row hide" data-step="2" data-title="Select section for this homework">
           <div class="well">
-            <select id="example-getting-started" multiple="multiple">
-                <option value="cheese">Cheese</option>
-                <option value="tomatoes">Tomatoes</option>
-                <option value="mozarella">Mozzarella</option>
-                <option value="mushrooms">Mushrooms</option>
-                <option value="pepperoni">Pepperoni</option>
-                <option value="onions">Onions</option>
-            </select>
             <form class="form-horizontal addFileForm-selected-section" role="form">
               <div class="form-group">
                 <label class="control-label col-sm-2" for="section">Section</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" name="section" id="section" placeholder="Enter course section (blank for all)">
+                  <select id="section-list" multiple="multiple">
+                    <option value="cheese">Cheese</option>
+                    <option value="tomatoes">Tomatoes</option>
+                    <option value="mozarella">Mozzarella</option>
+                    <option value="mushrooms">Mushrooms</option>
+                    <option value="pepperoni">Pepperoni</option>
+                    <option value="onions">Onions</option>
+                  </select>
                 </div>
               </div>
             </form>
@@ -107,7 +100,7 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#example-getting-started').multiselect({
+        $('#section-list').multiselect({
             includeSelectAllOption: true,
             allSelectedText: 'All section selected'
         });
