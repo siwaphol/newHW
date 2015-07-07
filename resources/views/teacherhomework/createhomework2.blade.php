@@ -31,7 +31,7 @@ $table_options = $options['columns'];
 $sort = array(
     array('key'=>'lname', 'sort'=>'asc'), // ... this sets the initial sort "column" and order ...
     array('key'=>'size',  'sort'=>'asc') // ... for items with the same initial sort value, sort this way.
-);
+    );
 
 // Files you want to hide from the listing
 $ignore_list = $options['ignored_files'];
@@ -107,27 +107,27 @@ if ($options['bootstrap']['icons'] == "glyphicons") {
             'video'     => array('3g2','3gp','3gp2','3gpp','asf','avi','bik','bup','divx','ifo','m4v','mkv','mkv','mov','mp4','mpeg','mpg','rm','rv','ogv','qt','smk','vob','webm','wmv','xvid'),
             'website'   => array('htm','html','mhtml','mht','xht','xhtml'),
             'windows'   => array('dll','exe','msi','pif','ps1','scr','sys')
+            );
+if ($options['general']['virtual_files'] == true) {
+    $filetype['flickr']     = array('flickr');
+    $filetype['soundcloud'] = array('soundcloud');
+    $filetype['vimeo']      = array('vimeo');
+    $filetype['youtube']    = array('youtube');
+}
+} else if ($options['bootstrap']['icons'] == 'fa-files') {
+    $filetype = array(
+        'archive'    => array('7z','ace','adf','air','apk','arj','bz2','bzip','cab','d64','dmg','git','hdf','ipf','iso','fdi','gz','jar','lha','lzh','lz','lzma','pak','phar','pkg','pimp','rar','safariextz','sfx','sit','sitx','sqx','sublime-package','swm','tar','tgz','wim','wsz','xar','zip'),
+        'audio'      => array('aac','ac3','aif','aiff','au','caf','flac','it','m4a','m4p','med','mid','mo3','mod','mp1','mp2','mp3','mpc','ned','ra','ram','oga','ogg','oma','s3m','sid','umx','wav','webma','wv','xm'),
+        'excel'      => array('xls','xlsx','numbers'),
+        'image'      => array('ai','bmp','cdr','emf','eps','gif','icns','ico','jp2','jpe','jpeg','jpg','jpx','pcx','pict','png','psd','psp','svg','tga','tif','tiff','webp','wmf'),
+        'pdf'        => array('pdf'),
+        'powerpoint' => array('pot','ppt','pptx','key'),
+        'script'     => array('ahk','as','asp','aspx','bat','c','cfm','clj','cmd','cpp','css','el','erb','g','hml','java','js','json','jsp','less','nsh','nsi','php','php3','pl','py','rb','rhtml','sass','scala','scm','scpt','scptd','scss','sh','shtml','wsh','xml','yml'),
+        'text'       => array('ans','asc','ascii','csv','diz','latex','log','markdown','md','nfo','rst','rtf','tex','text','txt'),
+        'video'      => array('3g2','3gp','3gp2','3gpp','asf','avi','bik','bup','divx','flv','ifo','m4v','mkv','mkv','mov','mp4','mpeg','mpg','rm','rv','ogv','qt','smk','swf','vob','webm','wmv','xvid'),
+        'word'       => array('doc','docm','docs','docx','dot','pages'),
         );
-        if ($options['general']['virtual_files'] == true) {
-            $filetype['flickr']     = array('flickr');
-            $filetype['soundcloud'] = array('soundcloud');
-            $filetype['vimeo']      = array('vimeo');
-            $filetype['youtube']    = array('youtube');
-        }
-    } else if ($options['bootstrap']['icons'] == 'fa-files') {
-        $filetype = array(
-            'archive'    => array('7z','ace','adf','air','apk','arj','bz2','bzip','cab','d64','dmg','git','hdf','ipf','iso','fdi','gz','jar','lha','lzh','lz','lzma','pak','phar','pkg','pimp','rar','safariextz','sfx','sit','sitx','sqx','sublime-package','swm','tar','tgz','wim','wsz','xar','zip'),
-            'audio'      => array('aac','ac3','aif','aiff','au','caf','flac','it','m4a','m4p','med','mid','mo3','mod','mp1','mp2','mp3','mpc','ned','ra','ram','oga','ogg','oma','s3m','sid','umx','wav','webma','wv','xm'),
-            'excel'      => array('xls','xlsx','numbers'),
-            'image'      => array('ai','bmp','cdr','emf','eps','gif','icns','ico','jp2','jpe','jpeg','jpg','jpx','pcx','pict','png','psd','psp','svg','tga','tif','tiff','webp','wmf'),
-            'pdf'        => array('pdf'),
-            'powerpoint' => array('pot','ppt','pptx','key'),
-            'script'     => array('ahk','as','asp','aspx','bat','c','cfm','clj','cmd','cpp','css','el','erb','g','hml','java','js','json','jsp','less','nsh','nsi','php','php3','pl','py','rb','rhtml','sass','scala','scm','scpt','scptd','scss','sh','shtml','wsh','xml','yml'),
-            'text'       => array('ans','asc','ascii','csv','diz','latex','log','markdown','md','nfo','rst','rtf','tex','text','txt'),
-            'video'      => array('3g2','3gp','3gp2','3gpp','asf','avi','bik','bup','divx','flv','ifo','m4v','mkv','mkv','mov','mp4','mpeg','mpg','rm','rv','ogv','qt','smk','swf','vob','webm','wmv','xvid'),
-            'word'       => array('doc','docm','docs','docx','dot','pages'),
-        );
-    }
+}
 } else {
     $icons['tag']  = 'span';
     $icons['home'] = $this_domain;
@@ -325,377 +325,379 @@ $breadcrumbs .= "      <li><a href=\"".htmlentities($root_dir, ENT_QUOTES, 'utf-
 foreach($dir_name as $dir => $name) :
     if(($name != ' ') && ($name != '') && ($name != '.') && ($name != '/')):
         $parent = '';
-        for ($i = 0; $i <= $dir; $i++):
-            $parent .= rawurlencode($dir_name[$i]) . '/';
-        endfor;
-        $mypath = $absolute_path.$parent;
-        $breadcrumbs .= "      <li><a href=\"".htmlentities(substr($absolute_path.$parent,0,strlen($mypath)-1) , ENT_QUOTES, 'utf-8')."\">".$name."</a></li>" . PHP_EOL;
+    for ($i = 0; $i <= $dir; $i++):
+        $parent .= rawurlencode($dir_name[$i]) . '/';
+    endfor;
+    $mypath = $absolute_path.$parent;
+    $breadcrumbs .= "      <li><a href=\"".htmlentities(substr($absolute_path.$parent,0,strlen($mypath)-1) , ENT_QUOTES, 'utf-8')."\">".$name."</a></li>" . PHP_EOL;
     endif;
-endforeach;
-$breadcrumbs = $breadcrumbs."    </ol>" . PHP_EOL;
+    endforeach;
+    $breadcrumbs = $breadcrumbs."    </ol>" . PHP_EOL;
 
 // Show search
-if ($options['general']['enable_search'] == true) {
+    if ($options['general']['enable_search'] == true) {
 
-    $autofocus = null;
-    if ($options['general']['autofocus_search'] == true) {
-        $autofocus = " autofocus";
+        $autofocus = null;
+        if ($options['general']['autofocus_search'] == true) {
+            $autofocus = " autofocus";
+        }
+
+        if ($options['bootstrap']['input_size'] != "") {
+            $input_size = " ".$options['bootstrap']['input_size'];
+        } else {
+            $input_size = null;
+        }
+
+        $search  = "    <div class=\"row\">" . PHP_EOL;
+        $search .= "      <div class=\"col-xs-6 col-sm-3$search_offset\">" . PHP_EOL;
+        $search .= "        <div class=\"form-group has-feedback\">" . PHP_EOL;
+        $search .= "          <label class=\"control-label sr-only\" for=\"search\">". _('Search')."</label>" . PHP_EOL;
+        $search .= "          <input type=\"text\" class=\"form-control$input_size\" id=\"search\" placeholder=\"". _('Search')."\"$autofocus>" . PHP_EOL;
+        $search .= $icons['search'];
+        $search .= "       </div>" . PHP_EOL;
+        $search .= "      </div>" . PHP_EOL;
+        $search .= "    </div>" . PHP_EOL;
     }
-
-    if ($options['bootstrap']['input_size'] != "") {
-        $input_size = " ".$options['bootstrap']['input_size'];
-    } else {
-        $input_size = null;
-    }
-
-    $search  = "    <div class=\"row\">" . PHP_EOL;
-    $search .= "      <div class=\"col-xs-6 col-sm-3$search_offset\">" . PHP_EOL;
-    $search .= "        <div class=\"form-group has-feedback\">" . PHP_EOL;
-    $search .= "          <label class=\"control-label sr-only\" for=\"search\">". _('Search')."</label>" . PHP_EOL;
-    $search .= "          <input type=\"text\" class=\"form-control$input_size\" id=\"search\" placeholder=\"". _('Search')."\"$autofocus>" . PHP_EOL;
-    $search .= $icons['search'];
-    $search .= "       </div>" . PHP_EOL;
-    $search .= "      </div>" . PHP_EOL;
-    $search .= "    </div>" . PHP_EOL;
-}
 
 // Show add
-if ($options['general']['enable_add'] == true) {
+    if ($options['general']['enable_add'] == true) {
 
-    $add_tag  = "    <div class=\"row\" style=\"margin-bottom: 15px;\">" . PHP_EOL;
-    $add_tag .= "      <div class=\"col-xs-6 col-sm-3  col-xs-offset-6 col-sm-offset-9\">" . PHP_EOL;
-    $add_tag .= "        <button type=\"button\" class=\"btn btn-default\" id=\"file_add_btn\">";
-    $add_tag .= "           <span class=\"glyphicon glyphicon glyphicon-file\"></span>";
-    $add_tag .= "        </button>";
-    $add_tag .= "        <button type=\"button\" class=\"btn btn-default\" id=\"folder_add_btn\">";
-    $add_tag .= "           <span class=\"glyphicon glyphicon glyphicon-folder-open\"></span>";
-    $add_tag .= "        </button>";
-    $add_tag .= "      </div>" . PHP_EOL;
-    $add_tag .= "    </div>" . PHP_EOL;
-}
+        $add_tag  = "    <div class=\"row\" style=\"margin-bottom: 15px;\">" . PHP_EOL;
+        $add_tag .= "      <div class=\"col-xs-6 col-sm-3  col-xs-offset-6 col-sm-offset-9\">" . PHP_EOL;
+        $add_tag .= "        <button type=\"button\" class=\"btn btn-default\" id=\"file_add_btn\">";
+        $add_tag .= "           <span class=\"glyphicon glyphicon glyphicon-file\"></span>";
+        $add_tag .= "        </button>";
+        $add_tag .= "        <button type=\"button\" class=\"btn btn-default\" id=\"folder_add_btn\">";
+        $add_tag .= "           <span class=\"glyphicon glyphicon glyphicon-folder-open\"></span>";
+        $add_tag .= "        </button>";
+        $add_tag .= "      </div>" . PHP_EOL;
+        $add_tag .= "    </div>" . PHP_EOL;
+    }
 
 // Set table header
-$table_header = null;
-$table_header .= "            <th class=\"".$column_name." text-".$left."\" data-sort=\"string\">"._('Name')."</th>" . PHP_EOL;
+    $table_header = null;
+    $table_header .= "            <th class=\"".$column_name." text-".$left."\" data-sort=\"string\">"._('Name')."</th>" . PHP_EOL;
 
-if ($table_options['size']) {
-    $table_header .= "            <th";
-    if ($options['general']['enable_sort']) {
-        $table_header .= " class=\"".$column_size." text-".$right."\" data-sort=\"int\">";
-    } else {
-        $table_header .= ">";
+    if ($table_options['size']) {
+        $table_header .= "            <th";
+        if ($options['general']['enable_sort']) {
+            $table_header .= " class=\"".$column_size." text-".$right."\" data-sort=\"int\">";
+        } else {
+            $table_header .= ">";
+        }
+        $table_header .= _('Size')."</th>" . PHP_EOL;
     }
-    $table_header .= _('Size')."</th>" . PHP_EOL;
-}
 
-if ($table_options['age']) {
-    $table_header .= "            <th";
-    if ($options['general']['enable_sort']) {
-        $table_header .= " class=\"".$column_age." text-".$right."\" data-sort=\"int\">";
-    } else {
-        $table_header .= ">";
+    if ($table_options['age']) {
+        $table_header .= "            <th";
+        if ($options['general']['enable_sort']) {
+            $table_header .= " class=\"".$column_age." text-".$right."\" data-sort=\"int\">";
+        } else {
+            $table_header .= ">";
+        }
+        $table_header .= _('Modified')."</th>" . PHP_EOL;
     }
-    $table_header .= _('Modified')."</th>" . PHP_EOL;
-}
 
 // Set table body
-$table_body = null;
-if(($folder_list) || ($file_list) ) {
+    $table_body = null;
+    if(($folder_list) || ($file_list) ) {
 
-    if($folder_list):
-        foreach($folder_list as $item) :
+        if($folder_list):
+            foreach($folder_list as $item) :
 
-            if ($options['bootstrap']['tablerow_folders'] != null) {
-                $tr_folders = ' class="'.$options['bootstrap']['tablerow_folders'].'"';
-            } else {
-                $tr_folders = null;
-            }
+                if ($options['bootstrap']['tablerow_folders'] != null) {
+                    $tr_folders = ' class="'.$options['bootstrap']['tablerow_folders'].'"';
+                } else {
+                    $tr_folders = null;
+                }
 
             // var_dump($options['bootstrap']['tablerow_folders']);
 
-            $table_body .= "          <tr$tr_folders>" . PHP_EOL;
-            $table_body .= "            <td";
-            if ($options['general']['enable_sort']) {
-                $table_body .= " class=\"text-".$left."\" data-sort-value=\"". htmlentities(utf8_encode($item['lbname']), ENT_QUOTES, 'utf-8') . "\"" ;
-            }
-            $table_body .= ">";
-            if ($options['bootstrap']['icons'] == "glyphicons" || $options['bootstrap']['icons'] == "fontawesome" || $options['bootstrap']['icons'] == "fa-files" ) {
-                $table_body .= "<".$icons['tag']." class=\"$folder_icon\"></".$icons['tag'].">&nbsp;";
-            }
+                $table_body .= "          <tr$tr_folders>" . PHP_EOL;
+                $table_body .= "            <td";
+                if ($options['general']['enable_sort']) {
+                    $table_body .= " class=\"text-".$left."\" data-sort-value=\"". htmlentities(utf8_encode($item['lbname']), ENT_QUOTES, 'utf-8') . "\"" ;
+                }
+                $table_body .= ">";
+                if ($options['bootstrap']['icons'] == "glyphicons" || $options['bootstrap']['icons'] == "fontawesome" || $options['bootstrap']['icons'] == "fa-files" ) {
+                    $table_body .= "<".$icons['tag']." class=\"$folder_icon\"></".$icons['tag'].">&nbsp;";
+                }
 
-            if ($options['bootstrap']['tablerow_links'] != null) {
-                $tr_links = ' class="'.$options['bootstrap']['tablerow_links'].'"';
-            } else {
-                $tr_links = null;
-            }
+                if ($options['bootstrap']['tablerow_links'] != null) {
+                    $tr_links = ' class="'.$options['bootstrap']['tablerow_links'].'"';
+                } else {
+                    $tr_links = null;
+                }
 
-            if($_GET['path'] == null){
-                $table_body .= "<a href=\"" . $course_id . '/' .htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8')  ."\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
-            }else{
-                $table_body .= "<a href=\"" . $_GET['path'] . '/' .htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8')  ."\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
-            }
+                if($_GET['path'] == null){
+                    $table_body .= "<a href=\"" . $course_id . '/' .htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8')  ."\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
+                }else{
+                    $table_body .= "<a href=\"" . $_GET['path'] . '/' .htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8')  ."\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
+                }
             //$table_body .= "<a href=\"" . 'testfolder' . "/\" $tr_links><strong>" . utf8ify($item['bname']) . "</strong></a></td>" . PHP_EOL;
 
-            if ($table_options['size']) {
-                $table_body .= "            <td";
-                if ($options['general']['enable_sort']) {
-                    $table_body .= " class=\"text-".$right."\" data-sort-value=\"0\"";
+                if ($table_options['size']) {
+                    $table_body .= "            <td";
+                    if ($options['general']['enable_sort']) {
+                        $table_body .= " class=\"text-".$right."\" data-sort-value=\"0\"";
+                    }
+                    $table_body .= ">&mdash;</td>" . PHP_EOL;
                 }
-                $table_body .= ">&mdash;</td>" . PHP_EOL;
-            }
 
-            if ($table_options['age']) {
-                $table_body .= "            <td";
-                if ($options['general']['enable_sort']) {
-                    $table_body .= " class=\"text-".$right."\" data-sort-value=\"" . $item['mtime'] . "\"";
-                    $table_body .= " title=\"" . $item['iso_mtime'] . "\"";
+                if ($table_options['age']) {
+                    $table_body .= "            <td";
+                    if ($options['general']['enable_sort']) {
+                        $table_body .= " class=\"text-".$right."\" data-sort-value=\"" . $item['mtime'] . "\"";
+                        $table_body .= " title=\"" . $item['iso_mtime'] . "\"";
+                    }
+                    $table_body .= ">" . time_ago($item['mtime']) . "</td>" . PHP_EOL;
                 }
-                $table_body .= ">" . time_ago($item['mtime']) . "</td>" . PHP_EOL;
-            }
 
-            $table_body .= "          </tr>" . PHP_EOL;
+                $table_body .= "          </tr>" . PHP_EOL;
 
-        endforeach;
-    endif;
+                endforeach;
+                endif;
 
-    if($file_list):
-        foreach($file_list as $item) :
+                if($file_list):
+                    foreach($file_list as $item) :
 
-            $row_classes  = array();
-            $file_classes = array();
-            $file_meta = array();
+                        $row_classes  = array();
+                    $file_classes = array();
+                    $file_meta = array();
 
-            $item_pretty_size = $item['size']['num'] . " " . $item['size']['str'];
+                    $item_pretty_size = $item['size']['num'] . " " . $item['size']['str'];
 
             // Style table rows
-            if ($options['bootstrap']['tablerow_files'] != "") {
-                $row_classes[] = $options['bootstrap']['tablerow_files'];
-            }
+                    if ($options['bootstrap']['tablerow_files'] != "") {
+                        $row_classes[] = $options['bootstrap']['tablerow_files'];
+                    }
 
             // Is file hidden?
-            if (in_array($item['bname'], $options['hidden_files'])) {
-                $row_classes[] = "hidden";
+                    if (in_array($item['bname'], $options['hidden_files'])) {
+                        $row_classes[] = "hidden";
                 // muted class on row…
-                $row_classes[] = $options['bootstrap']['hidden_files_row'];
+                        $row_classes[] = $options['bootstrap']['hidden_files_row'];
                 // …and again for the link
-                $file_classes[] = $options['bootstrap']['hidden_files_link'];
-            }
+                        $file_classes[] = $options['bootstrap']['hidden_files_link'];
+                    }
 
             // Is virtual file?
-            if ( ($options['general']['virtual_files'] == true) && (in_array($item['lext'], $virtual_files)) ){
+                    if ( ($options['general']['virtual_files'] == true) && (in_array($item['lext'], $virtual_files)) ){
 
-                if ( is_int($options['general']['virtual_maxsize']) == true) {
-                    $virtual_maxsize = $options['general']['virtual_maxsize'];
-                } else {
-                    $virtual_maxsize = 256;
-                }
-                if  (filesize($navigation_dir.$item['bname']) <= $virtual_maxsize) {
-
-                    $virtual_file =  json_decode(file_get_contents($navigation_dir.$item['bname'], true), true);
-
-                    if ($item['lext'] == 'flickr') {
-                        $virtual_attr =  ' data-flickr="'.htmlentities($virtual_file['user']).'/'.htmlentities($virtual_file['id']).'"';
-                        if ( $virtual_file['album'] != null) {
-                            $album = '/in/album-'.htmlentities($virtual_file['album']);
+                        if ( is_int($options['general']['virtual_maxsize']) == true) {
+                            $virtual_maxsize = $options['general']['virtual_maxsize'];
                         } else {
-                            $album = null;
+                            $virtual_maxsize = 256;
                         }
-                        $virtual_attr .= ' data-url="https://www.flickr.com/'.htmlentities($virtual_file['user']).'/'.htmlentities($virtual_file['id']).$album.'"';
-                        $virtual_attr .= ' data-name="'.htmlentities($virtual_file['name']).'"';
-                    } else if ($item['lext'] == 'soundcloud') {
-                        $virtual_attr =  ' data-soundcloud="'.htmlentities($virtual_file['type']).'/'.htmlentities($virtual_file['id']).'"';
-                        $virtual_attr .= ' data-url="'.htmlentities($virtual_file['url']).'"';
-                        $virtual_attr .= ' data-name="'.htmlentities($virtual_file['name']).'"';
-                    } else if ($item['lext'] == 'vimeo') {
-                        $virtual_attr =  ' data-vimeo="'.htmlentities($virtual_file['id']).'"';
-                        $virtual_attr .= ' data-url="https://vimeo.com/'.htmlentities($virtual_file['id']).'"';
-                        $virtual_attr .= ' data-name="'.htmlentities($virtual_file['name']).'"';
-                    } else if ($item['lext'] == 'youtube') {
-                        $virtual_attr =  ' data-youtube="'.htmlentities($virtual_file['id']).'"';
-                        $virtual_attr .= ' data-url="https://youtube.com/watch?v='.htmlentities($virtual_file['id']).'"';
-                        $virtual_attr .= ' data-name="'.htmlentities($virtual_file['name']).'"';
-                    }
-                } else {
-                    $virtual_attr = null;
-                }
+                        if  (filesize($navigation_dir.$item['bname']) <= $virtual_maxsize) {
+
+                            $virtual_file =  json_decode(file_get_contents($navigation_dir.$item['bname'], true), true);
+
+                            if ($item['lext'] == 'flickr') {
+                                $virtual_attr =  ' data-flickr="'.htmlentities($virtual_file['user']).'/'.htmlentities($virtual_file['id']).'"';
+                                if ( $virtual_file['album'] != null) {
+                                    $album = '/in/album-'.htmlentities($virtual_file['album']);
+                                } else {
+                                    $album = null;
+                                }
+                                $virtual_attr .= ' data-url="https://www.flickr.com/'.htmlentities($virtual_file['user']).'/'.htmlentities($virtual_file['id']).$album.'"';
+                                $virtual_attr .= ' data-name="'.htmlentities($virtual_file['name']).'"';
+                            } else if ($item['lext'] == 'soundcloud') {
+                                $virtual_attr =  ' data-soundcloud="'.htmlentities($virtual_file['type']).'/'.htmlentities($virtual_file['id']).'"';
+                                $virtual_attr .= ' data-url="'.htmlentities($virtual_file['url']).'"';
+                                $virtual_attr .= ' data-name="'.htmlentities($virtual_file['name']).'"';
+                            } else if ($item['lext'] == 'vimeo') {
+                                $virtual_attr =  ' data-vimeo="'.htmlentities($virtual_file['id']).'"';
+                                $virtual_attr .= ' data-url="https://vimeo.com/'.htmlentities($virtual_file['id']).'"';
+                                $virtual_attr .= ' data-name="'.htmlentities($virtual_file['name']).'"';
+                            } else if ($item['lext'] == 'youtube') {
+                                $virtual_attr =  ' data-youtube="'.htmlentities($virtual_file['id']).'"';
+                                $virtual_attr .= ' data-url="https://youtube.com/watch?v='.htmlentities($virtual_file['id']).'"';
+                                $virtual_attr .= ' data-name="'.htmlentities($virtual_file['name']).'"';
+                            }
+                        } else {
+                            $virtual_attr = null;
+                        }
 
                 // Don't show file-size in .virtual-file
-                $modified_attr = null;
-            } else {
-                $virtual_attr = null;
-                $modified_attr = " data-modified=\"".$item_pretty_size."\"";
-            }
+                        $modified_attr = null;
+                    } else {
+                        $virtual_attr = null;
+                        $modified_attr = " data-modified=\"".$item_pretty_size."\"";
+                    }
 
             // Concatenate tr-classes
-            if (!empty($row_classes)) {
-                $row_attr = ' class="'.implode(" ", $row_classes).'"';
-            } else {
-                $row_attr = null;
-            }
+                    if (!empty($row_classes)) {
+                        $row_attr = ' class="'.implode(" ", $row_classes).'"';
+                    } else {
+                        $row_attr = null;
+                    }
 
-            $table_body .= "          <tr$row_attr>" . PHP_EOL;
-            $table_body .= "            <td";
-            if ($options['general']['enable_sort']) {
-                $table_body .= " class=\"text-".$left."\" data-sort-value=\"". htmlentities(utf8_encode($item['lbname']), ENT_QUOTES, 'utf-8') . "\"" ;
-            }
-            $table_body .= ">";
-            if ($options['bootstrap']['icons'] == "glyphicons" || $options['bootstrap']['icons'] == "fontawesome" || $options['bootstrap']['icons'] == "fa-files") {
-                $table_body .= "<".$icons['tag']." class=\"" . $item['class'] . "\"></".$icons['tag'].">&nbsp;";
-            }
-            if ($options['general']['hide_extension']) {
-                $display_name = $item['name'];
-            } else {
-                $display_name = $item['bname'];
-            }
+                    $table_body .= "          <tr$row_attr>" . PHP_EOL;
+                    $table_body .= "            <td";
+                    if ($options['general']['enable_sort']) {
+                        $table_body .= " class=\"text-".$left."\" data-sort-value=\"". htmlentities(utf8_encode($item['lbname']), ENT_QUOTES, 'utf-8') . "\"" ;
+                    }
+                    $table_body .= ">";
+                    if ($options['bootstrap']['icons'] == "glyphicons" || $options['bootstrap']['icons'] == "fontawesome" || $options['bootstrap']['icons'] == "fa-files") {
+                        $table_body .= "<".$icons['tag']." class=\"" . $item['class'] . "\"></".$icons['tag'].">&nbsp;";
+                    }
+                    if ($options['general']['hide_extension']) {
+                        $display_name = $item['name'];
+                    } else {
+                        $display_name = $item['bname'];
+                    }
 
             // inject modal class if necessary
-            if ($options['general']['enable_viewer']) {
-                if (in_array($item['lext'], $audio_files)) {
-                    $file_classes[] = 'audio-modal';
-                } else if ($item['lext'] == 'swf') {
-                    $file_classes[] = 'flash-modal';
-                } else if (in_array($item['lext'], $image_files)) {
-                    $file_classes[] = 'image-modal';
-                } else if (in_array($item['lext'], $pdf_files)) {
-                    $file_classes[] = 'pdf-modal';
-                } else if (in_array($item['lext'], $quicktime_files)) {
-                     $file_classes[] = 'quicktime-modal';
-                } else if (in_array($item['lext'], $source_files)) {
-                    if ($options['general']['auto_highlight']) {
-                        $file_meta[] = 'data-highlight="true"';
+                    if ($options['general']['enable_viewer']) {
+                        if (in_array($item['lext'], $audio_files)) {
+                            $file_classes[] = 'audio-modal';
+                        } else if ($item['lext'] == 'swf') {
+                            $file_classes[] = 'flash-modal';
+                        } else if (in_array($item['lext'], $image_files)) {
+                            $file_classes[] = 'image-modal';
+                        } else if (in_array($item['lext'], $pdf_files)) {
+                            $file_classes[] = 'pdf-modal';
+                        } else if (in_array($item['lext'], $quicktime_files)) {
+                           $file_classes[] = 'quicktime-modal';
+                       } else if (in_array($item['lext'], $source_files)) {
+                        if ($options['general']['auto_highlight']) {
+                            $file_meta[] = 'data-highlight="true"';
+                        }
+                        if ($options['viewer']['alt_load'] == true) {
+                            $file_classes[] = 'source-modal-alt';
+                        } else {
+                            $file_classes[] = 'source-modal';
+                        }
+                    } else if (in_array($item['lext'], $text_files)) {
+                        if ($options['viewer']['alt_load'] == true) {
+                            $file_classes[] = 'text-modal-alt';
+                        } else {
+                            $file_classes[] = 'text-modal';
+                        }
+                    } else if (in_array($item['lext'], $video_files)) {
+                        $file_classes[] = 'video-modal';
+                    } else if (in_array($item['lext'], $website_files)) {
+                        $file_classes[] = 'website-modal';
+                    } else if (in_array($item['lext'], $virtual_files)) {
+                        $file_classes[] = 'virtual-modal';
                     }
-                    if ($options['viewer']['alt_load'] == true) {
-                        $file_classes[] = 'source-modal-alt';
-                    } else {
-                        $file_classes[] = 'source-modal';
-                    }
-                } else if (in_array($item['lext'], $text_files)) {
-                    if ($options['viewer']['alt_load'] == true) {
-                        $file_classes[] = 'text-modal-alt';
-                    } else {
-                        $file_classes[] = 'text-modal';
-                    }
-                } else if (in_array($item['lext'], $video_files)) {
-                    $file_classes[] = 'video-modal';
-                } else if (in_array($item['lext'], $website_files)) {
-                    $file_classes[] = 'website-modal';
-                } else if (in_array($item['lext'], $virtual_files)) {
-                    $file_classes[] = 'virtual-modal';
                 }
-            }
 
-            $file_data = ' '.implode(" ", $file_meta);
+                $file_data = ' '.implode(" ", $file_meta);
 
-            if ($file_classes != null) {
-                $file_attr = ' class="'.implode(" ", $file_classes).'"';
-            } else {
-                $file_attr = null;
-            }
+                if ($file_classes != null) {
+                    $file_attr = ' class="'.implode(" ", $file_classes).'"';
+                } else {
+                    $file_attr = null;
+                }
 
             //$table_body .= "<a href=\"" . htmlentities(rawurlencode($item['bname']), ENT_QUOTES, 'utf-8') . "\"$file_attr$file_data$virtual_attr$modified_attr>" . utf8ify($display_name) . "</a></td>" . PHP_EOL;
-            $table_body .= "<a href=\"" . '#' . "\"$file_attr$file_data$virtual_attr$modified_attr>" . utf8ify($display_name) . "</a></td>" . PHP_EOL;
+                $table_body .= "<a href=\"" . '#' . "\"$file_attr$file_data$virtual_attr$modified_attr>" . utf8ify($display_name) . "</a></td>" . PHP_EOL;
 
             // Size
-            if ($table_options['size']) {
-                $table_body .= "            <td";
-                if ($options['general']['enable_sort']) {
-                    $table_body .= " class=\"text-".$right."\" data-sort-value=\"" . $item['bytes'] . "\"";
-                    $table_body .= " title=\"" . $item['bytes'] . " " ._('bytes')."\"";
-                }
+                if ($table_options['size']) {
+                    $table_body .= "            <td";
+                    if ($options['general']['enable_sort']) {
+                        $table_body .= " class=\"text-".$right."\" data-sort-value=\"" . $item['bytes'] . "\"";
+                        $table_body .= " title=\"" . $item['bytes'] . " " ._('bytes')."\"";
+                    }
                     $table_body .= ">" . $item_pretty_size . "</td>" . PHP_EOL;
-            }
+                }
 
             // Modified
-            if ($table_options['age']) {
-                $table_body .= "            <td";
-                if ($options['general']['enable_sort']) {
-                    $table_body .= " class=\"text-".$right."\" data-sort-value=\"".$item['mtime']."\"";
-                    $table_body .= " title=\"" . $item['iso_mtime'] . "\"";
+                if ($table_options['age']) {
+                    $table_body .= "            <td";
+                    if ($options['general']['enable_sort']) {
+                        $table_body .= " class=\"text-".$right."\" data-sort-value=\"".$item['mtime']."\"";
+                        $table_body .= " title=\"" . $item['iso_mtime'] . "\"";
+                    }
+                    $table_body .= ">" . time_ago($item['mtime']) . "</td>" . PHP_EOL;
                 }
-                $table_body .= ">" . time_ago($item['mtime']) . "</td>" . PHP_EOL;
+
+                $table_body .= "          </tr>" . PHP_EOL;
+                endforeach;
+                endif;
+            } else {
+                $colspan = $table_count + 1;
+                $table_body .= "          <tr>" . PHP_EOL;
+                $table_body .= "            <td colspan=\"$colspan\" style=\"font-style:italic\">";
+                if ($options['bootstrap']['icons'] == "glyphicons" || $options['bootstrap']['icons'] == "fontawesome" || $options['bootstrap']['icons'] == "fa-files" ) {
+                    $table_body .= "<".$icons['tag']." class=\"" . $item['class'] . "\">&nbsp;</".$icons['tag'].">";
+                }
+                $table_body .= _("empty folder")."</td>" . PHP_EOL;
+                $table_body .= "          </tr>" . PHP_EOL;
             }
 
-            $table_body .= "          </tr>" . PHP_EOL;
-        endforeach;
-    endif;
-} else {
-        $colspan = $table_count + 1;
-        $table_body .= "          <tr>" . PHP_EOL;
-        $table_body .= "            <td colspan=\"$colspan\" style=\"font-style:italic\">";
-        if ($options['bootstrap']['icons'] == "glyphicons" || $options['bootstrap']['icons'] == "fontawesome" || $options['bootstrap']['icons'] == "fa-files" ) {
-            $table_body .= "<".$icons['tag']." class=\"" . $item['class'] . "\">&nbsp;</".$icons['tag'].">";
-        }
-        $table_body .= _("empty folder")."</td>" . PHP_EOL;
-        $table_body .= "          </tr>" . PHP_EOL;
-}
+            ?>
+            @extends('app')
 
-?>
-@extends('app')
+            @section('header_content')
+            <meta name="generator" content="Bootstrap Listr" />
 
-@section('header_content')
-  <meta name="generator" content="Bootstrap Listr" />
+            {{--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />--}}
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="{{ asset('/css/listr.min.css') }}" />
+            <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+            <link rel="stylesheet" href="{{ asset('/css/bootstrap-multiselect/bootstrap-multiselect.css') }}" />
+            @endsection
 
-  {{--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />--}}
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="{{ asset('/css/listr.min.css') }}" />
-  <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
-@endsection
+            @section('content')
 
-@section('content')
-
-    <div class="container">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <?php echo $breadcrumbs?>
-        <?php echo $search ?>
-        <?php echo $add_tag ?>
-        <?php echo $responsive_open?>
-              <table id="bs-table" class="table <?php echo $options['bootstrap']['table_style']?>">
-                <thead>
-                  <tr>
-        <?php echo $table_header?>
-                  </tr>
+            <div class="container">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <?php echo $breadcrumbs?>
+                <?php echo $search ?>
+                <?php echo $add_tag ?>
+                <?php echo $responsive_open?>
+                <table id="bs-table" class="table <?php echo $options['bootstrap']['table_style']?>">
+                    <thead>
+                      <tr>
+                        <?php echo $table_header?>
+                    </tr>
                 </thead>
                 <tfoot>
                   <tr>
                     <td colspan="<?php echo $table_count+1?>">
                       <small class="pull-<?php echo $left?> text-muted" dir="ltr"><?php echo $summary ?></small>
-                    </td>
-                  </tr>
-                </tfoot>
-                <tbody>
-        <?php echo $table_body?>
-                </tbody>
-              </table>
-        <?php echo $responsive_close?>
-        <?php if ($options['general']['enable_viewer']) { ?>
-            <div class="modal fade" id="viewer-modal" tabindex="-1" role="dialog" aria-labelledby="file-name" aria-hidden="true">
-              <div class="modal-dialog <?php echo $modal_size ?>">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close pull-<?php echo $right?>" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title text-<?php echo $left?>" id="file-name">&nbsp;</h4>
-                    <small class="text-muted" id="file-meta"></small>
-                  </div>
-                  <div class="modal-body"></div>
-                  <div class="modal-footer">
-        <?php if (($options['general']['enable_highlight'])) { ?>
-                    <div class="pull-<?php echo $left?>">
-                      <button type="button" class="btn <?php echo $btn_highlight ?> highlight hidden"><?php echo _('Apply syntax highlighting')?></button>
-                    </div>
-        <?php } ?>
-                    <div class="pull-<?php echo $right?>">
-                      <button type="button" class="btn <?php echo $btn_default ?>" data-dismiss="modal"><?php echo _('Close')?></button>
-
-                    <a class="btn <?php echo $btn_primary ?> fullview" data-button="<?php echo _('Open')?>" role="button"></a>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        <?php } ?>
+                  </td>
+              </tr>
+          </tfoot>
+          <tbody>
+            <?php echo $table_body?>
+        </tbody>
+    </table>
+    <?php echo $responsive_close?>
+    <?php if ($options['general']['enable_viewer']) { ?>
+    <div class="modal fade" id="viewer-modal" tabindex="-1" role="dialog" aria-labelledby="file-name" aria-hidden="true">
+      <div class="modal-dialog <?php echo $modal_size ?>">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close pull-<?php echo $right?>" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title text-<?php echo $left?>" id="file-name">&nbsp;</h4>
+            <small class="text-muted" id="file-meta"></small>
+        </div>
+        <div class="modal-body"></div>
+        <div class="modal-footer">
+            <?php if (($options['general']['enable_highlight'])) { ?>
+            <div class="pull-<?php echo $left?>">
+              <button type="button" class="btn <?php echo $btn_highlight ?> highlight hidden"><?php echo _('Apply syntax highlighting')?></button>
           </div>
-    </div>
+          <?php } ?>
+          <div class="pull-<?php echo $right?>">
+              <button type="button" class="btn <?php echo $btn_default ?>" data-dismiss="modal"><?php echo _('Close')?></button>
+
+              <a class="btn <?php echo $btn_primary ?> fullview" data-button="<?php echo _('Open')?>" role="button"></a>
+
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+<?php } ?>
+
+</div>
+</div>
 @endsection
 @section('footer')
 <script type="text/javascript" src="{{ asset('/js/moment-with-locales.js') }}"></script>
@@ -705,9 +707,11 @@ if(($folder_list) || ($file_list) ) {
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-searcher/0.2.0/jquery.searcher.min.js"></script>
 <script type="text/javascript" src="{{ asset('/js/listr.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/bootstrap-datetimepicker.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/jquery-bootstrap-modal-steps.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/bootstrap-multiselect/bootstrap-multiselect.js') }}"></script>
 
 <!-- Add File Modal -->
-@include('partials.file_add_dialog')
+@include('partials.file_add_wizard_dialog')
 <!-- Add Folder Modal -->
 @include('partials.folder_add_dialog')
 
@@ -718,16 +722,16 @@ if(($folder_list) || ($file_list) ) {
         $("#addFileOK").click(function(){
             var temp = $('form.addFileForm').serialize();
 //            var n = window.location.pathname.indexOf('homework/create/');
-            var paths = window.location.pathname.split('/');
-            $.ajax({
-              url: paths[paths.length-1],
-              type: "POST",
-              data: {new_file: temp, _token: $('input[name=_token]').val(),method: opt},
-              success: function(data){
-                location.reload();
-              }
-            });
-        });
+var paths = window.location.pathname.split('/');
+$.ajax({
+  url: paths[paths.length-1],
+  type: "POST",
+  data: {new_file: temp, _token: $('input[name=_token]').val(),method: opt},
+  success: function(data){
+    location.reload();
+}
+});
+});
         $("#addFolderOK").click(function(){
             var temp = $('form.addFolderForm').serialize();
             var paths = window.location.pathname.split('/');
@@ -737,8 +741,8 @@ if(($folder_list) || ($file_list) ) {
               data: {new_folder: temp, _token: $('input[name=_token]').val(),method: opt},
               success: function(data){
                 location.reload();
-              }
-            });
+            }
+        });
         });
         $("#file_add_btn").on('click',  function(){
             opt = 'add';
