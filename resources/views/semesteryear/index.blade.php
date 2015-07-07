@@ -22,7 +22,12 @@
                                         <td>{{ $x }}</td>
                                         <td><a href="{{ url('/semesteryear/show', $item->id) }}">{{ $item->semester }}</a></td>
                                         <td><a href="{{ url('/semesteryear/show', $item->id) }}">{{ $item->year }}</a></td>
-                                        <td>{{$item->use}}</td>
+                                        @if($item->use=="1")
+                                        <td>เปิด</td>
+                                        @endif
+                                        @if($item->use=="0")
+                                        <td>ปิด</td>
+                                        @endif
                                         <td><a href="{{ url('/semesteryear/'.$item->id.'/edit') }}">Edit</a> / {!! Form::open(['method'=>'delete','action'=>['SemesteryearController@destroy',$item->id]]) !!}<button type="submit" class="btn btn-link">Delete</button>{!! Form::close() !!}</td>
                                     </tr>
                                 @endforeach

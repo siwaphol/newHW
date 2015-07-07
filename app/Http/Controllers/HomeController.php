@@ -63,7 +63,7 @@ class HomeController extends Controller {
         Session::put('semester',Request::get('semester'));
         Session::put('year',Request::get('year'));
         Session::forget('course_list');
-        $sql=DB::select('select * from course_section where semester=? and year=?',array(Session::get('semester'),Session::get('year')));
+        $sql=DB::select('select * from course_section where semester=? and year=? ORDER by course_id',array(Session::get('semester'),Session::get('year')));
         $course_list_str = "";
         foreach($sql as $course){
             if($course_list_str === ''){

@@ -5,25 +5,38 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
+                    <div class="panel-heading" align="center">ปรับปรุง ภาคเรียน ปีการศึกษา</div>
 
                     <div class="panel-body">
-                        <h1>Edit semesteryear</h1>
-                        <hr/>
 
                         {!! Form::model($semesteryear, ['method' => 'PATCH', 'action' => ['SemesteryearController@update', $semesteryear->id]]) !!}
 
                        <div class="form-group">
-                        {!! Form::label('semester', 'Semester: ') !!}
-                        {!! Form::text('semester', null, ['class' => 'form-control']) !!}
+                        {!! Form::label('semester', 'ภารเรียน: ') !!}
+                        {!! Form::text('semester', $semesteryear->semetser, ['class' => 'form-control','disabled' => 'disabled']) !!}
                     </div><div class="form-group">
-                        {!! Form::label('year', 'Year: ') !!}
-                        {!! Form::text('year', null, ['class' => 'form-control']) !!}
+                        {!! Form::label('year', 'ปีการศึกษา: ') !!}
+                        {!! Form::text('year', $semesteryear->year, ['class' => 'form-control','disabled' => 'disabled']) !!}
                     </div>
+                    @if($semesteryear->use=="1")
+                        <div class="form-group">
+                            {!! Form::label('use', 'สถานะ: ') !!}
+                            <select class="form-control" name="use">
+                          <option value="1" selected>เปิด</option>
+                          <option value="0">ปิด</option>
+                        </select>
+
+                        </div>
+                    @endif
+                    @if($semesteryear->use=="0")
                     <div class="form-group">
-                        {!! Form::label('use', 'status: ') !!}
-                        {!! Form::text('use', null, ['class' => 'form-control']) !!}
+                        {!! Form::label('use', 'สถานะ: ') !!}
+                        <select class="form-control" name="use">
+                          <option value="1" >เปิด</option>
+                          <option value="0" selected>ปิด</option>
+                        </select>
                     </div>
+                    @endif
                         
                         <div class="form-group">
                             {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}

@@ -34,8 +34,10 @@
                                          <li><a href="{{url('ta')}}">นักศึกษาช่วยสอน</a></li>
                                          <li><a href="{{url('teachers')}}">อาจารย์ผู้สอน</a></li>
                                          <li><a href="{{url('admin')}}">ผู้ดูแลระบบ</a></li>
+
                                     </ul>
                                   </li>
+                                   <li><a href="{{url('semesteryear')}}">ปีการศึกษา</a></li>
                                 <li><a href="{{url('course')}}">จัดการกระบวนวิชา</a></li>
                                 <li><a href="{{url('course_section')}}">จัดการตอน</a></li>
                                  <li class="dropdown">

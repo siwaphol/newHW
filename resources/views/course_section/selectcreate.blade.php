@@ -16,10 +16,10 @@ $key=$sql;
                     <div class="panel-heading" align="center">เพิ่มตอน</div>
 
                     <div class="panel-body">
-{!! Form::open(['url'=>'course_section/create/save']) !!}
+{!! Form::open(['url'=>'course_section/createteacher/']) !!}
 <div class="form-group">
 
-{!! Form::label('courseid','รหัส')!!}
+{!! Form::label('courseid','กระบวนวิชา')!!}
 <select name="courseid" class="form-control">
 <?php for($i=0;$i<$count;$i++){?>
   <option value={{$key[$i]->id}}>{{$key[$i]->id."   ".$key[$i]->name}}</option>
@@ -29,28 +29,19 @@ $key=$sql;
 
 </div>
 <div class="form-group">
-{!! Form::label('sectionid','ตอน')!!}
+{!! Form::label('sectionid','จำนวนตอนทั้งหมด')!!}
 <select class="form-control" name="sectionid">
-  <option value="001">001</option>
-  <option value="002">002</option>
-  <option value="003">003</option>
-  <option value="004">004</option>
-  <option value="005">005</option>
-  <option value="006">006</option>
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+  <option value="6">6</option>
+  <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
  </select>
-</div>
-<div class="form-group">
-{!! Form::label('teacherid','อาจารย์')!!}
-<select name="teacherid" class="form-control">
-<?php
-$sql=DB::select('select * from users where role_id=0100 order by username');
-$count=count($sql);
-$key=$sql;
-for($i=0;$i<$count;$i++){?>
-  <option value={{$key[$i]->id}}>{{$key[$i]->firstname_th." ".$key[$i]->lastname_th}}</option>
-  <?php }?>
-
-</select>
 </div>
 
 <div class="form-group">

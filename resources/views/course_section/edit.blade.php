@@ -25,21 +25,31 @@
   <input type="hidden" name="id" value="{{$key->id}}">
   <div class="form-group">
   {!! Form::label('courseid','รหัส')!!}
-  {!! Form::text('courseid',$key->courseid,['class'=>'form-control'])!!}
+  {!! Form::text('courseid',$key->courseid,['class'=>'form-control','disabled' => 'disabled'])!!}
   </div>
   <div class="form-group">
   {!! Form::label('courseName','ชื่อกระบวนวิชา')!!}
-  {!! Form::text('courseName',$key->coursename,['class'=>'form-control'])!!}
+  {!! Form::text('courseName',$key->coursename,['class'=>'form-control','disabled' => 'disabled'])!!}
   </div>
   <div class="form-group">
   {!! Form::label('sectionid','ตอน')!!}
-  {!! Form::text('sectionid',$key->sectionid,['class'=>'form-control'])!!}
+  {!! Form::text('sectionid',$key->sectionid,['class'=>'form-control','disabled' => 'disabled'])!!}
   </div>
   <div class="form-group">
-  {!! Form::label('teachername','อาจารย์')!!}
-  {!! Form::text('teachername',$key->firstname." ".$key->lastname,['class'=>'form-control'])!!}
-  {!! Form::hidden('teacherid',$key->teacherid,['class'=>'form-control'])!!}
+  {!! Form::label('teacherid','อาจารย์')!!}
+  <select name="teacherid" class="form-control">
+  <option value={{$key->teacherid}}>{{$key->firstname." ".$key->lastname}}</option>
+  <?php
+  $sql=DB::select('select * from users where role_id=0100 order by id');
+  $count=count($sql);
+  $item=$sql;
+  for($i=0;$i<$count;$i++){?>
+    <option value={{$item[$i]->id}}>{{$item[$i]->firstname_th." ".$item[$i]->lastname_th}}</option>
+    <?php }?>
+
+  </select>
   </div>
+
   <div class="form-group">
   {!! Form::submit('ปรับปรุง',['class'=>'btn btn-primary form-control'])!!}
   </div>
