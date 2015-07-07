@@ -156,7 +156,8 @@ class Course_SectionController extends Controller
         $sectionid=$_POST['sectionid'];
         $teacherid=$_POST['teacherid'];
         $count=count($sectionid);
-        $cs = new CS();
+
+
         for($i=0;$i<$count;$i++) {
 
             $check = DB::select('select tea.firstname_th as firstname,tea.lastname_th as lastname from course_section cs
@@ -164,19 +165,18 @@ class Course_SectionController extends Controller
                           where cs.course_id=? and cs.section=? and cs.teacher_id=?
                           and cs.semester=? and cs.year=?', array($courseid, $sectionid[$i], $teacherid[$i], Session::get('semester'), Session::get('year')));
 
-            if (count($check) > 0) {
-                return redirect()->back()
-                    ->withErrors(['duplicate' => 'กระบวนวิชา ' . $courseid . ' ตอน ' . $sectionid[$i] . ' อาจารย ์' . $check[0]->firstname . ' ' . $check[0]->lastname . ' ซ้ำ']);
-            }
-
-
+            if (count($check) == 0) {
+            $cs = new CS();
             $cs->course_id = $courseid;
             $cs->section = $sectionid[$i];
             $cs->teacher_id = $teacherid[$i];
             $cs->semester = Session::get('semester');
             $cs->year = Session::get('year');
             $cs->save();
+            }
+
         }
+
         return redirect('course_section');
     }
 }

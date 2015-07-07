@@ -19,7 +19,7 @@ $key=$sql;
 {!! Form::open(['url'=>'course_section/createteacher/']) !!}
 <div class="form-group">
 
-{!! Form::label('courseid','รหัส')!!}
+{!! Form::label('courseid','กระบวนวิชา')!!}
 <select name="courseid" class="form-control">
 <?php for($i=0;$i<$count;$i++){?>
   <option value={{$key[$i]->id}}>{{$key[$i]->id."   ".$key[$i]->name}}</option>
@@ -29,7 +29,7 @@ $key=$sql;
 
 </div>
 <div class="form-group">
-{!! Form::label('sectionid','ตอน')!!}
+{!! Form::label('sectionid','จำนวนตอนทั้งหมด')!!}
 <select class="form-control" name="sectionid">
   <option value="1">1</option>
   <option value="2">2</option>

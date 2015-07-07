@@ -135,5 +135,15 @@ class CourseHomeworkController extends Controller {
 	{
 		//
 	}
+    public function result($id){
+
+        $homework=DB::select('select * from homework where course_id=204111 and section=001');
+        $sent=DB::select('select cs.student_id  from homework_student hs
+                          right join course_student cs on hs.student_id=cs.student_id
+
+                           where cs.course_id=204111 and cs.section=001');
+        return view('homework.resulthomework',compact('homework','sent'));
+
+    }
 
 }

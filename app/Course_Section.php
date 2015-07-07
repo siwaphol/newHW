@@ -8,7 +8,5 @@ class Course_Section extends Model {
 
     protected $fillable = ['id','course_id','section', 'teacher_id'];
 
-    protected $primaryKey = 'id';
 
-    public $incrementing = true;
 }

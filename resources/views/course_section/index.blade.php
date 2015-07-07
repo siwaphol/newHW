@@ -17,9 +17,11 @@ $i=1;
                     <div class="panel-heading" align="center">กระบวนวิชา ตอน</div>
 
                     <div class="panel-body">
-{!! Html::link('course_section/create', 'เพิ่มตอน') !!}
+{!! Html::link('course_section/create', 'เพิ่มตอนทีละตอน') !!} </br>
+{!! Html::link('course_section/selectcreate', 'เพิ่มตอนทั้งกระบวนวิชา') !!}
 <div class="table-responsive">
     <table class="table table-bordered">
+        <thead>
         <thead>
             <tr>
 

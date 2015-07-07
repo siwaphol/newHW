@@ -20,6 +20,7 @@ Route::post('semester', 'HomeController@semester');
 //Route::get('course/{course_id}', 'CourseHomeworkController@show');
 Route::get('homework/create/{course_id}','CourseHomeworkController@create');
 Route::post('homework/create/{course_id}','CourseHomeworkController@create_post' );
+Route::get('homework/result/{course_id}','CourseHomeworkController@result' );
 Route::any('homework/create/{course_id}/{path?}', function($course_id,$path) { return 'caught ' . '/' .$path; })->where('path', '.+');
 
 Route::controllers([
