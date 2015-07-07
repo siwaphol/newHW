@@ -40,6 +40,9 @@ Route::get('course_section/delete/', 'Course_SectionController@delete');
 Route::post('course_section/create/save', 'Course_SectionController@store');
 Route::get('course_section/edit/', 'Course_SectionController@edit');
 Route::post('course_section/update/','Course_sectionController@update');
+Route::get('course_section/selectcreate/', 'Course_SectionController@selectcreate');
+Route::post('course_section/createteacher', 'Course_SectionController@createteacher');
+Route::post('course_section/createteacher/save', 'Course_SectionController@saveteacher');
 
 Route::post('course_section/check/', 'Course_SectionController@check');
 

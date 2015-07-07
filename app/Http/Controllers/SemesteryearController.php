@@ -38,10 +38,19 @@ class SemesteryearController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
+        $check = DB::select('select * from semester_year where semester=? and year=?', array($request->get('semester'),$request->get('year')));
+
+        if (count($check) > 0) {
+            return redirect()->back()
+                ->withErrors(['duplicate' => 'ภาคเรียน ' .$request->get('semester') . ' ปีการศึกษา' . $request->get('year').' ซ้ำ']);
+        }
+
+	//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
         $semester=new Semesteryears();
         $semester->semester=$request->get('semester');
         $semester->year=$request->get('year');
+
+
         $semester->use=0;
         $semester->save();
 		//Semesteryears::create($request->all());
