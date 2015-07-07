@@ -235,7 +235,10 @@ foreach($table_options as $value)
 $folder_path = explode( "/", $navigation_dir);
 
 //find folder structure
-$folder_list_query = DB::table('homework_folder')->where('course_id', $course_id)->get();
+$student_section = DB::table('course_student')->where('student_id', \Auth::user()->id)->first()->section;
+$folder_list_query = DB::table('homework_folder')->where('course_id', $course_id)
+                                                ->where('section', $student_section)
+                                                ->get();
 $course_folder_obj = json_decode(json_encode($folder_list_query), FALSE);
 foreach($course_folder_obj as $obj){
     $a_folder['name']           = $obj->name;
@@ -637,6 +640,7 @@ if(($folder_list) || ($file_list) ) {
 
   {{--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />--}}
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{{ asset('/css/dropzone/dropzone.css') }}"/>
   <link rel="stylesheet" href="{{ asset('/css/listr.min.css') }}" />
   <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
 @endsection
@@ -694,6 +698,7 @@ if(($folder_list) || ($file_list) ) {
               </div>
             </div>
         <?php } ?>
+        <form action="/file-upload" class="dropzone" id="my-awesome-dropzone"></form>
           </div>
     </div>
 @endsection
@@ -704,6 +709,7 @@ if(($folder_list) || ($file_list) ) {
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/stupidtable/0.0.1/stupidtable.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-searcher/0.2.0/jquery.searcher.min.js"></script>
 <script type="text/javascript" src="{{ asset('/js/listr.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/dropzone/dropzone.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/bootstrap-datetimepicker.min.js') }}"></script>
 
 <!-- Add File Modal -->
@@ -714,15 +720,16 @@ if(($folder_list) || ($file_list) ) {
 {{--datetimepicker--}}
 <script type="text/javascript">
     $(function () {
-        var opt = "";
         $("#addFileOK").click(function(){
             var temp = $('form.addFileForm').serialize();
 //            var n = window.location.pathname.indexOf('homework/create/');
             var paths = window.location.pathname.split('/');
+            //alert(window.location.pathname.substring(n+16,window.location.pathname.length));
+//            alert(paths[paths.length-1]);
             $.ajax({
               url: paths[paths.length-1],
               type: "POST",
-              data: {new_file: temp, _token: $('input[name=_token]').val(),method: opt},
+              data: {new_file: temp, _token: $('input[name=_token]').val()},
               success: function(data){
                 location.reload();
               }
@@ -730,22 +737,22 @@ if(($folder_list) || ($file_list) ) {
         });
         $("#addFolderOK").click(function(){
             var temp = $('form.addFolderForm').serialize();
+//            var n = window.location.pathname.indexOf('homework/create/');
             var paths = window.location.pathname.split('/');
+//            alert(window.location.pathname.substring(n+16,window.location.pathname.length));
             $.ajax({
               url: paths[paths.length-1],
               type: "POST",
-              data: {new_folder: temp, _token: $('input[name=_token]').val(),method: opt},
+              data: {new_folder: temp, _token: $('input[name=_token]').val()},
               success: function(data){
                 location.reload();
               }
             });
         });
         $("#file_add_btn").on('click',  function(){
-            opt = 'add';
             $('#addFileModal').modal('toggle');
         });
         $("#folder_add_btn").on('click', function(){
-            opt = 'add';
             $('#addFolderModal').modal('toggle');
         });
     });

@@ -68,7 +68,7 @@ class CourseController extends Controller {
     }
     public function show($course_id){
 
-        return $course_id;
+        return view('homework.studenthomework',['course_id'=>$course_id]);
     }
     public function edit($id){
 
