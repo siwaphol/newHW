@@ -106,7 +106,7 @@ class User extends Model implements AuthenticatableContract {
             $course_list = DB::select('SELECT DISTINCT course_id FROM course_section where semester=? and year=?',array(Session::get('semester'),Session::get('year')));
             return $course_list;
         }else if($this->isTeacher()){
-            $course_list = DB::select('SELECT DISTINCT course_id FROM course_section WHERE teacher_id = ? and semester=? and year=?)',array($this->attributes['id'],Session::get('semester'),Session::get('year')));
+            $course_list = DB::select('SELECT DISTINCT course_id FROM course_section WHERE teacher_id = ? and semester=? and year=?',array($this->attributes['id'],Session::get('semester'),Session::get('year')));
             return $course_list;
         }
     }
