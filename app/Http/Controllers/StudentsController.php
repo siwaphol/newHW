@@ -145,8 +145,8 @@ class StudentsController extends Controller {
      */
     public function insert()
     {
-        $course = $_POST['ddlCourse'];
-        $sec = $_POST['ddlSection'];
+        $course = $_GET['ddlCourse'];
+        $sec = $_GET['ddlSection'];
         $cours=array('co'=>$course,'sec'=>$sec);
         //return $cours;
         return view('students.insert')->with('cours',$cours);
@@ -160,8 +160,8 @@ class StudentsController extends Controller {
         return view('students.showlist')->with('course',$cours);
     }
     public function export(){
-        $course=$_POST['course'];
-        $sec=$_POST['sec'];
+        $course=$_GET['course'];
+        $sec=$_GET['sec'];
 
         return view('students.export')->with('course',array('co'=>$course,'sec'=>$sec));
     }
@@ -178,5 +178,10 @@ class StudentsController extends Controller {
     {
 
         return view('students.autoinsert');
+    }
+    public function selectexcel(){
+        $course = $_GET['ddlCourse'];
+        $sec = $_GET['ddlSection'];
+        return view('students.selectexcel')->with('course',array('co'=>$course,'sec'=>$sec));
     }
 }

@@ -84,43 +84,14 @@ function onSubmitMain() {
             <div class="form-group" align="center">
                     <div class="col-md-4 col-md-offset-4" align="center" >
                     {!! Form::label('ddlCourse', 'วิชา ') !!}
-					<select id="ddlCourse" name="ddlCourse" onChange = "ListSection(this.value)" class="form-control">
-						<option selected value="">เลือกวิชา</option>
-						<?php
-                            $teacher=Auth::user()->username;
-                            $sql=array();
-                            if(Auth::user()->role_id=='0100'){
-                            $sql=DB::select('SELECT DISTINCT course_id FROM course_section cs
-                                            left join users  tea on cs.teacher_id=tea.id
-                                            where tea.username=?
-                                            and cs.semester=? and cs.year=?
-                                             ORDER BY course_id ASC ',array($teacher,Session::get('semester'),Session::get('year')));
-                                }
-                            if(Auth::user()->role_id=='1000'){
-                            $sql=DB::select('select DISTINCT course_id from course_section cs
-                                             where  cs.semester=? and cs.year=?
-                                             ORDER BY course_id ASC',array(Session::get('semester'),Session::get('year')));
-
-                            }
-                            $count=count($sql);
-
-                            $i=0;
-                              for($i=0;$i<$count;$i++){
-                            ?>
-                            <option value={{$sql[$i]->course_id}}>{{$sql[$i]->course_id}}</option>
-                            <?php
-                            }
-                            ?>
-					</select>
+					{!! Form::text('ddlCourse', $course['co'], ['class' => 'form-control','disabled' => 'disabled']) !!}
 					</div>
 			</div>
 
 			<div class="form-group" align="center">
 					<div class="col-md-4 col-md-offset-4">
                         {!! Form::label('ddlSection', 'ตอน ') !!}
-					<select id="ddlSection" name="ddlSection" class="form-control">
-						<option selected value="">เลือกตอน</option>
-					</select>
+					    {!! Form::text('ddlSection', $course['sec'], ['class' => 'form-control','disabled' => 'disabled']) !!}
                       </div>
             </div>
             <div class="form-group" align="center">

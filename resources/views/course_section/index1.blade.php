@@ -61,14 +61,4 @@ $i=1;
 </div>
 </div>
 
-<table data-url="data1.json" data-height="299" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1">
-    <thead>
-    <tr>
-        <th data-field="state" data-radio="true">Item ID</th>
-        <th data-field="id" data-align="right">Item ID</th>
-        <th data-field="name" data-align="center">Item Name</th>
-        <th data-field="price" data-align="left">Item Price</th>
-    </tr>
-    </thead>
-</table>
   @endsection

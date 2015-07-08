@@ -5,6 +5,7 @@
 <?php
 $count=count($sent);
 $i=1;
+$j=0;
 ?>
 
 
@@ -16,9 +17,13 @@ $i=1;
            <th>รหัส</th>
             @foreach($homework as $key)
                <th>{{$key->name}}</th>
+               <?php
+               $name[$j]=$key->name;
+               $j++;
+               ?>
             @endforeach
             </tr>
-            {{dd($key)}}
+
         </thead>
 
         <tbody>
@@ -26,7 +31,13 @@ $i=1;
             <tr>
                 <td>{{$i++}}</td>
                 <td>{{$item->student_id}}</td>
+               @foreach($homework as $key)
+               <?php
+                $sql=DB::select('select * from homework_student where homework_name=? and student_id=?',array($key->name,$item->student_id));
+                ?>
                 <td>late</td>
+                @endforeach
+
 
             </tr>
 

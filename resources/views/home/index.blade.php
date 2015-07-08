@@ -20,7 +20,7 @@ $i=1;
 {!! Html::link('course_section/create', 'เพิ่มตอนทีละตอน') !!} </br>
 {!! Html::link('course_section/selectcreate', 'เพิ่มตอนทั้งกระบวนวิชา') !!}
 <div class="table-responsive">
-    <table class="table table-bordered"  >
+    <table class="table table-bordered">
         <thead>
         <thead>
             <tr>
@@ -29,9 +29,9 @@ $i=1;
                 <th>รหัสวิชา</th>
                 <th>ชื่อกระบวนวิชา</th>
                 <th>ตอน</th>
-                <th>อาจารย์</th>
-                <th>แก้ไข</th>
-                <th>ลบ</th>
+                {{--<th>อาจารย์</th>--}}
+                <th>ดูข้อมูล</th>
+
 
 
             </tr>
@@ -44,9 +44,8 @@ $i=1;
                 <td>{{$key->courseid}}</td>
                 <td>{{$key->coursename}}</td>
                 <td>{{$key->sectionid}}</td>
-                 <td>{{$key->firstname}}  {{$key->lastname}}</td>
-                <td>{!! link_to_action('Course_SectionController@edit','แก้ไข',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
-                 <td>{!! link_to_action('Course_SectionController@delete','ลบ',array('id'=>$key->id,'course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
+                 {{--<td>{{$key->firstname}}  {{$key->lastname}}</td>--}}
+                <td>{!! link_to_action('HomeController@preview','ดูข้อมูล',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
 
 
             </tr>
@@ -61,14 +60,4 @@ $i=1;
 </div>
 </div>
 
-<table data-url="data1.json" data-height="299" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1">
-    <thead>
-    <tr>
-        <th data-field="state" data-radio="true">Item ID</th>
-        <th data-field="id" data-align="right">Item ID</th>
-        <th data-field="name" data-align="center">Item Name</th>
-        <th data-field="price" data-align="left">Item Price</th>
-    </tr>
-    </thead>
-</table>
   @endsection
