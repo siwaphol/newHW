@@ -366,6 +366,8 @@ foreach($dir_name as $dir => $name) :
         $add_tag .= "      <div class=\"col-xs-6 col-sm-3  col-xs-offset-6 col-sm-offset-9\">" . PHP_EOL;
         $add_tag .= "        <button type=\"button\" class=\"btn btn-default\" id=\"file_add_btn\">";
         $add_tag .= "           <span class=\"glyphicon glyphicon glyphicon-file\"></span>";
+        $add_tag .= "           <i class=\"extraicon-file-add\"></i>";
+        $add_tag .= " <div data-icon=\"c\" class=\"icon\"></div>";
         $add_tag .= "        </button>";
         $add_tag .= "        <button type=\"button\" class=\"btn btn-default\" id=\"folder_add_btn\">";
         $add_tag .= "           <span class=\"glyphicon glyphicon glyphicon-folder-open\"></span>";
@@ -640,6 +642,9 @@ foreach($dir_name as $dir => $name) :
             <link rel="stylesheet" href="{{ asset('/css/listr.min.css') }}" />
             <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
             <link rel="stylesheet" href="{{ asset('/css/bootstrap-multiselect/bootstrap-multiselect.css') }}" />
+            <link rel="stylesheet" href="{{ asset('/css/material-design-iconic-font.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('/css/file-and-folder.css') }}" />
+
             @endsection
 
             @section('content')
@@ -695,6 +700,43 @@ foreach($dir_name as $dir => $name) :
 </div>
 </div>
 <?php } ?>
+
+  <ul class="glyphs css-mapping">
+      <li>
+        <div class="extraicon-diff"></div>
+        <input type="text" readonly="readonly" value="diff">
+      </li>
+      <li>
+        <div class="icon extraicon-folder-addpage-add"></div>
+        <input type="text" readonly="readonly" value="folder-addpage-add">
+      </li>
+      <li>
+        <div class="icon extraicon-file-add"></div>
+        <input type="text" readonly="readonly" value="file-add">
+      </li>
+      <li>
+        <div class="icon extraicon-folder-add"></div>
+        <input type="text" readonly="readonly" value="folder-add">
+      </li>
+    </ul>
+      <ul class="glyphs character-mapping">
+        <li>
+          <div data-icon="a" class="icon"></div>
+          <input type="text" readonly="readonly" value="a">
+        </li>
+        <li>
+          <div data-icon="b" class="icon"></div>
+          <input type="text" readonly="readonly" value="b">
+        </li>
+        <li>
+          <div data-icon="c" class="icon"></div>
+          <input type="text" readonly="readonly" value="c">
+        </li>
+        <li>
+          <div data-icon="d" class="icon"></div>
+          <input type="text" readonly="readonly" value="d">
+        </li>
+      </ul>
 
 </div>
 </div>
