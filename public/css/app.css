@@ -6235,3 +6235,7 @@ label,
 .clsDatePicker {
     z-index: 100000;
 }
+
+.clsAboveDatePicker {
+    z-index: 100001;
+}

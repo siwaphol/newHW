@@ -28,7 +28,9 @@ class CourseHomeworkController extends Controller {
 	 */
 	public function create($course_id)
 	{
-        return view('teacherhomework.createhomework2',['course_id'=>$course_id]);
+        $section_list = DB::select("SELECT section FROM course_section WHERE course_id = ?",[$course_id]);
+
+        return view('teacherhomework.createhomework2',['course_id'=>$course_id,'section_list'=>$section_list]);
 	}
 
     public function create_post($course_id){
