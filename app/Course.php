@@ -6,7 +6,7 @@ class Course extends Model {
 
     protected $table = 'courses';
 
-    protected $fillable = ['id', 'name'];
+    protected $fillable = ['id', 'name','detail'];
 
     public $incrementing = false;
 
@@ -15,7 +15,6 @@ class Course extends Model {
     public function teacher(){
         return $this->belongsTo('App\Teacher');
     }
-
 
     /**
      * Get the students associated with the given course

@@ -640,6 +640,8 @@ if(($folder_list) || ($file_list) ) {
 
   {{--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />--}}
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{{ asset('/css/animate.css') }}"/>
+  <link rel="stylesheet" href="{{ asset('/css/dropzone/basic.css') }}"/>
   <link rel="stylesheet" href="{{ asset('/css/dropzone/dropzone.css') }}"/>
   <link rel="stylesheet" href="{{ asset('/css/listr.min.css') }}" />
   <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
@@ -698,7 +700,24 @@ if(($folder_list) || ($file_list) ) {
               </div>
             </div>
         <?php } ?>
-        <form action="/file-upload" class="dropzone" id="my-awesome-dropzone"></form>
+            <div id="wrapper">
+                <div class="wrapper wrapper-content animated fadeIn">
+                    <div class="row">
+                        <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <form id="my-awesome-dropzone" class="dropzone" action="#">
+                                    <div class="dropzone-previews"></div>
+                                    <button type="submit" class="btn btn-primary pull-right">Submit this form!</button>
+                                </form>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div><!--wrapper-->
           </div>
     </div>
 @endsection
@@ -709,8 +728,8 @@ if(($folder_list) || ($file_list) ) {
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/stupidtable/0.0.1/stupidtable.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-searcher/0.2.0/jquery.searcher.min.js"></script>
 <script type="text/javascript" src="{{ asset('/js/listr.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/js/dropzone/dropzone.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/bootstrap-datetimepicker.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/dropzone/dropzone.js') }}"></script>
 
 <!-- Add File Modal -->
 @include('partials.file_add_dialog')
@@ -757,4 +776,35 @@ if(($folder_list) || ($file_list) ) {
         });
     });
 </script>
+    <script>
+        $(document).ready(function(){
+
+            Dropzone.options.myAwesomeDropzone = {
+
+                autoProcessQueue: false,
+                uploadMultiple: true,
+                parallelUploads: 100,
+                maxFiles: 100,
+
+                // Dropzone settings
+                init: function() {
+                    var myDropzone = this;
+
+                    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        myDropzone.processQueue();
+                    });
+                    this.on("sendingmultiple", function() {
+                    });
+                    this.on("successmultiple", function(files, response) {
+                    });
+                    this.on("errormultiple", function(files, response) {
+                    });
+                }
+
+            }
+
+       });
+    </script>
 @endsection
