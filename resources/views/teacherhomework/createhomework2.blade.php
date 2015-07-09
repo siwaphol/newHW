@@ -257,14 +257,15 @@ foreach($course_folder_obj as $obj){
     }
 }
 
-$result = DB::table('homework')->where('course_id', $course_id)->get();
+//$result = DB::table('homework')->where('course_id', $course_id)->get();
+$result = DB::select("SELECT * FROM homework WHERE course_id = ?",[$course_id]);
 $object1 = json_decode(json_encode($result), FALSE);
 foreach($object1 as $obj){
     $item['name']           = $obj->name;
     $item['lname']          = strtolower($item['name'] );
     $item['bname']          = $obj->name . " (" .  $obj->type_id . ")";
     $item['lbname']         = strtolower($item['bname'] );
-    $item['ext']            = $obj->type;
+    $item['ext']            = $obj->type_id;
     $item['lext']           = strtolower($item['ext']);
     $item['class']          = "glyphicon glyphicon-file";
     $item['bytes']          = 0;
@@ -365,10 +366,12 @@ foreach($dir_name as $dir => $name) :
         $add_tag  = "    <div class=\"row\" style=\"margin-bottom: 15px;\">" . PHP_EOL;
         $add_tag .= "      <div class=\"col-xs-6 col-sm-3  col-xs-offset-6 col-sm-offset-9\">" . PHP_EOL;
         $add_tag .= "        <button type=\"button\" class=\"btn btn-default\" id=\"file_add_btn\">";
-        $add_tag .= "           <span style=\"font-size: 18px\" class=\"extraicon-file-add\"></span>";
+        //$add_tag .= "           <span class=\"glyphicon glyphicon glyphicon-file\"></span>";
+        $add_tag .= "           <span class=\"extraicon-file-add\"></span>";
         $add_tag .= "        </button>";
         $add_tag .= "        <button type=\"button\" class=\"btn btn-default\" id=\"folder_add_btn\">";
-        $add_tag .= "           <span style=\"font-size: 18px\" class=\"extraicon-folder-add\"></span>";
+        //$add_tag .= "           <span class=\"glyphicon glyphicon glyphicon-folder-open\"></span>";
+        $add_tag .= "           <span class=\"extraicon-folder-add\"></span>";
         $add_tag .= "        </button>";
         $add_tag .= "      </div>" . PHP_EOL;
         $add_tag .= "    </div>" . PHP_EOL;

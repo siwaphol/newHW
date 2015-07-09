@@ -8,9 +8,13 @@
       <div class="modal-body">
         <form class="form-horizontal addFolderForm" role="form">
           <div class="form-group">
-            <label class="control-label col-sm-2" for="folderSection">Section</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" name="folderSection" id="folderSection" placeholder="Enter course section (blank for all)">
+            <label class="control-label col-sm-2" for="section">Section</label>
+            <div class="col-sm-8 clsAboveDatePicker">
+              <select id="folder-section-list" multiple="multiple">
+                @foreach($section_list as $section)
+                    <option value="{{$section->section}}">Section {{$section->section}}</option>
+                @endforeach
+              </select>
             </div>
           </div>
           <div class="form-group">
@@ -28,3 +32,23 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#folder-section-list').multiselect({
+            includeSelectAllOption: true,
+            allSelectedText: 'All section selected',
+            onChange: function(element, checked) {
+                if(checked === true) {
+
+                }
+                else if(checked === false) {
+
+                }
+            },
+            onSelectAll: function() {
+
+            }
+        });
+    });
+</script>
