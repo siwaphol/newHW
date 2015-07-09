@@ -12,7 +12,8 @@ $(document).ready(function() {
 } );
 
     </script>
-<?php  $i=1; ?>
+<?php  $i=1;
+              $coid=DB::select('select * from course_section c where c.course_id=? and c.section=? and c.semester=? and c.year=?',array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));?>
 
 <div >
 
@@ -28,10 +29,26 @@ $(document).ready(function() {
 <h5 align="center">{{$item->firstname.' '.$item->lastname.'   '.$item->ta_id}} </h5>
 @endforeach
 <div class="col-md-10 col-md-offset-2">
-<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@insert','เพิ่มรายชื่อนักศึกษาจากสำนักทะเบียน',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>
-<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@selectexcel','เพิ่มรายชื่อนักศึกษาจากไฟล์ Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+   <a>เพิ่มนักศึกษา</a>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><button type="button" class="btn btn-default">{!! link_to_action('StudentsController@insert','เพิ่มรายชื่อนักศึกษาจากสำนักทะเบียน',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>
+    </li>
+    <li><button type="button" class="btn btn-default">{!! link_to_action('StudentsController@selectexcel','เพิ่มรายชื่อนักศึกษาจากไฟล์ Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>
+    </li>
+    <li><a href="{{ url('/students/create/'.$coid[0]->id) }}"class="btn btn-default">เพิ่มนักศึกษารายบุคคล</a></li>
+
+  </ul>
+</div>
+{{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@insert','เพิ่มรายชื่อนักศึกษาจากสำนักทะเบียน',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>--}}
+{{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@selectexcel','เพิ่มรายชื่อนักศึกษาจากไฟล์ Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>--}}
 <button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','เพิ่มนักศึกษาช่วยสอน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
 <button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','Export CSV',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
+<button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','จัดการการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
+<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','ผลการส่งการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
 
 </div>
 
@@ -44,7 +61,7 @@ $(document).ready(function() {
                                   order by re.student_id
                                   ',array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
             $count=count($student);
-             $coid=DB::select('select * from course_section c where c.course_id=? and c.section=? and c.semester=? and c.year=?',array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
+
             ?>
                 <div class="container">
                     <div class="row">
@@ -54,27 +71,27 @@ $(document).ready(function() {
 
                                 <div class="panel-body">
                                     {{--<h3 align="center">กระบวนวิชา {{$course['co']}}  ตอน {{$course['sec']}} </h3>--}}
-                                     <h3 align="center">รายชื่อนักศึกาษา </h3>
+                                     <h4 align="center">รายชื่อนักศึกาษา </h4>
 
-                                    <h4><a href="{{ url('/students/create/'.$coid[0]->id) }}">เพิ่มนักศึกษา</a></h4>
+                                    {{--<h4><a href="{{ url('/students/create/'.$coid[0]->id) }}">เพิ่มนักศึกษา</a></h4>--}}
 
-                                     {!! Form::open(['url' => 'students/export']) !!}
+                                     {{--{!! Form::open(['url' => 'students/export']) !!}--}}
 
-                                      <input type="hidden" name="course" id="course" value='{{$course['co']}}'>
-                                      <input type="hidden" name="sec" id="sec" value='{{$course['sec']}}'>
+                                      {{--<input type="hidden" name="course" id="course" value='{{$course['co']}}'>--}}
+                                      {{--<input type="hidden" name="sec" id="sec" value='{{$course['sec']}}'>--}}
 
-                                      <button type="submit" class="btn btn-link">export csv</button>
-                                       {!! Form::close() !!}
+                                      {{--<button type="submit" class="btn btn-link">export csv</button>--}}
+                                       {{--{!! Form::close() !!}--}}
                                     <div class="table-responsive">
                                         <table class="table" id="example" cellspacing="0" width="100%" >
                                            <thead>
                                             <tr>
-                                                <th>ลำดับ</th><th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>สถานะ</th><th>delete</th>
+                                                <th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>สถานะ</th><th>delete</th>
                                             </tr>
                                             </thead>
                                             <tfoot>
                                             <tr>
-                                                <th>ลำดับ</th><th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>สถานะ</th><th>delete</th>
+                                                <th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>สถานะ</th><th>delete</th>
                                             </tr>
                                             </tfoot>
                                             {{-- */$x=0;/* --}}
@@ -85,7 +102,7 @@ $(document).ready(function() {
                                             ?>
 
                                                 <tr>
-                                                    <td>{{ $x+1 }}</td>
+
                                                     <td><a href="{{ url('/students/show', $item[$x]->studentid) }}">{{ $item[$x]->studentid }}</a></td>
                                                     <td><a href="{{ url('/students/show', $item[$x]->studentid) }}">{{ $item[$x]->firstname_th." ".$item[$x]->lastname_th }}</a></td>
                                                     <td>{{ $item[$x]->status}}</td>
@@ -101,8 +118,12 @@ $(document).ready(function() {
                                                         <input type="hidden" name="course" id="course" value='{{$course['co']}}'>
                                                         <input type="hidden" name="sec" id="sec" value='{{$course['sec']}}'>
                                                         <input type="hidden" name="id" id="id" value='{{$item[$x]->studentid}}'>
-                                                        <button type="submit" class="btn btn-link">Delete</button>
+                                                        <button type="submit" class="btn btn-danger btn-ok" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+
                                                         {!! Form::close() !!}
+
+                                                         {{--<td>{!! link_to_action('StudentsController@destroy','ลบ',array('id'=>$item[$x]->studentid,'course'=>$course['co'],'sec'=>$course['sec']),onclick="return confirm('Are you sure you want to delete?')")!!}</td>--}}
+
                                                         </td>
                                                 </tr>
                                             <?php } ?>

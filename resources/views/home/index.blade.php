@@ -1,6 +1,15 @@
 
 @extends('app')
 @section('content')
+<script type="text/javascript">
+
+$(document).ready(function() {
+    $('#example').dataTable( {
+        "order": [[ 3, "desc" ]]
+    } );
+} );
+
+    </script>
 <?php
 
 //echo var_dump($model);
@@ -20,12 +29,12 @@ $i=1;
 {!! Html::link('course_section/create', 'เพิ่มตอนทีละตอน') !!} </br>
 {!! Html::link('course_section/selectcreate', 'เพิ่มตอนทั้งกระบวนวิชา') !!}
 <div class="table-responsive">
-    <table class="table table-bordered">
-        <thead>
+    <table class="table" id="example" cellspacing="0" width="100%" >
+
         <thead>
             <tr>
 
-                <th>ที่</th>
+                {{--<th>ที่</th>--}}
                 <th>รหัสวิชา</th>
                 <th>ชื่อกระบวนวิชา</th>
                 <th>ตอน</th>
@@ -36,16 +45,31 @@ $i=1;
 
             </tr>
         </thead>
-
-        @foreach($result as $key)
-        <tbody>
+         <tfoot>
             <tr>
-                <td>{{$i}}</td>
+
+                {{--<th>ที่</th>--}}
+                <th>รหัสวิชา</th>
+                <th>ชื่อกระบวนวิชา</th>
+                <th>ตอน</th>
+                {{--<th>อาจารย์</th>--}}
+                <th>ดูข้อมูล</th>
+
+
+
+            </tr>
+        </tfoot>
+
+
+        <tbody>
+         @foreach($result as $key)
+            <tr>
+                {{--<td>{{$i}}</td>--}}
                 <td>{{$key->courseid}}</td>
                 <td>{{$key->coursename}}</td>
                 <td>{{$key->sectionid}}</td>
                  {{--<td>{{$key->firstname}}  {{$key->lastname}}</td>--}}
-                <td>{!! link_to_action('HomeController@preview','ดูข้อมูล',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
+                <td><button type="button" class="btn btn-default">{!! link_to_action('HomeController@preview','ดูข้อมูล',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</button></td>
 
 
             </tr>

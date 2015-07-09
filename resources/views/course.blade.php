@@ -1,5 +1,14 @@
 @extends('app')
 @section('content')
+ <script type="text/javascript">
+
+ $(document).ready(function() {
+     $('#example').dataTable( {
+         "order": [[ 3, "desc" ]]
+     } );
+ } );
+
+     </script>
 <?php
 
 $i=1;
@@ -24,11 +33,11 @@ echo Form::close();
 ?>
 {!! Html::link('course/create', 'เพิ่มกระบวนวิชา') !!}
 <div class="table-responsive">
-    <table class="table table-bordered">
+    <table class="table" id="example" cellspacing="0" width="100%" >
         <thead>
             <tr>
 
-                <th>ที่</th>
+
                 <th>รหัสวิชา</th>
                 <th>ชื่อกระบวนวิชา</th>
                 <th>แก้ไข</th>
@@ -37,14 +46,27 @@ echo Form::close();
 
             </tr>
         </thead>
-        @foreach($model as $key)
-        <tbody>
+        <tfoot>
             <tr>
-                <td>{{$i}}</td>
+
+
+                <th>รหัสวิชา</th>
+                <th>ชื่อกระบวนวิชา</th>
+                <th>แก้ไข</th>
+                <th>ลบ</th>
+
+
+            </tr>
+        </tfoot>
+
+        <tbody>
+         @foreach($model as $key)
+            <tr>
+
                 <td>{{$key->id}}</td>
                 <td>{{$key->name}}</td>
-                <td>{!! Html::link('edit/'.$key->id, 'แก้ไข') !!}</td>
-                <td>{!! Html::link('delete/'.$key->id, 'ลบ') !!}</td>
+                <td><button type="button" class="btn btn-default">{!! Html::link('edit/'.$key->id, 'แก้ไข') !!}</button></td>
+                <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">{!! Html::link('delete/'.$key->id, 'ลบ') !!}</button></td>
 
 
             </tr>

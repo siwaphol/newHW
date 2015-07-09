@@ -78,7 +78,7 @@ class Course_SectionController extends Controller
         $cs->teacher_id=$teacherid;
         $cs->save();
         // $course = DB::update('update course_section set course_id=?,section=?,teacher_id=? where course_id=? and section=?', array($courseid, $sectionid, $teacherid, $courseid, $sectionid));
-        return redirect('course_section');
+        return redirect('home');
     }
 
     public  function create(){

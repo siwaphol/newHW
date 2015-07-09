@@ -1,6 +1,15 @@
 @extends('app')
 
 @section('content')
+ <script type="text/javascript">
+
+ $(document).ready(function() {
+     $('#example').dataTable( {
+         "order": [[ 3, "desc" ]]
+     } );
+ } );
+
+     </script>
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -9,12 +18,20 @@
                     
                     <div class="panel-body">
                         {{--<h1>semesteryears</h1>--}}
-                        <h4><a href="{{ url('/semesteryear/create') }}">เพิ่ม</a></h4>
+                        <h4><a href="{{ url('/semesteryear/create') }}" class="btn btn-default">เพิ่มภาคการศึกษา</a></h4>
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" id="example" cellspacing="0" width="100%" >
+                                <thead>
                                 <tr>
-                                    <th>ลำดับ</th><th>ภาคการศึกษา</th><th>ปีการศึกษา</th><th>สถานะ</th><th>Actions</th>
+                                    <th>ลำดับ</th><th>ภาคการศึกษา</th><th>ปีการศึกษา</th><th>สถานะ</th><th>แก้ไข</th><th>ลบ</th>
                                 </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>ลำดับ</th><th>ภาคการศึกษา</th><th>ปีการศึกษา</th><th>สถานะ</th><th>แก้ไข</th><th>ลบ</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
                                 {{-- */$x=0;/* --}}
                                 @foreach($semesteryears as $item)
                                     {{-- */$x++;/* --}}
@@ -28,9 +45,12 @@
                                         @if($item->use=="0")
                                         <td>ปิด</td>
                                         @endif
-                                        <td><a href="{{ url('/semesteryear/'.$item->id.'/edit') }}">Edit</a> / {!! Form::open(['method'=>'delete','action'=>['SemesteryearController@destroy',$item->id]]) !!}<button type="submit" class="btn btn-link">Delete</button>{!! Form::close() !!}</td>
+                                        <td><a href="{{ url('/semesteryear/'.$item->id.'/edit') }}" class="btn btn-default">Edit</a>
+                                        </td>
+                                        <td> {!! Form::open(['method'=>'delete','action'=>['SemesteryearController@destroy',$item->id]]) !!}<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>{!! Form::close() !!}</td>
                                     </tr>
                                 @endforeach
+                                </tbody>
                             </table>
                         </div>
                     </div>

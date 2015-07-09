@@ -1,6 +1,15 @@
 
 @extends('app')
 @section('content')
+ <script type="text/javascript">
+
+$(document).ready(function() {
+    $('#example').dataTable( {
+        "order": [[ 3, "desc" ]]
+    } );
+} );
+
+    </script>
 <?php
 
 //echo var_dump($model);
@@ -19,9 +28,10 @@ $i=1;
                     <div class="panel-body">
 {!! Html::link('course_section/create', 'เพิ่มตอนทีละตอน') !!} </br>
 {!! Html::link('course_section/selectcreate', 'เพิ่มตอนทั้งกระบวนวิชา') !!}
+
 <div class="table-responsive">
-    <table class="table table-bordered"  >
-        <thead>
+    <table class="table" id="example" cellspacing="0" width="100%" >
+
         <thead>
             <tr>
 
@@ -36,9 +46,24 @@ $i=1;
 
             </tr>
         </thead>
+        <tfoot>
+                <tr>
 
-        @foreach($result as $key)
+                    <th>ที่</th>
+                    <th>รหัสวิชา</th>
+                    <th>ชื่อกระบวนวิชา</th>
+                    <th>ตอน</th>
+                    <th>อาจารย์</th>
+                    <th>แก้ไข</th>
+                    <th>ลบ</th>
+
+
+                </tr>
+            </tfoot>
+
+
         <tbody>
+        @foreach($result as $key)
             <tr>
                 <td>{{$i}}</td>
                 <td>{{$key->courseid}}</td>
@@ -61,14 +86,5 @@ $i=1;
 </div>
 </div>
 
-<table data-url="data1.json" data-height="299" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1">
-    <thead>
-    <tr>
-        <th data-field="state" data-radio="true">Item ID</th>
-        <th data-field="id" data-align="right">Item ID</th>
-        <th data-field="name" data-align="center">Item Name</th>
-        <th data-field="price" data-align="left">Item Price</th>
-    </tr>
-    </thead>
-</table>
+
   @endsection

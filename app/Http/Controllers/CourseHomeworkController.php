@@ -215,7 +215,7 @@ class CourseHomeworkController extends Controller {
                           right join course_student cs on hs.student_id=cs.student_id
 
                            where cs.course_id=204111 and cs.section=001');
-        return view('homework.resulthomework',compact('homework','sent'));
+        return view('homework.resulthomework',compact('homework','sent'))->with('id',array('id'=>$id));
 
     }
 

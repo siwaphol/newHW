@@ -9,6 +9,15 @@
  @extends('app')
 
  @section('content')
+  <script type="text/javascript">
+
+ $(document).ready(function() {
+     $('#example').dataTable( {
+         "order": [[ 3, "desc" ]]
+     } );
+ } );
+
+     </script>
  <?php
  require_once '../Classes/PHPExcel/IOFactory.php';
 
@@ -91,7 +100,7 @@
 
       ?>
        <?php
-       $student=DB::select('select re.student_id as studentid,stu.firstname_th as firstname_th,stu.lastname_th as lastname_th
+       $student=DB::select('select re.student_id as studentid,stu.firstname_th as firstname_th,stu.lastname_th as lastname_th ,re.status as status
                                           from course_student  re
                                           left join users stu on re.student_id=stu.id
                                           where re.course_id=? and  re.section=? and re.semester=? and re.year=?
@@ -109,20 +118,28 @@
                            <div class="panel-body">
                                <h3 align="center">กระบวนวิชา {{$course}}  ตอน {{$sec}} </h3>
 
-                               <h4><a href="{{ url('/students/create/'.$coid[0]->id) }}">เพิ่มนักศึกษา</a></h4>
+                               {{--<h4><a href="{{ url('/students/create/'.$coid[0]->id) }}">เพิ่มนักศึกษา</a></h4>--}}
 
-                                {!! Form::open(['url' => 'students/export']) !!}
+                                {{--{!! Form::open(['url' => 'students/export']) !!}--}}
 
-                                 <input type="hidden" name="course" id="course" value='{{$course}}'>
-                                 <input type="hidden" name="sec" id="sec" value='{{$sec}}'>
+                                 {{--<input type="hidden" name="course" id="course" value='{{$course}}'>--}}
+                                 {{--<input type="hidden" name="sec" id="sec" value='{{$sec}}'>--}}
 
-                                 <button type="submit" class="btn btn-link">export csv</button>
-                                  {!! Form::close() !!}
+                                 {{--<button type="submit" class="btn btn-link">export csv</button>--}}
+                                  {{--{!! Form::close() !!}--}}
                                <div class="table-responsive">
-                                   <table class="table">
+                                   <table class="table" id="example" cellspacing="0" width="100%" >
+                                       <thead>
                                        <tr>
-                                           <th>ลำดับ</th><th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>delete</th>
-                                       </tr>
+                                          <th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>สถานะ</th><th>delete</th>
+                                      </tr>
+                                       </thead>
+                                       <tfoot>
+                                       <tr>
+                                          <th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>สถานะ</th><th>delete</th>
+                                      </tr>
+                                       </tfoot>
+                                       <tbody>
                                        {{-- */$x=0;/* --}}
                                        <?php
                                        $item=$student;
@@ -130,12 +147,13 @@
                                        ?>
 
                                            <tr>
-                                               <td>{{ $x+1 }}</td>
+
                                                <td><a href="{{ url('/students/show', $item[$x]->studentid) }}">{{ $item[$x]->studentid }}</a></td>
                                                <td><a href="{{ url('/students/show', $item[$x]->studentid) }}">{{ $item[$x]->firstname_th." ".$item[$x]->lastname_th }}</a></td>
                                                <!--
                                                <td><a href="{{ url('/students/edit/'.$item[$x]->studentid) }}">Edit</a> </td>
                                                -->
+                                               <td>{{ $item[$x]->status }}</td>
                                                <td>
                                                       <?php
                                                      // $data=array('id'=>$item[$x]->studentid,'co'=>$course['co'],'sec'=>$course['sec']);
@@ -145,11 +163,12 @@
                                                    <input type="hidden" name="course" id="course" value='{{$course}}'>
                                                    <input type="hidden" name="sec" id="sec" value='{{$sec}}'>
                                                    <input type="hidden" name="id" id="id" value='{{$item[$x]->studentid}}'>
-                                                   <button type="submit" class="btn btn-link">Delete</button>
+                                                   <button type="submit" class="btn btn-danger btn-ok" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                                    {!! Form::close() !!}
                                                    </td>
                                            </tr>
                                        <?php } ?>
+                                       </tbody>
                                    </table>
                                </div>
                            </div>
