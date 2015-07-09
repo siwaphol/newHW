@@ -29,6 +29,7 @@ $(document).ready(function() {
 <h5 align="center">{{$item->firstname.' '.$item->lastname.'   '.$item->ta_id}} </h5>
 @endforeach
 <div class="col-md-10 col-md-offset-2">
+@if(Auth::user()->isAdmin() || Auth::user()->isTeacher())
 <div class="dropdown">
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
    <a>เพิ่มนักศึกษา</a>
@@ -49,7 +50,7 @@ $(document).ready(function() {
 <button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','Export CSV',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
 <button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','จัดการการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
 <button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','ผลการส่งการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
-
+@endif
 </div>
 
 

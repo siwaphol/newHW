@@ -13,7 +13,7 @@ $(document).ready(function() {
     </script>
 
 <?php
-$cs=DB::select('select * from course_section where id=?',array($id['id']));
+
 $count=count($sent);
 $i=1;
 $j=0;
@@ -51,19 +51,24 @@ $j=0;
                 <td>{{$item->student_id}}</td>
                @foreach($homework as $key)
                <?php
-                $sql=DB::select('select * from homework_student where homework_name LIKE %?% and student_id=?
-                                  and course_id=? and section=?',array($key->name,$item->student_id),$cs[0]->course_id,$cs[0]->section);
+                $sql=DB::select('select * from homework_student where homework_name LIKE ? and student_id=?
+                                  and course_id=? and section=?',array('%'.$key->name.'%',$item->student_id,'204111','001'));
                 $hw=count($sql);
-                if($hw>0)
-                   if($sql[0]->status=='1'){
+
+                if($hw>0){
+                   if($sql[0]->status==1){
                    echo "<td>ok</td>";
-                   }elseif($sql[0]->status=='2'){
+                   }elseif($sql[0]->status==2){
                       echo "<td>late</td>";
-                      }elseif($sql[0]->status=='1'){
+                      }elseif($sql[0]->status==3){
                       echo "<td>!!!</td>";
                       }else{
 
-                         echo "<td></td>";
+                         echo "<td>No</td>";
+                        }
+
+                        }else{
+                        echo "<td>No</td>";
                         }
                 ?>
 

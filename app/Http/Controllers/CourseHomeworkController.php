@@ -214,7 +214,7 @@ class CourseHomeworkController extends Controller {
         $sent=DB::select('select cs.student_id  from homework_student hs
                           right join course_student cs on hs.student_id=cs.student_id
 
-                           where cs.course_id=204111 and cs.section=001');
+                           where cs.course_id=204100 and cs.section=001');
         return view('homework.resulthomework',compact('homework','sent'))->with('id',array('id'=>$id));
 
     }

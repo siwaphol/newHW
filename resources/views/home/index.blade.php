@@ -26,8 +26,10 @@ $i=1;
                     <div class="panel-heading" align="center">กระบวนวิชา ตอน</div>
 
                     <div class="panel-body">
+ @if(Auth::user()->isAdmin())
 {!! Html::link('course_section/create', 'เพิ่มตอนทีละตอน') !!} </br>
 {!! Html::link('course_section/selectcreate', 'เพิ่มตอนทั้งกระบวนวิชา') !!}
+@endif
 <div class="table-responsive">
     <table class="table" id="example" cellspacing="0" width="100%" >
 

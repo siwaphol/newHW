@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
-use App\Http\Controllers\Auth;
+//use App\Http\Controllers\Auth;
 use App\Course;
+use Auth;
 use Request;
 use Session;
 use DB;
@@ -79,6 +80,7 @@ class HomeController extends Controller {
     }
     public function firstpage(){
        // if(Auth::user()->isAdmin()) {
+        if(\Auth::user()->isAdmin()) {
             $result = DB::select('select cs.course_id as courseid
                               ,cs.section as sectionid
                               ,t.firstname_th as firstname
@@ -92,6 +94,52 @@ class HomeController extends Controller {
                               and cs.semester=? and cs.year=?
                               order by cs.course_id,cs.section
                               ', array(Session::get('semester'), Session::get('year')));
+        }
+        if(\Auth::user()->isTeacher()) {
+            $result = DB::select('select cs.course_id as courseid
+                              ,cs.section as sectionid
+                              ,t.firstname_th as firstname
+                              ,t.lastname_th as lastname
+                              ,co.name as coursename
+                              ,cs.id as id
+                              from course_section cs
+                              left join users t on cs.teacher_id=t.id
+                              left join courses co on cs.course_id=co.id
+                              WHERE  t.role_id=0100
+                              and cs.semester=? and cs.year=? and cs.teacher_id=?
+                              order by cs.course_id,cs.section
+                              ', array(Session::get('semester'), Session::get('year'),Auth::user()->id));
+        }
+        if(\Auth::user()->isTa()) {
+            $result = DB::select('select cs.course_id as courseid
+                              ,cs.section as sectionid
+                              ,t.firstname_th as firstname
+                              ,t.lastname_th as lastname
+                              ,co.name as coursename
+                              ,cs.id as id
+                              from course_ta cs
+                              left join users t on cs.student_id=t.id
+                              left join courses co on cs.course_id=co.id
+                              WHERE  (t.role_id=0010 or t.role_id=0011)
+                              and cs.semester=? and cs.year=? and cs.student_id=?
+                              order by cs.course_id,cs.section
+                              ', array(Session::get('semester'), Session::get('year'),Auth::user()->id));
+        }
+        if(\Auth::user()->isStudent()) {
+            $result = DB::select('select cs.course_id as courseid
+                              ,cs.section as sectionid
+                              ,t.firstname_th as firstname
+                              ,t.lastname_th as lastname
+                              ,co.name as coursename
+                              ,cs.id as id
+                              from course_student cs
+                              left join users t on cs.student_id=t.id
+                              left join courses co on cs.course_id=co.id
+                              WHERE  t.role_id=0001
+                              and cs.semester=? and cs.year=? and cs.student_id=?
+                              order by cs.course_id,cs.section
+                              ', array(Session::get('semester'), Session::get('year'),Auth::user()->id));
+        }
         //}
 //        if(Auth::user()->isTeacher()) {
 //            $result = DB::select('select cs.course_id as courseid
@@ -114,17 +162,19 @@ class HomeController extends Controller {
     public function preview(){
         $course=$_GET['course'];
         $sec=$_GET['sec'];
-       $teachers=DB::select('select cs.id as id,tea.id as teacher_id,tea.firstname_th as firstname,tea.lastname_th as lastname
+
+            $teachers = DB::select('select cs.id as id,tea.id as teacher_id,tea.firstname_th as firstname,tea.lastname_th as lastname
                             from course_section cs
                             LEFT  join users tea on cs.teacher_id=tea.id
-                            where cs.semester=? and cs.year=? and cs.course_id=? and cs.section=?',array(Session::get('semester'),Session::get('year'),$course,$sec));
-        $ta=DB::select('select ct.id as id,tea.id as ta_id,tea.firstname_th as firstname,tea.lastname_th as lastname
+                            where cs.semester=? and cs.year=? and cs.course_id=? and cs.section=?', array(Session::get('semester'), Session::get('year'), $course, $sec));
+            $ta = DB::select('select ct.id as id,tea.id as ta_id,tea.firstname_th as firstname,tea.lastname_th as lastname
                             from course_ta ct
                             LEFT  join users tea on ct.student_id=tea.id
-                            where ct.semester=? and ct.year=? and ct.course_id=? and ct.section=?',array(Session::get('semester'),Session::get('year'),$course,$sec));
+                            where ct.semester=? and ct.year=? and ct.course_id=? and ct.section=?', array(Session::get('semester'), Session::get('year'), $course, $sec));
 
 
-        $student=DB::select('select * from users where role_id=0001');
+            $student = DB::select('select * from users where role_id=0001');
+
 
         return view('home.preview',compact('teachers','ta','student'))->with('course',array('co'=>$course,'sec'=>$sec));
 
