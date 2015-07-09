@@ -49,7 +49,7 @@ $(document).ready(function() {
 <button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','เพิ่มนักศึกษาช่วยสอน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
 <button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','Export CSV',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
 <button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','จัดการการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
-<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','ผลการส่งการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
+<button type="button" class="btn btn-default">{!! link_to_action('CourseHomeworkController@result','ผลการส่งการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
 @endif
 </div>
 

@@ -25,7 +25,7 @@ Route::post('homework/create/{course_id}','CourseHomeworkController@create_post'
 
 Route::get('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_get_long')->where('path', '.+');
 Route::post('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_post_long')->where('path', '.+');
-Route::get('homework/result/{course_id}','CourseHomeworkController@result' );
+Route::get('homework/result','CourseHomeworkController@result' );
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

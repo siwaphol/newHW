@@ -76,21 +76,34 @@
                                     $reg=DB::select(' select * from course_student where course_id=? and section=? and student_id=?
                                                     and semester=? and year=?',array($course,$sec,$code,Session::get('semester'),Session::get('year')));
                                     //$rowstudent=count($stu);
+                                $user=DB::select('select * from users where id=? ',array($code));
 
-                                    $rowregist=count($reg);
-                                    if ($rowregist==0 ) {
+                                $cuser=count($user);
+                               $rowregist=count($reg);
+                               if ($rowregist==0 && $cuser==0 ) {
 
-                                             //  $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
-                                                $command =DB::insert('insert into users (id,firstname_th,lastname_th,role_id) values (?,?,?,?)',array($code,$fname,$lname,'0001')) ;
-                                               $regis =DB::insert('insert into course_student(student_id,course_id,section,status,semester,year) values (?,?,?,?,?,?)',array($code,$course,$sec,$status,Session::get('semester'),Session::get('year')));
+                                 //  $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
+                                    $command =DB::insert('insert into users (id,firstname_th,lastname_th,role_id) values (?,?,?,?)',array($code,$fname,$lname,'0001')) ;
+
+                                   $regis =DB::insert('insert into course_student(student_id,course_id,section,status,semester,year) values (?,?,?,?,?,?)',array($code,$course,$sec,$status,Session::get('semester'),Session::get('year')));
 
 
 
-                                           }
+                               }
+                                if ($rowregist==0 && $cuser>0 ) {
+
+                                    //  $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
+                                       //$command =DB::insert('insert into users (id,firstname_th,lastname_th,role_id) values (?,?,?,?)',array($code,$fname,$lname,'0001')) ;
+
+                                      $regis =DB::insert('insert into course_student(student_id,course_id,section,status,semester,year) values (?,?,?,?,?,?)',array($code,$course,$sec,$status,Session::get('semester'),Session::get('year')));
+
+
+
+                                  }
                                            if($rowregist>0){
                                                if($reg[0]->status!=$status){
                                                   $update=DB::update('update course_student set status=? where student_id=?
-                                                                    and semester=? and year=?',array($status,$code),Session::get('semester'),Session::get('year'));
+                                                                    and semester=? and year=?',array($status,$code,Session::get('semester'),Session::get('year')));
                                                }
 
                                            }

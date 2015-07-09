@@ -245,6 +245,7 @@ class HomeworkTableSeeder extends Seeder
         DB::table('homework_student')->insert([
             'course_id' => '204111',
             'section' => '001',
+            'homework_id'=>'1',
             'homework_name' => 'lab01_540510828.doc',
             'student_id' => '540510828',
             'status' => '1',

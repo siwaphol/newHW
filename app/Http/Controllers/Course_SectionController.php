@@ -6,6 +6,7 @@ use DB;
 use Illuminate\Http\Request;
 use App\Course_Section as CS;
 use Session;
+use Illuminate\Http\RedirectResponse;
 class Course_SectionController extends Controller
 {
 
@@ -115,7 +116,8 @@ class Course_SectionController extends Controller
 
         //$Course = DB::insert('insert into course_section(course_id,section,teacher_id)VALUES (?,?,?)', array($courseid, $sectionid, $teacherid));
 
-        return redirect('course_section');
+        //return redirect('course_section');
+        return new RedirectResponse(url('home'));
     }
     public function delete(){
             $course=$_GET['course'];
