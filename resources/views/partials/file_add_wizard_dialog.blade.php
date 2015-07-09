@@ -14,12 +14,23 @@
                   <input type="text" class="form-control" name="homeworkname" id="homeworkname" placeholder="Ex. lab01_{id} ,lab01_{section}_{id}">
                 </div>
               </div>
-              <div class="form-group">
-                <label class="control-label col-sm-2" for="filetype">ประเภท</label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" name="filetype" id="filetype" placeholder="Choose file type">
-                </div>
+              {{--<div class="form-group">--}}
+                {{--<label class="control-label col-sm-2" for="filetype">ประเภท</label>--}}
+                {{--<div class="col-sm-8">--}}
+                  {{--<input type="text" class="form-control" name="filetype" id="filetype" placeholder="Choose file type">--}}
+                {{--</div>--}}
+              {{--</div>--}}
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="section">File Type</label>
+              <div class="col-sm-8">
+                <select id="filetype-list">
+                  @foreach($filetype_list as $a_file_type)
+                      <option value="{{$a_file_type->id}}">{{$a_file_type->id}} ({{$a_file_type->extension}})</option>
+                  @endforeach
+                  <option value="newfiletype">Create new file type</option>
+                </select>
               </div>
+            </div>
               <div class="form-group">
                 <label class="control-label col-sm-2" for="filedetail">รายละเอียดเพิ่มเติม</label>
                 <div class="col-sm-8">
@@ -118,13 +129,13 @@
                         $(due_date).datetimepicker({
                             locale: 'en',
                             format: 'DD/MM/YYYY LT',
-                            defaultDate: moment("11:59:00","hh:mm:ss")
+                            defaultDate: moment()
                         });
                         var accept_date = "#acceptdatetimepicker" + element.val();
                         $(accept_date).datetimepicker({
                             locale: 'en',
                             format: 'DD/MM/YYYY LT',
-                            defaultDate: moment("11:59:00","hh:mm:ss")
+                            defaultDate: moment()
                         });
                     }
                     else if(checked === false) {
@@ -160,17 +171,26 @@
                         var due_date = "#duedatetimepicker" + $(this).val();
                         $(due_date).datetimepicker({
                             locale: 'en',
-                            format: 'DD/MM/YYYY LT',
-                            defaultDate: moment("11:59:00","hh:mm:ss")
+                            format: 'DD/MM/YYYY HH:mm',
+                            defaultDate: moment()
                         });
                         var accept_date = "#acceptdatetimepicker" + $(this).val();
                         $(accept_date).datetimepicker({
                             locale: 'en',
-                            format: 'DD/MM/YYYY LT',
-                            defaultDate: moment("11:59:00","hh:mm:ss")
+                            format: 'DD/MM/YYYY HH:mm',
+                            defaultDate: moment()
                         });
                     }
                });
+            }
+        });
+        $('#filetype-list').multiselect({
+            onChange: function(element, checked) {
+                if(checked === true) {
+                    if(element.val() === 'newfiletype'){
+
+                    }
+                }
             }
         });
     });
