@@ -31,18 +31,6 @@
               <textarea style="resize:none" class="form-control" name="filedetail" id="filedetail" rows="3" placeholder="Enter file detail" required></textarea>
             </div>
           </div>
-          {{--<div class="form-group">--}}
-            {{--<label class="control-label col-sm-2" for="duedate">Due date</label>--}}
-            {{--<div class="col-sm-8">--}}
-              {{--<input type="date" name="duedate" id="duedate">--}}
-            {{--</div>--}}
-          {{--</div>--}}
-          {{--<div class="form-group">--}}
-            {{--<label class="control-label col-sm-2" for="acceptdate">Accept until</label>--}}
-            {{--<div class="col-sm-8">--}}
-              {{--<input type="date" name="acceptdate" id="acceptdate">--}}
-            {{--</div>--}}
-          {{--</div>--}}
           <div class="form-group">
               <label class="control-label col-sm-2" for="dueDate">Due Date</label>
                 <div class='col-sm-8 input-group date clsDatePicker' id='datetimepicker1'>

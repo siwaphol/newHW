@@ -142,8 +142,8 @@ class AssistantsController extends Controller {
 	}
     public function showlist()
     {
-        $course = $_POST['ddlCourse'];
-        $sec = $_POST['ddlSection'];
+        $course = $_GET['ddlCourse'];
+        $sec = $_GET['ddlSection'];
         $cours=array('co'=>$course,'sec'=>$sec);
         //return $cours;
         return view('assistants.showlist')->with('course',$cours);

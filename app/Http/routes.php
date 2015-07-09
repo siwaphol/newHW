@@ -13,15 +13,19 @@
 
 Route::get('/', 'WelcomeController@index');
 
-Route::get('home', 'HomeController@index');
+Route::get('home', 'HomeController@firstpage');
 Route::get('info', 'HomeController@info');
 Route::post('semester', 'HomeController@semester');
+Route::get('index', 'HomeController@firstpage');
+Route::get('index/preview', 'HomeController@preview');
 
 //Route::get('course/{course_id}', 'CourseHomeworkController@show');
 Route::get('homework/create/{course_id}','CourseHomeworkController@create');
 Route::post('homework/create/{course_id}','CourseHomeworkController@create_post' );
-Route::get('homework/result/{course_id}','CourseHomeworkController@result' );
-Route::any('homework/create/{course_id}/{path?}', function($course_id,$path) { return 'caught ' . '/' .$path; })->where('path', '.+');
+
+Route::get('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_get_long')->where('path', '.+');
+Route::post('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_post_long')->where('path', '.+');
+Route::get('homework/result','CourseHomeworkController@result' );
 
 Route::controllers([
     'auth' => 'Auth\AuthController',
@@ -85,16 +89,17 @@ Route::post('students/delete','StudentsController@destroy');
 Route::get('students/show/{id}','StudentsController@show');
 Route::get('students/create/{id}','StudentsController@create');
 Route::get('students/edit/{id}','StudentsController@edit');
-Route::post('students/export','StudentsController@export');
+Route::get('students/export','StudentsController@export');
 Route::post('students/create/save','StudentsController@store');
 Route::post('students/showlist','StudentsController@showlist');
 Route::post('students/update/','StudentsController@update');
 //import student
 Route::get('students/import','StudentsController@import');
-Route::post('students/insert','StudentsController@insert');
+Route::get('students/insert','StudentsController@insert');
 Route::get('students/manualimport','StudentsController@manualimport');
 Route::post('students/manualinsert','StudentsController@manualinsert');
 Route::get('students/autoimport','StudentsController@autoimport');
+Route::get('students/selectexcel','StudentsController@selectexcel');
 //homework_assignment
 Route::get('homework_assignment','Homework_assignmentController@index');
 Route::delete('homework_assignment/delete/{id}','Homework_assignmentController@destroy');
@@ -114,7 +119,7 @@ Route::get('assistants/create','AssistantsController@create');
 Route::get('assistants/edit','AssistantsController@edit');
 Route::post('assistants/create/save','AssistantsController@store');
 Route::post('assistants/update','AssistantsController@update');
-Route::post('assistants/showlist','AssistantsController@showlist');
+Route::get('assistants/showlist','AssistantsController@showlist');
 //semester year
 Route::get('semesteryear','SemesteryearController@index');
 Route::delete('semesteryear/delete/{id}','SemesteryearController@destroy');

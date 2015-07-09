@@ -1,6 +1,15 @@
 @extends('app')
 
 @section('content')
+ <script type="text/javascript">
+
+$(document).ready(function() {
+    $('#example').dataTable( {
+        "order": [[ 3, "desc" ]]
+    } );
+} );
+
+    </script>
 <?php
 $assistants=DB::select('select  ta.username as username
                         ,ass.id as id
@@ -25,10 +34,18 @@ $item=$assistants;
                         <h3 align="center" >กระบวนวิชา {{$course['co']}} ตอน {{$course['sec']}}</h3>
                         <h4><a>{!! link_to_action('AssistantsController@create','เพิ่ม',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</a></h4>
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" id="example" cellspacing="0" width="100%" >
+                                <thead>
                                 <tr>
-                                    <th>ลำดับ</th><th>ชื่อ นามสกุล</th><th>Actions</th>
+                                    <th>ลำดับ</th><th>ชื่อ นามสกุล</th><th>edit</th><th>delete</th>
                                 </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>ลำดับ</th><th>ชื่อ นามสกุล</th><th>edit</th><th>delete</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
                                 {{-- */$x=0;/* --}}
                                 <?php
                                 for($x=0;$x<$count;$x++){
@@ -36,12 +53,14 @@ $item=$assistants;
 
                                     <tr>
                                         <td>{{ $x+1 }}</td><td><a href="{{ url('/assistants/show', $item[$x]->username) }}">{{ $item[$x]->firstname." ".$item[$x]->lastname }}</a></td>
-                                        <td><a>{!! link_to_action('AssistantsController@edit','แก้ไข',array('username'=>$item[$x]->username,'course'=>$course['co'],'sec'=>$course['sec']))!!}</a>
- /                                              <a>{!! link_to_action('AssistantsController@destroy','ลบ',array('id'=>$item[$x]->taid,'course'=>$course['co'],'sec'=>$course['sec']))!!}</a></td>
+                                        <td><button type="button" class="btn btn-default"><a>{!! link_to_action('AssistantsController@edit','แก้ไข',array('username'=>$item[$x]->username,'course'=>$course['co'],'sec'=>$course['sec']))!!}</a>
+                                        </button></td>
+                                        <td>
+                                          <button type="button" class="btn btn-danger btn-ok" onclick="return confirm('Are you sure you want to delete?')"><a>{!! link_to_action('AssistantsController@destroy','ลบ',array('id'=>$item[$x]->taid,'course'=>$course['co'],'sec'=>$course['sec']))!!}</a></button></td>
 
                                     </tr>
                                     <?php  } ?>
-
+                                </tbody>
                             </table>
                         </div>
                     </div>

@@ -9,6 +9,16 @@
  @extends('app')
 
  @section('content')
+ @section('content')
+   <script type="text/javascript">
+
+  $(document).ready(function() {
+      $('#example').dataTable( {
+          "order": [[ 3, "desc" ]]
+      } );
+  } );
+
+      </script>
  <?php
  require_once '../Classes/PHPExcel/IOFactory.php';
 
@@ -66,21 +76,34 @@
                                     $reg=DB::select(' select * from course_student where course_id=? and section=? and student_id=?
                                                     and semester=? and year=?',array($course,$sec,$code,Session::get('semester'),Session::get('year')));
                                     //$rowstudent=count($stu);
+                                $user=DB::select('select * from users where id=? ',array($code));
 
-                                    $rowregist=count($reg);
-                                    if ($rowregist==0 ) {
+                                $cuser=count($user);
+                               $rowregist=count($reg);
+                               if ($rowregist==0 && $cuser==0 ) {
 
-                                             //  $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
-                                                $command =DB::insert('insert into users (id,firstname_th,lastname_th,role_id) values (?,?,?,?)',array($code,$fname,$lname,'0001')) ;
-                                               $regis =DB::insert('insert into course_student(student_id,course_id,section,status,semester,year) values (?,?,?,?,?,?)',array($code,$course,$sec,$status,Session::get('semester'),Session::get('year')));
+                                 //  $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
+                                    $command =DB::insert('insert into users (id,firstname_th,lastname_th,role_id) values (?,?,?,?)',array($code,$fname,$lname,'0001')) ;
+
+                                   $regis =DB::insert('insert into course_student(student_id,course_id,section,status,semester,year) values (?,?,?,?,?,?)',array($code,$course,$sec,$status,Session::get('semester'),Session::get('year')));
 
 
 
-                                           }
+                               }
+                                if ($rowregist==0 && $cuser>0 ) {
+
+                                    //  $command =DB::insert('insert into students (id,studentName,status) values (?,?,?)',array($code,$fullnames,$status)) ;
+                                       //$command =DB::insert('insert into users (id,firstname_th,lastname_th,role_id) values (?,?,?,?)',array($code,$fname,$lname,'0001')) ;
+
+                                      $regis =DB::insert('insert into course_student(student_id,course_id,section,status,semester,year) values (?,?,?,?,?,?)',array($code,$course,$sec,$status,Session::get('semester'),Session::get('year')));
+
+
+
+                                  }
                                            if($rowregist>0){
                                                if($reg[0]->status!=$status){
                                                   $update=DB::update('update course_student set status=? where student_id=?
-                                                                    and semester=? and year=?',array($status,$code),Session::get('semester'),Session::get('year'));
+                                                                    and semester=? and year=?',array($status,$code,Session::get('semester'),Session::get('year')));
                                                }
 
                                            }
@@ -92,5 +115,81 @@
                         }
 
       ?>
-       <h2 align="center"> import successful</h2>
+       <?php
+              $student=DB::select('select re.student_id as studentid,stu.firstname_th as firstname_th,stu.lastname_th as lastname_th ,re.status as status
+                                                 from course_student  re
+                                                 left join users stu on re.student_id=stu.id
+                                                 where re.course_id=? and  re.section=? and re.semester=? and re.year=?
+                                                 order by re.student_id
+                                                 ',array($course,$sec,Session::get('semester'),Session::get('year')));
+              $count=count($student);
+               $coid=DB::select('select * from course_section c where c.course_id=? and c.section=? and c.semester=? and c.year=?',array($course,$sec,Session::get('semester'),Session::get('year')));
+              ?>
+                  <div class="container">
+                      <div class="row">
+                          <div class="col-md-10 col-md-offset-1">
+                              <div class="panel panel-default">
+                                  <div class="panel-heading" align="center">ข้อมูลนักศึกษา</div>
+
+                                  <div class="panel-body">
+                                      <h3 align="center">กระบวนวิชา {{$course}}  ตอน {{$sec}} </h3>
+
+                                      {{--<h4><a href="{{ url('/students/create/'.$coid[0]->id) }}">เพิ่มนักศึกษา</a></h4>--}}
+
+                                       {{--{!! Form::open(['url' => 'students/export']) !!}--}}
+
+                                        {{--<input type="hidden" name="course" id="course" value='{{$course}}'>--}}
+                                        {{--<input type="hidden" name="sec" id="sec" value='{{$sec}}'>--}}
+
+                                        {{--<button type="submit" class="btn btn-link">export csv</button>--}}
+                                         {{--{!! Form::close() !!}--}}
+                                      <div class="table-responsive">
+                                          <table class="table" id="example" cellspacing="0" width="100%" >
+                                              <thead>
+                                              <tr>
+                                                 <th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>สถานะ</th><th>delete</th>
+                                             </tr>
+                                              </thead>
+                                              <tfoot>
+                                              <tr>
+                                                 <th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>สถานะ</th><th>delete</th>
+                                             </tr>
+                                              </tfoot>
+                                              <tbody>
+                                              {{-- */$x=0;/* --}}
+                                              <?php
+                                              $item=$student;
+                                                  for($x=0;$x<$count;$x++){
+                                              ?>
+
+                                                  <tr>
+
+                                                      <td><a href="{{ url('/students/show', $item[$x]->studentid) }}">{{ $item[$x]->studentid }}</a></td>
+                                                      <td><a href="{{ url('/students/show', $item[$x]->studentid) }}">{{ $item[$x]->firstname_th." ".$item[$x]->lastname_th }}</a></td>
+                                                      <!--
+                                                      <td><a href="{{ url('/students/edit/'.$item[$x]->studentid) }}">Edit</a> </td>
+                                                      -->
+                                                      <td>{{ $item[$x]->status }}</td>
+                                                      <td>
+                                                             <?php
+                                                            // $data=array('id'=>$item[$x]->studentid,'co'=>$course['co'],'sec'=>$course['sec']);
+                                                             ?>
+                                                          {!! Form::open(['url' => 'students/delete']) !!}
+
+                                                          <input type="hidden" name="course" id="course" value='{{$course}}'>
+                                                          <input type="hidden" name="sec" id="sec" value='{{$sec}}'>
+                                                          <input type="hidden" name="id" id="id" value='{{$item[$x]->studentid}}'>
+                                                          <button type="submit" class="btn btn-danger btn-ok" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                                          {!! Form::close() !!}
+                                                          </td>
+                                                  </tr>
+                                              <?php } ?>
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
       @endsection

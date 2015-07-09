@@ -1,15 +1,6 @@
 
 @extends('app')
 @section('content')
- <script type="text/javascript">
-
-$(document).ready(function() {
-    $('#example').dataTable( {
-        "order": [[ 3, "desc" ]]
-    } );
-} );
-
-    </script>
 <?php
 
 //echo var_dump($model);
@@ -28,11 +19,8 @@ $i=1;
                     <div class="panel-body">
 {!! Html::link('course_section/create', 'เพิ่มตอนทีละตอน') !!} </br>
 {!! Html::link('course_section/selectcreate', 'เพิ่มตอนทั้งกระบวนวิชา') !!}
-
-
 <div class="table-responsive">
-    <table class="table" id="example" cellspacing="0" width="100%" >
-
+    <table class="table table-bordered"  >
         <thead>
         <thead>
             <tr>
@@ -48,24 +36,9 @@ $i=1;
 
             </tr>
         </thead>
-        <tfoot>
-                <tr>
 
-                    <th>ที่</th>
-                    <th>รหัสวิชา</th>
-                    <th>ชื่อกระบวนวิชา</th>
-                    <th>ตอน</th>
-                    <th>อาจารย์</th>
-                    <th>แก้ไข</th>
-                    <th>ลบ</th>
-
-
-                </tr>
-            </tfoot>
-
-
-        <tbody>
         @foreach($result as $key)
+        <tbody>
             <tr>
                 <td>{{$i}}</td>
                 <td>{{$key->courseid}}</td>
@@ -87,6 +60,5 @@ $i=1;
 </div>
 </div>
 </div>
-
 
   @endsection

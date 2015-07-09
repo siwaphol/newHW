@@ -73,6 +73,7 @@ class StudentsController extends Controller {
                               ,stu.email as email
                               ,fac.name_th as faculty
                               ,cs.status as status
+                              ,stu.role_id as role_id
                               from course_student cs
                               left join users stu on cs.student_id=stu.id
                               left join faculties fac on stu.faculty_id=fac.id
@@ -126,7 +127,7 @@ class StudentsController extends Controller {
         $result1=DB::delete('delete from users where id=?',array($id));
         $result=DB::delete('delete from course_student WHERE course_id=? and section=? and student_id=?
                             and semester=? and year=?',array($course,$sec,$id,Session::get('semester'),Session::get('year')));
-        return redirest()->back();
+        return redirect()->back();
 		//return redirect('students');
 	}
     public function import()
@@ -145,8 +146,8 @@ class StudentsController extends Controller {
      */
     public function insert()
     {
-        $course = $_POST['ddlCourse'];
-        $sec = $_POST['ddlSection'];
+        $course = $_GET['ddlCourse'];
+        $sec = $_GET['ddlSection'];
         $cours=array('co'=>$course,'sec'=>$sec);
         //return $cours;
         return view('students.insert')->with('cours',$cours);
@@ -160,8 +161,8 @@ class StudentsController extends Controller {
         return view('students.showlist')->with('course',$cours);
     }
     public function export(){
-        $course=$_POST['course'];
-        $sec=$_POST['sec'];
+        $course=$_GET['course'];
+        $sec=$_GET['sec'];
 
         return view('students.export')->with('course',array('co'=>$course,'sec'=>$sec));
     }
@@ -178,5 +179,10 @@ class StudentsController extends Controller {
     {
 
         return view('students.autoinsert');
+    }
+    public function selectexcel(){
+        $course = $_GET['ddlCourse'];
+        $sec = $_GET['ddlSection'];
+        return view('students.selectexcel')->with('course',array('co'=>$course,'sec'=>$sec));
     }
 }
