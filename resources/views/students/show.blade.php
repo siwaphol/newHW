@@ -18,6 +18,9 @@
 
                                 @foreach( $student as $result)
                                 <tr>
+                                <?php $role_id=$result->role_id;
+                                        $student_id=$result->student_id;
+                                ?>
                                     <td>{{$result->student_id}}</td><td>{{$result->firstname." ".$result->lastname}}</td><td>{{$result->faculty}}</td><td>{{$result->email}}</td><td>{{$result->status}}</td>
                                 </tr>
                                 @endforeach
@@ -28,4 +31,43 @@
             </div>
         </div>
     </div>
+@if($role_id=='0011'||$role_id=='0010')
+
+<?php
+$sql=DB::select('select cs.course_id,co.name ,cs.section  from course_ta cs
+                  left join courses co on cs.course_id=co.id
+                  where cs.student_id=? and cs.semester=? and cs.year=?
+                  ',array($student_id,Session::get('semester'),Session::get('year')));
+
+$counr=count($sql);
+
+?>
+<div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading" align="center">นักศึกษาช่วนสอนกระบวนวิชา</div>
+
+                    <div class="panel-body">
+
+     <div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>ที่</th><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>ตอน</th>
+        </tr>
+        <?php
+            for($i=0;$i<$counr;$i++){
+            ?>
+        <tr>
+            <td>{{ $i+1 }}</td><td>{{ $sql[$i]->course_id }}</td><td>{{ $sql[$i]->name }}</td><td>{{ $sql[$i]->section }}</td>
+        </tr>
+       <?php } ?>
+    </table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+@endif
 @endsection

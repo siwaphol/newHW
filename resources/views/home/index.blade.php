@@ -1,7 +1,7 @@
 
 @extends('app')
 @section('content')
- <script type="text/javascript">
+<script type="text/javascript">
 
 $(document).ready(function() {
     $('#example').dataTable( {
@@ -26,54 +26,52 @@ $i=1;
                     <div class="panel-heading" align="center">กระบวนวิชา ตอน</div>
 
                     <div class="panel-body">
+ @if(Auth::user()->isAdmin())
 {!! Html::link('course_section/create', 'เพิ่มตอนทีละตอน') !!} </br>
 {!! Html::link('course_section/selectcreate', 'เพิ่มตอนทั้งกระบวนวิชา') !!}
-
-
+@endif
 <div class="table-responsive">
     <table class="table" id="example" cellspacing="0" width="100%" >
 
         <thead>
-        <thead>
             <tr>
 
-                <th>ที่</th>
+                {{--<th>ที่</th>--}}
                 <th>รหัสวิชา</th>
                 <th>ชื่อกระบวนวิชา</th>
                 <th>ตอน</th>
-                <th>อาจารย์</th>
-                <th>แก้ไข</th>
-                <th>ลบ</th>
+                {{--<th>อาจารย์</th>--}}
+                <th>ดูข้อมูล</th>
+
 
 
             </tr>
         </thead>
-        <tfoot>
-                <tr>
+         <tfoot>
+            <tr>
 
-                    <th>ที่</th>
-                    <th>รหัสวิชา</th>
-                    <th>ชื่อกระบวนวิชา</th>
-                    <th>ตอน</th>
-                    <th>อาจารย์</th>
-                    <th>แก้ไข</th>
-                    <th>ลบ</th>
+                {{--<th>ที่</th>--}}
+                <th>รหัสวิชา</th>
+                <th>ชื่อกระบวนวิชา</th>
+                <th>ตอน</th>
+                {{--<th>อาจารย์</th>--}}
+                <th>ดูข้อมูล</th>
 
 
-                </tr>
-            </tfoot>
+
+            </tr>
+        </tfoot>
 
 
         <tbody>
-        @foreach($result as $key)
+         @foreach($result as $key)
             <tr>
-                <td>{{$i}}</td>
+                {{--<td>{{$i}}</td>--}}
                 <td>{{$key->courseid}}</td>
                 <td>{{$key->coursename}}</td>
                 <td>{{$key->sectionid}}</td>
-                 <td>{{$key->firstname}}  {{$key->lastname}}</td>
-                <td>{!! link_to_action('Course_SectionController@edit','แก้ไข',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
-                 <td>{!! link_to_action('Course_SectionController@delete','ลบ',array('id'=>$key->id,'course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
+                 {{--<td>{{$key->firstname}}  {{$key->lastname}}</td>--}}
+                <td><button type="button" class="btn btn-default">{!! link_to_action('HomeController@preview','ดูข้อมูล',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</button></td>
 
 
             </tr>
@@ -87,6 +85,5 @@ $i=1;
 </div>
 </div>
 </div>
-
 
   @endsection

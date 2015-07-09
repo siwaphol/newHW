@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Course;
 use DB;
-
+use Session;
 class CourseHomeworkController extends Controller {
 
 	/**
@@ -211,14 +211,16 @@ class CourseHomeworkController extends Controller {
 	{
 		//
 	}
-    public function result($id){
 
-        $homework=DB::select('select * from homework where course_id=204111 and section=001');
-        $sent=DB::select('select cs.student_id  from homework_student hs
-                          right join course_student cs on hs.student_id=cs.student_id
-
-                           where cs.course_id=204111 and cs.section=001');
-        return view('homework.resulthomework',compact('homework','sent'));
+    public function result(){
+        $course=$_GET['course'];
+        $sec=$_GET['sec'];
+        $homework=DB::select('select * from homework where course_id=? and section=?
+                                and semester=? and year=?',array($course,$sec,Session::get('semester'),Session::get('year')));
+        $sent=DB::select('select cs.student_id  from course_student cs
+                           where cs.course_id=? and cs.section=? and cs.semester=? and cs.year=?',
+                            array($course,$sec,Session::get('semester'),Session::get('year')));
+        return view('homework.resulthomework',compact('homework','sent'))->with('course',array('course'=>$course,'sec'=>$sec));
 
     }
 

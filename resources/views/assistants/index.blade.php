@@ -9,6 +9,7 @@
 @extends('app')
 @section('content')
 
+
 <script type="text/javascript">
 function onSubmitMain() {
 	var msgErr = ""
@@ -79,7 +80,7 @@ function onSubmitMain() {
 <h3 align="center">เลือกกระบวนวิชา ตอน</h3>
 <div class="portlet"align="right">
 <div class="portlet-body form"  align="center">
-<form action="assistants/showlist" method="post" name="frmMain" id="frmMain" onsubmit="return onSubmitMain()" class="form-horizontal"  align="center">
+<form action="assistants/showlist" method="get" name="frmMain" id="frmMain" onsubmit="return onSubmitMain()" class="form-horizontal"  align="center">
 <div class="form-body" >
             <div class="form-group" align="center">
                     <div class="col-md-4 col-md-offset-4" align="center" >

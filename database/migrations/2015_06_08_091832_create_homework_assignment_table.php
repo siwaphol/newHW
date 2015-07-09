@@ -35,6 +35,7 @@ class CreateHomeworkAssignmentTable extends Migration {
             $table->increments('id');
             $table->char('course_id',6);
             $table->char('section',3);
+            $table->integer('homework_id',10);
             $table->string('homework_name',50);
             $table->char('student_id',9);
             $table->integer('status');
