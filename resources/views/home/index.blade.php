@@ -1,15 +1,10 @@
 
 @extends('app')
+@section('header_content')
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+@endsection
 @section('content')
-<script type="text/javascript">
 
-$(document).ready(function() {
-    $('#example').dataTable( {
-        "order": [[ 3, "desc" ]]
-    } );
-} );
-
-    </script>
 <?php
 
 //echo var_dump($model);
@@ -41,7 +36,7 @@ $i=1;
                 <th>ชื่อกระบวนวิชา</th>
                 <th>ตอน</th>
                 {{--<th>อาจารย์</th>--}}
-                <th>ดูข้อมูล</th>
+                {{--<th>ดูข้อมูล</th>--}}
 
 
 
@@ -55,7 +50,7 @@ $i=1;
                 <th>ชื่อกระบวนวิชา</th>
                 <th>ตอน</th>
                 {{--<th>อาจารย์</th>--}}
-                <th>ดูข้อมูล</th>
+                {{--<th>ดูข้อมูล</th>--}}
 
 
 
@@ -68,10 +63,10 @@ $i=1;
             <tr>
                 {{--<td>{{$i}}</td>--}}
                 <td>{{$key->courseid}}</td>
-                <td>{{$key->coursename}}</td>
-                <td>{{$key->sectionid}}</td>
+                <td>{!! link_to_action('HomeController@preview',$key->coursename,array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
+                <td>{!! link_to_action('HomeController@preview',$key->sectionid,array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
                  {{--<td>{{$key->firstname}}  {{$key->lastname}}</td>--}}
-                <td><button type="button" class="btn btn-default">{!! link_to_action('HomeController@preview','ดูข้อมูล',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</button></td>
+                {{--<td><button type="button" class="btn btn-default">{!! link_to_action('HomeController@preview','ดูข้อมูล',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</button></td>--}}
 
 
             </tr>
@@ -85,5 +80,22 @@ $i=1;
 </div>
 </div>
 </div>
+
+  @endsection
+
+  @section('footer')
+  <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+
+  $(document).ready(function() {
+      $('#example').dataTable( {
+          "order": [[ 1, "desc" ]],
+          "scrollX": true
+      } );
+
+  } );
+
+      </script>
 
   @endsection
