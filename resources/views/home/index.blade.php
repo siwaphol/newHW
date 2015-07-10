@@ -25,6 +25,7 @@ $i=1;
 {!! Html::link('course_section/create', 'เพิ่มตอนทีละตอน') !!} </br>
 {!! Html::link('course_section/selectcreate', 'เพิ่มตอนทั้งกระบวนวิชา') !!}
 @endif
+
 <div class="table-responsive">
     <table class="table" id="example" cellspacing="0" width="100%" >
 

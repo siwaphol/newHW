@@ -22,6 +22,48 @@
 @foreach($ta as $item)
 <h5 align="center">{{$item->firstname.' '.$item->lastname.'   '.$item->ta_id}} </h5>
 @endforeach
+<div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading" align="center">นักศึกษาช่วยสอน</div>
+
+                    <div class="panel-body">
+                        {{--<h1>semesteryears</h1>--}}
+                        <button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','เพิ่มนักศึกษาช่วยสอน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
+                        <div class="table-responsive">
+                            <table class="table" id="example" cellspacing="0" width="100%" >
+                                <thead>
+                                <tr>
+                                    <th>ลำดับ</th><th>รหัส</th><th>ชื่อ</th><th>ลบ</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>ลำดับ</th><th>รหัส</th><th>ชื่อ</th><th>ลบ</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                {{-- */$x=0;/* --}}
+                                @foreach($ta as $item)
+                                    {{-- */$x++;/* --}}
+                                    <tr>
+                                        <td>{{ $x }}</td>
+                                        <td><a href="{{ url('/semesteryear/show', $item->ta_id) }}">{{ $item->ta_id }}</a></td>
+                                        <td><a href="{{ url('/semesteryear/show', $item->ta_id) }}">{{ $item->firstname.' '.$item->lastname }}</a></td>
+
+                                        <td> {!! Form::open(['method'=>'delete','action'=>['SemesteryearController@destroy',$item->ta_id]]) !!}<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>{!! Form::close() !!}</td>
+
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <div class="col-md-10 col-md-offset-2">
 @if(Auth::user()->isAdmin() || Auth::user()->isTeacher())
 {{--<div class="dropdown">--}}
