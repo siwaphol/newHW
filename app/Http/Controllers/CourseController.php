@@ -70,6 +70,14 @@ class CourseController extends Controller {
 
         return view('homework.studenthomework',['course_id'=>$course_id]);
     }
+
+    public function show_student_homework($course_id){
+
+        
+
+        return "JSON text is here";
+    }
+
     public function edit($id){
 
         $course=Course::find($id);

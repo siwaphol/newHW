@@ -1,15 +1,7 @@
 
 @extends('app')
 @section('content')
-<script type="text/javascript">
 
-$(document).ready(function() {
-    $('#example').dataTable( {
-        "order": [[ 3, "desc" ]]
-    } );
-} );
-
-    </script>
 <?php
 
 //echo var_dump($model);
@@ -86,4 +78,18 @@ $i=1;
 </div>
 </div>
 
-  @endsection
+@endsection
+
+@section('footer')
+
+
+   <script type="text/javascript">
+
+   $(document).ready(function() {
+       $('#example').dataTable( {
+           "order": [[ 3, "desc" ]]
+       } );
+   } );
+
+       </script>
+@endsection

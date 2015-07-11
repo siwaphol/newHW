@@ -33,6 +33,13 @@ class User extends Model implements AuthenticatableContract {
         return $this->belongsToMany('App\Course', 'course_student', 'student_id', 'course_id')->withTimestamps();
     }
 
+    public function getHomeworkWithStatus($course_id,$section,$semester,$year)
+    {
+        DB::select("SELECT homework_name,status,submitted_at");
+
+        return 'go to that page';
+    }
+
     /**
      * @param $query
      * @return mixed

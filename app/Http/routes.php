@@ -39,6 +39,7 @@ Route::post('course/create/save', 'CourseController@addcourse');
 Route::get('edit/{id}', 'CourseController@edit');
 Route::get('delete/{id}', 'CourseController@delete');
 Route::get('course/{course_id}', 'CourseController@show');
+Route::post('course/{course_id}', 'CourseController@show_student_homework');
 Route::get('course_section', 'Course_SectionController@index');
 Route::get('course_section/create', 'Course_SectionController@create');
 Route::get('course_section/delete/', 'Course_SectionController@delete');
