@@ -64,7 +64,8 @@ class AssistantsController extends Controller {
 
         //$result=DB::insert('insert into course_ta (course_id,section,student_id)values(?,?,?)',array($course,$sec,$ta_id));
 		//return redirect('assistants');
-        return view('assistants.showlist')->with('course',array('co'=>$course,'sec'=>$sec));
+        return redirect()->action('HomeController@preview',array('course'=>$course,'sec'=>$sec));
+        //return view('home.preview')->with('course',array('co'=>$course,'sec'=>$sec));
 	}
 
 	/**

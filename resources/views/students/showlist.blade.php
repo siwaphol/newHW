@@ -1,15 +1,9 @@
 @extends('app')
-
+@section('header_content')
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+@endsection
 @section('content')
-<script type="text/javascript">
 
- $(document).ready(function() {
-     $('#example').dataTable( {
-         "order": [[ 3, "desc" ]]
-     } );
- } );
-
-     </script>
 <?php
 $student=DB::select('select re.student_id as studentid,stu.firstname_th as firstname_th,stu.lastname_th as lastname_th,re.status as status
                       from course_student  re
@@ -87,4 +81,18 @@ $count=count($student);
             </div>
         </div>
     </div>
+@endsection
+@section('footer')
+<script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
+
+  <script type="text/javascript">
+
+$(document).ready(function() {
+    $('#example').dataTable( {
+        "order": [[ 3, "desc" ]],
+        "scrollX": true
+    } );
+} );
+
+    </script>
 @endsection

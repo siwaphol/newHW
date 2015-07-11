@@ -155,9 +155,18 @@ class HomeController extends Controller {
 
 
             $student = DB::select('select * from users where role_id=0001');
+        $homework=DB::select('select * from homework where course_id=? and section=?
+                                and semester=? and year=?',array($course,$sec,Session::get('semester'),Session::get('year')));
+        $sent=DB::select('select cs.student_id as studentid,stu.firstname_th as firstname,stu.lastname_th as lastname,cs.status as status
+                            from course_student cs
+                            left join users stu on cs.student_id=stu.id
+                           where cs.course_id=? and cs.section=? and cs.semester=? and cs.year=?',
+            array($course,$sec,Session::get('semester'),Session::get('year')));
+        //return view('homework.resulthomework',compact('homework','sent'))->with('course',array('course'=>$course,'sec'=>$sec));
 
 
-        return view('home.preview',compact('teachers','ta','student'))->with('course',array('co'=>$course,'sec'=>$sec));
+
+        return view('home.preview',compact('teachers','ta','student','homework','sent'))->with('course',array('co'=>$course,'sec'=>$sec));
 
     }
 }

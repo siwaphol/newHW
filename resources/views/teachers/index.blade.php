@@ -1,5 +1,7 @@
 @extends('app')
-
+@section('header_content')
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+@endsection
 @section('content')
  @section('content')
   <script type="text/javascript">
@@ -52,4 +54,19 @@
             </div>
         </div>
     </div>
+@endsection
+@section('footer')
+<script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
+
+  <script type="text/javascript">
+
+$(document).ready(function() {
+    $('#example').dataTable( {
+        "order": [[ 3, "desc" ]],
+        "scrollX": true
+    } );
+} );
+
+    </script>
+
 @endsection

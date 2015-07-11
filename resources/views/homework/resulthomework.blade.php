@@ -1,14 +1,9 @@
 @extends('app')
+@section('header_content')
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+@endsection
+
 	@section('content')
-	<script type="text/javascript">
-
-	$(document).ready(function() {
-		$('#example').dataTable( {
-			"order": [[ 0, "desc" ]]
-		} );
-	} );
-
-		</script>
 
 	<?php
 
@@ -21,7 +16,7 @@
 			<div class="row">
 				<div class="col-md-10 col-md-offset-1">
 					<div class="panel panel-default">
-						<div class="panel-heading" align="center">ผลการส่งการบ้าน</div>
+					<div class="panel-heading" align="center">ผลการส่งการบ้าน</div>
 
 						<div class="panel-body">
 
@@ -97,3 +92,18 @@
 
 
 	@endsection
+	@section('footer')
+    <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
+
+      <script type="text/javascript">
+
+    $(document).ready(function() {
+        $('#example').dataTable( {
+            "order": [[ 0, "desc" ]],
+            "scrollX": true
+        } );
+    } );
+
+        </script>
+
+    @endsection
