@@ -11,8 +11,10 @@ use App\Course;
 
 //use Request;
 use App\Http\Requests\CourseRequest;
+ use App\User;
+ use yajra\Datatables\Datatables;
 
-class CourseController extends Controller {
+ class CourseController extends Controller {
 
     /*
     |--------------------------------------------------------------------------
@@ -71,12 +73,11 @@ class CourseController extends Controller {
         return view('homework.studenthomework',['course_id'=>$course_id]);
     }
 
-    public function show_student_homework($course_id){
+     public function getStudentHomeworkData($course_id){
+         $users = \DB::table('users')->select(['id', 'username', 'email', 'created_at', 'updated_at']);
 
-        
-
-        return "JSON text is here";
-    }
+         return Datatables::of($users)->make();
+     }
 
     public function edit($id){
 

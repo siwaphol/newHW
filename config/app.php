@@ -149,7 +149,8 @@ return [
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 //        'App\Auth\CustomUserProvider',
         'App\Providers\CustomAuthProvider',
-        'App\Providers\AppzcoderCrudGeneratorServiceProvider' //provider crud
+        'App\Providers\AppzcoderCrudGeneratorServiceProvider', //provider crud
+        'yajra\Datatables\DatatablesServiceProvider'
 
 	],
 
@@ -199,7 +200,8 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Form'		=> 'Illuminate\Html\FormFacade',
-		'Html'		=> 'Illuminate\Html\HtmlFacade'
+		'Html'		=> 'Illuminate\Html\HtmlFacade',
+        'Datatables' => 'yajra\Datatables\Datatables'
 //        'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
 
 	],
