@@ -1,10 +1,12 @@
 <?php namespace App;
 
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use DB;
 use Session;
+use yajra\Datatables\Datatables;
 
 class User extends Model implements AuthenticatableContract {
 
@@ -33,11 +35,43 @@ class User extends Model implements AuthenticatableContract {
         return $this->belongsToMany('App\Course', 'course_student', 'student_id', 'course_id')->withTimestamps();
     }
 
-    public function getHomeworkWithStatus($course_id,$section,$semester,$year)
+    public function getHomeworkWithStatus($course_id,$section)
     {
-        DB::select("SELECT homework_name,status,submitted_at");
+        $homework_list = new Collection();
 
-        return 'go to that page';
+        $query_hw_template = DB::select("SELECT id,name FROM homework WHERE course_id = ?
+            AND (section = ? OR TRIM(section) = '')",array($course_id,$section));
+
+        $query_hw_student = DB::select("SELECT homework_name,status,homework_id FROM homework_student
+            WHERE course_id = ? AND section = ? AND semester = ? AND year =? AND student_id = ?",array($course_id,$section,Session::get('semester'),Session::get('year'),\Auth::user()->id));
+
+        foreach($query_hw_template as $homework)
+        {
+            $found = false;
+            foreach($query_hw_student as $sent_homework)
+            {
+                if($homework->id === $sent_homework->homework_id)
+                {
+                    $homework_list->push([
+                        'name'         => $sent_homework->homework_name,
+                        'status'       => 'OK'
+                    ]);
+                    $found = true;
+                }
+                if($found){
+                    break;
+                }
+            }
+            if(!$found){
+                $homework_list->push([
+                    'name'         => $homework->name,
+                    'status'       => 'Waiting'
+                ]);
+            }
+
+        }
+
+        return Datatables::of($homework_list)->make(true);
     }
 
     /**

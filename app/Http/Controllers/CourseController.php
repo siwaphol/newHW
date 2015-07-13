@@ -74,9 +74,10 @@ use App\Http\Requests\CourseRequest;
     }
 
      public function getStudentHomeworkData($course_id){
-         $users = \DB::table('users')->select(['id', 'username', 'email', 'created_at', 'updated_at']);
-
-         return Datatables::of($users)->make();
+//         $users = \DB::table('users')->select(['id', 'username', 'email', 'created_at', 'updated_at']);
+         $homework_status = \Auth::user()->getHomeworkWithStatus('204111','001');
+//         return Datatables::of($users)->make();
+         return $homework_status;
      }
 
     public function edit($id){

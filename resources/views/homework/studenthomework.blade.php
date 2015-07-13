@@ -12,21 +12,15 @@
         <table id="users-table" class="table table-condensed">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
+                    <th>Name</th>
+                    <th>Status</th>
                 </tr>
             </thead>
 
             <tfoot>
                 <tr>
-                    <th>Testing</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
+                    <th><button type="button" class="btn btn-default">Upload</button></th>
+                    <th><button type="button" class="btn btn-default">Upload</button></th>
                 </tr>
             </tfoot>
         </table>
@@ -39,11 +33,23 @@
 
     <script type="text/javascript">
     $(document).ready(function() {
+
         $('#users-table').DataTable( {
+            "scrollX": true,
             processing: true,
             serverSide: true,
-            ajax: '{{ url("coursedata/204111") }}'
+            ajax: '{{ url("coursedata/204111") }}',
+            columns: [
+                        {data: 'name', name: 'name'},
+                        {data: 'status', name: 'status'}
+                    ],
+            "createdRow": function ( row, data, index ) {
+                if ( data['status'] == 'Waiting') {
+                    $('td', row).eq(1).addClass('highlight');
+                }
+            }
         } );
+
     } );
     </script>
 @endsection
