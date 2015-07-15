@@ -1,11 +1,6 @@
 @extends('app')
 @section('header_content')
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"
-      xmlns="http://www.w3.org/1999/html">
-<<<<<<< HEAD
-=======
       <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css">
->>>>>>> origin/james
 @endsection
 @section('content')
 
@@ -85,25 +80,7 @@ echo Form::close();
   @endsection
   @section('footer')
   <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
-<<<<<<< HEAD
-
-    <script type="text/javascript">
-
-  $(document).ready(function() {
-      $('#example').dataTable( {
-          "order": [[ 3, "desc" ]],
-          "scrollX": true
-      } );
-  } );
-  $(document).ready(function() {
-      $('#example1').dataTable( {
-          "order": [[ 3, "desc" ]],
-          "scrollX": true
-      } );
-  } );
-
-=======
-<script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.js"></script>
+    <script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.js"></script>
     <script type="text/javascript">
 
 //  $(document).ready(function() {
@@ -126,7 +103,6 @@ $(document).ready( function () {
         }
     } );
 } );
->>>>>>> origin/james
 
       </script>
 
