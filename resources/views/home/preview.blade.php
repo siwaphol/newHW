@@ -59,9 +59,15 @@
 
 
                                         <td>
+<<<<<<< HEAD
 
                                          {!! Form::open(['url' => 'assistants/delete']) !!}
 
+=======
+
+                                         {!! Form::open(['url' => 'assistants/delete']) !!}
+
+>>>>>>> origin/james
                                         <input type="hidden" name="course" id="course" value='{{$course['co']}}'>
                                         <input type="hidden" name="sec" id="sec" value='{{$course['sec']}}'>
                                         <input type="hidden" name="id" id="id" value='{{$item->ta_id}}'>
@@ -139,7 +145,24 @@
                 @endif
 
 <?php
+<<<<<<< HEAD
 
+=======
+$month=array('01'=>'Jan',
+             '02'=>'Feb',
+             '03'=>'Mar',
+             '04'=>'Apr',
+             '05'=>'May',
+             '06'=>'June',
+             '07'=>'July',
+             '08'=>'Aug',
+             '09'=>'Sept',
+             '10'=>'Oct',
+             '11'=>'Nov',
+             '12'=>'Dec'
+
+);
+>>>>>>> origin/james
 ?>
                 <div class="container">
                     <div class="row">
@@ -167,7 +190,14 @@
                                                 <th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>สถานะ</th>
                                                 @if(count($homework)>0)
                                                 @foreach($homework as $key1)
+<<<<<<< HEAD
                                                    <th><table><tr><td>{{$key1->name}}</td></tr><tr><td>{{$key1->due_date}}</td></tr><tr><td>{{$key1->accept_date}}</td></tr></table></th>
+=======
+                                                <?php
+                                               $name= explode('{',$key1->name);
+                                                ?>
+                                                   <th style="width: 50px">{{$name[0]}}<br/><span class="label label-warning">{{date("d", strtotime($key1->due_date)).$month[date("m", strtotime($key1->due_date))]}}</span><br/><span class="label label-danger">{{date("d", strtotime($key1->accept_date)).$month[date("m", strtotime($key1->accept_date))]}}</span></th>
+>>>>>>> origin/james
 
                                                 @endforeach
                                                 @endif

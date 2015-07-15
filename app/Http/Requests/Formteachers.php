@@ -14,9 +14,9 @@ class Formteachers extends FormRequest {
     {
         return [
             'username' => 'required',
-            'firstname_th' => 'required',
-            'lastname_th' => 'required',
-            'email' => 'required'
+            'firstname_en' => 'required',
+            'lastname_en' => 'required'
+//            'email' => 'required'
         ];
     }
 

@@ -23,17 +23,20 @@
 @foreach($result as $key)
   {!!Form::open(['url'=>'course_section/update']) !!}
   <input type="hidden" name="id" value="{{$key->id}}">
+  <input type="hidden" name="courseid" value="{{$key->courseid}}">
+
   <div class="form-group">
-  {!! Form::label('courseid','รหัส')!!}
-  {!! Form::text('courseid',$key->courseid,['class'=>'form-control','disabled' => 'disabled'])!!}
+  {!! Form::label('course','รหัส')!!}
+  {!! Form::text('course',$key->courseid,['class'=>'form-control','disabled' => 'disabled'])!!}
   </div>
+
   <div class="form-group">
   {!! Form::label('courseName','ชื่อกระบวนวิชา')!!}
   {!! Form::text('courseName',$key->coursename,['class'=>'form-control','disabled' => 'disabled'])!!}
   </div>
   <div class="form-group">
   {!! Form::label('sectionid','ตอน')!!}
-  {!! Form::text('sectionid',$key->sectionid,['class'=>'form-control','disabled' => 'disabled'])!!}
+  {!! Form::text('sectionid',$key->sectionid,['class'=>'form-control'])!!}
   </div>
   <div class="form-group">
   {!! Form::label('teacherid','อาจารย์')!!}
@@ -55,6 +58,13 @@
   </div>
 
   {!! Form::close() !!}
+   @if ($errors->any())
+                              <ul class="alert alert-danger">
+                                  @foreach ($errors->all() as $error)
+                                      <li>{{ $error }}</li>
+                                  @endforeach
+                              </ul>
+                          @endif
   </div>
   </div>
   </div>

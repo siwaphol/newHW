@@ -167,7 +167,7 @@
                                                 {
                                                 frmyear.semester.length = 0
                                                 //*** Insert null Default Value ***//
-                                                var myOption = new Option('เลือกตอน','')
+                                                var myOption = new Option('ภาคการศึกษา','')
                                                 frmyear.semester.options[frmyear.semester.length]= myOption
                                                 <?php
 

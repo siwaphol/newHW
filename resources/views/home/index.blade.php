@@ -39,7 +39,8 @@ $i=1;
                 <th>ตอน</th>
                 {{--<th>อาจารย์</th>--}}
                 {{--<th>ดูข้อมูล</th>--}}
-
+                <th>แก้ไข</th>
+                <th>ลบ</th>
 
 
             </tr>
@@ -53,6 +54,8 @@ $i=1;
                 <th>ตอน</th>
                 {{--<th>อาจารย์</th>--}}
                 {{--<th>ดูข้อมูล</th>--}}
+                <th>แก้ไข</th>
+                 <th>ลบ</th>
 
 
 
@@ -69,6 +72,8 @@ $i=1;
                 <td>{!! link_to_action('HomeController@preview',$key->sectionid,array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
                  {{--<td>{{$key->firstname}}  {{$key->lastname}}</td>--}}
                 {{--<td><button type="button" class="btn btn-default">{!! link_to_action('HomeController@preview','ดูข้อมูล',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</button></td>--}}
+                <td>{!! link_to_action('Course_SectionController@edit','แก้ไข',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
+                 <td><a onclick="return confirm('Are you sure you want to delete student from this section?')">{!! link_to_action('Course_SectionController@delete','ลบ',array('id'=>$key->id,'course'=>$key->courseid,'sec'=>$key->sectionid),array('onclick'=>"return confirm('Are you sure you want to delete student from this section?')"))!!}</a></td>
 
 
             </tr>

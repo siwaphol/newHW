@@ -85,6 +85,7 @@ class HomeController extends Controller {
             $result = DB::select('select DISTINCT cs.course_id as courseid
                               ,cs.section as sectionid
                               ,co.name as coursename
+                              ,cs.id as id
                               from course_section cs
                               left join courses co on cs.course_id=co.id
                               where cs.semester=? and cs.year=?
@@ -95,6 +96,7 @@ class HomeController extends Controller {
             $result = DB::select('select DISTINCT cs.course_id as courseid
                               ,cs.section as sectionid
                               ,co.name as coursename
+                              ,cs.id as id
                               from course_section cs
                               left join courses co on cs.course_id=co.id
                               WHERE cs.semester=? and cs.year=? and cs.teacher_id=?
@@ -105,6 +107,7 @@ class HomeController extends Controller {
             $result = DB::select('select DISTINCT  cs.course_id as courseid
                               ,cs.section as sectionid
                               ,co.name as coursename
+                              ,cs.id as id
                               from course_ta cs
                               left join courses co on cs.course_id=co.id
                               WHERE cs.semester=? and cs.year=? and cs.student_id=?
@@ -115,6 +118,7 @@ class HomeController extends Controller {
             $result = DB::select('select DISTINCT cs.course_id as courseid
                               ,cs.section as sectionid
                               ,co.name as coursename
+                              ,cs.id as id
                               from course_student cs
                               left join courses co on cs.course_id=co.id
                               WHERE cs.semester=? and cs.year=? and cs.student_id=?

@@ -15,13 +15,15 @@
                         
                        <div class="form-group">
                            {!! Form::label('username', 'รหัสผู้ใช้: ') !!}
-                           {!! Form::text('username', null, ['class' => 'form-control']) !!}
+                           {!! Form::label('warning', '** ',array('style'=>'color:red')) !!}
+                           {!! Form::text('username', null, ['class' => 'form-control'],['required']) !!}
                        </div><div class="form-group">
                            {!! Form::label('firstname_th', 'ชื่อ: ') !!}
                            {!! Form::text('firstname_th', null, ['class' => 'form-control']) !!}
                        </div>
                        <div class="form-group">
                            {!! Form::label('firstname_en', 'firstname: ') !!}
+                           {!! Form::label('warning', '** ',array('style'=>'color:red')) !!}
                            {!! Form::text('firstname_en', null, ['class' => 'form-control']) !!}
                        </div>
                        <div class="form-group">
@@ -30,6 +32,7 @@
                        </div>
                        <div class="form-group">
                            {!! Form::label('lastname_en', 'lastname: ') !!}
+                           {!! Form::label('warning', '** ',array('style'=>'color:red')) !!}
                            {!! Form::text('lastname_en', null, ['class' => 'form-control']) !!}
                        </div>
                        <div class="form-group">

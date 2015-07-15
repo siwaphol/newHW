@@ -58,8 +58,9 @@ class Course_SectionController extends Controller
     public function update()
     {
         $id=$_POST['id'];
-        //$courseid =$_POST['courseid'];
-       // $sectionid =$_POST['sectionid'];
+        //dd($_POST['courseid']);
+        $courseid =$_POST['courseid'];
+        $sectionid =$_POST['sectionid'];
         $teacherid =$_POST['teacherid'];
         $sql=DB::select('select * from course_section where id=?',array($id));
         $check=DB::select('select tea.firstname_th as firstname,tea.lastname_th as lastname
@@ -69,14 +70,14 @@ class Course_SectionController extends Controller
                           left JOIN users tea on cs.teacher_id=tea.id
                           where cs.course_id=? and cs.section=? and cs.teacher_id=?
                           and cs.semester=? and cs.year=?',
-                            array($sql[0]->course_id,$sql[0]->section,$teacherid,Session::get('semester'),Session::get('year')));
+                            array($courseid,$sectionid,$teacherid,Session::get('semester'),Session::get('year')));
         if(count($check)>0){
             return redirect()->back()
                 ->withErrors(['duplicate' => 'กระบวนวิชา '.$check[0]->course_id.' ตอน '.$check[0]->section.' อาจารย์'.$check[0]->firstname.' '.$check[0]->lastname.' ซ้ำ']);
         }
         $cs = CS::find($id);
 //        $cs->course_id=$courseid;
-//        $cs->section=$sectionid;
+      $cs->section=$sectionid;
         $cs->teacher_id=$teacherid;
         $cs->save();
         // $course = DB::update('update course_section set course_id=?,section=?,teacher_id=? where course_id=? and section=?', array($courseid, $sectionid, $teacherid, $courseid, $sectionid));
@@ -126,7 +127,8 @@ class Course_SectionController extends Controller
             $id=$_GET['id'];
             $result=DB::delete('delete from course_section where course_id=? and section=?
                                 and semester=? and year=? and id=?',array($course,$sec,Session::get('semester'),Session::get('year'),$id));
-        return redirect('course_section');
+        //return redirect('course_section');
+        return redirect('home');
     }
     public function check(){
         $course = $_POST['course'];
