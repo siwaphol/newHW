@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Course_Section as CS;
 use Session;
 use Illuminate\Http\RedirectResponse;
+use App\Course;
 class Course_SectionController extends Controller
 {
 
@@ -180,5 +181,148 @@ class Course_SectionController extends Controller
         }
 
         return redirect('course_section');
+    }
+
+    public function file_get_contents_utf8($fn) {
+        $opts = array(
+            'http' => array(
+                'method'=>"GET",
+                'header'=>"Content-Type: text/html; charset=tis-620"
+            )
+        );
+
+        $context = stream_context_create($opts);
+        $result = @file_get_contents($fn,false,$context);
+        return $result;
+    }
+    public function auto(){
+        $postdata = http_build_query(
+            array(
+                'op' => 'precourse',
+                'precourse' => '204'
+            )
+        );
+        $opts = array('http' =>
+            array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $postdata
+            )
+        );
+        $context  = stream_context_create($opts);
+
+        $result = file_get_contents('https://www3.reg.cmu.ac.th/regist158/public/search.php?act=search', false, $context);
+        $line=preg_split("/((\r?\n)|(\r\n?))/", $result);
+        $count=count($line);
+        $a_cells = array_slice(preg_split('/(?:<\/td>\s*|)<td[^>]*>/', $result), 1);
+        $a_cells1 = array_slice(preg_split('/(?:<\/span>\s*|)<span[^>]*>/', $result), 1);
+        $n=count($a_cells1);
+        $i=2;
+        while ($i<$n) {
+            $ex=explode( " ", $a_cells1[$i] );
+
+            $course_id=$ex[1];
+            $course = substr($a_cells1[$i],12,-10);
+            $course = substr($course,0,-14);
+            $course = substr($course,4,-1);
+            $course=explode( "<",$course);
+
+            $coursename= $course[0];
+            //dd($coursename);
+            $i=$i+3;
+            $co=DB::select('select * from courses where id=?',array($course_id));
+            if(count($co)==0){
+                $c=new Course();
+                $c->id=$course_id;
+                $c->name=$coursename;
+                $c->save();
+            }
+
+
+
+        }
+        $n=count($a_cells);
+        $i=2;
+        while ($i<=$n) {
+            $name=$a_cells[$i];
+            $name = substr($name,1,-1);
+          //  dd($coursename);
+            $i=$i+1;
+            $section=$a_cells[$i];
+            if($section=="<gr"){
+                $section="000";
+            }
+            $i=$i+7;
+
+            $ext=explode(" ", $a_cells[$i]);
+            $i=$i+12;
+            $m=0;
+            foreach ($ext as $key => $value) {
+                $va[$m]= $value;
+                $m++;
+            }
+            $fname=$va[0];
+            if($fname=='<gray>'){
+                $fname='staff';
+            }
+            $ext=explode("<", $va[2]);
+            $lname=$ext[0];
+            $co=DB::select('select * from courses ');
+//dd($name);
+//dd($co[0]->name);
+            for($v=0;$v<count($co);$v++){
+                if($co[$v]->name==$name) {
+                    $cid = $co[$v]->id;
+                }
+            }
+            //dd($cid);
+            $ck=DB::select('select * from course_section cs
+                        where cs.course_id=? and cs.section=?
+                          and cs.semester=? and cs.year=?',array($cid,$section,Session::get('semester'),Session::get('year')));
+            $id='';
+            if(count($ck)==0){
+                $ctea=DB::select('select * from users where firstname_en=?
+                                and lastname_en=? ',array($fname,$lname));
+                if(count($ctea)>0){
+
+                    $id=$ctea[0]->id;
+                }
+
+                if(count($ctea)==0){
+                    $findid=DB::select('select max(id) as maxid from users where role_id=1000 or role_id=0100');
+
+                    $id=intval($findid[0]->maxid);
+                    $id+=1;
+                    $id=str_pad($id, 9, "0", STR_PAD_LEFT);
+                    $firstname_en=$fname;
+                    $lastname_en=$lname;
+
+                    $teacher=DB::insert('insert into users (id,role_id,firstname_en,lastname_en)values(?,?,?,?)',array($id,'0100',$fname,$lname));
+
+
+                }
+//                $co=DB::select('select id from courses where name = ?',array($name));
+//                dd($co);
+//                for($n1=0;$n1<count($co);$n1++) {
+                    $cs = new CS();
+                    $cs->course_id = $cid;
+                    $cs->section = $section;
+                    $cs->teacher_id = $id;
+                    $cs->semester = Session::get('semester');
+                    $cs->year = Session::get('year');
+                    $cs->save();
+//                }
+
+            }
+
+        }
+
+
+
+
+
+        //return   redirect('course');
+        return new RedirectResponse(url('home'));
+   // return view('course_section.autoinsert');
     }
 }

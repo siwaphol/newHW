@@ -153,15 +153,29 @@ class HomeController extends Controller {
                             LEFT  join users tea on ct.student_id=tea.id
                             where ct.semester=? and ct.year=? and ct.course_id=? and ct.section=?', array(Session::get('semester'), Session::get('year'), $course, $sec));
 
-
-            $student = DB::select('select * from users where role_id=0001');
+            if(Auth::user()->isAdmin()||Auth::user()->isTeacher()) {
+                $student = DB::select('select * from users where role_id=0001');
+            }
+        if(Auth::user()->isStudent()) {
+            $student = DB::select('select * from users where id=?',array(Auth::user()->id));
+        }
         $homework=DB::select('select * from homework where course_id=? and section=?
                                 and semester=? and year=?',array($course,$sec,Session::get('semester'),Session::get('year')));
-        $sent=DB::select('select cs.student_id as studentid,stu.firstname_th as firstname,stu.lastname_th as lastname,cs.status as status
+        if(Auth::user()->isAdmin()||Auth::user()->isTeacher()) {
+            $sent=DB::select('select cs.student_id as studentid,stu.firstname_th as firstname,stu.lastname_th as lastname,cs.status as status
                             from course_student cs
                             left join users stu on cs.student_id=stu.id
                            where cs.course_id=? and cs.section=? and cs.semester=? and cs.year=?',
-            array($course,$sec,Session::get('semester'),Session::get('year')));
+                array($course,$sec,Session::get('semester'),Session::get('year')));
+        }
+        if(Auth::user()->isStudent()) {
+            $sent=DB::select('select cs.student_id as studentid,stu.firstname_th as firstname,stu.lastname_th as lastname,cs.status as status
+                            from course_student cs
+                            left join users stu on cs.student_id=stu.id
+                           where cs.course_id=? and cs.section=? and cs.semester=? and cs.year=? and cs.student_id=?',
+                array($course,$sec,Session::get('semester'),Session::get('year'),Auth::user()->id));
+        }
+
         //return view('homework.resulthomework',compact('homework','sent'))->with('course',array('course'=>$course,'sec'=>$sec));
 
 

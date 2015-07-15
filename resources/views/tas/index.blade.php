@@ -41,8 +41,8 @@
                                     {{-- */$x++;/* --}}
                                     <tr>
                                         <td>{{ $x }}</td>
-                                        <td><a href="{{ url('/students/show', $item->student_id) }}">{{ $item->student_id }}</a></td>
-                                        <td><a href="{{ url('/students/show', $item->student_id) }}">{{ $item->firstname_th." ".$item->lastname_th }}</a></td>
+                                        <td><a href="{{ url('/ta/show', $item->id) }}">{{ $item->student_id }}</a></td>
+                                        <td><a href="{{ url('/ta/show', $item->id) }}">{{ $item->firstname_th." ".$item->lastname_th }}</a></td>
                                         <td><button type="button" class="btn btn-default"><a href="{{ url('/students/edit/'.$item->student_id) }}">Edit</a></button></td>
                                          <td> {!! Form::open(['method'=>'delete','action'=>array('StudentsController@destroy',$item->student_id)]) !!}<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>{!! Form::close() !!}</td>
                                     </tr>

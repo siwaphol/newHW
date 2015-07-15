@@ -90,9 +90,10 @@ class SemesteryearController extends Controller {
 	public function update($id, Request $request)
 	{
 		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
-        $semester=Semesteryears::find($id);
-        $semester->semester=$request->get('semester');
-        $semester->year=$request->get('year');
+        $semester=Semesteryears::findOrFail($id);
+//        dd($semester);
+//        $semester->semester=$request->get('semester');
+//        $semester->year=$request->get('year');
         $semester->use=$request->get('use');
         $semester->save();
 //        $semesteryear = Semesteryears::findOrFail($id);

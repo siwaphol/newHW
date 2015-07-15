@@ -55,7 +55,8 @@ class StudentsController extends Controller {
         $insert=DB::insert('insert into course_student (course_id,section,student_id,status,semester,year) VALUES (?,?,?,?,?,?)',array($course_id,$section,$student_id,$status,Session::get('semester'),Session::get('year')));
 
 		//return redirect('students/showlist');
-        return view('students.showlist')->with('course',array('co'=>$course_id,'sec'=>$section));
+        //return view('students.showlist')->with('course',array('co'=>$course_id,'sec'=>$section));
+        return redirect()->action('HomeController@preview',array('course'=>$course_id,'sec'=>$section));
 	}
 
 	/**
@@ -64,8 +65,11 @@ class StudentsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show()
 	{
+        $id=$_GET['id'];
+        $course=$_GET['course'];
+        $sec=$_GET['sec'];
 		//$student = Student::findOrFail($id);
         $student=DB::select('select cs.student_id as student_id
                               ,stu.firstname_th as firstname
@@ -79,7 +83,8 @@ class StudentsController extends Controller {
                               left join faculties fac on stu.faculty_id=fac.id
                                where (stu.role_id=0001 OR stu.role_id=0011) and cs.student_id=?
                                and cs.semester=? and cs.year=?',array($id,Session::get('semester'),Session::get('year')));
-		return view('students.show', compact('student'));
+		return view('students.show', compact('student'))->with('course',array('co'=>$course,'sec'=>$sec));
+
 	}
 
 	/**
@@ -124,10 +129,11 @@ class StudentsController extends Controller {
         $course=$_POST['course'];
         $sec=$_POST['sec'];
 		//Students::destroy($id);
-        $result1=DB::delete('delete from users where id=?',array($id));
+//        $result1=DB::delete('delete from users where id=?',array($id));
         $result=DB::delete('delete from course_student WHERE course_id=? and section=? and student_id=?
                             and semester=? and year=?',array($course,$sec,$id,Session::get('semester'),Session::get('year')));
-        return redirect()->back();
+        //return redirect()->back();
+        return redirect()->action('HomeController@preview',array('course'=>$course,'sec'=>$sec));
 		//return redirect('students');
 	}
     public function import()

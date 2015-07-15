@@ -76,7 +76,7 @@ class AssistantsController extends Controller {
 	 */
 	public function show($id)
 	{
-        $assistant=DB::select('select ta.id as student_id, ta.username as tausername,ta.firstname_th as firstname,ta.lastname_th as lastname ,ass.course_id as courseid,ass.section as sectionid
+        $assistant=DB::select('select ass.id as id,ta.id as student_id, ta.username as tausername,ta.firstname_th as firstname,ta.lastname_th as lastname ,ass.course_id as courseid,ass.section as sectionid
                                 from course_ta ass
                                 left join users ta on ass.student_id=ta.id
                                  where ta.username=?',array($id));
@@ -124,7 +124,8 @@ class AssistantsController extends Controller {
 		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
 		$assistant = Assistants::findOrFail($id);
 		$assistant->update($request->all());
-		return redirect('assistants');
+        return redirect()->action('HomeController@preview',array('course'=>$course_id,'sec'=>$section));
+		//return redirect('assistants');
 	}
 
 	/**
@@ -135,11 +136,12 @@ class AssistantsController extends Controller {
 	 */
 	public function destroy()
 	{
-        $course=$_GET['course'];
-        $sec=$_GET['sec'];
-        $ta_id=$_GET['id'];
+        $course=$_POST['course'];
+        $sec=$_POST['sec'];
+        $ta_id=$_POST['id'];
 		$result=DB::delete('delete from course_ta where course_id=? and section=? and student_id=?',array($course,$sec,$ta_id));
-		return redirect('assistants');
+		//return redirect('assistants');
+        return redirect()->action('HomeController@preview',array('course'=>$course,'sec'=>$sec));
 	}
     public function showlist()
     {

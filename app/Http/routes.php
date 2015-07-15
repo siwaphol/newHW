@@ -33,6 +33,7 @@ Route::controllers([
 ]);
 
 Route::get('assign', 'HomeController@assign');
+Route::get('course_section/auto', 'Course_SectionController@auto');
 Route::get('course', 'CourseController@course');
 Route::get('course/create', 'CourseController@create');
 Route::post('course/create/save', 'CourseController@addcourse');
@@ -51,6 +52,7 @@ Route::post('course_section/update/','Course_sectionController@update');
 Route::get('course_section/selectcreate/', 'Course_SectionController@selectcreate');
 Route::post('course_section/createteacher', 'Course_SectionController@createteacher');
 Route::post('course_section/createteacher/save', 'Course_SectionController@saveteacher');
+
 
 Route::post('course_section/check/', 'Course_SectionController@check');
 
@@ -89,7 +91,7 @@ Route::patch('ta/update/{id}','TasController@update');
 //student
 Route::get('students','StudentsController@index');
 Route::post('students/delete','StudentsController@destroy');
-Route::get('students/show/{id}','StudentsController@show');
+Route::get('students/show','StudentsController@show');
 Route::get('students/create/{id}','StudentsController@create');
 Route::get('students/edit/{id}','StudentsController@edit');
 Route::get('students/export','StudentsController@export');
@@ -116,7 +118,7 @@ Route::post('homework_assignment/showlist','Homework_assignmentController@showli
 
 //assistant
 Route::get('assistants','AssistantsController@index');
-Route::get('assistants/delete/','AssistantsController@destroy');
+Route::post('assistants/delete/','AssistantsController@destroy');
 Route::get('assistants/show/{id}','AssistantsController@show');
 Route::get('assistants/create','AssistantsController@create');
 Route::get('assistants/edit','AssistantsController@edit');

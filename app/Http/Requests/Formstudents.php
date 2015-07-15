@@ -13,7 +13,9 @@ class Formstudents extends FormRequest {
     public function rules()
     {
         return [
-            'id' => 'required',
+            'course_id' => 'required',
+            'section'=>'required',
+            'student_id'=>'required'
 
         ];
     }

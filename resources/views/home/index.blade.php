@@ -22,6 +22,7 @@ $i=1;
 
                     <div class="panel-body">
  @if(Auth::user()->isAdmin())
+ {!! Html::link('course_section/auto', 'เพิ่มกระบวนวิชา ตอน จากสำนักทะเบียน') !!} </br>
 {!! Html::link('course_section/create', 'เพิ่มตอนทีละตอน') !!} </br>
 {!! Html::link('course_section/selectcreate', 'เพิ่มตอนทั้งกระบวนวิชา') !!}
 @endif

@@ -13,7 +13,7 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
-                                    <th>รหัส</th><th>ชื่อ นามสกุล</th><th>คณะ</th><th>อีเมล</th><th>สถานะ</th>
+                                    <th>รหัส</th><th>ชื่อ นามสกุล</th><th>คณะ</th><th>อีเมล</th><th>สถานะ</th><th>ลบ</th>
                                 </tr>
 
                                 @foreach( $student as $result)
@@ -22,6 +22,16 @@
                                         $student_id=$result->student_id;
                                 ?>
                                     <td>{{$result->student_id}}</td><td>{{$result->firstname." ".$result->lastname}}</td><td>{{$result->faculty}}</td><td>{{$result->email}}</td><td>{{$result->status}}</td>
+                                 <td>
+                                         {!! Form::open(['url' => 'students/delete']) !!}
+
+                                        <input type="hidden" name="course" id="course" value='{{$course['co']}}'>
+                                        <input type="hidden" name="sec" id="sec" value='{{$course['sec']}}'>
+                                        <input type="hidden" name="id" id="id" value='{{$result->student_id}}'>
+                                        <button type="submit" class="btn btn-danger btn-ok" onclick="return confirm('Are you sure you want to delete student from this section?')">Delete</button>
+
+                                        {!! Form::close() !!}
+                                        </td>
                                 </tr>
                                 @endforeach
                             </table>
@@ -31,7 +41,7 @@
             </div>
         </div>
     </div>
-@if($role_id=='0011'||$role_id=='0010')
+@if($role_id=='0011')
 
 <?php
 $sql=DB::select('select cs.course_id,co.name ,cs.section  from course_ta cs
@@ -60,6 +70,7 @@ $counr=count($sql);
             ?>
         <tr>
             <td>{{ $i+1 }}</td><td>{{ $sql[$i]->course_id }}</td><td>{{ $sql[$i]->name }}</td><td>{{ $sql[$i]->section }}</td>
+
         </tr>
        <?php } ?>
     </table>

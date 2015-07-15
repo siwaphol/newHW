@@ -18,7 +18,7 @@ class TasController extends Controller {
 	 */
 	public function index()
 	{
-        $tas =DB::select('select u.id as student_id,ta.id as id,firstname_th,lastname_th from users u
+        $tas =DB::select('select ta.id as id ,u.id as student_id,ta.id as id,firstname_th,lastname_th from users u
                           left join course_ta ta on u.id=ta.student_id
                           where (role_id=0011 or role_id=0010)
                           and ta.semester=? and ta.year=?',array(Session::get('semester'),Session::get('year')));
@@ -55,8 +55,12 @@ class TasController extends Controller {
 	 */
 	public function show($id)
 	{
-		$ta = Tas::findOrFail($id);
-		return view('tas.show', compact('ta'));
+        $tas =DB::select('select  u.id as student_id,ta.id as id,firstname_th,lastname_th from users u
+                          left join course_ta ta on u.id=ta.student_id
+                          where (role_id=0011 or role_id=0010) and ta.id=?
+                          and ta.semester=? and ta.year=?',array($id,Session::get('semester'),Session::get('year')));
+
+		return view('tas.show', compact('tas'));
 	}
 
 	/**
