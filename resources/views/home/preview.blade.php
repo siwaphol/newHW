@@ -60,9 +60,15 @@
 
                                         <td>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
                                          {!! Form::open(['url' => 'assistants/delete']) !!}
 
+=======
+
+                                         {!! Form::open(['url' => 'assistants/delete']) !!}
+
+>>>>>>> origin/james
 =======
 
                                          {!! Form::open(['url' => 'assistants/delete']) !!}
@@ -146,8 +152,11 @@
 
 <?php
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> origin/james
 $month=array('01'=>'Jan',
              '02'=>'Feb',
              '03'=>'Mar',
@@ -162,6 +171,9 @@ $month=array('01'=>'Jan',
              '12'=>'Dec'
 
 );
+<<<<<<< HEAD
+>>>>>>> origin/james
+=======
 >>>>>>> origin/james
 ?>
                 <div class="container">
@@ -191,12 +203,18 @@ $month=array('01'=>'Jan',
                                                 @if(count($homework)>0)
                                                 @foreach($homework as $key1)
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                    <th><table><tr><td>{{$key1->name}}</td></tr><tr><td>{{$key1->due_date}}</td></tr><tr><td>{{$key1->accept_date}}</td></tr></table></th>
 =======
+=======
+>>>>>>> origin/james
                                                 <?php
                                                $name= explode('{',$key1->name);
                                                 ?>
                                                    <th style="width: 50px">{{$name[0]}}<br/><span class="label label-warning">{{date("d", strtotime($key1->due_date)).$month[date("m", strtotime($key1->due_date))]}}</span><br/><span class="label label-danger">{{date("d", strtotime($key1->accept_date)).$month[date("m", strtotime($key1->accept_date))]}}</span></th>
+<<<<<<< HEAD
+>>>>>>> origin/james
+=======
 >>>>>>> origin/james
 
                                                 @endforeach
