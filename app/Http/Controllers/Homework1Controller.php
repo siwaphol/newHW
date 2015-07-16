@@ -44,9 +44,41 @@ class Homework1Controller extends Controller {
 	 */
 	public function store(Request $request)
 	{
+       dd( $course=$request->get('course_id'));
+        $section=$request->get('section');
+
+        $name=$request->get('name');
+        $flietype=$request->get('type_id');
+        $detail=$request->get('detail');
+        $sub_folder=$request->get('sub_folder');
+        $due_date=$request->get('due_date');
+        $accdept_date=$request->get('accept_date');
 		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
-		Homework1s::create($request->all());
-		return redirect('homework1');
+		//Homework1s::create($request->all());
+        $hw=new Homework1s();
+        $hw->course_id=$course;
+        $hw->section=$section;
+        $hw->name=$name;
+        $hw->type_id=$flietype;
+        $hw->detail=$detail;
+        $hw->sub_folder=$sub_folder;
+        $hw->due_date=$due_date;
+        $hw->accept_date=$accdept_date;
+
+        $hw->assign_date=now();
+        $hw->semester=Session::get('semester');
+        $hw->year=Session::get('year');
+        $hw->save();
+//        save=$_POST['course_id'];
+//        $section=$_POST['section'];
+//        dd($course);
+//        $name=$_POST['name'];
+//        $flietype=$_POST['type_id'];
+//        $detail=$_POST['detail'];
+//        $sub_folder=$_POST['sub_folder'];
+//        $due_date=$_POST['due_date'];
+//        $accdept_date=$_POST['accept_date'];
+		return redirect('homework');
 	}
 
 	/**
