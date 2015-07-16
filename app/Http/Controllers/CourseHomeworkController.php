@@ -242,17 +242,20 @@ class CourseHomeworkController extends Controller {
             return Response::make($validation->errors()->first() , 400);
         }
         $correct_file_name = str_replace('{id}',$input['student_id'],$input['template_name']);
-        //$user_submitted_file_name = Input::file('file')->getClientOriginalName();
         $user_submitted_file_name= str_replace('.'.Input::file('file')->getClientOriginalExtension() ,'',Input::file('file')->getClientOriginalName());
+        $filename_arr = [];
+
         if($correct_file_name !== $user_submitted_file_name){
             return Response::make("file name is not correct." , 400);
         }
 
         $extension = DB::select("SELECT extension FROM homework_types WHERE id=?",array($input['type_id']));
-        if(count($extension)){
+        $splited_ext= array();
+        if(count($extension)>0){
             $found = false;
             $splited_ext = explode(',',$extension[0]->extension);
             foreach($splited_ext as $aExt){
+                array_push($filename_arr, $user_submitted_file_name.'.'.$aExt);
                 if(Input::file('file')->getClientOriginalExtension() === $aExt){
                     $found = true;
                 }
@@ -276,13 +279,21 @@ class CourseHomeworkController extends Controller {
             }
             $destinationPath = $destinationPath . "/" . $aPath;
         }
+        //Upload file to server
         $upload_success = Input::file('file')->move($destinationPath, $fileName); // uploading file to given path
 
         if ($upload_success) {
-            $student_homework = DB::select("SELECT * FROM homework_student WHERE course_id=? AND section = ? AND homework_id=? AND homework_name=? AND semester=? AND year=?",
-                array($input['course_id'],$input['section'],$input['homework_id'],Input::file('file')->getClientOriginalName(),\Session::get('semester'),\Session::get('year')));
 
-            $date = (new \DateTime)->format('Y-m-d H:i:s');
+            $student_homework = DB::table('homework_student')
+                ->where('course_id','=',$input['course_id'] )
+                ->where('section','=',$input['section'] )
+                ->where('homework_id','=',$input['homework_id'] )
+                ->whereIn('homework_name',$filename_arr)
+                ->where('semester','=',Session::get('semester') )
+                ->where('year','=',Session::get('year') )->get();
+
+            $date = (new \DateTime)->setTimezone(new \DateTimeZone('Asia/Bangkok'))->format('Y-m-d H:i:s');
+
             $status = '';
             if($date <= $input['due_date'] ){
                 $status = '1';
@@ -295,15 +306,31 @@ class CourseHomeworkController extends Controller {
             }
 
             if(count($student_homework) > 0){
+                if($student_homework[0]->homework_name !== Input::file('file')->getClientOriginalName()){
+                    $filename = $destinationPath.'/'.$student_homework[0]->homework_name;
+
+                    if (\File::exists($filename)) {
+                        if(!file_exists('uploads/bin/'.$input['student_id'])){
+                            mkdir('uploads/bin/'.$input['student_id'], 0777);
+                        }
+                        \File::move($filename,'uploads/bin/'.$input['student_id'].'/'.$student_homework[0]->homework_name);
+                        //\File::delete($filename);
+                    }
+
+                    $new_file_name = Input::file('file')->getClientOriginalName();
+                }else{
+                    $new_file_name = $student_homework[0]->homework_name;
+                }
                 $tempdate = $student_homework[0]->created_at;
                 DB::table('homework_student')
                     ->where('course_id','=',$input['course_id'] )
                     ->where('section','=',$input['section'] )
                     ->where('homework_id','=',$input['homework_id'] )
-                    ->where('homework_name','=',Input::file('file')->getClientOriginalName() )
+                    ->whereIn('homework_name',$filename_arr)
                     ->where('semester','=',Session::get('semester') )
                     ->where('year','=',Session::get('year') )
                     ->update(['status' => $status,
+                        'homework_name' => $new_file_name,
                         'submitted_at' => $date,
                         'created_at' => $student_homework[0]->created_at,
                         'updated_at' => $date]);
