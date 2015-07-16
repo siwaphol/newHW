@@ -18,12 +18,10 @@ Route::get('info', 'HomeController@info');
 Route::post('semester', 'HomeController@semester');
 Route::get('index', 'HomeController@firstpage');
 Route::get('index/preview', 'HomeController@preview');
-<<<<<<< HEAD
-Route::post('index/uploadFiles', 'CourseHomeworkController@uploadFiles');
 
-=======
+Route::post('index/uploadFiles', 'CourseHomeworkController@uploadFiles');
 Route::get('index/previewdownload', 'HomeController@preview1');
->>>>>>> origin/james
+
 //Route::get('course/{course_id}', 'CourseHomeworkController@show');
 Route::get('homework/create/{course_id}','CourseHomeworkController@create');
 Route::post('homework/create/{course_id}','CourseHomeworkController@create_post' );

@@ -2,17 +2,15 @@
 @extends('app')
 
 @section('header_content')
-<<<<<<< HEAD
+
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"
       xmlns="http://www.w3.org/1999/html">
 {{--<link rel="stylesheet" href="{{ asset('/css/dropzone/basic.css') }}"/>--}}
 <link rel="stylesheet" href="{{ asset('/css/dropzone/dropzone.css') }}"/>
-=======
 {{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"--}}
       {{--xmlns="http://www.w3.org/1999/html">--}}
  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css">
 
->>>>>>> origin/james
 @endsection
 @section('content')
 
@@ -203,11 +201,8 @@ $month=array('01'=>'Jan',
 
                                                     //$name= explode('{',$key1->name);
                                                 ?>
-<<<<<<< HEAD
-                                                   <th style="width: 50px">{{$name}}<br/><span class="label label-warning">{{date("d", strtotime($key1->due_date)).$month[date("m", strtotime($key1->due_date))]}}</span><br/><span class="label label-danger">{{date("d", strtotime($key1->accept_date)).$month[date("m", strtotime($key1->accept_date))]}}</span></th>
-=======
+
                                                    <th>{{$key1->name}}<br/><span class="label label-warning"  >{{date("d", strtotime($key1->due_date)).$month[date("m", strtotime($key1->due_date))]}}</span><br/><span class="label label-danger">{{date("d", strtotime($key1->accept_date)).$month[date("m", strtotime($key1->accept_date))]}}</span></th>
->>>>>>> origin/james
 
                                                 @endforeach
                                                 @endif
@@ -303,12 +298,8 @@ $month=array('01'=>'Jan',
 @endsection
 @section('footer')
 <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
-<<<<<<< HEAD
 <script type="text/javascript" src="{{ asset('/js/dropzone/dropzone.js') }}"></script>
-
-=======
 <script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.js"></script>
->>>>>>> origin/james
   <script type="text/javascript">
 
     var dzfullpath = $('.button-selected').attr('data-fullpath');
@@ -343,7 +334,6 @@ $(document).ready( function () {
     } );
 } );
 
-<<<<<<< HEAD
 $(".btn").on('click',  function(){
     var path = $(this).attr("data-path");
     var fullpath = '{{\Session::get('semester')}}' + '_' + '{{\Session::get('year')}}' + '/'
@@ -355,8 +345,6 @@ $(".btn").on('click',  function(){
     $('#upload-modal').modal('toggle');
 });
 
-=======
->>>>>>> origin/james
     </script>
 @include('partials.dropzone')
 @endsection
