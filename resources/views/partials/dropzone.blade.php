@@ -27,11 +27,19 @@
 
          url: "uploadFiles",
          params: {
-            _token: token
+            _token: token,
+            course_id: '{{$course['co']}}',
+            section: '{{$course['sec']}}'
           },
           init: function () {
             this.on("sending", function(file, xhr, data) {
                 data.append("path", dzfullpath);
+                data.append("template_name", templatename);
+                data.append("type_id", typeid);
+                data.append("student_id", '{{\Auth::user()->id}}');
+                data.append("homework_id", homework_id);
+                data.append("due_date", due_date);
+                data.append("accept_date", accept_date);
             });
            }
      });

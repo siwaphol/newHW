@@ -215,7 +215,7 @@ $month=array('01'=>'Jan',
                                                   @if(count($homework)>0)
                                                 @foreach($homework as $key1)
                                                 @if(Auth::user()->isStudent())
-                                                   <th data-template-name="{{$key1->name}}"><button type="button" data-path="{{$key1->path}}" data-fullpath="temp"  class="btn btn-default">Upload</button></th>
+                                                   <th ><button type="button" data-path="{{$key1->path}}" data-fullpath="temp" data-template-name="{{$key1->name}}" data-type-id="{{$key1->type_id}}" data-homework-id="{{$key1->id}}" data-duedate="{{$key1->due_date}}" data-acceptdate="{{$key1->accept_date}}" class="btn btn-default">Upload</button></th>
                                                    @endif
                                                  @if(Auth::user()->isTeacher()||Auth::user()->isAdmin()||Auth::user()->isStudentandTa()||Auth::user()->isTa())
                                                   <th><button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','download',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name))!!}</button></th>
@@ -299,10 +299,16 @@ $month=array('01'=>'Jan',
 @section('footer')
 <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="{{ asset('/js/dropzone/dropzone.js') }}"></script>
+
 <script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.js"></script>
   <script type="text/javascript">
 
     var dzfullpath = $('.button-selected').attr('data-fullpath');
+    var templatename = $('.button-selected').attr('data-template-name');
+    var typeid = $('.button-selected').attr('data-type-id');
+    var homework_id = '';
+    var due_date = '';
+    var accept_date = '';
 
 $(document).ready(function() {
     $('#example').dataTable( {
@@ -320,6 +326,7 @@ $(document).ready( function () {
 
     $('#example1').dataTable( {
         "scrollX": true,
+        @if(!\Auth::user()->isStudent())
         "sDom": 'T<"clear">lfrtip',
         "oTableTools": {
         "sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
@@ -331,17 +338,25 @@ $(document).ready( function () {
                 }
             ]
         }
+        @endif
     } );
 } );
 
 $(".btn").on('click',  function(){
+
     var path = $(this).attr("data-path");
     var fullpath = '{{\Session::get('semester')}}' + '_' + '{{\Session::get('year')}}' + '/'
     + '{{$course['co']}}' + '/' + '{{$course['sec']}}' + '/' + path.replace('./','');
+
     $(this).attr('data-fullpath', fullpath);
     $('button').removeClass('button-selected');
     $(this).toggleClass('button-selected');
     dzfullpath = $('.button-selected').attr('data-fullpath');
+    templatename = $('.button-selected').attr('data-template-name');
+    typeid = $('.button-selected').attr('data-type-id');
+    homework_id =  $('.button-selected').attr('data-homework-id');
+    due_date = $('.button-selected').attr('data-duedate');
+    accept_date = $('.button-selected').attr('data-acceptdate');
     $('#upload-modal').modal('toggle');
 });
 
