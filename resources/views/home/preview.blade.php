@@ -202,7 +202,7 @@ $month=array('01'=>'Jan',
                                                     //$name= explode('{',$key1->name);
                                                 ?>
 
-                                                   <th>{{$key1->name}}<br/><span class="label label-warning"  >{{date("d", strtotime($key1->due_date)).$month[date("m", strtotime($key1->due_date))]}}</span><br/><span class="label label-danger">{{date("d", strtotime($key1->accept_date)).$month[date("m", strtotime($key1->accept_date))]}}</span></th>
+                                                   <th>{{$name}}<br/><span class="label label-warning"  >{{date("d", strtotime($key1->due_date)).$month[date("m", strtotime($key1->due_date))]}}</span><br/><span class="label label-danger">{{date("d", strtotime($key1->accept_date)).$month[date("m", strtotime($key1->accept_date))]}}</span></th>
 
                                                 @endforeach
                                                 @endif

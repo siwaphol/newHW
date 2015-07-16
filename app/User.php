@@ -109,13 +109,11 @@ class User extends Model implements AuthenticatableContract {
      */
     public function isAdmin()
     {
-        //return substr($this->attributes['role_id'],0,1) == '1';
-        return $this->role_id== '1000';
+        return substr($this->attributes['role_id'],0,1) == '1';
     }
     public function isTeacher()
     {
         return substr($this->attributes['role_id'],1,1) == '1';
-        return $this->role_id== '0100';
     }
     public function isTa()
     {
