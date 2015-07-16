@@ -1,6 +1,9 @@
 @extends('app')
 @section('header_content')
+{{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"--}}
+      {{--xmlns="http://www.w3.org/1999/html">--}}
       <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css">
+
 @endsection
 @section('content')
 
@@ -61,9 +64,11 @@ echo Form::close();
 
                 <td>{{$key->id}}</td>
                 <td>{{$key->name}}</td>
-                <td><button type="button" class="btn btn-default">{!! Html::link('edit/'.$key->id, 'แก้ไข') !!}</button></td>
-                <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">{!! Html::link('delete/'.$key->id, 'ลบ') !!}</button></td>
-
+                <td><button type="button" class="btn btn-link">{!! Html::link('edit/'.$key->id, 'แก้ไข') !!}</button></td>
+                <td><button type="button" class="btn btn-link" onclick="return confirm('Are you sure you want to delete?')">{!! Html::link('delete/'.$key->id, 'ลบ') !!}</button></td>
+                <?php
+                    $course=$key->name;
+                ?>
 
             </tr>
             <?php $i++;?>
@@ -95,11 +100,27 @@ echo Form::close();
 //          "scrollX": true
 //      } );
 //  } );
+//$(document).ready( function () {
+//    $('#example').dataTable( {
+//        "dom": 'T<"clear">lfrtip',
+//        "tableTools": {
+//            "sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf"
+//        }
+//    } );
+//} );
 $(document).ready( function () {
+
     $('#example').dataTable( {
-        "dom": 'T<"clear">lfrtip',
-        "tableTools": {
-            "sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf"
+        "sDom": 'T<"clear">lfrtip',
+        "oTableTools": {
+        "sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "xls",
+                    "sTitle": "Report course",
+                    "sFileName": "<?php echo "Course" ?> - *.xls"
+                }
+            ]
         }
     } );
 } );

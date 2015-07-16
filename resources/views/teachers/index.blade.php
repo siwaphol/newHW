@@ -42,8 +42,8 @@
                                     <tr>
                                         <td>{{ $x }}</td>
                                         <td><a href="{{ url('/teachers/show', $item->id) }}">{{ $item->firstname_th." ".$item->lastname_th }}</a></td>
-                                        <td><button type="button" class="btn btn-default"><a href="{{ url('/teachers/'.$item->id.'/edit') }}">Edit</a></button></td>
-                                        <td> {!! Form::open(['method'=>'post','action'=>array('TeachersController@destroy',$item->id)]) !!}<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>{!! Form::close() !!}</td>
+                                        <td><button type="button" class="btn btn-link"><a href="{{ url('/teachers/'.$item->id.'/edit') }}">Edit</a></button></td>
+                                        <td> {!! Form::open(['method'=>'post','action'=>array('TeachersController@destroy',$item->id)]) !!}<button type="submit" class="btn btn-link" onclick="return confirm('Are you sure you want to delete?')">Delete</button>{!! Form::close() !!}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

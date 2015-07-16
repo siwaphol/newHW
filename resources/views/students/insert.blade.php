@@ -7,6 +7,9 @@
  */
  ?>
  @extends('app')
+ @section('header_content')
+     <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+ @endsection
 
  @section('content')
   <script type="text/javascript">
@@ -161,9 +164,11 @@
                                        ?>
 
                                            <tr>
+                                           <td>{{ $item[$x]->studentid }}</td>
 
-                                               <td><a href="{{ url('/students/show', $item[$x]->studentid) }}">{{ $item[$x]->studentid }}</a></td>
-                                               <td><a href="{{ url('/students/show', $item[$x]->studentid) }}">{{ $item[$x]->firstname_th." ".$item[$x]->lastname_th }}</a></td>
+                                               {{--<td><a href="{{ url('/students/show', $item[$x]->studentid) }}">{{ $item[$x]->studentid }}</a></td>--}}
+                                               <td>{{ $item[$x]->firstname_th." ".$item[$x]->lastname_th }}</td>
+                                               {{--<td><a href="{{ url('/students/show', $item[$x]->studentid) }}">{{ $item[$x]->firstname_th." ".$item[$x]->lastname_th }}</a></td>--}}
                                                <!--
                                                <td><a href="{{ url('/students/edit/'.$item[$x]->studentid) }}">Edit</a> </td>
                                                -->
@@ -177,7 +182,7 @@
                                                    <input type="hidden" name="course" id="course" value='{{$course}}'>
                                                    <input type="hidden" name="sec" id="sec" value='{{$sec}}'>
                                                    <input type="hidden" name="id" id="id" value='{{$item[$x]->studentid}}'>
-                                                   <button type="submit" class="btn btn-danger btn-ok" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                                   <button type="submit" class="btn btn-link" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                                    {!! Form::close() !!}
                                                    </td>
                                            </tr>
@@ -190,4 +195,18 @@
                    </div>
                </div>
            </div>
+      @endsection
+      @section('footer')
+      <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
+
+        <script type="text/javascript">
+
+      $(document).ready(function() {
+          $('#example').dataTable( {
+              "order": [[ 3, "desc" ]],
+              "scrollX": true
+          } );
+      } );
+
+          </script>
       @endsection

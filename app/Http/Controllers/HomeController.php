@@ -77,6 +77,7 @@ class HomeController extends Controller {
         }
         Session::put('course_list',$course_list_str);
         return new RedirectResponse(url('home'));
+        //return redirect('home');
         //return view('course',compact('model'));
     }
     public function firstpage(){
@@ -91,6 +92,9 @@ class HomeController extends Controller {
                               where cs.semester=? and cs.year=?
                               order by cs.course_id,cs.section
                               ', array(Session::get('semester'), Session::get('year')));
+            $assist = DB::select('select *
+                              from course_ta cs'
+            );
         }
         if(\Auth::user()->isTeacher()) {
             $result = DB::select('select DISTINCT cs.course_id as courseid
@@ -102,6 +106,9 @@ class HomeController extends Controller {
                               WHERE cs.semester=? and cs.year=? and cs.teacher_id=?
                               order by cs.course_id,cs.section
                               ', array(Session::get('semester'), Session::get('year'),Auth::user()->id));
+            $assist = DB::select('select *
+                              from course_ta cs'
+            );
         }
         if(\Auth::user()->isTa()) {
             $result = DB::select('select DISTINCT  cs.course_id as courseid
@@ -113,6 +120,9 @@ class HomeController extends Controller {
                               WHERE cs.semester=? and cs.year=? and cs.student_id=?
                               order by cs.course_id,cs.section
                               ', array(Session::get('semester'), Session::get('year'),Auth::user()->id));
+            $assist = DB::select('select *
+                              from course_ta cs'
+            );
         }
         if(\Auth::user()->isStudent()) {
             $result = DB::select('select DISTINCT cs.course_id as courseid
@@ -124,8 +134,34 @@ class HomeController extends Controller {
                               WHERE cs.semester=? and cs.year=? and cs.student_id=?
                               order by cs.course_id,cs.section
                               ', array(Session::get('semester'), Session::get('year'),Auth::user()->id));
+            $assist = DB::select('select *
+                              from course_ta cs'
+                              );
         }
         //}
+        if(\Auth::user()->isStudentandTa()) {
+            $result = DB::select('select DISTINCT  cs.course_id as courseid
+                              ,cs.section as sectionid
+                              ,co.name as coursename
+                              ,cs.id as id
+                              from course_ta cs
+                              left join courses co on cs.course_id=co.id
+                              WHERE cs.semester=? and cs.year=? and cs.student_id=?
+                              order by cs.course_id,cs.section
+                              ', array(Session::get('semester'), Session::get('year'),Auth::user()->id));
+            $assist = DB::select('select DISTINCT cs.course_id as courseid
+                              ,cs.section as sectionid
+                              ,co.name as coursename
+                              ,cs.id as id
+                              from course_student cs
+                              left join courses co on cs.course_id=co.id
+                              WHERE cs.semester=? and cs.year=? and cs.student_id=?
+                              order by cs.course_id,cs.section
+                              ', array(Session::get('semester'), Session::get('year'),Auth::user()->id));
+
+
+
+        }
 //        if(Auth::user()->isTeacher()) {
 //            $result = DB::select('select cs.course_id as courseid
 //                              ,cs.section as sectionid
@@ -142,7 +178,7 @@ class HomeController extends Controller {
 //                              ', array(Session::get('semester'), Session::get('year')));
 //        }
 //
-        return view('home.index',compact('result'));
+        return view('home.index',compact('result','assist'));
     }
     public function preview(){
         $course=$_GET['course'];
@@ -165,7 +201,7 @@ class HomeController extends Controller {
         }
         $homework=DB::select('select * from homework where course_id=? and section=?
                                 and semester=? and year=?',array($course,$sec,Session::get('semester'),Session::get('year')));
-        if(Auth::user()->isAdmin()||Auth::user()->isTeacher()) {
+        if(Auth::user()->isAdmin()||Auth::user()->isTeacher()||Auth::user()->isTa()||Auth::user()->isStudentandTa()) {
             $sent=DB::select('select cs.student_id as studentid,stu.firstname_th as firstname,stu.lastname_th as lastname,cs.status as status
                             from course_student cs
                             left join users stu on cs.student_id=stu.id
@@ -187,4 +223,49 @@ class HomeController extends Controller {
         return view('home.preview',compact('teachers','ta','student','homework','sent'))->with('course',array('co'=>$course,'sec'=>$sec));
 
     }
-}
+    public function preview1()
+    {
+        $course = $_GET['course'];
+        $sec = $_GET['sec'];
+
+        $teachers = DB::select('select cs.id as id,tea.id as teacher_id,tea.firstname_th as firstname,tea.lastname_th as lastname
+                            from course_section cs
+                            LEFT  join users tea on cs.teacher_id=tea.id
+                            where cs.semester=? and cs.year=? and cs.course_id=? and cs.section=?', array(Session::get('semester'), Session::get('year'), $course, $sec));
+        $ta = DB::select('select ct.id as id,tea.id as ta_id,tea.firstname_th as firstname,tea.lastname_th as lastname
+                            from course_ta ct
+                            LEFT  join users tea on ct.student_id=tea.id
+                            where ct.semester=? and ct.year=? and ct.course_id=? and ct.section=?', array(Session::get('semester'), Session::get('year'), $course, $sec));
+
+        if (Auth::user()->isAdmin() || Auth::user()->isTeacher() || Auth::user()->isTa()) {
+            $student = DB::select('select * from users where role_id=0001');
+        }
+        if (Auth::user()->isStudent()) {
+            $student = DB::select('select * from users where id=?', array(Auth::user()->id));
+        }
+        $homework = DB::select('select * from homework where course_id=? and section=?
+                                and semester=? and year=?', array($course, $sec, Session::get('semester'), Session::get('year')));
+        if (Auth::user()->isAdmin() || Auth::user()->isTeacher()) {
+            $sent = DB::select('select cs.student_id as studentid,stu.firstname_th as firstname,stu.lastname_th as lastname,cs.status as status
+                            from course_student cs
+                            left join users stu on cs.student_id=stu.id
+                           where cs.course_id=? and cs.section=? and cs.semester=? and cs.year=?',
+                array($course, $sec, Session::get('semester'), Session::get('year')));
+        }
+        if (Auth::user()->isStudent() || Auth::user()->isStudentandTa()) {
+            $student = DB::select('select * from users where id=?', array(Auth::user()->id));
+            if (Auth::user()->isStudent()||Auth::user()->isStudentandTa()) {
+                $sent = DB::select('select cs.student_id as studentid,stu.firstname_th as firstname,stu.lastname_th as lastname,cs.status as status
+                            from course_student cs
+                            left join users stu on cs.student_id=stu.id
+                           where cs.course_id=? and cs.section=? and cs.semester=? and cs.year=? and cs.student_id=?',
+                    array($course, $sec, Session::get('semester'), Session::get('year'), Auth::user()->id));
+            }
+
+            //return view('homework.resulthomework',compact('homework','sent'))->with('course',array('course'=>$course,'sec'=>$sec));
+
+
+            return view('home.previewdownload', compact('teachers', 'ta', 'student', 'homework', 'sent'))->with('course', array('co' => $course, 'sec' => $sec));
+
+        }
+    }}

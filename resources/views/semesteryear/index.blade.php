@@ -48,9 +48,9 @@
                                         <td>ปิด</td>
                                         @endif
 
-                                        <td><a href="{{ url('/semesteryear/'.$item->id.'/edit') }}" class="btn btn-default">Edit</a>
+                                        <td><a href="{{ url('/semesteryear/'.$item->id.'/edit') }}" class="btn btn-link">Edit</a>
                                         </td>
-                                        <td> {!! Form::open(['method'=>'delete','action'=>['SemesteryearController@destroy',$item->id]]) !!}<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>{!! Form::close() !!}</td>
+                                        <td> {!! Form::open(['method'=>'delete','action'=>['SemesteryearController@destroy',$item->id]]) !!}<button type="submit" class="btn btn-link" onclick="return confirm('Are you sure you want to delete?')">Delete</button>{!! Form::close() !!}</td>
 
                                     </tr>
                                 @endforeach

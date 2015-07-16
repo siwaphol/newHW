@@ -109,19 +109,28 @@ class User extends Model implements AuthenticatableContract {
      */
     public function isAdmin()
     {
-        return substr($this->attributes['role_id'],0,1) == '1';
+        //return substr($this->attributes['role_id'],0,1) == '1';
+        return $this->role_id== '1000';
     }
     public function isTeacher()
     {
         return substr($this->attributes['role_id'],1,1) == '1';
+        return $this->role_id== '0100';
     }
     public function isTa()
     {
-        return substr($this->attributes['role_id'],2,1) == '1';
+        //return substr($this->attributes['role_id'],2,1) == '1';
+        return $this->role_id== '0010';
     }
     public function isStudent()
     {
-        return substr($this->attributes['role_id'],3,1) == '1';
+        //return substr($this->attributes['role_id'],3,1) == '1';
+        return $this->role_id== '0001';
+    }
+    public function isStudentandTa()
+    {
+        //return substr($this->attributes['role_id'],2,2) == '11';
+        return $this->role_id== '0011';
     }
     public function role()
     {
@@ -130,12 +139,12 @@ class User extends Model implements AuthenticatableContract {
         }else if($this->isTeacher()){
             return "Teacher";
         }else if($this->isTa()){
-            if($this->isStudent()){
-                return "Ta, Student";
-            }
             return "Ta";
         }else if($this->isStudent()){
             return "Student";
+        }
+        else if($this->isStudentandTa()){
+            return "Ta,Student";
         }
         return "";
     }

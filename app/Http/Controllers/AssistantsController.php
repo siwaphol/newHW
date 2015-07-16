@@ -46,21 +46,33 @@ class AssistantsController extends Controller {
         $course=$request->get('courseId');
         $sec=$request->get('sectionId');
         $ta_id=$request->get('taId');
-        $assistant=DB::select('select * from course_ta where course_id=? and section=? and student_id=?',array($course,$sec,$ta_id));
+        $assistant=DB::select('select * from course_ta where course_id=? and section=? and student_id=? and semester=? and year=?
+                                ',array($course,$sec,$ta_id,Session::get('semester'),Session::get('year')));
         $count=count($assistant);
+
         if($count>0){
             return redirect()->back()
                 ->withErrors(['duplicate' => 'รหัสนักศึกษา '.$ta_id.' ซ้ำ']);
 
         }
-        $semester=DB::select('select * from semester_year sy where sy.use=1');
+
         $asis=new Asistant();
         $asis->course_id=$course;
         $asis->section=$sec;
         $asis->student_id=$ta_id;
-        $asis->semester=$semester[0]->semester;
-        $asis->year=$semester[0]->year;
+        $asis->semester=Session::get('semester');
+        $asis->year=Session::get('year');
         $asis->save();
+        $check=DB::select('select * from users where id=? and role_id=0001 ',array($ta_id));
+        if(count($check)>0){
+            $update=DB::update('update users set role_id=0011 where id=?',array($ta_id));
+        }
+        if(count($check)>0){
+            $insert=DB::insert('insert into users (id,role_id) values(?,0010)',array($ta_id));
+        }
+
+
+
 
         //$result=DB::insert('insert into course_ta (course_id,section,student_id)values(?,?,?)',array($course,$sec,$ta_id));
 		//return redirect('assistants');
@@ -79,7 +91,7 @@ class AssistantsController extends Controller {
         $assistant=DB::select('select ass.id as id,ta.id as student_id, ta.username as tausername,ta.firstname_th as firstname,ta.lastname_th as lastname ,ass.course_id as courseid,ass.section as sectionid
                                 from course_ta ass
                                 left join users ta on ass.student_id=ta.id
-                                 where ta.username=?',array($id));
+                                 where ta.username=? and ass.semester=? and ass.year=?',array($id,Session::get('semester'),Session::get('year')));
 		//$assistant = Assistants::findOrFail($id);
 		return view('assistants.show')->with('assistant',$assistant);
 

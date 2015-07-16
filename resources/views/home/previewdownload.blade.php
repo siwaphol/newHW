@@ -2,17 +2,10 @@
 @extends('app')
 
 @section('header_content')
-<<<<<<< HEAD
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"
-      xmlns="http://www.w3.org/1999/html">
-{{--<link rel="stylesheet" href="{{ asset('/css/dropzone/basic.css') }}"/>--}}
-<link rel="stylesheet" href="{{ asset('/css/dropzone/dropzone.css') }}"/>
-=======
 {{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"--}}
       {{--xmlns="http://www.w3.org/1999/html">--}}
  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css">
 
->>>>>>> origin/james
 @endsection
 @section('content')
 
@@ -117,7 +110,7 @@
 {{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@selectexcel','เพิ่มรายชื่อนักศึกษาจากไฟล์ Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>--}}
 {{--<button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','เพิ่มนักศึกษาช่วยสอน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
 <button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','Export Excel',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
-<button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@index','จัดการการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
+<button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','จัดการการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
 {{--<button type="button" class="btn btn-default">{!! link_to_action('CourseHomeworkController@result','ผลการส่งการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
 
 @endif
@@ -125,7 +118,7 @@
 
 
 
-               @if(Auth::user()->isTeacher()||Auth::user()->isAdmin()||Auth::user()->isTa())
+               @if(Auth::user()->isTeacher()||Auth::user()->isAdmin())
                <?php
                          $student=DB::select('select re.student_id as studentid,stu.firstname_th as firstname_th,stu.lastname_th as lastname_th,re.status as status
                                                from course_student  re
@@ -197,17 +190,9 @@ $month=array('01'=>'Jan',
                                                 @foreach($homework as $key1)
 
                                                 <?php
-                                                    $pattern = '/(_?\{)(.*)(\}_?)/i';
-                                                    $replacement = '';
-                                                    $name = preg_replace($pattern, $replacement, $key1->name);
-
-                                                    //$name= explode('{',$key1->name);
+                                               $name= explode('{',$key1->name);
                                                 ?>
-<<<<<<< HEAD
-                                                   <th style="width: 50px">{{$name}}<br/><span class="label label-warning">{{date("d", strtotime($key1->due_date)).$month[date("m", strtotime($key1->due_date))]}}</span><br/><span class="label label-danger">{{date("d", strtotime($key1->accept_date)).$month[date("m", strtotime($key1->accept_date))]}}</span></th>
-=======
                                                    <th>{{$key1->name}}<br/><span class="label label-warning"  >{{date("d", strtotime($key1->due_date)).$month[date("m", strtotime($key1->due_date))]}}</span><br/><span class="label label-danger">{{date("d", strtotime($key1->accept_date)).$month[date("m", strtotime($key1->accept_date))]}}</span></th>
->>>>>>> origin/james
 
                                                 @endforeach
                                                 @endif
@@ -219,13 +204,13 @@ $month=array('01'=>'Jan',
                                                 <th>Student ID</th><th>Name</th><th>Status</th>
                                                   @if(count($homework)>0)
                                                 @foreach($homework as $key1)
-                                                @if(Auth::user()->isStudent())
-                                                   <th data-template-name="{{$key1->name}}"><button type="button" data-path="{{$key1->path}}" data-fullpath="temp"  class="btn btn-default">Upload</button></th>
-                                                   @endif
-                                                 @if(Auth::user()->isTeacher()||Auth::user()->isAdmin()||Auth::user()->isStudentandTa()||Auth::user()->isTa())
-                                                  <th><button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','download',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name))!!}</button></th>
+                                                {{--@if(Auth::user()->isStudent())--}}
+                                                   <th><button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','upload',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name))!!}</button></th>
+                                                   {{--@endif--}}
+                                                 {{--@if(Auth::user()->isTeacher()||Auth::user()->isAdmin()||Auth::user()->isStudentandTa())--}}
+                                                  {{--<th><button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','download',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name))!!}</button></th>--}}
 
-                                                 @endif
+                                                 {{--@endif--}}
 
                                                 @endforeach
                                                 @endif
@@ -238,7 +223,7 @@ $month=array('01'=>'Jan',
                                             @foreach($sent as $item)
 
                                                 <tr>
-                                                @if(Auth::user()->isAdmin()||Auth::user()->isTeacher()||Auth::user()->isTa()||Auth::user()->isStudentandTa())
+                                                @if(Auth::user()->isAdmin()||Auth::user()->isTeacher())
 
                                                     {{--<td><a href="{{ url('/students/show', $item->studentid) }}">{{ $item->studentid }}</a></td>--}}
                                                     <td>{!! link_to_action('StudentsController@show',$item->studentid,array('id'=>$item->studentid,'course'=>$course['co'],'sec'=>$course['sec']))!!}</td>
@@ -246,7 +231,7 @@ $month=array('01'=>'Jan',
                                                      <td>{!! link_to_action('StudentsController@show',$item->firstname." ".$item->lastname,array('id'=>$item->studentid,'course'=>$course['co'],'sec'=>$course['sec']))!!}</td>
                                                     <td>{{ $item->status}}</td>
                                                     @endif
-                                                  @if(Auth::user()->isStudent())
+                                                  @if(Auth::user()->isStudent()||Auth::user()->isStudentandTa())
 
                                                      {{--<td><a href="{{ url('/students/show', $item->studentid) }}">{{ $item->studentid }}</a></td>--}}
                                                      <td>{{$item->studentid}}</td>
@@ -303,15 +288,8 @@ $month=array('01'=>'Jan',
 @endsection
 @section('footer')
 <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
-<<<<<<< HEAD
-<script type="text/javascript" src="{{ asset('/js/dropzone/dropzone.js') }}"></script>
-
-=======
 <script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.js"></script>
->>>>>>> origin/james
   <script type="text/javascript">
-
-    var dzfullpath = $('.button-selected').attr('data-fullpath');
 
 $(document).ready(function() {
     $('#example').dataTable( {
@@ -343,20 +321,6 @@ $(document).ready( function () {
     } );
 } );
 
-<<<<<<< HEAD
-$(".btn").on('click',  function(){
-    var path = $(this).attr("data-path");
-    var fullpath = '{{\Session::get('semester')}}' + '_' + '{{\Session::get('year')}}' + '/'
-    + '{{$course['co']}}' + '/' + '{{$course['sec']}}' + '/' + path.replace('./','');
-    $(this).attr('data-fullpath', fullpath);
-    $('button').removeClass('button-selected');
-    $(this).toggleClass('button-selected');
-    dzfullpath = $('.button-selected').attr('data-fullpath');
-    $('#upload-modal').modal('toggle');
-});
-
-=======
->>>>>>> origin/james
     </script>
-@include('partials.dropzone')
+
 @endsection

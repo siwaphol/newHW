@@ -18,8 +18,12 @@ Route::get('info', 'HomeController@info');
 Route::post('semester', 'HomeController@semester');
 Route::get('index', 'HomeController@firstpage');
 Route::get('index/preview', 'HomeController@preview');
+<<<<<<< HEAD
 Route::post('index/uploadFiles', 'CourseHomeworkController@uploadFiles');
 
+=======
+Route::get('index/previewdownload', 'HomeController@preview1');
+>>>>>>> origin/james
 //Route::get('course/{course_id}', 'CourseHomeworkController@show');
 Route::get('homework/create/{course_id}','CourseHomeworkController@create');
 Route::post('homework/create/{course_id}','CourseHomeworkController@create_post' );
@@ -27,6 +31,15 @@ Route::post('homework/create/{course_id}','CourseHomeworkController@create_post'
 Route::get('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_get_long')->where('path', '.+');
 Route::post('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_post_long')->where('path', '.+');
 Route::get('homework/result','CourseHomeworkController@result' );
+//homework
+Route::get('homework','Homework1Controller@index');
+Route::delete('homework/delete/{id}','Homework1Controller@destroy');
+Route::get('homework/show/{id}','Homework1Controller@show');
+Route::get('homework/create','Homework1Controller@create');
+Route::get('homework/{id}/edit','Homework1Controller@edit');
+Route::post('homework/create/save','Homework1Controller@store');
+Route::patch('homework/update/{id}','Homework1Controller@update');
+Route::post('homework/showlist','Homework1Controller@showlist');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

@@ -21,7 +21,7 @@
                     
                     <div class="panel-body">
 
-                        <h4><a href="{{ url('/assistants') }}">นักศึกษาช่วยสอนตามรายวิชา</a></h4>
+                        {{--<h4><a href="{{ url('/assistants') }}">นักศึกษาช่วยสอนตามรายวิชา</a></h4>--}}
 
                         <div class="table-responsive">
                             <table class="table" id="example" cellspacing="0" width="100%" >
@@ -43,8 +43,8 @@
                                         <td>{{ $x }}</td>
                                         <td><a href="{{ url('/ta/show', $item->id) }}">{{ $item->student_id }}</a></td>
                                         <td><a href="{{ url('/ta/show', $item->id) }}">{{ $item->firstname_th." ".$item->lastname_th }}</a></td>
-                                        <td><button type="button" class="btn btn-default"><a href="{{ url('/students/edit/'.$item->student_id) }}">Edit</a></button></td>
-                                         <td> {!! Form::open(['method'=>'delete','action'=>array('StudentsController@destroy',$item->student_id)]) !!}<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>{!! Form::close() !!}</td>
+                                        <td><button type="button" class="btn btn-link"><a href="{{ url('/students/edit/'.$item->student_id) }}">Edit</a></button></td>
+                                         <td> {!! Form::open(['method'=>'delete','action'=>array('StudentsController@destroy',$item->student_id)]) !!}<button type="submit" class="btn btn-link" onclick="return confirm('Are you sure you want to delete?')">Delete</button>{!! Form::close() !!}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

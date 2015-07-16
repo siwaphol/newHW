@@ -42,8 +42,8 @@ $(document).ready(function() {
                                     <tr>
                                         <td>{{ $x }}</td>
                                         <td><a href="{{ url('admin/show', $item->id) }}">{{ $item->firstname_th.' '.$item->lastname_th }}</a></td>
-                                        <td><button type="button" class="btn btn-default"><a href="{{ url('/admin/'.$item->id.'/edit') }}">Edit</a></button></td>
-                                        <td> {!! Form::open(['method'=>'delete','action'=>array('AdminController@destroy',$item->id)]) !!}<button type="submit" class="btn btn-danger btn-ok" onclick="return confirm('Are you sure you want to delete?')">Delete</button>{!! Form::close() !!}</td>
+                                        <td><button type="button" class="btn btn-link"><a href="{{ url('/admin/'.$item->id.'/edit') }}">Edit</a></button></td>
+                                        <td> {!! Form::open(['method'=>'delete','action'=>array('AdminController@destroy',$item->id)]) !!}<button type="submit" class="btn btn-link" onclick="return confirm('Are you sure you want to delete?')">Delete</button>{!! Form::close() !!}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
