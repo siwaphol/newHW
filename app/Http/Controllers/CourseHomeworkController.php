@@ -241,6 +241,26 @@ class CourseHomeworkController extends Controller {
         if ($validation->fails()) {
             return Response::make($validation->errors()->first() , 400);
         }
+        $correct_file_name = str_replace('{id}',$input['student_id'],$input['template_name']);
+        //$user_submitted_file_name = Input::file('file')->getClientOriginalName();
+        $user_submitted_file_name= str_replace('.'.Input::file('file')->getClientOriginalExtension() ,'',Input::file('file')->getClientOriginalName());
+        if($correct_file_name !== $user_submitted_file_name){
+            return Response::make("file name is not correct." , 400);
+        }
+
+        $extension = DB::select("SELECT extension FROM homework_types WHERE id=?",array($input['type_id']));
+        if(count($extension)){
+            $found = false;
+            $splited_ext = explode(',',$extension[0]->extension);
+            foreach($splited_ext as $aExt){
+                if(Input::file('file')->getClientOriginalExtension() === $aExt){
+                    $found = true;
+                }
+            }
+            if(!$found){
+                return Response::make("file extension is not correct." , 400);
+            }
+        }
 
         $destinationPath = 'uploads'; // upload path
         $extension = Input::file('file')->getClientOriginalExtension(); // getting file extension
@@ -259,6 +279,50 @@ class CourseHomeworkController extends Controller {
         $upload_success = Input::file('file')->move($destinationPath, $fileName); // uploading file to given path
 
         if ($upload_success) {
+            $student_homework = DB::select("SELECT * FROM homework_student WHERE course_id=? AND section = ? AND homework_id=? AND homework_name=? AND semester=? AND year=?",
+                array($input['course_id'],$input['section'],$input['homework_id'],Input::file('file')->getClientOriginalName(),\Session::get('semester'),\Session::get('year')));
+
+            $date = (new \DateTime)->format('Y-m-d H:i:s');
+            $status = '';
+            if($date <= $input['due_date'] ){
+                $status = '1';
+            }
+            if($date >= $input['due_date']){
+                $status = '2';
+            }
+            if($date >= $input['accept_date']){
+                $status = '3';
+            }
+
+            if(count($student_homework) > 0){
+                $tempdate = $student_homework[0]->created_at;
+                DB::table('homework_student')
+                    ->where('course_id','=',$input['course_id'] )
+                    ->where('section','=',$input['section'] )
+                    ->where('homework_id','=',$input['homework_id'] )
+                    ->where('homework_name','=',Input::file('file')->getClientOriginalName() )
+                    ->where('semester','=',Session::get('semester') )
+                    ->where('year','=',Session::get('year') )
+                    ->update(['status' => $status,
+                        'submitted_at' => $date,
+                        'created_at' => $student_homework[0]->created_at,
+                        'updated_at' => $date]);
+            }else{
+
+                DB::table('homework_student')->insert(
+                    ['course_id' => $input['course_id'],
+                        'section' => $input['section'],
+                        'homework_id' => $input['homework_id'],
+                        'homework_name' => Input::file('file')->getClientOriginalName(),
+                        'student_id' => $input['student_id'],
+                        'status' => $status,
+                        'submitted_at' => $date,
+                        'semester' => Session::get('semester'),
+                        'year' => Session::get('year'),
+                        'created_at' => $date,
+                        'updated_at' => $date]
+                );
+            }
             return Response::json('success', 200);
         } else {
             return Response::json('error', 400);
