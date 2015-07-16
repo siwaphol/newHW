@@ -23,17 +23,19 @@ Route::post('index/uploadFiles', 'CourseHomeworkController@uploadFiles');
 Route::get('index/previewdownload', 'HomeController@preview1');
 
 //Route::get('course/{course_id}', 'CourseHomeworkController@show');
-//Route::get('homework/create/{course_id}','CourseHomeworkController@create');
-//Route::post('homework/create/{course_id}','CourseHomeworkController@create_post' );
 
-//Route::get('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_get_long')->where('path', '.+');
-//Route::post('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_post_long')->where('path', '.+');
+Route::get('homework/create/{course_id}','CourseHomeworkController@create');
+Route::post('homework/create/{course_id}','CourseHomeworkController@create_post' );
+Route::get('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_get_long')->where('path', '.+');
+Route::post('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_post_long')->where('path', '.+');
+//James Homework create
+//Route::get('homework/create','Homework1Controller@create');
+
 Route::get('homework/result','CourseHomeworkController@result' );
 //homework
 Route::get('homework','Homework1Controller@index');
 Route::delete('homework/delete/{id}','Homework1Controller@destroy');
 Route::get('homework/show/{id}','Homework1Controller@show');
-Route::get('homework/create','Homework1Controller@create');
 Route::get('homework/{id}/edit','Homework1Controller@edit');
 Route::post('homework/create/save','Homework1Controller@store');
 Route::patch('homework/update/{id}','Homework1Controller@update');
