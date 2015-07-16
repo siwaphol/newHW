@@ -1,7 +1,5 @@
 <?php namespace App\Http\Controllers\Auth\Itsc;
 
-use App\Http\Controllers\Auth\Itsc\JsonHandler;
-
 class Itscapi {
 
 //    protected $jsonHandler;
@@ -12,67 +10,91 @@ class Itscapi {
     }
 
     public static function authen_with_ITSC_api($user_name,$password){
+
         // *** $email should not contains @cmu.ac.th ***
         //IMPORTANT
-        $url="https://account.cmu.ac.th/v1/api/validateUser?appId=575cb268-e295-40fc-91f3-69e7d239dc24&appSecret=m4Fg4d8ePk&user=" .$user_name."&pw=".$password;
-        //$url.='&user='.;
-        //  Initiate curl
-        $ch = curl_init();
-        // Disable SSL verification
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        // Will return the response, if false it print the response
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // Set the url
-        curl_setopt($ch, CURLOPT_URL,$url);
-        // Execute
-        $result=curl_exec($ch);
-        // Closing
-        curl_close($ch);
+        //Deprecated version 1
+        //$url="https://account.cmu.ac.th/v1/api/validateUser?appId=575cb268-e295-40fc-91f3-69e7d239dc24&appSecret=m4Fg4d8ePk&user=" .$user_name."&pw=".$password;
+        $url = "https://account.cmu.ac.th/v3/api/validateUser";
 
-        return JsonHandler::decode($result); // Return OOP result
+        $opts = array(
+            'http'=>array(
+                'method'=>"GET",
+                'header'=>"appId: d972d6e4-41d1-4f66-8946-cf3599fe1c24\r\n" .
+                    "appSecret: Okd41Fs2ed\r\n" .
+                    "user: $user_name\r\n" .
+                    "pw: $password\r\n"
+            )
+        );
+
+        $context = stream_context_create($opts);
+        $result = file_get_contents($url , false, $context);
+        $test =  json_decode($result);
+
+        return json_decode($result); // Return an object
 
     }
 
     public static function  get_student_info($user_name,$access_token){
         //IMPORTANT must be "accees_token" not access_token in url GET parameter
-        $url="https://account.cmu.ac.th/v1/api/Students/" . $user_name . "?appId=575cb268-e295-40fc-91f3-69e7d239dc24&appSecret=m4Fg4d8ePk&accees_token=" . $access_token;
 
+        //$url="https://account.cmu.ac.th/v1/api/Students/" . $user_name . "?appId=575cb268-e295-40fc-91f3-69e7d239dc24&appSecret=m4Fg4d8ePk&accees_token=" . $access_token;
+        $url = "https://account.cmu.ac.th/v3/api/students";
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL,$url);
-        $result=curl_exec($ch);
-        curl_close($ch);
+        $opts = array(
+            'http'=>array(
+                'method'=>"GET",
+                'header'=>"appId: d972d6e4-41d1-4f66-8946-cf3599fe1c24\r\n" .
+                    "appSecret: Okd41Fs2ed\r\n" .
+                    "userName: $user_name\r\n" .
+                    "access_token: $access_token\r\n"
+            )
+        );
 
-        return JsonHandler::decode($result);
+        $context = stream_context_create($opts);
+        $result = file_get_contents($url , false, $context);
+
+        return json_decode($result);
     }
 
     public static function  get_employee_info($user_name,$access_token){
         //IMPORTANT must be "accees_token" not access_token in url GET parameter
-        $url="https://account.cmu.ac.th/v1/api/Employees/" . $user_name . "?appId=575cb268-e295-40fc-91f3-69e7d239dc24&appSecret=m4Fg4d8ePk&accees_token=" . $access_token;
+        //$url="https://account.cmu.ac.th/v1/api/Employees/" . $user_name . "?appId=575cb268-e295-40fc-91f3-69e7d239dc24&appSecret=m4Fg4d8ePk&accees_token=" . $access_token;
+        $url = "https://account.cmu.ac.th/v3/api/employees";
 
+        $opts = array(
+            'http'=>array(
+                'method'=>"GET",
+                'header'=>"appId: d972d6e4-41d1-4f66-8946-cf3599fe1c24\r\n" .
+                    "appSecret: Okd41Fs2ed\r\n" .
+                    "userName: $user_name\r\n" .
+                    "access_token: $access_token\r\n"
+            )
+        );
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL,$url);
-        $result=curl_exec($ch);
-        curl_close($ch);
+        $context = stream_context_create($opts);
+        $result = file_get_contents($url , false, $context);
 
-        return JsonHandler::decode($result);
+        return json_decode($result);
     }
 
-    public static function close_access_token($user_name,$access_token){
+    public static function ITSC_logout($user_name,$access_token){
         //IMPORTANT must be "accees_token" not access_token in url GET parameter
-        $url="https://account.cmu.ac.th/v1/api/Logout/" . $user_name . "?appId=575cb268-e295-40fc-91f3-69e7d239dc24&appSecret=m4Fg4d8ePk&accees_token=" . $access_token;
+        //$url="https://account.cmu.ac.th/v1/api/Logout/" . $user_name . "?appId=575cb268-e295-40fc-91f3-69e7d239dc24&appSecret=m4Fg4d8ePk&accees_token=" . $access_token;
+        $url = "https://account.cmu.ac.th/v3/api/logout";
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL,$url);
-        $result=curl_exec($ch);
-        curl_close($ch);
+        $opts = array(
+            'http'=>array(
+                'method'=>"GET",
+                'header'=>"appId: d972d6e4-41d1-4f66-8946-cf3599fe1c24\r\n" .
+                    "appSecret: Okd41Fs2ed\r\n" .
+                    "userName: $user_name\r\n" .
+                    "access_token: $access_token\r\n"
+            )
+        );
+
+        $context = stream_context_create($opts);
+        $result = file_get_contents($url , false, $context);
 
         return json_decode($result);
     }

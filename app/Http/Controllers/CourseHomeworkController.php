@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 use App\Course;
 use DB;
 use Session;
+use Input;
+use Validator;
+use Response;
+
 class CourseHomeworkController extends Controller {
 
 	/**
@@ -222,6 +226,43 @@ class CourseHomeworkController extends Controller {
                             array($course,$sec,Session::get('semester'),Session::get('year')));
         return view('homework.resulthomework',compact('homework','sent'))->with('course',array('course'=>$course,'sec'=>$sec));
 
+    }
+
+    public function uploadFiles() {
+
+        $input = Input::all();
+
+        $rules = array(
+            'file' => 'max:5000',
+        );
+
+        $validation = Validator::make($input, $rules);
+
+        if ($validation->fails()) {
+            return Response::make($validation->errors()->first() , 400);
+        }
+
+        $destinationPath = 'uploads'; // upload path
+        $extension = Input::file('file')->getClientOriginalExtension(); // getting file extension
+//        $fileName = rand(11111, 99999) . '.' . $extension; // renameing image
+        $fileName = Input::file('file')->getClientOriginalName();
+
+        $splited_path = explode('/',$input['path']);
+        $filename = $destinationPath;
+        foreach($splited_path as $aPath){
+            $filename = $destinationPath . "/" . $aPath ;
+            if (!file_exists($filename)) {
+                mkdir($destinationPath . "/" . $aPath, 0777);
+            }
+            $destinationPath = $destinationPath . "/" . $aPath;
+        }
+        $upload_success = Input::file('file')->move($destinationPath, $fileName); // uploading file to given path
+
+        if ($upload_success) {
+            return Response::json('success', 200);
+        } else {
+            return Response::json('error', 400);
+        }
     }
 
 }

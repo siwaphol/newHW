@@ -18,6 +18,7 @@ Route::get('info', 'HomeController@info');
 Route::post('semester', 'HomeController@semester');
 Route::get('index', 'HomeController@firstpage');
 Route::get('index/preview', 'HomeController@preview');
+Route::post('index/uploadFiles', 'CourseHomeworkController@uploadFiles');
 
 //Route::get('course/{course_id}', 'CourseHomeworkController@show');
 Route::get('homework/create/{course_id}','CourseHomeworkController@create');
