@@ -23,11 +23,11 @@ Route::post('index/uploadFiles', 'CourseHomeworkController@uploadFiles');
 Route::get('index/previewdownload', 'HomeController@preview1');
 
 //Route::get('course/{course_id}', 'CourseHomeworkController@show');
-Route::get('homework/create/{course_id}','CourseHomeworkController@create');
-Route::post('homework/create/{course_id}','CourseHomeworkController@create_post' );
+//Route::get('homework/create/{course_id}','CourseHomeworkController@create');
+//Route::post('homework/create/{course_id}','CourseHomeworkController@create_post' );
 
-Route::get('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_get_long')->where('path', '.+');
-Route::post('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_post_long')->where('path', '.+');
+//Route::get('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_get_long')->where('path', '.+');
+//Route::post('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_post_long')->where('path', '.+');
 Route::get('homework/result','CourseHomeworkController@result' );
 //homework
 Route::get('homework','Homework1Controller@index');

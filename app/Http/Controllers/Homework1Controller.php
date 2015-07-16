@@ -44,7 +44,7 @@ class Homework1Controller extends Controller {
 	 */
 	public function store(Request $request)
 	{
-       dd( $course=$request->get('course_id'));
+     $course=$request->get('course_id');
         $section=$request->get('section');
 
         $name=$request->get('name');
@@ -55,6 +55,15 @@ class Homework1Controller extends Controller {
         $accdept_date=$request->get('accept_date');
 		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
 		//Homework1s::create($request->all());
+        $assistant=DB::select('select * from homework where course_id=? and section=? and name=? and type_id=? and semester=? and year=?
+                                ',array($course,$section,$name,$flietype,Session::get('semester'),Session::get('year')));
+        $count=count($assistant);
+
+        if($count>0){
+            return redirect()->back()
+                ->withErrors(['duplicate' => 'Duplicate Homework']);
+
+        }
         $hw=new Homework1s();
         $hw->course_id=$course;
         $hw->section=$section;
@@ -65,7 +74,7 @@ class Homework1Controller extends Controller {
         $hw->due_date=$due_date;
         $hw->accept_date=$accdept_date;
 
-        $hw->assign_date=now();
+//        $hw->assign_date=now();
         $hw->semester=Session::get('semester');
         $hw->year=Session::get('year');
         $hw->save();
@@ -78,7 +87,11 @@ class Homework1Controller extends Controller {
 //        $sub_folder=$_POST['sub_folder'];
 //        $due_date=$_POST['due_date'];
 //        $accdept_date=$_POST['accept_date'];
-		return redirect('homework');
+		//return redirect('homework')->with('course',array('course'=>$course,'sec'=>$section));
+        return redirect()->action('Homework1Controller@index',array('course'=>$course,'sec'=>$section));
+       // $homework1s=DB::select('select * from homework where course_id=? and section=? and semester=? and year=? ',array($course,$section,Session::get('semester'),Session::get('year')));
+        //$homework1s = Homework1s::latest()->get();
+       // return view('homework1.index', compact('homework1s'))->with('course',array('course'=>$course,'sec'=>$sec));
 	}
 
 	/**

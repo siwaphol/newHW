@@ -6,10 +6,10 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
+                    <div class="panel-heading" align="center">Create a new homework</div>
 
                     <div class="panel-body">
-                        <h1>Create a new homework</h1>
+                        {{--<h3 align="center">Create a new homework</h3>--}}
                         <hr/>
 
                         {!! Form::open(['url' => 'homework/create/save']) !!}
@@ -20,8 +20,8 @@
                     {{--</div>--}}
 
                     <div class="form-group">
-                        {!! Form::label('cours_id', 'Cours Id: ') !!}
-                        {!! Form::text('cours_id', $course['course'], ['class' => 'form-control']) !!}
+                        {!! Form::label('course_id', 'Course: ') !!}
+                        {!! Form::text('course_id', $course['course'], ['class' => 'form-control']) !!}
                     </div><div class="form-group">
                         {!! Form::label('section', 'Section: ') !!}
                         {!! Form::text('section', $course['sec'], ['class' => 'form-control']) !!}
@@ -56,7 +56,7 @@
                         {!! Form::text('detail', null, ['class' => 'form-control']) !!}
                     </div><div class="form-group">
                         {!! Form::label('sub_folder', 'Sub Folder: ') !!}
-                        {!! Form::text('sub_folder', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('sub_folder', null, array('placeholder'=>'example .lab01','class' => 'form-control')) !!}
                     </div>
                     {{--<div class="form-group">--}}
                         {{--{!! Form::label('assign_date', 'Assign Date: ') !!}--}}
