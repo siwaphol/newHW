@@ -36,11 +36,13 @@ Route::get('homework/result','CourseHomeworkController@result' );
 Route::get('homework','Homework1Controller@index');
 Route::delete('homework/delete/{id}','Homework1Controller@destroy');
 Route::get('homework/show/{id}','Homework1Controller@show');
-Route::get('homework/{id}/edit','Homework1Controller@edit');
+
+Route::get('homework/downloadhomework','Homework1Controller@exportzip');
+
 Route::post('homework/create/save','Homework1Controller@store');
 Route::patch('homework/update/{id}','Homework1Controller@update');
 Route::post('homework/showlist','Homework1Controller@showlist');
-
+Route::get('homework/{id}/edit','Homework1Controller@edit');
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',

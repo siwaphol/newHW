@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
 use DB;
+use Zipper;
+use ZipArchive;
 
 class Homework1Controller extends Controller {
 
@@ -144,4 +146,10 @@ class Homework1Controller extends Controller {
 		return redirect('homework1');
 	}
 
+    public function exportzip(){
+        $course=$_GET['course'];
+        $sec=$_GET['sec'];
+        $path1=$_GET['path'];
+      return view('homework1.download')->with('course',array('course'=>$course,'see'=>$sec,'path'=>$path1));
+    }
 }

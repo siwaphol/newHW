@@ -268,4 +268,12 @@ class HomeController extends Controller {
             return view('home.previewdownload', compact('teachers', 'ta', 'student', 'homework', 'sent'))->with('course', array('co' => $course, 'sec' => $sec));
 
         }
-    }}
+    }
+public function exportzip(){
+
+    $files = glob('public/files/*');
+    Zipper::make('public/test.zip')->add($files);
+}
+
+
+}

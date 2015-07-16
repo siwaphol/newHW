@@ -150,7 +150,8 @@ return [
 //        'App\Auth\CustomUserProvider',
         'App\Providers\CustomAuthProvider',
         'App\Providers\AppzcoderCrudGeneratorServiceProvider', //provider crud
-        'yajra\Datatables\DatatablesServiceProvider'
+        'yajra\Datatables\DatatablesServiceProvider',
+        'Chumper\Zipper\ZipperServiceProvider'
 
 	],
 
@@ -201,7 +202,8 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Form'		=> 'Illuminate\Html\FormFacade',
 		'Html'		=> 'Illuminate\Html\HtmlFacade',
-        'Datatables' => 'yajra\Datatables\Datatables'
+        'Datatables' => 'yajra\Datatables\Datatables',
+        'Zipper' => 'Chumper\Zipper\Zipper'
 //        'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
 
 	],

@@ -218,7 +218,7 @@ $month=array('01'=>'Jan',
                                                    <th ><button type="button" data-path="{{$key1->path}}" data-fullpath="temp" data-template-name="{{$key1->name}}" data-type-id="{{$key1->type_id}}" data-homework-id="{{$key1->id}}" data-duedate="{{$key1->due_date}}" data-acceptdate="{{$key1->accept_date}}" class="btn btn-default">Upload</button></th>
                                                    @endif
                                                  @if(Auth::user()->isTeacher()||Auth::user()->isAdmin()||Auth::user()->isStudentandTa()||Auth::user()->isTa())
-                                                  <th><button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','download',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name))!!}</button></th>
+                                                  <th><button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@exportzip','download',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name,'path'=>$key1->path))!!}</button></th>
 
                                                  @endif
 
