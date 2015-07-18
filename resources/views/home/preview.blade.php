@@ -10,6 +10,7 @@
 {{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"--}}
       {{--xmlns="http://www.w3.org/1999/html">--}}
  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css">
+ <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 @endsection
 @section('content')
@@ -215,7 +216,7 @@ $month=array('01'=>'Jan',
                                                   @if(count($homework)>0)
                                                 @foreach($homework as $key1)
                                                 @if(Auth::user()->isStudent())
-                                                   <th ><button type="button" data-path="{{$key1->path}}" data-fullpath="temp" data-template-name="{{$key1->name}}" data-type-id="{{$key1->type_id}}" data-homework-id="{{$key1->id}}" data-duedate="{{$key1->due_date}}" data-acceptdate="{{$key1->accept_date}}" class="btn btn-default">Upload</button></th>
+                                                   <th ><button type="button" data-path="{{$key1->path}}" data-fullpath="temp" data-template-name="{{$key1->name}}" data-type-id="{{$key1->type_id}}" data-homework-id="{{$key1->id}}" data-duedate="{{$key1->due_date}}" data-acceptdate="{{$key1->accept_date}}" class="btn btn-default student-button"><i class="fa fa-upload"></i></button></th>
                                                    @endif
                                                  @if(Auth::user()->isTeacher()||Auth::user()->isAdmin()||Auth::user()->isStudentandTa()||Auth::user()->isTa())
                                                   <th><button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@exportzip','download',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name,'path'=>$key1->path))!!}</button></th>
@@ -342,7 +343,7 @@ $(document).ready( function () {
     } );
 } );
 
-$(".btn").on('click',  function(){
+$(".student-button").on('click',  function(){
 
     var path = $(this).attr("data-path");
     var fullpath = '{{\Session::get('semester')}}' + '_' + '{{\Session::get('year')}}' + '/'

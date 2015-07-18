@@ -218,8 +218,6 @@ class HomeController extends Controller {
 
         //return view('homework.resulthomework',compact('homework','sent'))->with('course',array('course'=>$course,'sec'=>$sec));
 
-
-
         return view('home.preview',compact('teachers','ta','student','homework','sent'))->with('course',array('co'=>$course,'sec'=>$sec));
 
     }

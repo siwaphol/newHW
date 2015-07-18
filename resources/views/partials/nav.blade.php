@@ -11,83 +11,11 @@
                     <a class="navbar-brand" href="{{url('home')}}">CS CMU MIS</a>
                 </div>
 
-
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                    <ul class="nav navbar-nav navbar-righ">
-                        @if (!Auth::guest())
-                            @if (Auth::user()->isStudent())
-                                @if(Auth::user()->courses()->count()> 0)
-                                    {{--<li class="dropdown">--}}
-                                        {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">กระบวนวิชา<span class="caret"></span></a>--}}
-                                        {{--<ul class="dropdown-menu" role="menu">--}}
-                                            {{--@foreach(Auth::user()->courses()->get() as $course)--}}
-                                                {{--<li><a href="./course/{{$course->id}}">{{ $course->id }} {{ $course->courseName }}</a></li>--}}
-                                            {{--@endforeach--}}
-                                        {{--</ul>--}}
-                                    {{--</li>--}}
-                                @endif
-                            @endif
-                            @if (Auth::user()->isAdmin())
-                                 {{--<li class="dropdown">--}}
-                                  {{--<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">จัดการผู้ใช้<span class="caret"></span></a>--}}
-                                    {{--<ul class="dropdown-menu" role="menu">--}}
-                                         {{--<li><a href="{{url('students')}}">นักศึกษา</a></li>--}}
-                                         {{--<li><a href="{{url('ta')}}">นักศึกษาช่วยสอน</a></li>--}}
-                                         {{--<li><a href="{{url('teachers')}}">อาจารย์ผู้สอน</a></li>--}}
-                                         {{--<li><a href="{{url('admin')}}">ผู้ดูแลระบบ</a></li>--}}
-
-                                    {{--</ul>--}}
-                                  {{--</li>--}}
-                                   {{--<li><a href="{{url('semesteryear')}}">ปีการศึกษา</a></li>--}}
-                                {{--<li><a href="{{url('course')}}">จัดการกระบวนวิชา</a></li>--}}
-                                {{--<li><a href="{{url('students/autoimport')}}">นำเข้านักศึกษาทั้งหมด</a></li>--}}
-                                {{--<li><a href="{{url('course_section')}}">จัดการตอน</a></li>--}}
-                                 {{--<li class="dropdown">--}}
-                                       {{--<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">นำเข้าข้อมูลนักศึกษา<span class="caret"></span></a>--}}
-                                             {{--<ul class="dropdown-menu" role="menu">--}}
-                                                  {{--<li><a href="{{url('students/manualimport')}}">ใช้ไฟล์</a></li>--}}
-                                                  {{--<li><a href="{{url('students/import')}}">semiauto</a></li>--}}
-                                                  {{--<li><a href="{{url('students/autoimport')}}">auto</a></li>--}}
-
-                                             {{--</ul>--}}
-                                  {{--</li>--}}
-                            @endif
-
-                            @if(Auth::user()->isTeacher() || Auth::user()->isAdmin())
-
-                                {{--<li class="dropdown">--}}
-                                    {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">จัดการการบ้าน<span class="caret"></span></a>--}}
-                                    {{--<ul class="dropdown-menu" role="menu">--}}
-                                        <?php $course_list_menu = explode(',',\Session::get('course_list'));?>
-                                        @foreach($course_list_menu as $course)
-                                            {{--<li><a href="{{url('homework/create/')}}{{'/' . $course}}">{{$course}}</a></li>--}}
-                                        @endforeach
-                                    {{--</ul>--}}
-                                {{--</li>--}}
-                            @endif
-                            @if(Auth::user()->isTeacher())
-                            {{--<li><a href="{{url('students')}}">รายชื่อนักศึกษา</a></li>--}}
-                            {{--<li><a href="{{url('assistants')}}">นักศึกษาช่วยสอน</a></li>--}}
-                            @endif
-                            @if (Auth::user()->isTa() || Auth::user()->isTeacher() || Auth::user()->isAdmin())
-                                {{--<li class="dropdown">--}}
-                                    {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">สรุปผลการบ้าน<span class="caret"></span></a>--}}
-                                    {{--<ul class="dropdown-menu" role="menu">--}}
-                                        <?php $course_list_menu = explode(',',\Session::get('course_list'));?>
-                                        @foreach($course_list_menu as $course)
-                                            {{--<li><a href="#">{{$course}}</a></li>--}}
-                                        @endforeach
-                                    {{--</ul>--}}
-                                {{--</li>--}}
-                            @endif
-                        @endif
-                    </ul>
 
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
-						{{--<li><a href="{{ url('/auth/login') }}">Login</a></li>--}}
-						{{--<li><a href="{{ url('/auth/register') }}">Register</a></li>--}}
+
 					@else
 					    @if (Auth::user()->isAdmin())
                              <li class="dropdown">
@@ -103,16 +31,6 @@
                                <li><a href="{{url('semesteryear')}}">จัดการภาคการศึกษา</a></li>
                             <li><a href="{{url('course')}}">จัดการกระบวนวิชา</a></li>
                             <li><a href="{{url('students/autoimport')}}">นำเข้านักศึกษาทั้งหมด</a></li>
-                            {{--<li><a href="{{url('course_section')}}">จัดการตอน</a></li>--}}
-                             {{--<li class="dropdown">--}}
-                                   {{--<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">นำเข้าข้อมูลนักศึกษา<span class="caret"></span></a>--}}
-                                         {{--<ul class="dropdown-menu" role="menu">--}}
-                                              {{--<li><a href="{{url('students/manualimport')}}">ใช้ไฟล์</a></li>--}}
-                                              {{--<li><a href="{{url('students/import')}}">semiauto</a></li>--}}
-                                              {{--<li><a href="{{url('students/autoimport')}}">auto</a></li>--}}
-
-                                         {{--</ul>--}}
-                              {{--</li>--}}
                         @endif
 
 					    <li><a href="{{url('home')}}">Home</a></li>
@@ -123,8 +41,6 @@
 							</ul>
 						</li>
 					@endif
-
-
 
 				</ul>
 				@if (!Auth::guest())
@@ -219,23 +135,22 @@
                                                 <select id="year" name="year" onChange = "Listsemester(this.value)" class="form-control">
                                                     <option selected value="">เลือกปีการศึกษา</option>
                                                 <?php
+                                                $sql=array();
+                                                if(Auth::user()->isTeacher()){
+                                                $sql=DB::select('SELECT DISTINCT year from semester_year order by year desc ');
+                                                }
+                                                if(Auth::user()->isAdmin()){
+                                                $sql=DB::select('select DISTINCT year from semester_year ORDER BY year desc');
+                                                }
+                                                $count=count($sql);
 
-                                                            $sql=array();
-                                                            if(Auth::user()->isTeacher()){
-                                                            $sql=DB::select('SELECT DISTINCT year from semester_year order by year desc ');
-                                                            }
-                                                            if(Auth::user()->isAdmin()){
-                                                            $sql=DB::select('select DISTINCT year from semester_year ORDER BY year desc');
-                                                            }
-                                                            $count=count($sql);
-
-                                                            $i=0;
-                                                              for($i=0;$i<$count;$i++){
-                                                            ?>
-                                                            <option value={{$sql[$i]->year}}>{{$sql[$i]->year}}</option>
-                                                            <?php
-                                                            }
-                                                            ?>
+                                                $i=0;
+                                                  for($i=0;$i<$count;$i++){
+                                                ?>
+                                                <option value={{$sql[$i]->year}}>{{$sql[$i]->year}}</option>
+                                                <?php
+                                                }
+                                                ?>
                                                 </select>
                                                 </div>
                                         </div>

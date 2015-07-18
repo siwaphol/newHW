@@ -313,7 +313,9 @@ class CourseHomeworkController extends Controller {
                         if(!file_exists('uploads/bin/'.$input['student_id'])){
                             mkdir('uploads/bin/'.$input['student_id'], 0777);
                         }
-                        \File::move($filename,'uploads/bin/'.$input['student_id'].'/'.$student_homework[0]->homework_name);
+                        $temp = explode('.',$student_homework[0]->homework_name);
+                        $temp_date = (new \DateTime)->setTimezone(new \DateTimeZone('Asia/Bangkok'))->format('Ymd_Hi');
+                        \File::move($filename,'uploads/bin/'.$input['student_id'].'/'.$temp[0] .'_'.$temp_date.'.'.$temp[1]);
                         //\File::delete($filename);
                     }
 

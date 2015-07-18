@@ -2058,8 +2058,12 @@ th {
   border-top: 1px solid #dddddd;
 }
 .table > thead > tr > th {
-  vertical-align: bottom;
+  vertical-align: middle;
   border-bottom: 2px solid #dddddd;
+    text-align: center ;
+}
+.table > tfoot > tr > th {
+    text-align: center ;
 }
 .table > caption + thead > tr:first-child > th,
 .table > colgroup + thead > tr:first-child > th,
@@ -3439,7 +3443,7 @@ tbody.collapse.in {
 .input-group[class*="col-"] {
   float: none;
   /*padding-left: 0;*/
-  padding-right: 0;
+  padding-right: 15;
 }
 .input-group .form-control {
   position: relative;
