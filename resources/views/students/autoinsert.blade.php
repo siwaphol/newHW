@@ -1,14 +1,9 @@
-<?php
+    @extends('app')
+      @section('header_content')
+          <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+      @endsection
 
- /* Created by PhpStorm.
- * User: boonchuay
- * Date: 23/6/2558
- * Time: 0:08
- */
- ?>
- @extends('app')
-
- @section('content')
+       @section('content')
  <?php
  require_once '../Classes/PHPExcel/IOFactory.php';
             libxml_use_internal_errors(false);
@@ -18,6 +13,8 @@
            $year=substr(Session::get('year'),-2);
             $sql=DB::select('select *  from course_section');
             $count=count($sql);
+            $j=0;
+            $k=0;
 
             for($i=0;$i<$count;$i++){
             //$course =Request::get('ddlCourse');
@@ -29,11 +26,18 @@
                         $fileupload='../temp/file.xlsx';
                         //chmod($fileupload, 0755);
                         	//chmod($fileupload_name, 0755);
+                        	copy($fileupload_name,$fileupload);
+                        	//$objPHPExcel =PHPExcel_IOFactory::load('https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&');
+                        	$objPHPExcel =PHPExcel_IOFactory::load($fileupload);
 
-                        copy($fileupload_name,$fileupload);
+                       //if(PHPExcel_IOFactory::load($fileupload)==true){
+                       if(copy($fileupload_name,$fileupload)){
+                            $sco[$j]=$course;
+                            $sse[$j]=$sec;
+                            $l=0;
 
                         //$objPHPExcel = new PHPExcel();
-                        $objPHPExcel = PHPExcel_IOFactory::load($fileupload);
+
 
                         //$objPHPExcel ->load($fileupload)->get();
                         foreach ($objPHPExcel->getWorksheetIterator() as $worksheet) {
@@ -64,7 +68,7 @@
                                 $status=$cell->getValue();
                                 }
                                 */
-                                $fullnames=$fname."  ".$lname;
+                                //$fullnames=$fname."  ".$lname;
                                 //echo $no;
                                if ($no>0 && $no<=200) {
                                //$stu=DB::select('select *  from users Where id=? and role_id=0001',array($code));
@@ -83,7 +87,7 @@
 
                                    $regis =DB::insert('insert into course_student(student_id,course_id,section,status,semester,year) values (?,?,?,?,?,?)',array($code,$course,$sec,$status,Session::get('semester'),Session::get('year')));
 
-
+                                    $l++;
 
                                }
                                 if ($rowregist==0 && $cuser>0 ) {
@@ -92,7 +96,7 @@
                                        //$command =DB::insert('insert into users (id,firstname_th,lastname_th,role_id) values (?,?,?,?)',array($code,$fname,$lname,'0001')) ;
 
                                       $regis =DB::insert('insert into course_student(student_id,course_id,section,status,semester,year) values (?,?,?,?,?,?)',array($code,$course,$sec,$status,Session::get('semester'),Session::get('year')));
-
+                                    $l++;
 
 
                                   }
@@ -110,9 +114,133 @@
 
                             }
                         }
+                        $stu[$j]=$l;
+                        $j++;
+                        }else{
+                            $fco[$k]=$course;
+                            $fse[$k]=$sec;
+                            $k++;
+
+                        }
                         }
 
       ?>
-      <h2 align="center"> import successful</h2>
+      <h2 align="center"> Import Result</h2>
+
+
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-10 col-md-offset-1">
+                      <div class="panel panel-default">
+                          <div class="panel-heading" align="center">Successfull</div>
+
+                          <div class="panel-body">
+
+                              {{--<h4><a href="{{ url('/assistants') }}">นักศึกษาช่วยสอนตามรายวิชา</a></h4>--}}
+
+                              <div class="table-responsive">
+                                  <table class="table" id="example" cellspacing="0" width="100%" >
+                                      <thead>
+                                      <tr>
+                                          <th>No</th><th>Course</th><th>Section</th><th>Student</th>
+                                      </tr>
+                                      </thead>
+                                      <tfoot>
+                                      <tr>
+                                          <th>No</th><th>Course</th><th>Section</th><th>Student</th>
+                                      </tr>
+                                      </tfoot>
+                                      <tbody>
+
+                                      <?php
+                                      for($x=0;$x<$j;$x++){
+                                      ?>
+
+                                          <tr>
+                                              <td>{{ $x+1}}</td>
+                                              <td>{{ $sco[$x] }}</td>
+                                              <td>{{ $sse[$x] }}</td>
+                                              <td>{{$stu[$x]}}</td>
+                                           </tr>
+                                      <?php
+                                      }
+                                      ?>
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" align="center">Fail</div>
+
+                                    <div class="panel-body">
+
+                                        {{--<h4><a href="{{ url('/assistants') }}">นักศึกษาช่วยสอนตามรายวิชา</a></h4>--}}
+
+                                        <div class="table-responsive">
+                                            <table class="table" id="example1" cellspacing="0" width="100%" >
+                                                <thead>
+                                                <tr>
+                                                    <th>No</th><th>Course</th><th>Section</th>
+                                                    {{--<th>Student</th>--}}
+                                                </tr>
+                                                </thead>
+                                                <tfoot>
+                                                <tr>
+                                                    <th>No</th><th>Course</th><th>Section</th>
+                                                    {{--<th>Student</th>--}}
+                                                </tr>
+                                                </tfoot>
+                                                <tbody>
+
+                                                <?php
+                                                for($x=0;$x<$k;$x++){
+                                                ?>
+
+                                                    <tr>
+                                                        <td>{{ $x+1}}</td>
+                                                        <td>{{ $fco[$x] }}</td>
+                                                        <td>{{ $fse[$x] }}</td>
+
+                                                     </tr>
+                                                <?php
+                                                }
+                                                ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+      @endsection
+      @section('footer')
+      <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
+
+        <script type="text/javascript">
+
+      $(document).ready(function() {
+          $('#example').dataTable( {
+              "order": [[ 3, "desc" ]],
+              "scrollX": true
+          } );
+      } );
+       $(document).ready(function() {
+                $('#example1').dataTable( {
+                    "order": [[ 3, "desc" ]],
+                    "scrollX": true
+                } );
+            } );
+
+          </script>
+
+      @endsection
 
       @endsection

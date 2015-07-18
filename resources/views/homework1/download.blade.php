@@ -1,6 +1,21 @@
 <?php
-$the_folder =array($course['path']);
-$zip_file_name = 'archived_name.zip';
+$path=$course['path'];
+$semester=Session::get('semester');
+$year=Session::get('year');
+$zip_file_name='';
+
+if($course['type']=='1'){
+$ex=explode('.',$path);
+$the_folder =array('../public/uploads/'.$semester.'_'.$year.'/'.$course['course'].'/'.$course['sec'].$ex[0]);
+$zip_file_name = $course['course'].$course['sec'].$ex[0].'.zip';
+
+}
+if($course['type']=='0'){
+$the_folder =array('../public/uploads/'.$semester.'_'.$year.'/'.$course['course'].'/'.$course['sec']);
+$zip_file_name = $course['course'].$course['sec'].'.zip';
+
+}
+
 
 
 class FlxZipArchive extends ZipArchive {
@@ -58,6 +73,7 @@ if ($download_file)
     header("Content-Transfer-Encoding: binary");
     header("Content-Length: " . filesize($zip_file_name));
     readfile($zip_file_name);
+    unlink($zip_file_name);
 
 }
 ?>

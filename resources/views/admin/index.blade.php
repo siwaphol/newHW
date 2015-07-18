@@ -22,7 +22,8 @@ $(document).ready(function() {
                         <!--
                         <h1>admins</h1>
                       -->
-                       <h4><a href="{{ url('/admin/create') }}">เพิ่มผู้ดูแลระบบ</a></h4>
+                       <h4><a href="{{ url('/admin/create') }}">เพิ่มผู้ดูแลระบบใหม่</a></h4>
+                       <h4><a href="{{ url('/admin/assign') }}">เพิ่มผู้ดูแลระบบจากผู้ใช้</a></h4>
                         <div class="table-responsive">
                             <table class="table" id="example" cellspacing="0" width="100%" >
                                 <thead>

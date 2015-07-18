@@ -30,7 +30,21 @@
                               </li>
                                <li><a href="{{url('semesteryear')}}">จัดการภาคการศึกษา</a></li>
                             <li><a href="{{url('course')}}">จัดการกระบวนวิชา</a></li>
-                            <li><a href="{{url('students/autoimport')}}">นำเข้านักศึกษาทั้งหมด</a></li>
+
+                            <li><button type="button" class="btn " data-toggle="modal" data-target="#myModal"> {{\Session::get('semester')}}/{{Session::get('year')}}เปลี่ยน</button>
+</li>
+                            {{--<li><a href="{{url('students/autoimport')}}">นำเข้านักศึกษาทั้งหมด</a></li>--}}
+                            {{--<li><a href="{{url('course_section')}}">จัดการตอน</a></li>--}}
+                             {{--<li class="dropdown">--}}
+                                   {{--<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">นำเข้าข้อมูลนักศึกษา<span class="caret"></span></a>--}}
+                                         {{--<ul class="dropdown-menu" role="menu">--}}
+                                              {{--<li><a href="{{url('students/manualimport')}}">ใช้ไฟล์</a></li>--}}
+                                              {{--<li><a href="{{url('students/import')}}">semiauto</a></li>--}}
+                                              {{--<li><a href="{{url('students/autoimport')}}">auto</a></li>--}}
+
+                                         {{--</ul>--}}
+                              {{--</li>--}}
+
                         @endif
 
 					    <li><a href="{{url('home')}}">Home</a></li>
@@ -47,8 +61,8 @@
 				@if (Auth::user()->isTeacher() || Auth::user()->isAdmin())
 				<ul class="nav navbar-nav navbar-right">
                 				<!-- Trigger the modal with a button -->
-                				 {{\Session::get('semester')}}/{{Session::get('year')}}
-                                <button type="button" class="btn " data-toggle="modal" data-target="#myModal">เปลี่ยน</button>
+                				 {{--{{\Session::get('semester')}}/{{Session::get('year')}}--}}
+                                {{--<button type="button" class="btn " data-toggle="modal" data-target="#myModal"> {{\Session::get('semester')}}/{{Session::get('year')}}เปลี่ยน</button>--}}
 
                                 <!-- Modal -->
                                 <div id="myModal" class="modal fade" role="dialog">

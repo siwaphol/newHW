@@ -184,7 +184,7 @@ class HomeController extends Controller {
         $course=$_GET['course'];
         $sec=$_GET['sec'];
 
-            $teachers = DB::select('select cs.id as id,tea.id as teacher_id,tea.firstname_th as firstname,tea.lastname_th as lastname
+            $teachers = DB::select('select cs.id as id,tea.id as teacher_id,tea.firstname_en as firstname,tea.lastname_en as lastname
                             from course_section cs
                             LEFT  join users tea on cs.teacher_id=tea.id
                             where cs.semester=? and cs.year=? and cs.course_id=? and cs.section=?', array(Session::get('semester'), Session::get('year'), $course, $sec));
@@ -226,7 +226,7 @@ class HomeController extends Controller {
         $course = $_GET['course'];
         $sec = $_GET['sec'];
 
-        $teachers = DB::select('select cs.id as id,tea.id as teacher_id,tea.firstname_th as firstname,tea.lastname_th as lastname
+        $teachers = DB::select('select cs.id as id,tea.id as teacher_id,tea.firstname_en as firstname,tea.lastname_en as lastname
                             from course_section cs
                             LEFT  join users tea on cs.teacher_id=tea.id
                             where cs.semester=? and cs.year=? and cs.course_id=? and cs.section=?', array(Session::get('semester'), Session::get('year'), $course, $sec));

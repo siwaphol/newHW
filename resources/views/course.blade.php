@@ -111,6 +111,7 @@ echo Form::close();
 $(document).ready( function () {
 
     $('#example').dataTable( {
+        "order": [[ 0, "asc" ]],
         "sDom": 'T<"clear">lfrtip',
         "oTableTools": {
         "sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",

@@ -23,8 +23,11 @@ $i=1;
                     <div class="panel-body">
  @if(Auth::user()->isAdmin())
  {!! Html::link('course_section/auto', 'เพิ่มกระบวนวิชา ตอน จากสำนักทะเบียน') !!} </br>
+ {{--<a href="{{url('students/autoimport')}}">นำเข้านักศึกษาทั้งหมด</a>--}}
+ {!! Html::link('students/autoimport', 'นำเข้านักศึกษาทั้งหมด',array('onclick'=>"return confirm('Are you sure you want to update all students?')")) !!}</br>
 {!! Html::link('course_section/create', 'เพิ่มตอนทีละตอน') !!} </br>
 {!! Html::link('course_section/selectcreate', 'เพิ่มตอนทั้งกระบวนวิชา') !!}
+
 @endif
 
 <div class="table-responsive">
@@ -181,14 +184,15 @@ $i=1;
 
   $(document).ready(function() {
       $('#example').dataTable( {
-          "order": [[ 1, "desc" ]],
+          "order": [[ 0, "asc" ]],
           "scrollX": true
+
       } );
 
   } );
    $(document).ready(function() {
         $('#example1').dataTable( {
-            "order": [[ 1, "desc" ]],
+            "order": [[ 0, "asc" ]],
             "scrollX": true
         } );
 

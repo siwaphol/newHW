@@ -3,15 +3,7 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
 @endsection
 @section('content')
- <script type="text/javascript">
 
- $(document).ready(function() {
-     $('#example').dataTable( {
-         "order": [[ 3, "desc" ]]
-     } );
- } );
-
-     </script>
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">

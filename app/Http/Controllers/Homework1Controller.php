@@ -150,6 +150,8 @@ class Homework1Controller extends Controller {
         $course=$_GET['course'];
         $sec=$_GET['sec'];
         $path1=$_GET['path'];
-      return view('homework1.download')->with('course',array('course'=>$course,'see'=>$sec,'path'=>$path1));
+        $type=$_GET['type'];
+      return view('homework1.download')->with('course',array('course'=>$course,'sec'=>$sec,'path'=>$path1,'type'=>$type));
     }
+
 }

@@ -3,14 +3,16 @@
 
 @section('header_content')
 
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"
-      xmlns="http://www.w3.org/1999/html">
+{{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"--}}
+      {{--xmlns="http://www.w3.org/1999/html">--}}
 {{--<link rel="stylesheet" href="{{ asset('/css/dropzone/basic.css') }}"/>--}}
 <link rel="stylesheet" href="{{ asset('/css/dropzone/dropzone.css') }}"/>
 {{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"--}}
       {{--xmlns="http://www.w3.org/1999/html">--}}
  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css">
  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href=" //cdn.datatables.net/fixedcolumns/3.0.3/css/dataTables.fixedColumns.css">
+
 
 @endsection
 @section('content')
@@ -23,7 +25,7 @@
 
 <div >
 
- <h3 align="center">Course {{$course['co']}}  {{$c[0]->name}} Section {{$course['sec']}} </h3>
+ <h3 align="center">{{$course['co']}} || {{$c[0]->name}} || {{$course['sec']}} </h3>
   <!-- Nav tabs -->
 </div>
 
@@ -44,17 +46,20 @@
 
                     <div class="panel-body">
                         {{--<h1>semesteryears</h1>--}}
-                        <button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','เพิ่มนักศึกษาช่วยสอน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
+                        <button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','Add Teacher Assistant',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
                         <div class="table-responsive">
                             <table class="table" id="example" cellspacing="0" width="100%" >
                                 <thead>
                                 <tr>
-                                    <th>No</th><th>Student ID/th><th>Name</th><th>Delete</th>
+                                    <th>No</th>
+                                    <th>Student ID><th>Name</th><th>Delete</th>
+
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>No</th><th>Student ID/th><th>Name</th><th>Delete</th>
+                                    <th>No</th>
+                                    <th>Student ID><th>Name</th><th>Delete</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -100,7 +105,7 @@
 @if(Auth::user()->isAdmin() || Auth::user()->isTeacher())
 {{--<div class="dropdown">--}}
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-   <a>เพิ่มนักศึกษา</a>
+   Add Student
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -115,10 +120,13 @@
 {{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@insert','เพิ่มรายชื่อนักศึกษาจากสำนักทะเบียน',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>--}}
 {{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@selectexcel','เพิ่มรายชื่อนักศึกษาจากไฟล์ Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>--}}
 {{--<button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','เพิ่มนักศึกษาช่วยสอน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
-<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','Export Excel',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
-<button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@index','จัดการการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
+<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','Export list student  Excel',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
+<button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@index','Manage Homework',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
 {{--<button type="button" class="btn btn-default">{!! link_to_action('CourseHomeworkController@result','ผลการส่งการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
 
+@endif
+@if(Auth::user()->isAdmin() || Auth::user()->isTeacher()||Auth::user()->isStudentandTa()||Auth::user()->isTa())
+<button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@exportzip','download all homework ',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>'','path'=>'','type'=>'0'))!!}</button>
 @endif
 </div>
 
@@ -176,7 +184,7 @@ $month=array('01'=>'Jan',
 
                                 <div class="panel-body">
                                     {{--<h3 align="center">กระบวนวิชา {{$course['co']}}  ตอน {{$course['sec']}} </h3>--}}
-                                     <h4 align="center">รายชื่อนักศึกษา </h4>
+                                     <h4 align="center">Students enrollment </h4>
 
                                     {{--<h4><a href="{{ url('/students/create/'.$coid[0]->id) }}">เพิ่มนักศึกษา</a></h4>--}}
 
@@ -191,7 +199,9 @@ $month=array('01'=>'Jan',
                                         <table class="table" id="example1" cellspacing="0" width="100%" >
                                            <thead>
                                             <tr>
+                                            @if(!Auth::user()->isStudent())
                                                 <th>Student ID</th><th>Name</th><th>Status</th>
+                                                @endif
                                                 @if(count($homework)>0)
                                                 @foreach($homework as $key1)
 
@@ -203,7 +213,7 @@ $month=array('01'=>'Jan',
                                                     //$name= explode('{',$key1->name);
                                                 ?>
 
-                                                   <th>{{$name}}<br/><span class="label label-warning"  >{{date("d", strtotime($key1->due_date)).$month[date("m", strtotime($key1->due_date))]}}</span><br/><span class="label label-danger">{{date("d", strtotime($key1->accept_date)).$month[date("m", strtotime($key1->accept_date))]}}</span></th>
+                                                   <th ><p align="center">{{$name}}<br/><span class="label label-warning"  >{{date("d", strtotime($key1->due_date)).$month[date("m", strtotime($key1->due_date))]}}</span><br/><span class="label label-danger">{{date("d", strtotime($key1->accept_date)).$month[date("m", strtotime($key1->accept_date))]}}</span></p></th>
 
                                                 @endforeach
                                                 @endif
@@ -212,14 +222,18 @@ $month=array('01'=>'Jan',
                                             </thead>
                                             <tfoot>
                                             <tr>
+                                                 @if(!Auth::user()->isStudent())
                                                 <th>Student ID</th><th>Name</th><th>Status</th>
+                                                @endif
                                                   @if(count($homework)>0)
                                                 @foreach($homework as $key1)
                                                 @if(Auth::user()->isStudent())
+
                                                    <th ><button type="button" data-path="{{$key1->path}}" data-fullpath="temp" data-template-name="{{$key1->name}}" data-type-id="{{$key1->type_id}}" data-homework-id="{{$key1->id}}" data-duedate="{{$key1->due_date}}" data-acceptdate="{{$key1->accept_date}}" class="btn btn-default student-button"><i class="fa fa-upload"></i></button></th>
+
                                                    @endif
                                                  @if(Auth::user()->isTeacher()||Auth::user()->isAdmin()||Auth::user()->isStudentandTa()||Auth::user()->isTa())
-                                                  <th><button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@exportzip','download',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name,'path'=>$key1->path))!!}</button></th>
+                                                  <th><p align="center">{!! link_to_action('Homework1Controller@exportzip','',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name,'path'=>$key1->path,'type'=>'1'),array('class'=>'glyphicon glyphicon-download-alt'))!!}</p></th>
 
                                                  @endif
 
@@ -242,14 +256,7 @@ $month=array('01'=>'Jan',
                                                      <td>{!! link_to_action('StudentsController@show',$item->firstname." ".$item->lastname,array('id'=>$item->studentid,'course'=>$course['co'],'sec'=>$course['sec']))!!}</td>
                                                     <td>{{ $item->status}}</td>
                                                     @endif
-                                                  @if(Auth::user()->isStudent())
 
-                                                     {{--<td><a href="{{ url('/students/show', $item->studentid) }}">{{ $item->studentid }}</a></td>--}}
-                                                     <td>{{$item->studentid}}</td>
-                                                     {{--<td><a href="{{ url('/students/show', $item->studentid) }}">{{ $item->firstname." ".$item->lastname }}</a></td>--}}
-                                                      <td>{{$item->firstname." ".$item->lastname}}</td>
-                                                     <td>{{ $item->status}}</td>
-                                                     @endif
                                                     <!--
                                                     <td><a href="{{ url('/students/edit/'.$item->studentid) }}">Edit</a> </td>
                                                     -->
@@ -302,6 +309,8 @@ $month=array('01'=>'Jan',
 <script type="text/javascript" src="{{ asset('/js/dropzone/dropzone.js') }}"></script>
 
 <script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.js"></script>
+{{--<script src="//cdn.datatables.net/fixedcolumns/3.0.3/js/dataTables.fixedColumns.js"></script>--}}
+
   <script type="text/javascript">
 
     var dzfullpath = $('.button-selected').attr('data-fullpath');
@@ -325,7 +334,7 @@ $(document).ready(function() {
 //} );
 $(document).ready( function () {
 
-    $('#example1').dataTable( {
+    var table=$('#example1').dataTable( {
         "scrollX": true,
         @if(!\Auth::user()->isStudent())
         "sDom": 'T<"clear">lfrtip',
@@ -334,13 +343,30 @@ $(document).ready( function () {
             "aButtons": [
                 {
                     "sExtends": "xls",
+                    "sButtonText": "Export report send homework with excel",
+                    "sToolTip": "Export report send with excel",
+                     "sMessage": "Generated by DataTables",
                     "sTitle": "Report Sending ",
                     "sFileName": "<?php echo $course['co']."-".$course['sec'] ?> - *.xls"
                 }
+
             ]
-        }
+
+        },
         @endif
+        "columnDefs": [
+            {"sClass": "a-right",},
+            { "width": "4%", "targets": 0 },
+            { "width": "25%", "targets": 1 },
+            { "width": "2%", "targets": 2 },
+            { "bSortable": false, "aTargets": [ 0 ] }
+          ]
+
     } );
+     new $.fn.dataTable.FixedColumns( table, {
+            leftColumns: 1
+
+        } );
 } );
 
 $(".student-button").on('click',  function(){

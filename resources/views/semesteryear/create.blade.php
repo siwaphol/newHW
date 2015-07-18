@@ -28,7 +28,7 @@
                           <option value="{{date("Y")+543-3}}">{{date("Y")+543-3}}</option>
                           <option value="{{date("Y")+543-2}}">{{date("Y")+543-2}}</option>
                         <option value="{{date("Y")+543-1}}">{{date("Y")+543-1}}</option>
-                        <option value="{{date("Y")+543}}">{{date("Y")+543}}</option>
+                        <option value="{{date("Y")+543}}" selected>{{date("Y")+543}}</option>
                         <option value="{{date("Y")+543+1}}">{{date("Y")+543+1}}</option>
                           <option value="{{date("Y")+543+2}}">{{date("Y")+543+2}}</option>
                           <option value="{{date("Y")+543+3}}">{{date("Y")+543+3}}</option>

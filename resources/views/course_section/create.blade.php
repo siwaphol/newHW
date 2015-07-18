@@ -47,7 +47,7 @@ $sql=DB::select('select * from users where role_id=0100 order by username');
 $count=count($sql);
 $key=$sql;
 for($i=0;$i<$count;$i++){?>
-  <option value={{$key[$i]->id}}>{{$key[$i]->firstname_th." ".$key[$i]->lastname_th}}</option>
+  <option value={{$key[$i]->id}}>{{$key[$i]->firstname_en." ".$key[$i]->lastname_en}}</option>
   <?php }?>
 
 </select>

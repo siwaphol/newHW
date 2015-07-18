@@ -28,7 +28,7 @@
                                         <input type="hidden" name="course" id="course" value='{{$course['co']}}'>
                                         <input type="hidden" name="sec" id="sec" value='{{$course['sec']}}'>
                                         <input type="hidden" name="id" id="id" value='{{$result->student_id}}'>
-                                        <button type="submit" class="btn btn-danger btn-ok" onclick="return confirm('Are you sure you want to delete student from this section?')">Delete</button>
+                                        <button type="submit" class="btn btn-link" onclick="return confirm('Are you sure you want to delete student from this section?')">Delete</button>
 
                                         {!! Form::close() !!}
                                         </td>
@@ -41,7 +41,7 @@
             </div>
         </div>
     </div>
-@if($role_id=='0011')
+@if($role_id=='0011'||$role_id=='0010')
 
 <?php
 $sql=DB::select('select cs.course_id,co.name ,cs.section  from course_ta cs

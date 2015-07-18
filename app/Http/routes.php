@@ -91,6 +91,8 @@ Route::get('admin','AdminController@index');
 Route::delete('admin/delete/{id}','AdminController@destroy');
 Route::get('admin/show/{id}','AdminController@show');
 Route::get('admin/create','AdminController@create');
+Route::get('admin/assign','AdminController@assign');
+Route::post('admin/assign/save','AdminController@saveassign');
 Route::get('admin/{id}/edit','AdminController@edit');
 Route::post('admin/create/save','AdminController@store');
 Route::post('admin/update/','AdminController@update');

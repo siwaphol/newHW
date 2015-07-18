@@ -4,15 +4,7 @@
 @endsection
 @section('content')
  @section('content')
-  <script type="text/javascript">
 
- $(document).ready(function() {
-     $('#example').dataTable( {
-         "order": [[ 3, "desc" ]]
-     } );
- } );
-
-     </script>
 
     <div class="container">
         <div class="row">
@@ -41,7 +33,7 @@
                                     {{-- */$x++;/* --}}
                                     <tr>
                                         <td>{{ $x }}</td>
-                                        <td><a href="{{ url('/teachers/show', $item->id) }}">{{ $item->firstname_th." ".$item->lastname_th }}</a></td>
+                                        <td><a href="{{ url('/teachers/show', $item->id) }}">{{ $item->firstname_en." ".$item->lastname_en }}</a></td>
                                         <td><button type="button" class="btn btn-link"><a href="{{ url('/teachers/'.$item->id.'/edit') }}">Edit</a></button></td>
                                         <td> {!! Form::open(['method'=>'post','action'=>array('TeachersController@destroy',$item->id)]) !!}<button type="submit" class="btn btn-link" onclick="return confirm('Are you sure you want to delete?')">Delete</button>{!! Form::close() !!}</td>
                                     </tr>
