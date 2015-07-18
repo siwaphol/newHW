@@ -136,7 +136,7 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Html\HtmlServiceProvider',
-//        'Maatwebsite\Excel\ExcelServiceProvider',
+
 
 		/*
 		 * Application Service Providers...
@@ -151,7 +151,8 @@ return [
         'App\Providers\CustomAuthProvider',
         'App\Providers\AppzcoderCrudGeneratorServiceProvider', //provider crud
         'yajra\Datatables\DatatablesServiceProvider',
-        'Chumper\Zipper\ZipperServiceProvider'
+        'Chumper\Zipper\ZipperServiceProvider',
+        'Maatwebsite\Excel\ExcelServiceProvider'
 
 	],
 
@@ -203,8 +204,8 @@ return [
 		'Form'		=> 'Illuminate\Html\FormFacade',
 		'Html'		=> 'Illuminate\Html\HtmlFacade',
         'Datatables' => 'yajra\Datatables\Datatables',
-        'Zipper' => 'Chumper\Zipper\Zipper'
-//        'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
+        'Zipper' => 'Chumper\Zipper\Zipper',
+        'Excel'     => 'Maatwebsite\Excel\Facades\Excel'
 
 	],
 

@@ -16,6 +16,7 @@
 		"barryvdh/laravel-ide-helper": "2.0.3",
 		"maatwebsite/excel": "~2.0.0",
 		"yajra/laravel-datatables-oracle": "~5.0",
+		"phpoffice/phpexcel": "~1.8.0",
         "chumper/zipper": "0.6.x"
 	},
 	"require-dev": {
