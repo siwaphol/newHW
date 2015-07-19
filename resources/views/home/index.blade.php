@@ -22,7 +22,7 @@ $i=1;
 
                     <div class="panel-body">
  @if(Auth::user()->isAdmin())
- {!! Html::link('course_section/auto', 'Add all course section from registration') !!} </br>
+ {!! Html::link('course_section/auto', 'Add all course section from registration',array('onclick'=>"return confirm('Are you sure you want to add all course section from registration?')")) !!} </br>
  {{--<a href="{{url('students/autoimport')}}">นำเข้านักศึกษาทั้งหมด</a>--}}
  {!! Html::link('students/autoimport', 'Import student all section',array('onclick'=>"return confirm('Are you sure you want to update all students?')")) !!}</br>
 {!! Html::link('course_section/create', 'Add section') !!} </br>

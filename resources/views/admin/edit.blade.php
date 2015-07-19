@@ -14,7 +14,7 @@
                               @foreach($admin as $item)
                           {!! Form::open(['url' => 'admin/update']) !!}
                        <div class="form-group">
-                          {!! Form::label('username', 'Username'!!}
+                          {!! Form::label('username', 'Username:')!!}
                           {!! Form::text('username', $item->username, ['class' => 'form-control']) !!}
                       </div><div class="form-group">
                           {!! Form::label('firstname_th', 'Firstname_th: ') !!}

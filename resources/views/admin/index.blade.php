@@ -23,7 +23,7 @@ $(document).ready(function() {
                         <h1>admins</h1>
                       -->
                        <h4><a href="{{ url('/admin/create') }}">Add New Admin</a></h4>
-                       <h4><a href="{{ url('/admin/assign') }}">Add Admin From User</a></h4>
+                       <h4><a href="{{ url('/admin/assign') }}">Change role between Admin and  Lecturer</a></h4>
                         <div class="table-responsive">
                             <table class="table" id="example" cellspacing="0" width="100%" >
                                 <thead>

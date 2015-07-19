@@ -4,9 +4,11 @@ use App\Http\Requests\Formadmin;
 use App\Http\Controllers\Controller;
 
 use App\Admins;
+use App\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DB;
+
 class AdminController extends Controller
 {
 
@@ -118,13 +120,28 @@ class AdminController extends Controller
     public function assign()
     {
         $admin = DB::select('select * from users where role_id = 0100');
-        return view('admin.assign', compact('admin'));
+        $teacher = DB::select('select * from users where role_id = 1000');
+        return view('admin.assign', compact('admin','teacher'));
     }
 
     public function saveassign()
     {
         $adminid = $_POST['adminid'];
-        $insert = DB::update('update users set role_id=1000');
-        return redirect('admin');
+        $type=$_POST['type'];
+        if($type==1){
+            $ad=User::findorfail($adminid);
+            $ad->role_id='0100';
+            $ad->save();
+            //$insert = DB::update('update users set role_id=1000 where id=?', array($adminid));
+            return redirect('admin');
+        }
+        if($type==0){
+            $ad=User::findorfail($adminid);
+            $ad->role_id='1000';
+            $ad->save();
+            //$insert = DB::update('update users set role_id=0100 where id=?',array($adminid));
+            return redirect('admin');
+        }
+
     }
 }

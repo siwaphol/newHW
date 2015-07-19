@@ -10,7 +10,7 @@
       {{--xmlns="http://www.w3.org/1999/html">--}}
  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css">
  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href=" //cdn.datatables.net/fixedcolumns/3.0.3/css/dataTables.fixedColumns.css">
+  {{--<link rel="stylesheet" type="text/css" href=" //cdn.datatables.net/fixedcolumns/3.0.3/css/dataTables.fixedColumns.css">--}}
 {{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"--}}
       {{--xmlns="http://www.w3.org/1999/html">--}}
 
@@ -52,14 +52,14 @@
                                 <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Student ID><th>Name</th><th>Delete</th>
+                                    <th>Student ID<th>Name</th><th>Delete</th>
 
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
                                     <th>No</th>
-                                    <th>Student ID><th>Name</th><th>Delete</th>
+                                    <th>Student ID<th>Name</th><th>Delete</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -199,7 +199,7 @@ $month=array('01'=>'Jan',
                                        {{--{!! Form::close() !!}--}}
                                     <div class="table-responsive">
                                     <div>
-                                        Hide column: <a class="toggle-vis" data-column="1">Name</a> - <a class="toggle-vis" data-column="2">Status</a>
+                                        {{--Hide column: <a class="toggle-vis" data-column="1">Name</a> - <a class="toggle-vis" data-column="2">Status</a>--}}
                                     </div>
                                         <table class="table" id="example1" cellspacing="0" width="100%" >
                                            <thead>
@@ -238,7 +238,7 @@ $month=array('01'=>'Jan',
 
                                                    @endif
                                                  @if(Auth::user()->isTeacher()||Auth::user()->isAdmin()||Auth::user()->isStudentandTa()||Auth::user()->isTa())
-                                                  <th><p align="center">{!! link_to_action('Homework1Controller@exportzip','',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name,'path'=>$key1->path,'type'=>'1'),array('class'=>'fa fa-download'))!!}</p></th>
+                                                  <th><p align="center">{!! link_to_action('Homework1Controller@exportzip','',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name,'path'=>$key1->path,'type'=>'1'),array('class'=>'glyphicon glyphicon-download-alt'))!!}</p></th>
 
                                                  @endif
 
@@ -542,50 +542,6 @@ $(".student-button").on('click',  function(){
                                             	}
                                             }
 
-                                            	function Listsemester(SelectValue)
-                                                    {
-                                                    frmyear.semester.length = 0
-                                                    //*** Insert null Default Value ***//
-                                                    var myOption = new Option('การบ้าน','')
-                                                    var myOption1 = new Option('นักศึกษา','')
-                                                    frmhw.hw.options[frmhw.hw.length]= myOption
-                                                    <?php
 
-                                                    $intRows = 0;
-                                                    $objQuery=array();
-
-                                                    if(Auth::user()->isTeacher()){
-                                                    $objQuery =DB::select('SELECT DISTINCT semester,year FROM semester_year   ORDER BY semester ASC ');
-                                                    }
-                                                    if(Auth::user()->isAdmin()){
-                                                        $objQuery =DB::select('SELECT DISTINCT semester,year FROM semester_year  ORDER BY semester ASC ');
-                                                        }
-                                                    $count=count($objQuery);
-                                                    $i=0;
-                                                    for($i=0;$i<$count;$i++)
-                                                    {
-                                                    $intRows++;
-                                                    ?>
-                                                    x = <?php echo $intRows;?>;
-                                                    mySubList = new Array();
-                                                    strGroup = "<?php echo $objQuery[$i]->year;?>";
-                                                    strValue = "<?php echo $objQuery[$i]->semester;?>";
-                                                    mySubList[x,0] = strGroup;
-                                                    mySubList[x,1] = strValue;
-                                                    if (mySubList[x,0] == SelectValue){
-                                                    var myOption = new Option(mySubList[x,1])
-                                                    frmyear.semester.options[frmyear.semester.length]= myOption
-                                                    }
-                                                    <?php
-                                                    }
-
-                                                    ?>
-                                                    }
-                                                    /*function MM_jumpMenu(targ,selObj,restore){ //v3.0
-                                                      eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-                                                      if (restore) selObj.selectedIndex=0;
-                                                    }*/
-
-                                                    </script>
 @include('partials.dropzone')
 @endsection

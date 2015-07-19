@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">ข้อมูลนักศึกษา</div>
+                    <div class="panel-heading" align="center">Student</div>
 
                     <div class="panel-body">
 
@@ -56,14 +56,14 @@ $counr=count($sql);
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">นักศึกษาช่วนสอนกระบวนวิชา</div>
+                    <div class="panel-heading" align="center">Course Assistant</div>
 
                     <div class="panel-body">
 
      <div class="table-responsive">
     <table class="table">
         <tr>
-            <th>No</th><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>ตอน</th>
+            <th>No</th><th>Course No</th><th>Title</th><th>Section</th>
         </tr>
         <?php
             for($i=0;$i<$counr;$i++){
