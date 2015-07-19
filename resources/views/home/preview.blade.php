@@ -123,7 +123,9 @@
 <button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','Export list student  Excel',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
 <button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@index','Manage Homework',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
 {{--<button type="button" class="btn btn-default">{!! link_to_action('CourseHomeworkController@result','ผลการส่งการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
-
+@if(Auth::user()->isAdmin() || Auth::user()->isTeacher())
+<button type="button" class="btn btn btn-default " data-toggle="modal" data-target="#editsend">Edit status homework</button>
+@endif
 @endif
 @if(Auth::user()->isAdmin() || Auth::user()->isTeacher()||Auth::user()->isStudentandTa()||Auth::user()->isTa())
 <button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@exportzip','download all homework ',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>'','path'=>'','type'=>'0'))!!}</button>
@@ -302,7 +304,123 @@ $month=array('01'=>'Jan',
                 </div>
 
 
+{{--<button type="button" class="btn " data-toggle="modal" data-target="#myModal"> {{\Session::get('semester')}}/{{Session::get('year')}}เปลี่ยน</button>--}}
 
+                                <!-- Modal -->
+                                <div id="editsend" class="modal fade" role="dialog">
+
+                                  <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title" align="center">จัดการสถานะการส่งงาน </h4>
+                                      </div>
+                                      <div class="modal-body">
+                                       <div class="portlet"align="right">
+                                        <div class="portlet-body form"  align="center">
+                                        <form action="homework/editstatus" method="post" name="frmhw" id="frmhw" onsubmit="return onSubmit()" class="form-horizontal"  align="center">
+                                        <div class="form-body" >
+                                        <div class="form-group" align="center">
+                                                <div class="col-md-4 col-md-offset-4" align="center" >
+                                                {!! Form::label('hw', 'การบ้าน') !!}
+                                                <select id="hw" name="hw" onChange = "Listsemester(this.value)" class="form-control">
+                                                    <option selected value="">เลือกการบ้าน</option>
+                                                <?php
+                                                $sql=array();
+
+                                                $sql=DB::select('SELECT * from homework where course_id=? and section=?
+                                                                  and semester=? and year=?
+                                                                order by id ',
+                                                                array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
+
+                                                $count=count($sql);
+
+                                                $i=0;
+                                                  for($i=0;$i<$count;$i++){
+                                                ?>
+                                                <option value={{$sql[$i]->id}}>{{$sql[$i]->name}}</option>
+                                                <?php
+                                                }
+                                                ?>
+                                                </select>
+                                                </div>
+                                        </div>
+                                        <input type="hidden" name="course" value="{{$course['co']}}">
+                                        <input type="hidden" name="sec" value="{{$course['sec']}}">
+
+                                          <div class="form-group" align="center">
+                                                <div class="col-md-4 col-md-offset-4" align="center" >
+                                                {!! Form::label('stu', 'นักศึกษา') !!}
+                                                <select id="stu" name="stu" onChange = "Listsemester(this.value)" class="form-control">
+                                                    <option selected value="">เลือกนักศึกษา</option>
+                                                <?php
+                                                $sql=array();
+
+                                                $sql=DB::select('SELECT * from course_student
+                                                                  where course_id=? and section=?
+                                                                  and semester=? and year=?
+                                                                order by id ',
+                                                                array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
+
+                                                $count=count($sql);
+
+                                                $i=0;
+                                                  for($i=0;$i<$count;$i++){
+                                                ?>
+                                                <option value={{$sql[$i]->student_id}}>{{$sql[$i]->student_id}}</option>
+                                                <?php
+                                                }
+                                                ?>
+                                                </select>
+                                                </div>
+                                        </div>
+                                        <div class="form-group" align="center">
+                                        <div class="col-md-4 col-md-offset-4" align="center" >
+                                        {!! Form::label('status', 'สถานะ') !!}
+                                        <select id="status" name="status" onChange = "Listsemester(this.value)" class="form-control">
+                                            <option selected value="">เลือกสถานะ</option>
+                                        <option value=1>OK</option>
+                                         <option value=2>LATE</option>
+                                         <option value=3>!!!</option>
+                                        </select>
+                                        </div>
+                                </div>
+                                        {{--<div class="form-group" align="center">--}}
+                                                {{--<div class="col-md-4 col-md-offset-4">--}}
+                                                {{--{!!  Form::label('hwname', 'สถานะ') !!}--}}
+                                                {{--<select id="hws" name="hws" class="form-control">--}}
+                                                    {{--<option selected value="">เลือกสถานะ</option>--}}
+                                                {{--</select>--}}
+                                                  {{--</div>--}}
+                                        {{--</div>--}}
+
+                                        <div class="form-group" align="center">
+                                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                                                <div class="col-md-4 col-md-offset-4">
+                                                <input type="submit" name="ok" value="ตกลง"  class="form-control"/>
+                                                </div>
+                                        </div>
+                                      </div>
+                                      </form>
+                                      @if ($errors->any())
+                                      <ul class="alert alert-danger">
+                                          @foreach ($errors->all() as $error)
+                                              <li>{{ $error }}</li>
+                                          @endforeach
+                                      </ul>
+                                  @endif
+                                      </div>
+                                      </div>
+                                      </div>
+                                      {{--<div class="modal-footer">--}}
+                                        {{--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
+                                      {{--</div>--}}
+                                    </div>
+
+                                  </div>
+                                </div>
 @endsection
 @section('footer')
 <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
@@ -388,5 +506,71 @@ $(".student-button").on('click',  function(){
 });
 
     </script>
+
+    <script type="text/javascript">
+                                            function onSubmit() {
+                                            	var msgErr = ""
+                                            	if($("#hw").val() == ""){
+                                            		msgErr += "กรุณาเลือกการบ้าน\n"
+                                            	}
+                                            	if($("#stu").val() == ""){
+                                            		msgErr += "กรุณาเลือกนักศึกษา\n"
+                                            	}
+                                            	if($("status").val() == ""){
+                                                    msgErr += "กรุณาเลือกสถานะการบ้าน\n"
+                                                }
+                                            	if(msgErr != ""){
+                                            		alert(msgErr)
+                                            		return false
+                                            	}else{
+                                            		return true
+                                            	}
+                                            }
+
+                                            	function Listsemester(SelectValue)
+                                                    {
+                                                    frmyear.semester.length = 0
+                                                    //*** Insert null Default Value ***//
+                                                    var myOption = new Option('การบ้าน','')
+                                                    var myOption1 = new Option('นักศึกษา','')
+                                                    frmhw.hw.options[frmhw.hw.length]= myOption
+                                                    <?php
+
+                                                    $intRows = 0;
+                                                    $objQuery=array();
+
+                                                    if(Auth::user()->isTeacher()){
+                                                    $objQuery =DB::select('SELECT DISTINCT semester,year FROM semester_year   ORDER BY semester ASC ');
+                                                    }
+                                                    if(Auth::user()->isAdmin()){
+                                                        $objQuery =DB::select('SELECT DISTINCT semester,year FROM semester_year  ORDER BY semester ASC ');
+                                                        }
+                                                    $count=count($objQuery);
+                                                    $i=0;
+                                                    for($i=0;$i<$count;$i++)
+                                                    {
+                                                    $intRows++;
+                                                    ?>
+                                                    x = <?php echo $intRows;?>;
+                                                    mySubList = new Array();
+                                                    strGroup = "<?php echo $objQuery[$i]->year;?>";
+                                                    strValue = "<?php echo $objQuery[$i]->semester;?>";
+                                                    mySubList[x,0] = strGroup;
+                                                    mySubList[x,1] = strValue;
+                                                    if (mySubList[x,0] == SelectValue){
+                                                    var myOption = new Option(mySubList[x,1])
+                                                    frmyear.semester.options[frmyear.semester.length]= myOption
+                                                    }
+                                                    <?php
+                                                    }
+
+                                                    ?>
+                                                    }
+                                                    /*function MM_jumpMenu(targ,selObj,restore){ //v3.0
+                                                      eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+                                                      if (restore) selObj.selectedIndex=0;
+                                                    }*/
+
+                                                    </script>
 @include('partials.dropzone')
 @endsection

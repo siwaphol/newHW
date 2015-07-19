@@ -33,6 +33,7 @@ Route::post('homework/create/{course_id}/{path?}', 'CourseHomeworkController@cre
 
 Route::get('homework/result','CourseHomeworkController@result' );
 //homework
+Route::post('index/homework/editstatus','Homework1Controller@editstatus');
 Route::get('homework','Homework1Controller@index');
 Route::delete('homework/delete/{id}','Homework1Controller@destroy');
 Route::get('homework/show/{id}','Homework1Controller@show');
