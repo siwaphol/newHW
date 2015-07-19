@@ -5,16 +5,16 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">ผู้ดูแลระบบ</div>
+                    <div class="panel-heading" align="center">Edit Admin</div>
 
                     <div class="panel-body">
-                        <h4 align="center">ปรับปรุงข้อมูลผู้ใช้</h4>
+
                         <hr/>
 
                               @foreach($admin as $item)
                           {!! Form::open(['url' => 'admin/update']) !!}
                        <div class="form-group">
-                           {!! Form::label('username', 'รหัสผู้ใช้: ') !!}
+                           {!! Form::label('username', 'Username: ') !!}
                            {!! Form::text('username', $item->username, ['class' => 'form-control']) !!}
                        </div><div class="form-group">
                            {!! Form::label('firstname_th', 'ชื่อ: ') !!}
@@ -33,12 +33,12 @@
                            {!! Form::text('lastname_en', $item->lastname_en, ['class' => 'form-control']) !!}
                        </div>
                        <div class="form-group">
-                           {!! Form::label('email', 'อีเมล: ') !!}
+                           {!! Form::label('email', 'Email: ') !!}
                            {!! Form::text('email', $item->email, ['class' => 'form-control']) !!}
                        </div>
                         <input type="hidden" name="id" value="{{$item->id}}">
                         <div class="form-group">
-                            {!! Form::submit('ปรับปรุง', ['class' => 'btn btn-primary form-control']) !!}
+                            {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}
                         </div>
                         {!! Form::close() !!}
                         @endforeach

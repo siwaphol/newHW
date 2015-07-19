@@ -170,7 +170,7 @@ $month=array('01'=>'Jan',
 
                                 <div class="panel-body">
                                     {{--<h3 align="center">กระบวนวิชา {{$course['co']}}  ตอน {{$course['sec']}} </h3>--}}
-                                     <h4 align="center">รายชื่อนักศึกษา </h4>
+                                     {{--<h4 align="center">รายชื่อนักศึกษา </h4>--}}
 
                                     {{--<h4><a href="{{ url('/students/create/'.$coid[0]->id) }}">เพิ่มนักศึกษา</a></h4>--}}
 

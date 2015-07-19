@@ -97,7 +97,7 @@ class AdminController extends Controller
         $firstname_en = $request->get('firstname_en');
         $lastname_th = $request->get('lastname_th');
         $lastname_en = $request->get('lastname_en');
-        $email = $request->get('email');
+        $email=$request->get('email').'@cmu.ac.th';
         $update = DB::update('update users set username=?,firstname_th=?,firstname_en=?,lastname_th=?,lastname_en=?,email=? where id=?', array($username, $firstname_th, $firstname_en, $lastname_th, $lastname_en, $email, $id));
 
         return redirect('admin');

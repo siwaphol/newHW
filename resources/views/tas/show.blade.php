@@ -12,8 +12,8 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <tr>
-                                        <th>รหัส</th><th>ชื่อ นามสกุล</th>
-                                        {{--<th>ลบ</th>--}}
+                                        <th>รหัส</th><th>Name</th>
+                                        {{--<th>Delete</th>--}}
                                     </tr>
 
                                     @foreach( $tas as $result)
@@ -63,7 +63,7 @@
          <div class="table-responsive">
         <table class="table">
             <tr>
-                <th>ที่</th><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>ตอน</th>
+                <th>No</th><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>ตอน</th>
             </tr>
             <?php
                 for($i=0;$i<$counr;$i++){

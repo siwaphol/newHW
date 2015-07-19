@@ -46,12 +46,12 @@ class TeachersController extends Controller {
         $id=intval($findid[0]->maxid);
         $id+=1;
         $id=str_pad($id, 9, "0", STR_PAD_LEFT);
-        $username=$request->get('username');
+        $username=$request->get('email');
         $firstname_th=$request->get('firstname_th');
         $firstname_en=$request->get('firstname_en');
         $lastname_th=$request->get('lastname_th');
         $lastname_en=$request->get('lastname_en');
-        $email=$request->get('email');
+        $email=$request->get('email').'@cmu.ac.th';
 
         $teacher=DB::insert('insert into users (id,username,role_id,firstname_th,firstname_en,lastname_th,lastname_en,email)values(?,?,?,?,?,?,?,?)',array($id,$username,'0100',$firstname_th,$firstname_en,$lastname_th,$lastname_en,$email));
 		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.

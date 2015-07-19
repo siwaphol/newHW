@@ -13,13 +13,13 @@ $key=$sql;
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">เพิ่มตอน</div>
+                    <div class="panel-heading" align="center">Add Section</div>
 
                     <div class="panel-body">
 {!! Form::open(['url'=>'course_section/create/save']) !!}
 <div class="form-group">
 
-{!! Form::label('courseid','รหัส')!!}
+{!! Form::label('courseid','Course')!!}
 <select name="courseid" class="form-control">
 <?php for($i=0;$i<$count;$i++){?>
   <option value={{$key[$i]->id}}>{{$key[$i]->id."   ".$key[$i]->name}}</option>
@@ -29,7 +29,7 @@ $key=$sql;
 
 </div>
 <div class="form-group">
-{!! Form::label('sectionid','ตอน')!!}
+{!! Form::label('sectionid','Section')!!}
 <select class="form-control" name="sectionid">
   <option value="001">001</option>
   <option value="002">002</option>
@@ -40,7 +40,7 @@ $key=$sql;
  </select>
 </div>
 <div class="form-group">
-{!! Form::label('teacherid','อาจารย์')!!}
+{!! Form::label('teacherid','Lecturer')!!}
 <select name="teacherid" class="form-control">
 <?php
 $sql=DB::select('select * from users where role_id=0100 order by username');
@@ -54,7 +54,7 @@ for($i=0;$i<$count;$i++){?>
 </div>
 
 <div class="form-group">
-{!! Form::submit('เพิ่มตอน',['class'=>'btn btn-primary form-control'])!!}
+{!! Form::submit('Add',['class'=>'btn btn-primary form-control'])!!}
 </div>
 <div id='username_availability_result'></div>
 {!! Form::close() !!}

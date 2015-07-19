@@ -130,10 +130,10 @@
                <div class="row">
                    <div class="col-md-10 col-md-offset-1">
                        <div class="panel panel-default">
-                           <div class="panel-heading" align="center">ข้อมูลนักศึกษา</div>
+                           <div class="panel-heading" align="center">Student enrollment</div>
 
                            <div class="panel-body">
-                               <h3 align="center">กระบวนวิชา {{$course}}  ตอน {{$sec}} </h3>
+                               <h3 align="center">{{$course}} || {{$sec}} </h3>
 
                                {{--<h4><a href="{{ url('/students/create/'.$coid[0]->id) }}">เพิ่มนักศึกษา</a></h4>--}}
 
@@ -148,12 +148,12 @@
                                    <table class="table" id="example" cellspacing="0" width="100%" >
                                        <thead>
                                        <tr>
-                                          <th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>สถานะ</th><th>delete</th>
+                                          <th>Student ID</th><th>Name</th><th>Status</th><th>Delete</th>
                                       </tr>
                                        </thead>
                                        <tfoot>
                                        <tr>
-                                          <th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>สถานะ</th><th>delete</th>
+                                          <th>Student ID</th><th>Name</th><th>Status</th><th>Delete</th>
                                       </tr>
                                        </tfoot>
                                        <tbody>

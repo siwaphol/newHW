@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">เพิ่มอาจารย์</div>
+                    <div class="panel-heading" align="center">Add Lecturer</div>
 
                     <div class="panel-body">
                         <hr/>
@@ -13,10 +13,14 @@
                         {!! Form::open(['url' => 'teachers/create/save']) !!}
                         
                         <div class="form-group">
-                        {!! Form::label('username', 'รหัสผู้ใช้: ') !!}
+                        {!! Form::label('email', 'Email: ') !!}
                         {!! Form::label('warning', '** ',array('style'=>'color:red')) !!}
-                        {!! Form::text('username', null, ['class' => 'form-control']) !!}
-                    </div><div class="form-group">
+                        <div class="col-md-15 input-group">
+                            <input type="text" class="form-control" name="email" value="{{ old('email') }}">
+                            <span class="input-group-addon" id="basic-addon2">@cmu.ac.th</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         {!! Form::label('firstname_th', 'ชื่อ: ') !!}
                         {!! Form::text('firstname_th', null, ['class' => 'form-control']) !!}
                     </div>
@@ -34,10 +38,10 @@
                         {!! Form::label('warning', '** ',array('style'=>'color:red')) !!}
                         {!! Form::text('lastname_en', null, ['class' => 'form-control']) !!}
                     </div>
-                    <div class="form-group">
-                        {!! Form::label('email', 'อีเมล: ') !!}
-                        {!! Form::text('email', null, ['class' => 'form-control']) !!}
-                    </div>
+                    {{--<div class="form-group">--}}
+                        {{--{!! Form::label('email', 'อีเมล: ') !!}--}}
+                        {{--{!! Form::text('email', null, ['class' => 'form-control']) !!}--}}
+                    {{--</div>--}}
 
                         <div class="form-group">
                             {!! Form::submit('เพิ่ม', ['class' => 'btn btn-primary form-control']) !!}

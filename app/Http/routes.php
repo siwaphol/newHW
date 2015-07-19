@@ -20,7 +20,7 @@ Route::get('index', 'HomeController@firstpage');
 Route::get('index/preview', 'HomeController@preview');
 
 Route::post('index/uploadFiles', 'CourseHomeworkController@uploadFiles');
-Route::get('index/previewdownload', 'HomeController@preview1');
+Route::get('index/previewupload', 'HomeController@preview1');
 Route::get('testexcel','ExcelFileController@index');
 //Route::get('course/{course_id}', 'CourseHomeworkController@show');
 

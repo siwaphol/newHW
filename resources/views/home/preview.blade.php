@@ -109,11 +109,11 @@
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><button type="button" class="btn btn-default">{!! link_to_action('StudentsController@insert','เพิ่มรายชื่อนักศึกษาจากสำนักทะเบียน',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>
+    <li>{!! link_to_action('StudentsController@insert','Import student from registration',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}
     </li>
-    <li><button type="button" class="btn btn-default">{!! link_to_action('StudentsController@selectexcel','เพิ่มรายชื่อนักศึกษาจากไฟล์ Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>
+    <li>{!! link_to_action('StudentsController@selectexcel','Import student from Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}
     </li>
-    <li><a href="{{ url('/students/create/'.$coid[0]->id) }}"class="btn btn-default">เพิ่มนักศึกษารายบุคคล</a></li>
+    <li><a href="{{ url('/students/create/'.$coid[0]->id) }}">Add student</a></li>
 
   </ul>
 {{--</div>--}}

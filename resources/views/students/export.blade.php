@@ -23,9 +23,9 @@ $result =DB::select('SELECT re.student_id,st.firstname_th,st.lastname_th,st.emai
 $count=count($result);
 
 $row = 1;
-$objPHPExcel->getActiveSheet()->setCellValue('A'.$row, 'ที่')
+$objPHPExcel->getActiveSheet()->setCellValue('A'.$row, 'No')
                               ->setCellValue('B'.$row, 'รหัสนักศึกษา')
-                              ->setCellValue('C'.$row, 'ชื่อ นามสกุล')
+                              ->setCellValue('C'.$row, 'Name')
                               ->setCellValue('D'.$row, 'อีเมล');
 
 

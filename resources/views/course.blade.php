@@ -16,7 +16,7 @@ $i=1;
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
 
-                                    <div class="panel-heading" align="center">จัดการกระบวนวิชา</div>
+                                    <div class="panel-heading" align="center">Manage Course</div>
                                     <div class="panel-body">
 
 <?php
@@ -29,7 +29,7 @@ echo Form::submit('เพิ่มกระบวนวิชา');
 echo Form::close();
 */
 ?>
-{!! Html::link('course/create', 'เพิ่มกระบวนวิชา') !!}
+{!! Html::link('course/create', 'Add Course') !!}
 <div class="table-responsive">
 
     <table class="table" id="example" cellspacing="0" width="100%" >
@@ -37,10 +37,10 @@ echo Form::close();
             <tr>
 
 
-                <th>รหัสวิชา</th>
-                <th>ชื่อกระบวนวิชา</th>
-                <th>แก้ไข</th>
-                <th>ลบ</th>
+                <th>Course No</th>
+                <th>Title</th>
+                <th>Edit</th>
+                <th>Delete</th>
 
 
             </tr>
@@ -49,10 +49,10 @@ echo Form::close();
             <tr>
 
 
-                <th>รหัสวิชา</th>
-                <th>ชื่อกระบวนวิชา</th>
-                <th>แก้ไข</th>
-                <th>ลบ</th>
+                <th>Course No</th>
+                <th>Title</th>
+                <th>Edit</th>
+                <th>Delete</th>
 
 
             </tr>
@@ -64,8 +64,8 @@ echo Form::close();
 
                 <td>{{$key->id}}</td>
                 <td>{{$key->name}}</td>
-                <td><button type="button" class="btn btn-link">{!! Html::link('edit/'.$key->id, 'แก้ไข') !!}</button></td>
-                <td><button type="button" class="btn btn-link" onclick="return confirm('Are you sure you want to delete?')">{!! Html::link('delete/'.$key->id, 'ลบ') !!}</button></td>
+                <td><button type="button" class="btn btn-link">{!! Html::link('edit/'.$key->id, 'Edit') !!}</button></td>
+                <td><button type="button" class="btn btn-link" onclick="return confirm('Are you sure you want to delete?')">{!! Html::link('delete/'.$key->id, 'Delete') !!}</button></td>
                 <?php
                     $course=$key->name;
                 ?>

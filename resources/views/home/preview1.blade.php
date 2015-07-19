@@ -58,7 +58,7 @@ $('#myTabs li:eq(2) a').tab('show')
                                     <div class="table-responsive">
                                         <table class="table">
                                             <tr>
-                                                <th>ลำดับ</th><th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>สถานะ</th><th>delete</th>
+                                                <th>No</th><th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>สถานะ</th><th>delete</th>
                                             </tr>
                                             {{-- */$x=0;/* --}}
                                             <?php
@@ -123,7 +123,7 @@ $('#myTabs li:eq(2) a').tab('show')
                             <div class="table-responsive">
                                 <table class="table">
                                     <tr>
-                                        <th>ลำดับ</th><th>ชื่อ นามสกุล</th><th>Actions</th>
+                                        <th>No</th><th>Name</th><th>Actions</th>
                                     </tr>
                                     {{-- */$x=0;/* --}}
                                     <?php
@@ -132,8 +132,8 @@ $('#myTabs li:eq(2) a').tab('show')
 
                                         <tr>
                                             <td>{{ $x+1 }}</td><td><a href="{{ url('/assistants/show', $item[$x]->username) }}">{{ $item[$x]->firstname." ".$item[$x]->lastname }}</a></td>
-                                            <td><a>{!! link_to_action('AssistantsController@edit','แก้ไข',array('username'=>$item[$x]->username,'course'=>$course['co'],'sec'=>$course['sec']))!!}</a>
-     /                                              <a>{!! link_to_action('AssistantsController@destroy','ลบ',array('id'=>$item[$x]->taid,'course'=>$course['co'],'sec'=>$course['sec']))!!}</a></td>
+                                            <td><a>{!! link_to_action('AssistantsController@edit','Edit',array('username'=>$item[$x]->username,'course'=>$course['co'],'sec'=>$course['sec']))!!}</a>
+     /                                              <a>{!! link_to_action('AssistantsController@destroy','Delete',array('id'=>$item[$x]->taid,'course'=>$course['co'],'sec'=>$course['sec']))!!}</a></td>
 
                                         </tr>
                                         <?php  } ?>
@@ -161,7 +161,7 @@ $('#myTabs li:eq(2) a').tab('show')
                             <div class="table-responsive">
                                 <table class="table">
                                     <tr>
-                                        <th>ลำดับ</th><th>ชื่อนามสกุล</th><th>edit</th><th>delete</th>
+                                        <th>No</th><th>ชื่อนามสกุล</th><th>edit</th><th>delete</th>
                                     </tr>
                                     {{-- */$x=0;/* --}}
                                     @foreach($teachers as $item)

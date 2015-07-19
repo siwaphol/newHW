@@ -25,7 +25,7 @@
 	<table class="table table-bordered" id="example" cellspacing="0" width="100%" >
 			<thead>
 				<tr>
-				<th>ที่</th>
+				<th>No</th>
 			   <th>รหัส</th>
 				@foreach($homework as $key)
 				   <th>{{$key->name}}</th>
@@ -35,7 +35,7 @@
 			</thead>
 			<tfoot>
 						<tr>
-						<th>ที่</th>
+						<th>No</th>
 					   <th>รหัส</th>
 						@foreach($homework as $key1)
 						   <th>{{$key1->name}}</th>

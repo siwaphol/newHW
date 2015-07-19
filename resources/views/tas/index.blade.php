@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">นักศึกษาช่วยสอน</div>
+                    <div class="panel-heading" align="center">Teacher Assistant</div>
                     
                     <div class="panel-body">
 
@@ -27,12 +27,12 @@
                             <table class="table" id="example" cellspacing="0" width="100%" >
                                 <thead>
                                 <tr>
-                                    <th>ลำดับ</th><th>รหัส</th><th>ชื่อ นามสกุล</th><th>edit</th><th>delete</th>
+                                    <th>No</th><th>Student ID</th><th>Name</th><th>Edit</th><th>Delete</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>ลำดับ</th><th>รหัส</th><th>ชื่อ นามสกุล</th><th>edit</th><th>delete</th>
+                                    <th>No</th><th>Student ID</th><th>Name</th><th>Edit</th><th>Delete</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>

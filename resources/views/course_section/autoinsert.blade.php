@@ -107,7 +107,7 @@ $i=2;
 ?>
 <table>
 <tr>
-    <th><?php echo "ที่";?></th>
+    <th><?php echo "No";?></th>
     <th><?php echo "รหัสวิชา";?></th>
     <th><?php echo "ชื่อวิชา";?></th>
 </tr>
@@ -137,7 +137,7 @@ while ($i<=$n) {
 </table>
 <table>
 <tr>
-    <th><?php echo "ที่";?></th>
+    <th><?php echo "No";?></th>
     <th><?php echo "วิชา";?></th>
     <th><?php echo "ตอน";?></th>
     <th><?php echo "อาจารย์";?></th>

@@ -5,18 +5,18 @@
         <div class="row">
             <div class="col-md-5 col-md-offset-3">
 
-<h1 align="center">เพิ่มกระบวนวิชา</h1>
+<h1 align="center">Add Course</h1>
 {!! Form::open(['url'=>'course/create/save']) !!}
 <div class="form-group">
-{!! Form::label('course_id','รหัส')!!}
+{!! Form::label('course_id','Course NO')!!}
 {!! Form::text('course_id',null,['class'=>'form-control'])!!}
 </div>
 <div class="form-group">
-{!! Form::label('course_name','ชื่อกระบวนวิชา')!!}
+{!! Form::label('course_name','Title')!!}
 {!! Form::text('course_name',null,['class'=>'form-control'])!!}
 </div>
 <div class="form-group">
-{!! Form::submit('เพิ่ม',['class'=>'btn btn-primary form-control'])!!}
+{!! Form::submit('Add',['class'=>'btn btn-primary form-control'])!!}
 
  @if (count($errors) > 0)
                     <div class="alert alert-danger">

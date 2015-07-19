@@ -37,12 +37,12 @@ $item=$assistants;
                             <table class="table" id="example" cellspacing="0" width="100%" >
                                 <thead>
                                 <tr>
-                                    <th>ลำดับ</th><th>ชื่อ นามสกุล</th><th>edit</th><th>delete</th>
+                                    <th>No</th><th>Name</th><th>edit</th><th>delete</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>ลำดับ</th><th>ชื่อ นามสกุล</th><th>edit</th><th>delete</th>
+                                    <th>No</th><th>Name</th><th>edit</th><th>delete</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -53,10 +53,10 @@ $item=$assistants;
 
                                     <tr>
                                         <td>{{ $x+1 }}</td><td><a href="{{ url('/assistants/show', $item[$x]->username) }}">{{ $item[$x]->firstname." ".$item[$x]->lastname }}</a></td>
-                                        <td><button type="button" class="btn btn-default"><a>{!! link_to_action('AssistantsController@edit','แก้ไข',array('username'=>$item[$x]->username,'course'=>$course['co'],'sec'=>$course['sec']))!!}</a>
+                                        <td><button type="button" class="btn btn-default"><a>{!! link_to_action('AssistantsController@edit','Edit',array('username'=>$item[$x]->username,'course'=>$course['co'],'sec'=>$course['sec']))!!}</a>
                                         </button></td>
                                         <td>
-                                          <button type="button" class="btn btn-danger btn-ok" onclick="return confirm('Are you sure you want to delete?')"><a>{!! link_to_action('AssistantsController@destroy','ลบ',array('id'=>$item[$x]->taid,'course'=>$course['co'],'sec'=>$course['sec']))!!}</a></button></td>
+                                          <button type="button" class="btn btn-danger btn-ok" onclick="return confirm('Are you sure you want to delete?')"><a>{!! link_to_action('AssistantsController@destroy','Delete',array('id'=>$item[$x]->taid,'course'=>$course['co'],'sec'=>$course['sec']))!!}</a></button></td>
 
                                     </tr>
                                     <?php  } ?>

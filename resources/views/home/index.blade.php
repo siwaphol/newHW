@@ -18,15 +18,15 @@ $i=1;
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">กระบวนวิชา ตอน</div>
+                    <div class="panel-heading" align="center">Course Section</div>
 
                     <div class="panel-body">
  @if(Auth::user()->isAdmin())
- {!! Html::link('course_section/auto', 'เพิ่มกระบวนวิชา ตอน จากสำนักทะเบียน') !!} </br>
+ {!! Html::link('course_section/auto', 'Add all course section from registration') !!} </br>
  {{--<a href="{{url('students/autoimport')}}">นำเข้านักศึกษาทั้งหมด</a>--}}
- {!! Html::link('students/autoimport', 'นำเข้านักศึกษาทั้งหมด',array('onclick'=>"return confirm('Are you sure you want to update all students?')")) !!}</br>
-{!! Html::link('course_section/create', 'เพิ่มตอนทีละตอน') !!} </br>
-{!! Html::link('course_section/selectcreate', 'เพิ่มตอนทั้งกระบวนวิชา') !!}
+ {!! Html::link('students/autoimport', 'Import student all section',array('onclick'=>"return confirm('Are you sure you want to update all students?')")) !!}</br>
+{!! Html::link('course_section/create', 'Add section') !!} </br>
+{!! Html::link('course_section/selectcreate', 'Add all section of course') !!}
 
 @endif
 
@@ -36,15 +36,15 @@ $i=1;
         <thead>
             <tr>
 
-                {{--<th>ที่</th>--}}
-                <th>รหัสวิชา</th>
-                <th>ชื่อกระบวนวิชา</th>
-                <th>ตอน</th>
+                {{--<th>No</th>--}}
+                <th>Course No</th>
+                <th>Title</th>
+                <th>Section</th>
                 {{--<th>อาจารย์</th>--}}
                 {{--<th>ดูข้อมูล</th>--}}
                 @if(Auth::user()->isAdmin())
-                <th>แก้ไข</th>
-                <th>ลบ</th>
+                <th>Edit</th>
+                <th>Delete</th>
                 @endif
 
 
@@ -53,15 +53,15 @@ $i=1;
          <tfoot>
             <tr>
 
-                {{--<th>ที่</th>--}}
-                <th>รหัสวิชา</th>
-                <th>ชื่อกระบวนวิชา</th>
-                <th>ตอน</th>
+                {{--<th>No</th>--}}
+                <th>Course No</th>
+                <th>Title</th>
+                <th>Section</th>
                 {{--<th>อาจารย์</th>--}}
                 {{--<th>ดูข้อมูล</th>--}}
                 @if(Auth::user()->isAdmin())
-                <th>แก้ไข</th>
-                 <th>ลบ</th>
+                <th>Edit</th>
+                 <th>Delete</th>
                 @endif
 
 
@@ -79,8 +79,8 @@ $i=1;
                  {{--<td>{{$key->firstname}}  {{$key->lastname}}</td>--}}
                 {{--<td><button type="button" class="btn btn-default">{!! link_to_action('HomeController@preview','ดูข้อมูล',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</button></td>--}}
                @if(Auth::user()->isAdmin())
-                <td>{!! link_to_action('Course_SectionController@edit','แก้ไข',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
-                 <td><a onclick="return confirm('Are you sure you want to delete student from this section?')">{!! link_to_action('Course_SectionController@delete','ลบ',array('id'=>$key->id,'course'=>$key->courseid,'sec'=>$key->sectionid),array('onclick'=>"return confirm('Are you sure you want to delete student from this section?')"))!!}</a></td>
+                <td>{!! link_to_action('Course_SectionController@edit','Edit',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
+                 <td><a onclick="return confirm('Are you sure you want to delete student from this section?')">{!! link_to_action('Course_SectionController@delete','Delete',array('id'=>$key->id,'course'=>$key->courseid,'sec'=>$key->sectionid),array('onclick'=>"return confirm('Are you sure you want to delete student from this section?')"))!!}</a></td>
 
                 @endif
             </tr>
@@ -101,7 +101,7 @@ $i=1;
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">กระบวนวิชา ตอนที่เรียน</div>
+                    <div class="panel-heading" align="center">Course Section</div>
 
                     <div class="panel-body">
  @if(Auth::user()->isAdmin())
@@ -116,15 +116,15 @@ $i=1;
         <thead>
             <tr>
 
-                {{--<th>ที่</th>--}}
-                <th>รหัสวิชา</th>
-                <th>ชื่อกระบวนวิชา</th>
-                <th>ตอน</th>
+                {{--<th>No</th>--}}
+                <th>Course No</th>
+                <th>Title</th>
+                <th>Section</th>
                 {{--<th>อาจารย์</th>--}}
                 {{--<th>ดูข้อมูล</th>--}}
                 @if(Auth::user()->isAdmin())
-                <th>แก้ไข</th>
-                <th>ลบ</th>
+                <th>Edit</th>
+                <th>Delete</th>
                 @endif
 
 
@@ -133,15 +133,15 @@ $i=1;
          <tfoot>
             <tr>
 
-                {{--<th>ที่</th>--}}
-                <th>รหัสวิชา</th>
-                <th>ชื่อกระบวนวิชา</th>
-                <th>ตอน</th>
+                {{--<th>No</th>--}}
+                <th>Course No</th>
+                <th>Title</th>
+                <th>Section</th>
                 {{--<th>อาจารย์</th>--}}
                 {{--<th>ดูข้อมูล</th>--}}
                 @if(Auth::user()->isAdmin())
-                <th>แก้ไข</th>
-                 <th>ลบ</th>
+                <th>Edit</th>
+                 <th>Delete</th>
                 @endif
 
 
@@ -159,8 +159,8 @@ $i=1;
                  {{--<td>{{$key->firstname}}  {{$key->lastname}}</td>--}}
                 {{--<td><button type="button" class="btn btn-default">{!! link_to_action('HomeController@preview','ดูข้อมูล',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</button></td>--}}
                @if(Auth::user()->isAdmin())
-                <td>{!! link_to_action('Course_SectionController@edit','แก้ไข',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
-                 <td><a onclick="return confirm('Are you sure you want to delete student from this section?')">{!! link_to_action('Course_SectionController@delete','ลบ',array('id'=>$key->id,'course'=>$key->courseid,'sec'=>$key->sectionid),array('onclick'=>"return confirm('Are you sure you want to delete student from this section?')"))!!}</a></td>
+                <td>{!! link_to_action('Course_SectionController@edit','Edit',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
+                 <td><a onclick="return confirm('Are you sure you want to delete student from this section?')">{!! link_to_action('Course_SectionController@delete','Delete',array('id'=>$key->id,'course'=>$key->courseid,'sec'=>$key->sectionid),array('onclick'=>"return confirm('Are you sure you want to delete student from this section?')"))!!}</a></td>
 
                 @endif
             </tr>
