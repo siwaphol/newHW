@@ -21,20 +21,20 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        {!! Form::label('firstname_th', 'ชื่อ: ') !!}
+                        {!! Form::label('firstname_th', 'Firstname_th: ') !!}
                         {!! Form::text('firstname_th', null, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('firstname_en', 'firstname: ') !!}
+                        {!! Form::label('firstname_en', 'Firstname_en: ') !!}
                         {!! Form::label('warning', '** ',array('style'=>'color:red')) !!}
                         {!! Form::text('firstname_en', null, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('lastname_th', 'นามสกุล: ') !!}
+                        {!! Form::label('lastname_th', 'lastname_th: ') !!}
                         {!! Form::text('lastname_th', null, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('lastname_en', 'lastname: ') !!}
+                        {!! Form::label('lastname_en', 'lastname_en: ') !!}
                         {!! Form::label('warning', '** ',array('style'=>'color:red')) !!}
                         {!! Form::text('lastname_en', null, ['class' => 'form-control']) !!}
                     </div>
@@ -44,7 +44,7 @@
                     {{--</div>--}}
 
                         <div class="form-group">
-                            {!! Form::submit('เพิ่ม', ['class' => 'btn btn-primary form-control']) !!}
+                            {!! Form::submit('Add', ['class' => 'btn btn-primary form-control']) !!}
                         </div>
                         {!! Form::close() !!}
 

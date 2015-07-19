@@ -315,7 +315,7 @@ $month=array('01'=>'Jan',
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title" align="center">จัดการสถานะการส่งงาน </h4>
+                                        <h4 class="modal-title" align="center">Edit Status Homework </h4>
                                       </div>
                                       <div class="modal-body">
                                        <div class="portlet"align="right">
@@ -324,9 +324,9 @@ $month=array('01'=>'Jan',
                                         <div class="form-body" >
                                         <div class="form-group" align="center">
                                                 <div class="col-md-4 col-md-offset-4" align="center" >
-                                                {!! Form::label('hw', 'การบ้าน') !!}
+                                                {!! Form::label('hw', 'Homework') !!}
                                                 <select id="hw" name="hw" onChange = "Listsemester(this.value)" class="form-control">
-                                                    <option selected value="">เลือกการบ้าน</option>
+                                                    <option selected value="">Select Homework</option>
                                                 <?php
                                                 $sql=array();
 
@@ -352,9 +352,9 @@ $month=array('01'=>'Jan',
 
                                           <div class="form-group" align="center">
                                                 <div class="col-md-4 col-md-offset-4" align="center" >
-                                                {!! Form::label('stu', 'นักศึกษา') !!}
+                                                {!! Form::label('stu', 'Student') !!}
                                                 <select id="stu" name="stu" onChange = "Listsemester(this.value)" class="form-control">
-                                                    <option selected value="">เลือกนักศึกษา</option>
+                                                    <option selected value="">Select Student</option>
                                                 <?php
                                                 $sql=array();
 
@@ -378,9 +378,9 @@ $month=array('01'=>'Jan',
                                         </div>
                                         <div class="form-group" align="center">
                                         <div class="col-md-4 col-md-offset-4" align="center" >
-                                        {!! Form::label('status', 'สถานะ') !!}
+                                        {!! Form::label('status', 'Status') !!}
                                         <select id="status" name="status" onChange = "Listsemester(this.value)" class="form-control">
-                                            <option selected value="">เลือกสถานะ</option>
+                                            <option selected value="">Select Status</option>
                                         <option value=1>OK</option>
                                          <option value=2>LATE</option>
                                          <option value=3>!!!</option>
@@ -399,7 +399,7 @@ $month=array('01'=>'Jan',
                                         <div class="form-group" align="center">
                                             <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                                                 <div class="col-md-4 col-md-offset-4">
-                                                <input type="submit" name="ok" value="ตกลง"  class="form-control"/>
+                                                <input type="submit" name="ok" value="Edit"  class="form-control"/>
                                                 </div>
                                         </div>
                                       </div>
@@ -476,15 +476,15 @@ $(document).ready( function () {
             {"sClass": "a-right",},
             { "width": "4%", "targets": 0 },
             { "width": "25%", "targets": 1 },
-            { "width": "2%", "targets": 2 },
-            { "bSortable": false, "aTargets": [ 0 ] }
+            { "width": "2%", "targets": 2 }
+//            { "bSortable": false, "aTargets": [ 0 ] }
           ]
 
     } );
-     new $.fn.dataTable.FixedColumns( table, {
-            leftColumns: 1
-
-        } );
+//     new $.fn.dataTable.FixedColumns( table, {
+//            leftColumns: 1
+//
+//        } );
 } );
 
 $(".student-button").on('click',  function(){
@@ -511,13 +511,13 @@ $(".student-button").on('click',  function(){
                                             function onSubmit() {
                                             	var msgErr = ""
                                             	if($("#hw").val() == ""){
-                                            		msgErr += "กรุณาเลือกการบ้าน\n"
+                                            		msgErr += "Please select homework\n"
                                             	}
                                             	if($("#stu").val() == ""){
-                                            		msgErr += "กรุณาเลือกนักศึกษา\n"
+                                            		msgErr += "Please select student\n"
                                             	}
                                             	if($("status").val() == ""){
-                                                    msgErr += "กรุณาเลือกสถานะการบ้าน\n"
+                                                    msgErr += "Please select status\n"
                                                 }
                                             	if(msgErr != ""){
                                             		alert(msgErr)

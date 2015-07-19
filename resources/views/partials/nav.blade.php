@@ -19,19 +19,19 @@
 					@else
 					    @if (Auth::user()->isAdmin())
                              <li class="dropdown">
-                              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">จัดการผู้ใช้<span class="caret"></span></a>
+                              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Manage User<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                      {{--<li><a href="{{url('students')}}">นักศึกษา</a></li>--}}
-                                     <li><a href="{{url('ta')}}">นักศึกษาช่วยสอน</a></li>
-                                     <li><a href="{{url('teachers')}}">อาจารย์ผู้สอน</a></li>
-                                     <li><a href="{{url('admin')}}">ผู้ดูแลระบบ</a></li>
+                                     <li><a href="{{url('ta')}}">Teacher Assistant</a></li>
+                                     <li><a href="{{url('teachers')}}">Lecturer</a></li>
+                                     <li><a href="{{url('admin')}}">Admin</a></li>
 
                                 </ul>
                               </li>
-                               <li><a href="{{url('semesteryear')}}">จัดการSemester</a></li>
-                            <li><a href="{{url('course')}}">จัดการกระบวนวิชา</a></li>
+                               <li><a href="{{url('semesteryear')}}">Manage Semester</a></li>
+                            <li><a href="{{url('course')}}">Manage Course</a></li>
 
-                            <li><button type="button" class="btn " data-toggle="modal" data-target="#myModal"> {{\Session::get('semester')}}/{{Session::get('year')}}เปลี่ยน</button>
+                            <li><button type="button" class="btn  " data-toggle="modal" data-target="#myModal"> {{\Session::get('semester')}}/{{Session::get('year')}}Change</button>
 </li>
                             {{--<li><a href="{{url('students/autoimport')}}">นำเข้านักศึกษาทั้งหมด</a></li>--}}
                             {{--<li><a href="{{url('course_section')}}">จัดการตอน</a></li>--}}
@@ -73,17 +73,17 @@
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title" align="center">เปลี่ยนSemester </h4>
+                                        <h4 class="modal-title" align="center">Change semester year </h4>
                                       </div>
                                       <div class="modal-body">
                                         <script type="text/javascript">
                                         function onSubmit() {
                                         	var msgErr = ""
                                         	if($("#year").val() == ""){
-                                        		msgErr += "กรุณาเลือกปีการศึกษา\n"
+                                        		msgErr += "Please select year\n"
                                         	}
                                         	if($("#semester").val() == ""){
-                                        		msgErr += "กรุณาเลือกภาคการศึกษา\n"
+                                        		msgErr += "Please select semester\n"
                                         	}
                                         	if(msgErr != ""){
                                         		alert(msgErr)
@@ -145,9 +145,9 @@
                                         <div class="form-body" >
                                         <div class="form-group" align="center">
                                                 <div class="col-md-4 col-md-offset-4" align="center" >
-                                                {!! Form::label('year', 'ปีการศึกษา ') !!}
+                                                {!! Form::label('year', 'Year ') !!}
                                                 <select id="year" name="year" onChange = "Listsemester(this.value)" class="form-control">
-                                                    <option selected value="">เลือกปีการศึกษา</option>
+                                                    <option selected value="">Select Year</option>
                                                 <?php
                                                 $sql=array();
                                                 if(Auth::user()->isTeacher()){
@@ -173,7 +173,7 @@
                                                 <div class="col-md-4 col-md-offset-4">
                                                 {!!  Form::label('semester', 'Semester ') !!}
                                                 <select id="semester" name="semester" class="form-control">
-                                                    <option selected value="">เลือกภาคการศึกษา</option>
+                                                    <option selected value="">Select Semester</option>
                                                 </select>
                                                   </div>
                                         </div>
@@ -181,7 +181,7 @@
                                         <div class="form-group" align="center">
                                             <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                                                 <div class="col-md-4 col-md-offset-4">
-                                                <input type="submit" name="ok" value="ตกลง"  class="form-control"/>
+                                                <input type="submit" name="ok" value="Change"  class="form-control"/>
                                                 </div>
                                         </div>
                                       </div>

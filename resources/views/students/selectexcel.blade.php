@@ -13,10 +13,10 @@
 function onSubmitMain() {
 	var msgErr = ""
 	if($("#ddlCourse").val() == ""){
-		msgErr += "กรุณาเลือกวิชา\n"
+		msgErr += "Please select course\n"
 	}
 	if($("#ddlSection").val() == ""){
-		msgErr += "กรุณาเลือกตอน\n"
+		msgErr += "Please select section\n"
 	}
 	if(msgErr != ""){
 		alert(msgErr)
@@ -76,34 +76,36 @@ function onSubmitMain() {
 
         </script>
 
-<h3 align="center">เพิ่มข้อมูลนักศึกษา</h3>
+<h3 align="center">Import student with Excel</h3>
 <div class="portlet"align="right">
 <div class="portlet-body form"  align="center">
-<form action="insert" method="post" name="frmMain" id="frmMain" onsubmit="return onSubmitMain()" class="form-horizontal"  align="center">
+<form action="insert" method="get" name="frmMain" id="frmMain" onsubmit="return onSubmitMain()" class="form-horizontal"  align="center">
 <div class="form-body" >
             <div class="form-group" align="center">
+            <input type="hidden" name="ddlCourse" value="{{$course['co']}}">
+            <input type="hidden" name="ddlSection" value="{{$course['sec']}}">
                     <div class="col-md-4 col-md-offset-4" align="center" >
-                    {!! Form::label('ddlCourse', 'วิชา ') !!}
-					{!! Form::text('ddlCourse', $course['co'], ['class' => 'form-control','disabled' => 'disabled']) !!}
+                    {!! Form::label('ddlCourse1', 'Course ') !!}
+					{!! Form::text('ddlCourse1', $course['co'], ['class' => 'form-control','disabled' => 'disabled']) !!}
 					</div>
 			</div>
 
 			<div class="form-group" align="center">
 					<div class="col-md-4 col-md-offset-4">
-                        {!! Form::label('ddlSection', 'ตอน ') !!}
-					    {!! Form::text('ddlSection', $course['sec'], ['class' => 'form-control','disabled' => 'disabled']) !!}
+                        {!! Form::label('ddlSection1', 'Section ') !!}
+					    {!! Form::text('ddlSection1', $course['sec'], ['class' => 'form-control','disabled' => 'disabled']) !!}
                       </div>
             </div>
             <div class="form-group" align="center">
                 <div class="col-md-4 col-md-offset-4">
-                {!! Form::label('fileupload', 'ไฟล์สำหรับอัพโหลด  .xlsx เท่านั้น ') !!}
+                {!! Form::label('fileupload', 'File for upload  .xlsx only ') !!}
                    <input type="file" name="fileupload"  class="form-control" />
                    </div>
             </div>
             <div class="form-group" align="center">
                 <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                     <div class="col-md-4 col-md-offset-4">
-                    <input type="submit" name="ok" value="ตกลง"  class="form-control"/>
+                    <input type="submit" name="ok" value="Import"  class="form-control"/>
                     </div>
             </div>
           </div>
