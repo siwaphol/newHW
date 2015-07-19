@@ -3,8 +3,7 @@
 
 @section('header_content')
 
-{{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"--}}
-      {{--xmlns="http://www.w3.org/1999/html">--}}
+
 {{--<link rel="stylesheet" href="{{ asset('/css/dropzone/basic.css') }}"/>--}}
 <link rel="stylesheet" href="{{ asset('/css/dropzone/dropzone.css') }}"/>
 {{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"--}}
@@ -12,7 +11,8 @@
  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css">
  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href=" //cdn.datatables.net/fixedcolumns/3.0.3/css/dataTables.fixedColumns.css">
-
+{{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"--}}
+      {{--xmlns="http://www.w3.org/1999/html">--}}
 
 @endsection
 @section('content')
@@ -198,6 +198,9 @@ $month=array('01'=>'Jan',
                                       {{--<button type="submit" class="btn btn-link">export csv</button>--}}
                                        {{--{!! Form::close() !!}--}}
                                     <div class="table-responsive">
+                                    <div>
+                                        Hide column: <a class="toggle-vis" data-column="1">Name</a> - <a class="toggle-vis" data-column="2">Status</a>
+                                    </div>
                                         <table class="table" id="example1" cellspacing="0" width="100%" >
                                            <thead>
                                             <tr>
@@ -235,7 +238,7 @@ $month=array('01'=>'Jan',
 
                                                    @endif
                                                  @if(Auth::user()->isTeacher()||Auth::user()->isAdmin()||Auth::user()->isStudentandTa()||Auth::user()->isTa())
-                                                  <th><p align="center">{!! link_to_action('Homework1Controller@exportzip','',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name,'path'=>$key1->path,'type'=>'1'),array('class'=>'glyphicon glyphicon-download-alt'))!!}</p></th>
+                                                  <th><p align="center">{!! link_to_action('Homework1Controller@exportzip','',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name,'path'=>$key1->path,'type'=>'1'),array('class'=>'fa fa-download'))!!}</p></th>
 
                                                  @endif
 
@@ -427,6 +430,7 @@ $month=array('01'=>'Jan',
 <script type="text/javascript" src="{{ asset('/js/dropzone/dropzone.js') }}"></script>
 
 <script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.js"></script>
+
 {{--<script src="//cdn.datatables.net/fixedcolumns/3.0.3/js/dataTables.fixedColumns.js"></script>--}}
 
   <script type="text/javascript">
@@ -481,11 +485,22 @@ $(document).ready( function () {
           ]
 
     } );
+     $('a.toggle-vis').on( 'click', function (e) {
+            e.preventDefault();
+
+            // Get the column API object
+            var column = table.column( $(this).attr('data-column') );
+
+            // Toggle the visibility
+            column.visible( ! column.visible() );
+        } );
 //     new $.fn.dataTable.FixedColumns( table, {
 //            leftColumns: 1
 //
 //        } );
+
 } );
+
 
 $(".student-button").on('click',  function(){
 
