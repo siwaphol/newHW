@@ -323,12 +323,12 @@ $month=array('01'=>'Jan',
                                       <div class="modal-body">
                                        <div class="portlet"align="right">
                                         <div class="portlet-body form"  align="center">
-                                        <form action="homework/editstatus" method="post" name="frmhw" id="frmhw" onsubmit="return onSubmit1()" class="form-horizontal"  align="center">
+                                        <form action="homework/editstatus" method="post" name="frmhw" id="frmhw" onsubmit="return onSubmit()" class="form-horizontal"  align="center">
                                         <div class="form-body" >
                                         <div class="form-group" align="center">
                                                 <div class="col-md-4 col-md-offset-4" align="center" >
                                                 {!! Form::label('hw', 'Homework') !!}
-                                                <select id="hw" name="hw" onChange = "Listsemester(this.value)" class="form-control">
+                                                <select id="hw" name="hw"  class="form-control">
                                                     <option selected value="">Select Homework</option>
                                                 <?php
                                                 $sql=array();
@@ -356,7 +356,7 @@ $month=array('01'=>'Jan',
                                           <div class="form-group" align="center">
                                                 <div class="col-md-4 col-md-offset-4" align="center" >
                                                 {!! Form::label('stu', 'Student') !!}
-                                                <select id="stu" name="stu" onChange = "Listsemester(this.value)" class="form-control">
+                                                <select id="stu" name="stu"  class="form-control">
                                                     <option selected value="">Select Student</option>
                                                 <?php
                                                 $sql=array();
@@ -382,7 +382,7 @@ $month=array('01'=>'Jan',
                                         <div class="form-group" align="center">
                                         <div class="col-md-4 col-md-offset-4" align="center" >
                                         {!! Form::label('status', 'Status') !!}
-                                        <select id="status" name="status" onChange = "Listsemester(this.value)" class="form-control">
+                                        <select id="status" name="status"  class="form-control">
                                             <option selected value="">Select Status</option>
                                         <option value=1>OK</option>
                                          <option value=2>LATE</option>
@@ -523,24 +523,25 @@ $(".student-button").on('click',  function(){
     </script>
 
     <script type="text/javascript">
-                                            function onSubmit1() {
-                                            	var msgErr = ""
-                                            	if($("#hw").val() == ""){
-                                            		msgErr += "Please select homework\n"
-                                            	}
-                                            	if($("#stu").val() == ""){
-                                            		msgErr += "Please select student\n"
-                                            	}
-                                            	if($("status").val() == ""){
-                                                    msgErr += "Please select status\n"
-                                                }
-                                            	if(msgErr != ""){
-                                            		alert(msgErr)
-                                            		return false
-                                            	}else{
-                                            		return true
-                                            	}
-                                            }
+        function onSubmit() {
+            var msgErr = ""
+            if($("#hw").val() == ""){
+                msgErr += "Please select homework\n"
+            }
+            if($("#stu").val() == ""){
+                msgErr += "Please select student\n"
+            }
+            if($("status").val() == ""){
+                msgErr += "Please select status\n"
+            }
+            if(msgErr != ""){
+                alert(msgErr)
+                return false
+            }else{
+                return true
+            }
+        }
+   </script>
 
 
 @include('partials.dropzone')

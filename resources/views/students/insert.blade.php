@@ -122,6 +122,7 @@
 
       ?>
        <?php
+
        $student=DB::select('select re.student_id as studentid,stu.firstname_th as firstname_th,stu.lastname_th as lastname_th ,re.status as status
                                           from course_student  re
                                           left join users stu on re.student_id=stu.id
@@ -130,6 +131,8 @@
                                           ',array($course,$sec,Session::get('semester'),Session::get('year')));
        $count=count($student);
         $coid=DB::select('select * from course_section c where c.course_id=? and c.section=? and c.semester=? and c.year=?',array($course,$sec,Session::get('semester'),Session::get('year')));
+       ?>
+       <?php // return redirect()->action('HomeController@preview',array('course'=>$course,'sec'=>$sec));
        ?>
            <div class="container">
                <div class="row">
