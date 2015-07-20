@@ -335,7 +335,7 @@ $month=array('01'=>'Jan',
 
                                                 $sql=DB::select('SELECT * from homework where course_id=? and section=?
                                                                   and semester=? and year=?
-                                                                order by id ',
+                                                                order by name ',
                                                                 array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
 
                                                 $count=count($sql);
@@ -364,7 +364,7 @@ $month=array('01'=>'Jan',
                                                 $sql=DB::select('SELECT * from course_student
                                                                   where course_id=? and section=?
                                                                   and semester=? and year=?
-                                                                order by id ',
+                                                                order by student_id ',
                                                                 array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
 
                                                 $count=count($sql);

@@ -336,7 +336,7 @@ $(document).ready( function () {
             ]
 
         },
-        
+
         "columnDefs": [
             {"sClass": "a-right",},
             { "width": "4%", "targets": 0 },
