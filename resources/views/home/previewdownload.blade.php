@@ -336,7 +336,7 @@ $(document).ready( function () {
             ]
 
         },
-        @endif
+        
         "columnDefs": [
             {"sClass": "a-right",},
             { "width": "4%", "targets": 0 },
@@ -344,7 +344,7 @@ $(document).ready( function () {
             { "width": "2%", "targets": 2 },
             { "bSortable": false, "aTargets": [ 0 ] }
           ]
-
+@endif
     } );
      new $.fn.dataTable.FixedColumns( table, {
             leftColumns: 1
