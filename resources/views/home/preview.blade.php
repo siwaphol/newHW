@@ -475,6 +475,7 @@ $(document).ready( function () {
             ]
 
         },
+
         "columnDefs": [
             {"sClass": "a-right"},
             { "width": "4%", "targets": 0 },
@@ -483,6 +484,7 @@ $(document).ready( function () {
 //            { "bSortable": false, "aTargets": [ 0 ] }
           ]
         @endif
+
     } );
      $('a.toggle-vis').on( 'click', function (e) {
             e.preventDefault();
