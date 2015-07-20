@@ -22,7 +22,7 @@
                               <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Manage User<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                      {{--<li><a href="{{url('students')}}">นักศึกษา</a></li>--}}
-                                     <li><a href="{{url('ta')}}">Teacher Assistant</a></li>
+                                     <li><a href="{{url('ta')}}">Teaching Assistant</a></li>
                                      <li><a href="{{url('teachers')}}">Lecturer</a></li>
                                      <li><a href="{{url('admin')}}">Admin</a></li>
 

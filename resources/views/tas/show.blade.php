@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="panel panel-default">
-                        <div class="panel-heading" align="center">Teacher Assistant</div>
+                        <div class="panel-heading" align="center">Teaching Assistant</div>
 
                         <div class="panel-body">
 
@@ -56,7 +56,7 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="panel panel-default">
-                        <div class="panel-heading" align="center">Course Asisstant</div>
+                        <div class="panel-heading" align="center">Asisstant Course </div>
 
                         <div class="panel-body">
 

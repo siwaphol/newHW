@@ -18,7 +18,8 @@ $objPHPExcel = new PHPExcel();
 $result =DB::select('SELECT re.student_id,st.firstname_th,st.lastname_th,st.email FROM users st
           left join course_student re on st.id=re.student_id
           where  re.course_id=? and re.section=?
-         order by re.student_id',array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
+          and re.semester=? and re.year=?
+          order by re.student_id asc',array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
 
 $count=count($result);
 

@@ -22,11 +22,11 @@ $i=1;
 
                     <div class="panel-body">
  @if(Auth::user()->isAdmin())
- {!! Html::link('course_section/auto', 'Add all course section from registration',array('onclick'=>"return confirm('Are you sure you want to add all course section from registration?')")) !!} </br>
+ {!! Html::link('course_section/auto', 'Import course section from registration office',array('onclick'=>"return confirm('Are you sure you want to add all course section from registration?')")) !!} </br>
  {{--<a href="{{url('students/autoimport')}}">นำเข้านักศึกษาทั้งหมด</a>--}}
- {!! Html::link('students/autoimport', 'Import student all section',array('onclick'=>"return confirm('Are you sure you want to update all students?')")) !!}</br>
-{!! Html::link('course_section/create', 'Add section') !!} </br>
-{!! Html::link('course_section/selectcreate', 'Add all section of course') !!}
+ {!! Html::link('students/autoimport', 'Import student information from registration office',array('onclick'=>"return confirm('Are you sure you want to update all students?')")) !!}</br>
+{!! Html::link('course_section/create', 'Add a section') !!} </br>
+{!! Html::link('course_section/selectcreate', 'Add mutiple section') !!}
 
 @endif
 
@@ -185,7 +185,15 @@ $i=1;
   $(document).ready(function() {
       $('#example').dataTable( {
           "order": [[ 0, "asc" ]],
-          "scrollX": true
+          "scrollX": true,
+          "columnDefs": [
+                      {"sClass": "a-right",},
+                      { "width": "4%", "targets": 0 },
+                      { "width": "45%", "targets": 1 }
+//                      { "width": "2%", "targets": 2 }
+          //            { "bSortable": false, "aTargets": [ 0 ] }
+                    ]
+
 
       } );
 
