@@ -24,10 +24,13 @@ Route::get('index/previewdownload', 'HomeController@preview1');
 Route::get('testexcel','ExcelFileController@index');
 //Route::get('course/{course_id}', 'CourseHomeworkController@show');
 
-Route::get('homework/create/{course_id}','CourseHomeworkController@create');
-Route::post('homework/create/{course_id}','CourseHomeworkController@create_post' );
-Route::get('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_get_long')->where('path', '.+');
-Route::post('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_post_long')->where('path', '.+');
+//Nong old homework create
+//Route::get('homework/create/{course_id}','CourseHomeworkController@create');
+//Route::post('homework/create/{course_id}','CourseHomeworkController@create_post' );
+//Route::get('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_get_long')->where('path', '.+');
+//Route::post('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_post_long')->where('path', '.+');
+Route::get('coursehomeworkdata/{course_id}', 'CourseHomeworkController@getHomeworkCreateData');
+Route::get('homework/create/{course_id}','CourseHomeworkController@homeworkCreate');
 //James Homework create
 //Route::get('homework/create','Homework1Controller@create');
 
@@ -55,9 +58,6 @@ Route::get('course/create', 'CourseController@create');
 Route::post('course/create/save', 'CourseController@addcourse');
 Route::get('edit/{id}', 'CourseController@edit');
 Route::get('delete/{id}', 'CourseController@delete');
-
-Route::get('course/{course_id}', 'CourseController@show');
-Route::get('coursedata/{course_id}', 'CourseController@getStudentHomeworkData');
 
 Route::get('course_section', 'Course_SectionController@index');
 Route::get('course_section/create', 'Course_SectionController@create');

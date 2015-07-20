@@ -15,13 +15,13 @@ class ExcelFileController extends Controller {
 	 */
 	public function index()
 	{
-        $simpleexcel = Excel::load('uploads/excel.xls', function($reader) {
+        $simpleexcel = Excel::load('uploads/test_physical_assignment.xlsx', function($reader) {
 
         // reader methods
 
         });
 
-		dd($simpleexcel);
+		dd($simpleexcel->all());
 	}
 
 }

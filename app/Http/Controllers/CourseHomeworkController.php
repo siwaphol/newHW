@@ -4,7 +4,8 @@ use App\Homework;
 use App\HomeworkFolder;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use App\Course;
 use DB;
@@ -356,6 +357,83 @@ class CourseHomeworkController extends Controller {
         } else {
             return Response::json('error', 400);
         }
+    }
+
+    public function homeworkCreate($course_id){
+        $section_list = DB::select("SELECT section FROM course_section WHERE course_id = ? and semester=? and year=?",array($course_id,\Session::get('semester'),\Session::get('year')));
+        $filetype_list = DB::select("SELECT id,extension FROM homework_types");
+
+        return view('teacherhomework.createhomework3',['course_id'=>$course_id,'section_list'=>$section_list,'filetype_list'=>$filetype_list]);
+    }
+
+    public function getHomeworkCreateData($course_id){
+        //$homework_status = \Auth::user()->getHomeworkWithStatus('204111','001');
+
+        //new Nong
+        $homework_list = new Collection();
+        $sections = array();
+
+        $section_list = DB::select("SELECT section FROM course_section WHERE course_id = ? and semester=? and year=?",array($course_id,\Session::get('semester'),\Session::get('year')));
+        $homework_by_course = DB::select("SELECT name,section,type_id,assign_date,due_date,accept_date FROM homework
+                WHERE course_id=? AND semester=? AND year=? ORDER BY name,section",array($course_id,Session::get('semester'),Session::get('year')));
+        $distinct_homework_by_course = DB::select("SELECT DISTINCT name,type_id FROM homework
+                WHERE course_id=? AND semester=? AND year=? ORDER BY name,section",array($course_id,Session::get('semester'),Session::get('year')));
+
+        $data  = [];
+        foreach($distinct_homework_by_course as $aHomework){
+            $extension = DB::select("SELECT extension FROM homework_types WHERE id=?",array($aHomework->type_id));
+            $type_with_extension = $aHomework->type_id . '(' . $extension[0]->extension .')';
+            $obj = new \stdClass;
+            $obj->name = $aHomework->name;
+            $obj->type_id = $type_with_extension;
+            foreach($homework_by_course as $myHomework) {
+                if($myHomework->name === $aHomework->name){
+                    foreach($section_list as $aSection){
+                        if( isset($obj->{'due_date'.$aSection->section}) && $obj->{'due_date'.$aSection->section}!=='' ){
+                            continue;
+                        }elseif($myHomework->section===$aSection->section &&  !isset($obj->{'due_date'.$aSection->section})){
+                            $obj->{'due_date'.$aSection->section} = $myHomework->due_date;
+                            $obj->{'accept_until'.$aSection->section} = $myHomework->accept_date;
+                        }elseif($myHomework->section===$aSection->section && (isset($obj->{'due_date'.$aSection->section}) && $obj->{'due_date'.$aSection->section}==='') ){
+                            $obj->{'due_date'.$aSection->section} = $myHomework->due_date;
+                            $obj->{'accept_until'.$aSection->section} = $myHomework->accept_date;
+                        }else{
+                            $obj->{'due_date'.$aSection->section} = '';
+                            $obj->{'accept_until'.$aSection->section} = '';
+                        }
+                    }
+                }
+            }
+
+            $data[] = $obj;
+        }
+        $homework_list = new Collection($data);
+
+//        foreach($distinct_homework_by_course as $aHomework){
+//            $extension = DB::select("SELECT extension FROM homework_types WHERE id=?",array($aHomework->type_id));
+//            $type_with_extension = $aHomework->type_id . '(' . $extension[0]->extension .')';
+//
+//            $homework_list->push([
+//                'name' => $aHomework->name,
+//                'type_id' => $type_with_extension
+//            ]);
+//
+//        }
+//        foreach($homework_list as $aHomework){
+//            foreach($section_list as $aSection){
+//                $testHW = $aHomework;
+//                $testHW['due_date'.$aSection->section] = $aHomework->due_date;
+//                $testHW['accept_date'.$aSection->section] = $aHomework->accept_date;
+//            }
+//        }
+
+
+//        'due_date'.$aHomework->section => $aHomework->due_date,
+//        'accept_until'.$aHomework->section => $aHomework->accept_date
+
+        $homework_status = \Datatables::of($homework_list)->make(true);
+
+        return $homework_status;
     }
 
 }
