@@ -31,8 +31,6 @@
                                <li><a href="{{url('semesteryear')}}">Manage Semester</a></li>
                             <li><a href="{{url('course')}}">Manage Course</a></li>
 
-                            <li><button type="button" class="btn  " data-toggle="modal" data-target="#myModal"> {{\Session::get('semester')}}/{{Session::get('year')}}Change</button>
-</li>
                             {{--<li><a href="{{url('students/autoimport')}}">นำเข้านักศึกษาทั้งหมด</a></li>--}}
                             {{--<li><a href="{{url('course_section')}}">จัดการตอน</a></li>--}}
                              {{--<li class="dropdown">--}}
@@ -45,6 +43,11 @@
                                          {{--</ul>--}}
                               {{--</li>--}}
 
+                        @endif
+                        @if(Auth::user()->isAdmin()||Auth::user()->isTeacher())
+
+                            <li><button type="button" class="btn  " data-toggle="modal" data-target="#myModal"> {{\Session::get('semester')}}/{{Session::get('year')}}Change</button>
+                            </li>
                         @endif
 
 					    <li><a href="{{url('home')}}">Home</a></li>

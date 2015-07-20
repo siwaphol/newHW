@@ -31,8 +31,13 @@
             $semester=Session::get('semester');
             $year=substr(Session::get('year'),-2);
 
-            $fileupload_name = 'https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
-                        $fileupload='../temp/file.xlsx';
+            if($sec=='000'){
+             $fileupload_name = 'https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=001&border=1&mime=xlsx&ctype=&';
+
+             }else {
+
+                     $fileupload_name = 'https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
+                 }                        $fileupload='../temp/file.xlsx';
 
                         //chmod($fileupload, 0755);
                         	//chmod($fileupload_name, 0755);

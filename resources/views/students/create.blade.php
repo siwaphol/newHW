@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">เพิ่มนักศึกษา</div>
+                    <div class="panel-heading" align="center">Add Student</div>
                     @foreach($course as  $item)
                     <div class="panel-body">
 
@@ -13,14 +13,14 @@
 
                         {!! Form::open(['url' => 'students/create/save']) !!}
                          <div class="form-group">
-                            {!! Form::label('course_id', 'กระบวนวิชา: ') !!}
+                            {!! Form::label('course_id', 'Course No: ') !!}
                             {!! Form::text('course_id', $item->course_id, ['class' => 'form-control','disabled' => 'disabled']) !!}
                         <div class="form-group">
-                            {!! Form::label('section', 'ตอน: ') !!}
+                            {!! Form::label('section', 'Section: ') !!}
                             {!! Form::text('section', $item->section, ['class' => 'form-control','disabled' => 'disabled'])!!}
                         </div>
                         <div class="form-group">
-                        {!! Form::label('student_id', 'รหัสนักศึกษา: ') !!}
+                        {!! Form::label('student_id', 'Student ID: ') !!}
                         {!! Form::text('student_id', null, ['class' => 'form-control']) !!}
                     {{--<div class="form-group">--}}
                         {{--{!! Form::label('status', 'สถานะ: ') !!}--}}

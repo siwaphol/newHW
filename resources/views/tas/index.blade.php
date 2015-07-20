@@ -27,7 +27,8 @@
                             <table class="table" id="example" cellspacing="0" width="100%" >
                                 <thead>
                                 <tr>
-                                    <th>No</th><th>Student ID</th><th>Name</th><th>Edit</th><th>Delete</th>
+                                    <th>No</th><th>Student ID</th><th>Name</th>
+                                    <th>Edit</th><th>Delete</th>
                                 </tr>
                                 </thead>
                                 <tfoot>

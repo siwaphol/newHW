@@ -252,8 +252,11 @@ class Course_SectionController extends Controller
           //  dd($coursename);
             $i=$i+1;
             $section=$a_cells[$i];
-            if($section=="<gr"){
-                $section="000";
+            //$exp=explode('<gray>',$section);
+            //$a = array_slice(preg_split('/(?:<\/gray>\s*|)<gray[^>]*>/', $section), 1);
+            $l=strlen($section);
+            if($l>3){
+                $section='000';
             }
             $i=$i+7;
 

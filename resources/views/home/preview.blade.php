@@ -323,7 +323,7 @@ $month=array('01'=>'Jan',
                                       <div class="modal-body">
                                        <div class="portlet"align="right">
                                         <div class="portlet-body form"  align="center">
-                                        <form action="homework/editstatus" method="post" name="frmhw" id="frmhw" onsubmit="return onSubmit()" class="form-horizontal"  align="center">
+                                        <form action="homework/editstatus" method="post" name="frmhw" id="frmhw" onsubmit="return onSubmit1()" class="form-horizontal"  align="center">
                                         <div class="form-body" >
                                         <div class="form-group" align="center">
                                                 <div class="col-md-4 col-md-offset-4" align="center" >
@@ -523,7 +523,7 @@ $(".student-button").on('click',  function(){
     </script>
 
     <script type="text/javascript">
-                                            function onSubmit() {
+                                            function onSubmit1() {
                                             	var msgErr = ""
                                             	if($("#hw").val() == ""){
                                             		msgErr += "Please select homework\n"

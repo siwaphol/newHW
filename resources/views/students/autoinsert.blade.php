@@ -21,23 +21,31 @@
             //$sec =Request::get('ddlSection');
             $course = $sql[$i]->course_id;
             $sec = $sql[$i]->section;
+            if($sec=='000'){
+            $fileupload_name = 'https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=001&border=1&mime=xlsx&ctype=&';
 
-            $fileupload_name = 'https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
+            }else {
+
+                    $fileupload_name = 'https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
+                }
                         $fileupload='../temp/file.xlsx';
                         //chmod($fileupload, 0755);
                         	//chmod($fileupload_name, 0755);
-                        	copy($fileupload_name,$fileupload);
+                        	//copy($fileupload_name,$fileupload);
                         	//$objPHPExcel =PHPExcel_IOFactory::load('https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&');
-                        	$objPHPExcel =PHPExcel_IOFactory::load($fileupload);
+                        	//$objPHPExcel =PHPExcel_IOFactory::load($fileupload);
 
                        //if(PHPExcel_IOFactory::load($fileupload)==true){
                        if(copy($fileupload_name,$fileupload)){
                             $sco[$j]=$course;
                             $sse[$j]=$sec;
                             $l=0;
-
+                            //$objReader = PHPExcel_IOFactory::createReader('Excel2007');
+                            //$objReader->setReadDataOnly(true);
+                           // $objPHPExcel = $objReader->load($fileupload);
+                           // $objWorksheet = $objWorksheet->setActiveSheetIndex(1);
                         //$objPHPExcel = new PHPExcel();
-
+                            $objPHPExcel =PHPExcel_IOFactory::load($fileupload);
 
                         //$objPHPExcel ->load($fileupload)->get();
                         foreach ($objPHPExcel->getWorksheetIterator() as $worksheet) {
@@ -50,16 +58,16 @@
                             for ($row =8; $row <= $highestRow; ++ $row) {
                                 //echo '<tr>';
                                 //for ($col = 1; $col < $highestColumnIndex; ++ $col) {
-                                $cell = $worksheet->getCellByColumnAndRow(1, $row);
+                                $cell = $worksheet->getCellByColumnAndRow(1,$row);
                                 $no = $cell->getValue();
-                                $cell = $worksheet->getCellByColumnAndRow(2, $row);
+                                $cell = $worksheet->getCellByColumnAndRow(2,$row);
                                 $code = (string)$cell->getValue();
-                                $cell = $worksheet->getCellByColumnAndRow(3, $row);
+                                $cell = $worksheet->getCellByColumnAndRow(3,$row);
                                 $fname = $cell->getValue();
-                                $cell = $worksheet->getCellByColumnAndRow(4, $row);
+                                $cell = $worksheet->getCellByColumnAndRow(4,$row);
                                 $lname = $cell->getValue();
-                                 $status=" ";
-                                $cell=$worksheet->getCellByColumnAndRow(5, $row);
+                                // $status=" ";
+                                $cell=$worksheet->getCellByColumnAndRow(5,$row);
                                 $status=$cell->getValue();
                                 /*if(isset($cell)){
                                 $status=" ";
