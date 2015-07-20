@@ -378,7 +378,10 @@ class CourseHomeworkController extends Controller {
                 WHERE course_id=? AND semester=? AND year=? ORDER BY name,section",array($course_id,Session::get('semester'),Session::get('year')));
         $distinct_homework_by_course = DB::select("SELECT DISTINCT name,type_id FROM homework
                 WHERE course_id=? AND semester=? AND year=? ORDER BY name,section",array($course_id,Session::get('semester'),Session::get('year')));
-
+        if(count($distinct_homework_by_course)<=0){
+            $homework_status = \Datatables::of($homework_list)->make(true);
+            return $homework_status;
+        }
         $data  = [];
         foreach($distinct_homework_by_course as $aHomework){
             $extension = DB::select("SELECT extension FROM homework_types WHERE id=?",array($aHomework->type_id));

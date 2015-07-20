@@ -121,7 +121,7 @@
 {{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@selectexcel','เพิ่มรายชื่อนักศึกษาจากไฟล์ Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>--}}
 {{--<button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','เพิ่มนักศึกษาช่วยสอน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
 <button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','Export student list',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
-<button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@index','Manage Homework',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
+<button type="button" class="btn btn-default"><a href="{{url('/homework/create')}}{{'/'.$course['co']}}">Create Homework</a></button>
 {{--<button type="button" class="btn btn-default">{!! link_to_action('CourseHomeworkController@result','ผลการส่งการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
 @if(Auth::user()->isAdmin() || Auth::user()->isTeacher())
 <button type="button" class="btn btn btn-default " data-toggle="modal" data-target="#editsend">Edit homework status</button>
@@ -475,15 +475,14 @@ $(document).ready( function () {
             ]
 
         },
-        @endif
         "columnDefs": [
-            {"sClass": "a-right",},
+            {"sClass": "a-right"},
             { "width": "4%", "targets": 0 },
             { "width": "25%", "targets": 1 },
             { "width": "2%", "targets": 2 }
 //            { "bSortable": false, "aTargets": [ 0 ] }
           ]
-
+        @endif
     } );
      $('a.toggle-vis').on( 'click', function (e) {
             e.preventDefault();

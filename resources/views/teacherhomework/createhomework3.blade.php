@@ -103,7 +103,7 @@
             "scrollX": true,
             processing: true,
             serverSide: true,
-            ajax: '{{ url("coursehomeworkdata/204111") }}',
+            ajax: '{{ url("coursehomeworkdata") }}{{'/'.$course_id}}',
             columns: [
                         {data: 'name', name: 'name'},
                         {data: 'type_id', name: 'type_id'},
@@ -113,15 +113,7 @@
                         @foreach($section_list as $aSection)
                             {data: 'accept_until'+'{{$aSection->section}}',name: 'accept_until'+'{{$aSection->section}}' },
                         @endforeach
-//                        {data: 'due_date', name: 'due_date'},
-//                        {data: 'accept_until', name: 'accept_until'},
-//                        {data: 'created_by', name: 'created_by'}
-                    ],
-            "createdRow": function ( row, data, index ) {
-                if ( data['status'] == 'Waiting') {
-                    $('td', row).eq(1).addClass('highlight');
-                }
-            }
+                    ]
         } );
 
     } );
