@@ -150,12 +150,12 @@ $(document).ready(function(){
                     </div>
                     <!--
                     <div class="form-group">
-                        {{ Form::label('assignDate', 'วันที่กำหนดการบ้าน: ') }}
+                        {{ Form::label('assignDate', 'วันNoกำหนดการบ้าน: ') }}
                         {{ Form::input('date','assignDate', null, ['class' => 'form-control']) }}
                     </div>
                     -->
                     <div class="form-group">
-                        {{ Form::label('acceptDate', 'วันที่ส่งช้าที่สุด: ') }}
+                        {{ Form::label('acceptDate', 'วันNoส่งช้าNoสุด: ') }}
                         {{ Form::input('date','acceptDate', null, ['class' => 'form-control']) }}
                     </div>
 

@@ -121,7 +121,7 @@
                                <div class="table-responsive">
                                    <table class="table">
                                        <tr>
-                                           <th>ลำดับ</th><th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>delete</th>
+                                           <th>No</th><th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>delete</th>
                                        </tr>
                                        {{-- */$x=0;/* --}}
                                        <?php

@@ -35,12 +35,12 @@
                             <table class="table" id="example" cellspacing="0" width="100%" >
                                 <thead>
                                 <tr>
-                                    <th>ลำดับ</th><th>รหัส</th><th>ชื่อ</th><th>ลบ</th>
+                                    <th>No</th><th>รหัส</th><th>ชื่อ</th><th>Delete</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>ลำดับ</th><th>รหัส</th><th>ชื่อ</th><th>ลบ</th>
+                                    <th>No</th><th>รหัส</th><th>ชื่อ</th><th>Delete</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -196,7 +196,7 @@
 
                                                     {!! Form::close() !!}
 
-                                                     {{--<td>{!! link_to_action('StudentsController@destroy','ลบ',array('id'=>$item[$x]->studentid,'course'=>$course['co'],'sec'=>$course['sec']),onclick="return confirm('Are you sure you want to delete?')")!!}</td>--}}
+                                                     {{--<td>{!! link_to_action('StudentsController@destroy','Delete',array('id'=>$item[$x]->studentid,'course'=>$course['co'],'sec'=>$course['sec']),onclick="return confirm('Are you sure you want to delete?')")!!}</td>--}}
 
                                                     </td>
                                                 </tr>

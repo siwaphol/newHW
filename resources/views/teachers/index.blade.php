@@ -10,21 +10,21 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">อาจารย์</div>
+                    <div class="panel-heading" align="center">LECTURER</div>
                     
                     <div class="panel-body">
 
-                        <h4><a href="{{ url('/teachers/create') }}">เพิ่มอาจารย์</a></h4>
+                        <h4><a href="{{ url('/teachers/create') }}">Add Lecturer</a></h4>
                         <div class="table-responsive">
                             <table class="table" id="example" cellspacing="0" width="100%" >
                                 <thead>
                                 <tr>
-                                    <th>ลำดับ</th><th>ชื่อนามสกุล</th><th>edit</th><th>delete</th>
+                                    <th>No</th><th>Name</th><th>Edit</th><th>Delete</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                <th>ลำดับ</th><th>ชื่อนามสกุล</th><th>edit</th><th>delete</th>
+                                 <th>No</th><th>Name</th><th>Edit</th><th>Delete</th>
                                 </tr>
                                  </tfoot>
                                  <tbody>

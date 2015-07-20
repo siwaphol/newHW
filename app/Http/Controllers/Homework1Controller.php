@@ -10,6 +10,7 @@ use Session;
 use DB;
 use Zipper;
 use ZipArchive;
+use App\HomeworkStudent;
 
 class Homework1Controller extends Controller {
 
@@ -152,6 +153,32 @@ class Homework1Controller extends Controller {
         $path1=$_GET['path'];
         $type=$_GET['type'];
       return view('homework1.download')->with('course',array('course'=>$course,'sec'=>$sec,'path'=>$path1,'type'=>$type));
+    }
+    public function editstatus(){
+        $course=$_POST['course'];
+        $sec=$_POST['sec'];
+        $hwid=$_POST['hw'];
+        $studentid=$_POST['stu'];
+        $status=$_POST['status'];
+       // dd($studentid);
+        $sql=DB::select('select id from homework_student where homework_id=? and course_id=? and section=? and student_id=?
+                          and semester=? and year=? ',array($hwid,$course,$sec,$studentid,Session::get('semester'),Session::get('year')));
+        //dd($sql);
+        if(count($sql)>0){
+//            $update=DB::update('update homework_student set status=? where homework_id=? and course_id=? and section=? and student_id=?
+//                          and semester=? and year=? ',array($status,$hwid,$course,$sec,$studentid,Session::get('semester'),Session::get('year')));
+                        //$update=DB::update('update homework_student set status=? where id=? ',array($status,$sql[0]->id));
+            $hw=HomeworkStudent::findorfail($sql[0]->id);
+            $hw->status=$status;
+            $hw->save();
+
+        }else{
+            return redirect()->back()
+                ->withErrors(['duplicate' => 'นักศึกษายังไม่ได้ส่งการบ้าน']);
+        }
+        return redirect()->action('HomeController@preview',array('course'=>$course,'sec'=>$sec));
+
+
     }
 
 }

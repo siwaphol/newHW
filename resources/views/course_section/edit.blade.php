@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">แก้ไขตอน</div>
+                    <div class="panel-heading" align="center">Editตอน</div>
 
                     <div class="panel-body">
 @foreach($result as $key)

@@ -16,24 +16,24 @@ $(document).ready(function() {
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">ผู้ดูแลระบบ</div>
+                    <div class="panel-heading" align="center">Admin</div>
                     
                     <div class="panel-body">
                         <!--
                         <h1>admins</h1>
                       -->
-                       <h4><a href="{{ url('/admin/create') }}">เพิ่มผู้ดูแลระบบใหม่</a></h4>
-                       <h4><a href="{{ url('/admin/assign') }}">เพิ่มผู้ดูแลระบบจากผู้ใช้</a></h4>
+                       <h4><a href="{{ url('/admin/create') }}">Add Admin</a></h4>
+                       <h4><a href="{{ url('/admin/assign') }}">Manage Admin and  Lecturer role</a></h4>
                         <div class="table-responsive">
                             <table class="table" id="example" cellspacing="0" width="100%" >
                                 <thead>
                                 <tr>
-                                    <th>ที่</th><th>ชื่อ นามสกุล</th><th>edit</th><th>delete</th>
+                                    <th>No</th><th>Name</th><th>Edit</th><th>Delete</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>ที่</th><th>ชื่อ นามสกุล</th><th>edit</th><th>delete</th>
+                                    <th>No</th><th>Name</th><th>Edit</th><th>Delete</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>

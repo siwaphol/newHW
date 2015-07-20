@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">เพิ่มนักศึกษาช่วยสอน</div>
+                    <div class="panel-heading" align="center">Add Teacher Assistent</div>
 
                     <div class="panel-body">
                         {{--<h4 align="center">กระบวนวิชา {{$cosec['course']}} ตอน {{$cosec['sec']}}</h4>--}}
@@ -19,22 +19,22 @@
                         <form action="create/save" method="post" name="frmMain" id="frmMain" onsubmit="return onSubmitMain()" class="form-horizontal"  >
 
                      <div class="form-group">
-                        {!! Form::label('courseId', 'กระบวนวิชา: ') !!}
+                        {!! Form::label('courseId', 'Course No: ') !!}
                         {!! Form::text('courseId', $cosec['course'], ['class' => 'form-control','disabled' => 'disabled']) !!}
                      </div>
                     <div class="form-group">
-                        {!! Form::label('sectionId', 'ตอน: ') !!}
+                        {!! Form::label('sectionId', 'Section: ') !!}
                         {!! Form::text('sectionId', $cosec['sec'], ['class' => 'form-control','disabled' => 'disabled'])!!}
                     </div>
                     <input type="hidden" name="courseId" value="{{$cosec['course']}}">
                     <input type="hidden" name="sectionId" value="{{$cosec['sec']}}">
                     <div class="form-group">
-                    {!! Form::label('taId', 'นักศึกษาช่วยสอน ') !!}
+                    {!! Form::label('taId', 'Stuudent ID') !!}
                       <input type="text" name="taId" class="form-control" >
                     </div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-group">
-                            {!! Form::submit('เพิ่ม', ['class' => 'btn btn-primary form-control']) !!}
+                            {!! Form::submit('Add', ['class' => 'btn btn-primary form-control']) !!}
                         </div>
                         </form>
                         <!--{{ Form::close() }}

@@ -3,16 +3,16 @@
 
 @section('header_content')
 
-{{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"--}}
-      {{--xmlns="http://www.w3.org/1999/html">--}}
+
 {{--<link rel="stylesheet" href="{{ asset('/css/dropzone/basic.css') }}"/>--}}
 <link rel="stylesheet" href="{{ asset('/css/dropzone/dropzone.css') }}"/>
 {{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"--}}
       {{--xmlns="http://www.w3.org/1999/html">--}}
  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css">
  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href=" //cdn.datatables.net/fixedcolumns/3.0.3/css/dataTables.fixedColumns.css">
-
+  {{--<link rel="stylesheet" type="text/css" href=" //cdn.datatables.net/fixedcolumns/3.0.3/css/dataTables.fixedColumns.css">--}}
+{{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"--}}
+      {{--xmlns="http://www.w3.org/1999/html">--}}
 
 @endsection
 @section('content')
@@ -42,24 +42,24 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">Teacher Assistant</div>
+                    <div class="panel-heading" align="center">Teaching Assistant</div>
 
                     <div class="panel-body">
                         {{--<h1>semesteryears</h1>--}}
-                        <button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','Add Teacher Assistant',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
+                        <button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','Add Teaching Assistant',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
                         <div class="table-responsive">
                             <table class="table" id="example" cellspacing="0" width="100%" >
                                 <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Student ID><th>Name</th><th>Delete</th>
+                                    <th>Student ID<th>Name</th><th>Delete</th>
 
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
                                     <th>No</th>
-                                    <th>Student ID><th>Name</th><th>Delete</th>
+                                    <th>Student ID<th>Name</th><th>Delete</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -109,21 +109,23 @@
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><button type="button" class="btn btn-default">{!! link_to_action('StudentsController@insert','เพิ่มรายชื่อนักศึกษาจากสำนักทะเบียน',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>
+    <li>{!! link_to_action('StudentsController@insert','Import student from registration office',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}
     </li>
-    <li><button type="button" class="btn btn-default">{!! link_to_action('StudentsController@selectexcel','เพิ่มรายชื่อนักศึกษาจากไฟล์ Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>
+    <li>{!! link_to_action('StudentsController@selectexcel','Import student from Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}
     </li>
-    <li><a href="{{ url('/students/create/'.$coid[0]->id) }}"class="btn btn-default">เพิ่มนักศึกษารายบุคคล</a></li>
+    <li><a href="{{ url('/students/create/'.$coid[0]->id) }}">Add student</a></li>
 
   </ul>
 {{--</div>--}}
 {{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@insert','เพิ่มรายชื่อนักศึกษาจากสำนักทะเบียน',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>--}}
 {{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@selectexcel','เพิ่มรายชื่อนักศึกษาจากไฟล์ Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>--}}
 {{--<button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','เพิ่มนักศึกษาช่วยสอน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
-<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','Export list student  Excel',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
+<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','Export student list',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
 <button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@index','Manage Homework',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
 {{--<button type="button" class="btn btn-default">{!! link_to_action('CourseHomeworkController@result','ผลการส่งการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
-
+@if(Auth::user()->isAdmin() || Auth::user()->isTeacher())
+<button type="button" class="btn btn btn-default " data-toggle="modal" data-target="#editsend">Edit homework status</button>
+@endif
 @endif
 @if(Auth::user()->isAdmin() || Auth::user()->isTeacher()||Auth::user()->isStudentandTa()||Auth::user()->isTa())
 <button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@exportzip','download all homework ',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>'','path'=>'','type'=>'0'))!!}</button>
@@ -196,6 +198,9 @@ $month=array('01'=>'Jan',
                                       {{--<button type="submit" class="btn btn-link">export csv</button>--}}
                                        {{--{!! Form::close() !!}--}}
                                     <div class="table-responsive">
+                                    <div>
+                                        {{--Hide column: <a class="toggle-vis" data-column="1">Name</a> - <a class="toggle-vis" data-column="2">Status</a>--}}
+                                    </div>
                                         <table class="table" id="example1" cellspacing="0" width="100%" >
                                            <thead>
                                             <tr>
@@ -273,7 +278,7 @@ $month=array('01'=>'Jan',
                                                            if($sql[0]->status==1){
                                                            echo "<td ><p align='center'>OK</p></td>";
                                                            }elseif($sql[0]->status==2){
-                                                              echo "<td><p align='center'>lATE</p></td>";
+                                                              echo "<td><p align='center'>LATE</p></td>";
                                                               }elseif($sql[0]->status==3){
                                                               echo "<td><p align='center'>!!!</p></td>";
                                                               }else{
@@ -302,13 +307,130 @@ $month=array('01'=>'Jan',
                 </div>
 
 
+{{--<button type="button" class="btn " data-toggle="modal" data-target="#myModal"> {{\Session::get('semester')}}/{{Session::get('year')}}เปลี่ยน</button>--}}
 
+                                <!-- Modal -->
+                                <div id="editsend" class="modal fade" role="dialog">
+
+                                  <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title" align="center">Edit Status Homework </h4>
+                                      </div>
+                                      <div class="modal-body">
+                                       <div class="portlet"align="right">
+                                        <div class="portlet-body form"  align="center">
+                                        <form action="homework/editstatus" method="post" name="frmhw" id="frmhw" onsubmit="return onSubmit()" class="form-horizontal"  align="center">
+                                        <div class="form-body" >
+                                        <div class="form-group" align="center">
+                                                <div class="col-md-4 col-md-offset-4" align="center" >
+                                                {!! Form::label('hw', 'Homework') !!}
+                                                <select id="hw" name="hw"  class="form-control">
+                                                    <option selected value="">Select Homework</option>
+                                                <?php
+                                                $sql=array();
+
+                                                $sql=DB::select('SELECT * from homework where course_id=? and section=?
+                                                                  and semester=? and year=?
+                                                                order by id ',
+                                                                array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
+
+                                                $count=count($sql);
+
+                                                $i=0;
+                                                  for($i=0;$i<$count;$i++){
+                                                ?>
+                                                <option value={{$sql[$i]->id}}>{{$sql[$i]->name}}</option>
+                                                <?php
+                                                }
+                                                ?>
+                                                </select>
+                                                </div>
+                                        </div>
+                                        <input type="hidden" name="course" value="{{$course['co']}}">
+                                        <input type="hidden" name="sec" value="{{$course['sec']}}">
+
+                                          <div class="form-group" align="center">
+                                                <div class="col-md-4 col-md-offset-4" align="center" >
+                                                {!! Form::label('stu', 'Student') !!}
+                                                <select id="stu" name="stu"  class="form-control">
+                                                    <option selected value="">Select Student</option>
+                                                <?php
+                                                $sql=array();
+
+                                                $sql=DB::select('SELECT * from course_student
+                                                                  where course_id=? and section=?
+                                                                  and semester=? and year=?
+                                                                order by id ',
+                                                                array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
+
+                                                $count=count($sql);
+
+                                                $i=0;
+                                                  for($i=0;$i<$count;$i++){
+                                                ?>
+                                                <option value={{$sql[$i]->student_id}}>{{$sql[$i]->student_id}}</option>
+                                                <?php
+                                                }
+                                                ?>
+                                                </select>
+                                                </div>
+                                        </div>
+                                        <div class="form-group" align="center">
+                                        <div class="col-md-4 col-md-offset-4" align="center" >
+                                        {!! Form::label('status', 'Status') !!}
+                                        <select id="status" name="status"  class="form-control">
+                                            <option selected value="">Select Status</option>
+                                        <option value=1>OK</option>
+                                         <option value=2>LATE</option>
+                                         <option value=3>!!!</option>
+                                        </select>
+                                        </div>
+                                </div>
+                                        {{--<div class="form-group" align="center">--}}
+                                                {{--<div class="col-md-4 col-md-offset-4">--}}
+                                                {{--{!!  Form::label('hwname', 'สถานะ') !!}--}}
+                                                {{--<select id="hws" name="hws" class="form-control">--}}
+                                                    {{--<option selected value="">เลือกสถานะ</option>--}}
+                                                {{--</select>--}}
+                                                  {{--</div>--}}
+                                        {{--</div>--}}
+
+                                        <div class="form-group" align="center">
+                                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                                                <div class="col-md-4 col-md-offset-4">
+                                                <input type="submit" name="ok" value="Edit"  class="form-control"/>
+                                                </div>
+                                        </div>
+                                      </div>
+                                      </form>
+                                      @if ($errors->any())
+                                      <ul class="alert alert-danger">
+                                          @foreach ($errors->all() as $error)
+                                              <li>{{ $error }}</li>
+                                          @endforeach
+                                      </ul>
+                                  @endif
+                                      </div>
+                                      </div>
+                                      </div>
+                                      {{--<div class="modal-footer">--}}
+                                        {{--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
+                                      {{--</div>--}}
+                                    </div>
+
+                                  </div>
+                                </div>
 @endsection
 @section('footer')
 <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="{{ asset('/js/dropzone/dropzone.js') }}"></script>
 
 <script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.js"></script>
+
 {{--<script src="//cdn.datatables.net/fixedcolumns/3.0.3/js/dataTables.fixedColumns.js"></script>--}}
 
   <script type="text/javascript">
@@ -343,7 +465,7 @@ $(document).ready( function () {
             "aButtons": [
                 {
                     "sExtends": "xls",
-                    "sButtonText": "Export report send homework with excel",
+                    "sButtonText": "Export homework reprot ",
                     "sToolTip": "Export report send with excel",
                      "sMessage": "Generated by DataTables",
                     "sTitle": "Report Sending ",
@@ -358,16 +480,27 @@ $(document).ready( function () {
             {"sClass": "a-right",},
             { "width": "4%", "targets": 0 },
             { "width": "25%", "targets": 1 },
-            { "width": "2%", "targets": 2 },
-            { "bSortable": false, "aTargets": [ 0 ] }
+            { "width": "2%", "targets": 2 }
+//            { "bSortable": false, "aTargets": [ 0 ] }
           ]
 
     } );
-     new $.fn.dataTable.FixedColumns( table, {
-            leftColumns: 1
+     $('a.toggle-vis').on( 'click', function (e) {
+            e.preventDefault();
 
+            // Get the column API object
+            var column = table.column( $(this).attr('data-column') );
+
+            // Toggle the visibility
+            column.visible( ! column.visible() );
         } );
+//     new $.fn.dataTable.FixedColumns( table, {
+//            leftColumns: 1
+//
+//        } );
+
 } );
+
 
 $(".student-button").on('click',  function(){
 
@@ -388,5 +521,28 @@ $(".student-button").on('click',  function(){
 });
 
     </script>
+
+    <script type="text/javascript">
+        function onSubmit() {
+            var msgErr = ""
+            if($("#hw").val() == ""){
+                msgErr += "Please select homework\n"
+            }
+            if($("#stu").val() == ""){
+                msgErr += "Please select student\n"
+            }
+            if($("status").val() == ""){
+                msgErr += "Please select status\n"
+            }
+            if(msgErr != ""){
+                alert(msgErr)
+                return false
+            }else{
+                return true
+            }
+        }
+   </script>
+
+
 @include('partials.dropzone')
 @endsection

@@ -2060,11 +2060,13 @@ th {
 .table > thead > tr > th {
   vertical-align: middle;
   border-bottom: 2px solid #dddddd;
-    text-align: center ;
+    text-align: left ;
 }
-/*.table > tfoot > tr > th {*/
-    /*text-align: center ;*/
-/*}*/
+
+.table > tfoot > tr > th {
+    text-align: left ;
+}
+
 .table > caption + thead > tr:first-child > th,
 .table > colgroup + thead > tr:first-child > th,
 .table > thead:first-child > tr:first-child > th,

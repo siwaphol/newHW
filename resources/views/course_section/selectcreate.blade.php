@@ -13,13 +13,13 @@ $key=$sql;
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">เพิ่มตอน</div>
+                    <div class="panel-heading" align="center">Add Section</div>
 
                     <div class="panel-body">
 {!! Form::open(['url'=>'course_section/createteacher/']) !!}
 <div class="form-group">
 
-{!! Form::label('courseid','กระบวนวิชา')!!}
+{!! Form::label('courseid','Course')!!}
 <select name="courseid" class="form-control">
 <?php for($i=0;$i<$count;$i++){?>
   <option value={{$key[$i]->id}}>{{$key[$i]->id."   ".$key[$i]->name}}</option>
@@ -29,7 +29,7 @@ $key=$sql;
 
 </div>
 <div class="form-group">
-{!! Form::label('sectionid','จำนวนตอนทั้งหมด')!!}
+{!! Form::label('sectionid','All Section')!!}
 <select class="form-control" name="sectionid">
   <option value="1">1</option>
   <option value="2">2</option>
@@ -45,7 +45,7 @@ $key=$sql;
 </div>
 
 <div class="form-group">
-{!! Form::submit('เพิ่มตอน',['class'=>'btn btn-primary form-control'])!!}
+{!! Form::submit('Add',['class'=>'btn btn-primary form-control'])!!}
 </div>
 <div id='username_availability_result'></div>
 {!! Form::close() !!}

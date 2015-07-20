@@ -8,21 +8,21 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">ภาคเรียน ปีการศึกษา</div>
+                    <div class="panel-heading" align="center">Manage Semester Year</div>
                     
                     <div class="panel-body">
                         {{--<h1>semesteryears</h1>--}}
-                        <h4><a href="{{ url('/semesteryear/create') }}" class="btn btn-default">เพิ่มภาคการศึกษา</a></h4>
+                        <h4><a href="{{ url('/semesteryear/create') }}" class="btn btn-default">Add Semester</a></h4>
                         <div class="table-responsive">
                             <table class="table" id="example" cellspacing="0" width="100%" >
                                 <thead>
                                 <tr>
-                                    <th>ลำดับ</th><th>ภาคการศึกษา</th><th>ปีการศึกษา</th><th>สถานะ</th><th>แก้ไข</th><th>ลบ</th>
+                                    <th>No</th><th>Semester<th>Year</th><th>Status</th><th>Edit</th><th>Delete</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>ลำดับ</th><th>ภาคการศึกษา</th><th>ปีการศึกษา</th><th>สถานะ</th><th>แก้ไข</th><th>ลบ</th>
+                                    <th>No</th><th>Semester<th>Year</th><th>Status</th><th>Edit</th><th>Delete</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -34,10 +34,10 @@
                                         <td><a href="{{ url('/semesteryear/show', $item->id) }}">{{ $item->semester }}</a></td>
                                         <td><a href="{{ url('/semesteryear/show', $item->id) }}">{{ $item->year }}</a></td>
                                         @if($item->use=="1")
-                                        <td>เปิด</td>
+                                        <td>Open</td>
                                         @endif
                                         @if($item->use=="0")
-                                        <td>ปิด</td>
+                                        <td>Close</td>
                                         @endif
 
                                         <td><a href="{{ url('/semesteryear/'.$item->id.'/edit') }}" class="btn btn-link">Edit</a>

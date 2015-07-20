@@ -5,41 +5,41 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">ผู้ดูแลระบบ</div>
+                    <div class="panel-heading" align="center">Edit Admin</div>
 
                     <div class="panel-body">
-                        <h4 align="center">ปรับปรุงข้อมูลผู้ใช้</h4>
+
                         <hr/>
 
                               @foreach($admin as $item)
                           {!! Form::open(['url' => 'admin/update']) !!}
                        <div class="form-group">
-                           {!! Form::label('username', 'รหัสผู้ใช้: ') !!}
-                           {!! Form::text('username', $item->username, ['class' => 'form-control']) !!}
-                       </div><div class="form-group">
-                           {!! Form::label('firstname_th', 'ชื่อ: ') !!}
-                           {!! Form::text('firstname_th', $item->firstname_th, ['class' => 'form-control']) !!}
-                       </div>
+                          {!! Form::label('username', 'Username:')!!}
+                          {!! Form::text('username', $item->username, ['class' => 'form-control']) !!}
+                      </div><div class="form-group">
+                          {!! Form::label('firstname_th', 'Firstname_th: ') !!}
+                          {!! Form::text('firstname_th', $item->firstname_th, ['class' => 'form-control']) !!}
+                      </div>
+                      <div class="form-group">
+                          {!! Form::label('firstname_en', 'Firstname_th: ') !!}
+                          {!! Form::text('firstname_en', $item->firstname_en, ['class' => 'form-control']) !!}
+                      </div>
+                      <div class="form-group">
+                          {!! Form::label('lastname_th', 'Lastname_th: ') !!}
+                          {!! Form::text('lastname_th', $item->lastname_th, ['class' => 'form-control']) !!}
+                      </div>
+                      <div class="form-group">
+                          {!! Form::label('lastname_en', 'Lastname_en: ') !!}
+                          {!! Form::text('lastname_en', $item->lastname_en, ['class' => 'form-control']) !!}
+                      </div>
+                      <div class="form-group">
+                          {!! Form::label('email', 'Email: ') !!}
+                          {!! Form::text('email', $item->email, ['class' => 'form-control']) !!}
+                      </div>
+                       <input type="hidden" name="id" value="{{$item->id}}">
                        <div class="form-group">
-                           {!! Form::label('firstname_en', 'firstname: ') !!}
-                           {!! Form::text('firstname_en', $item->firstname_en, ['class' => 'form-control']) !!}
-                       </div>
-                       <div class="form-group">
-                           {!! Form::label('lastname_th', 'นามสกุล: ') !!}
-                           {!! Form::text('lastname_th', $item->lastname_th, ['class' => 'form-control']) !!}
-                       </div>
-                       <div class="form-group">
-                           {!! Form::label('lastname_en', 'lastname: ') !!}
-                           {!! Form::text('lastname_en', $item->lastname_en, ['class' => 'form-control']) !!}
-                       </div>
-                       <div class="form-group">
-                           {!! Form::label('email', 'อีเมล: ') !!}
-                           {!! Form::text('email', $item->email, ['class' => 'form-control']) !!}
-                       </div>
-                        <input type="hidden" name="id" value="{{$item->id}}">
-                        <div class="form-group">
-                            {!! Form::submit('ปรับปรุง', ['class' => 'btn btn-primary form-control']) !!}
-                        </div>
+                           {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}
+                                               </div>
                         {!! Form::close() !!}
                         @endforeach
                         @if ($errors->any())

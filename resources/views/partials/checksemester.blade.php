@@ -12,7 +12,7 @@
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" align="center">เปลี่ยนภาคการศึกษา </h4>
+                        <h4 class="modal-title" align="center">เปลี่ยนSemester </h4>
                       </div>
                       <div class="modal-body">
                         <script type="text/javascript">
@@ -111,7 +111,7 @@
 
                         <div class="form-group" align="center">
                                 <div class="col-md-4 col-md-offset-4">
-                                {!!  Form::label('semester', 'ภาคการศึกษา ') !!}
+                                {!!  Form::label('semester', 'Semester ') !!}
                                 <select id="semester" name="semester" class="form-control">
                                     <option selected value="">เลือกภาคการศึกษา</option>
                                 </select>

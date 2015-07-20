@@ -49,10 +49,20 @@ class SemesteryearController extends Controller {
         $semester=new Semesteryears();
         $semester->semester=$request->get('semester');
         $semester->year=$request->get('year');
-
-
-        $semester->use=0;
+        $semester->use=1;
         $semester->save();
+        $lastid = $semester->id;
+        $sql=DB::select('select * from semester_year');
+        foreach($sql as $key){
+            if($key->id!=$lastid){
+                $semester=Semesteryears::findOrFail($key->id);
+                $semester->use='0';
+                $semester->save();
+            }
+
+
+        }
+       // $upda=DB::update('update semester_year set use=0 where id != ?',array($lastid));
 		//Semesteryears::create($request->all());
 		return redirect('semesteryear');
 	}
@@ -96,8 +106,21 @@ class SemesteryearController extends Controller {
 //        $semester->year=$request->get('year');
         $semester->use=$request->get('use');
         $semester->save();
+        //$update=DB::update('update semester_year set use=0 where id<>?',array($id));
 //        $semesteryear = Semesteryears::findOrFail($id);
 //		$semesteryear->update($request->all());
+        if($request->get('use')=='1') {
+            $sql = DB::select('select * from semester_year');
+            foreach ($sql as $key) {
+                if ($key->id != $id) {
+                    $semester = Semesteryears::findOrFail($key->id);
+                    $semester->use = '0';
+                    $semester->save();
+                }
+
+
+            }
+        }
 		return redirect('semesteryear');
 	}
 

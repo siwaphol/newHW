@@ -76,7 +76,7 @@ function onSubmitMain() {
 
     </script>
 
-<h3 align="center">เลือกกระบวนวิชา ตอน ที่ต้องการดูรายชื่อ</h3>
+<h3 align="center">เลือกกระบวนวิชา ตอน Noต้องการดูรายชื่อ</h3>
 <div class="portlet"align="right">
 <div class="portlet-body form"  align="center">
 <form action="students/showlist" method="post" name="frmMain" id="frmMain" onsubmit="return onSubmitMain()" class="form-horizontal"  align="center">

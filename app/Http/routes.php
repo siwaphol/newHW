@@ -20,7 +20,7 @@ Route::get('index', 'HomeController@firstpage');
 Route::get('index/preview', 'HomeController@preview');
 
 Route::post('index/uploadFiles', 'CourseHomeworkController@uploadFiles');
-Route::get('index/previewdownload', 'HomeController@preview1');
+Route::get('index/previewupload', 'HomeController@preview1');
 Route::get('testexcel','ExcelFileController@index');
 //Route::get('course/{course_id}', 'CourseHomeworkController@show');
 
@@ -36,6 +36,7 @@ Route::get('homework/create/{course_id}','CourseHomeworkController@homeworkCreat
 
 Route::get('homework/result','CourseHomeworkController@result' );
 //homework
+Route::post('index/homework/editstatus','Homework1Controller@editstatus');
 Route::get('homework','Homework1Controller@index');
 Route::delete('homework/delete/{id}','Homework1Controller@destroy');
 Route::get('homework/show/{id}','Homework1Controller@show');

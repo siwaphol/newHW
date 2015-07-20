@@ -18,15 +18,16 @@ $objPHPExcel = new PHPExcel();
 $result =DB::select('SELECT re.student_id,st.firstname_th,st.lastname_th,st.email FROM users st
           left join course_student re on st.id=re.student_id
           where  re.course_id=? and re.section=?
-          and re.semester=? and re.year=?',array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
+          and re.semester=? and re.year=?
+          order by re.student_id asc',array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
 
 $count=count($result);
 
 $row = 1;
-$objPHPExcel->getActiveSheet()->setCellValue('A'.$row, 'ที่')
-                              ->setCellValue('B'.$row, 'รหัสนักศึกษา')
-                              ->setCellValue('C'.$row, 'ชื่อ นามสกุล')
-                              ->setCellValue('D'.$row, 'อีเมล');
+$objPHPExcel->getActiveSheet()->setCellValue('A'.$row, 'No')
+                              ->setCellValue('B'.$row, 'Student ID')
+                              ->setCellValue('C'.$row, 'Name')
+                              ->setCellValue('D'.$row, 'Email');
 
 
 $row++;

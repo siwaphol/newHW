@@ -170,7 +170,7 @@ $month=array('01'=>'Jan',
 
                                 <div class="panel-body">
                                     {{--<h3 align="center">กระบวนวิชา {{$course['co']}}  ตอน {{$course['sec']}} </h3>--}}
-                                     <h4 align="center">รายชื่อนักศึกษา </h4>
+                                     {{--<h4 align="center">รายชื่อนักศึกษา </h4>--}}
 
                                     {{--<h4><a href="{{ url('/students/create/'.$coid[0]->id) }}">เพิ่มนักศึกษา</a></h4>--}}
 
@@ -185,7 +185,7 @@ $month=array('01'=>'Jan',
                                         <table class="table" id="example1" cellspacing="0" width="100%" >
                                            <thead>
                                             <tr>
-                                                <th>Student ID</th><th>Name</th><th>Status</th>
+                                                {{--<th>Student ID</th><th>Name</th><th>Status</th>--}}
                                                 @if(count($homework)>0)
                                                 @foreach($homework as $key1)
 
@@ -201,11 +201,12 @@ $month=array('01'=>'Jan',
                                             </thead>
                                             <tfoot>
                                             <tr>
-                                                <th>Student ID</th><th>Name</th><th>Status</th>
+                                                {{--<th>Student ID</th><th>Name</th><th>Status</th>--}}
                                                   @if(count($homework)>0)
                                                 @foreach($homework as $key1)
                                                 {{--@if(Auth::user()->isStudent())--}}
-                                                   <th><button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','upload',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name))!!}</button></th>
+                                                    <th ><button type="button" data-path="{{$key1->path}}" data-fullpath="temp" data-template-name="{{$key1->name}}" data-type-id="{{$key1->type_id}}" data-homework-id="{{$key1->id}}" data-duedate="{{$key1->due_date}}" data-acceptdate="{{$key1->accept_date}}" class="btn btn-default student-button"><i class="fa fa-upload"></i></button></th>
+
                                                    {{--@endif--}}
                                                  {{--@if(Auth::user()->isTeacher()||Auth::user()->isAdmin()||Auth::user()->isStudentandTa())--}}
                                                   {{--<th><button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','download',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name))!!}</button></th>--}}
@@ -234,10 +235,10 @@ $month=array('01'=>'Jan',
                                                   @if(Auth::user()->isStudent()||Auth::user()->isStudentandTa())
 
                                                      {{--<td><a href="{{ url('/students/show', $item->studentid) }}">{{ $item->studentid }}</a></td>--}}
-                                                     <td>{{$item->studentid}}</td>
+                                                     {{--<td>{{$item->studentid}}</td>--}}
                                                      {{--<td><a href="{{ url('/students/show', $item->studentid) }}">{{ $item->firstname." ".$item->lastname }}</a></td>--}}
-                                                      <td>{{$item->firstname." ".$item->lastname}}</td>
-                                                     <td>{{ $item->status}}</td>
+                                                      {{--<td>{{$item->firstname." ".$item->lastname}}</td>--}}
+                                                     {{--<td>{{ $item->status}}</td>--}}
                                                      @endif
                                                     <!--
                                                     <td><a href="{{ url('/students/edit/'.$item->studentid) }}">Edit</a> </td>
@@ -288,8 +289,19 @@ $month=array('01'=>'Jan',
 @endsection
 @section('footer')
 <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="{{ asset('/js/dropzone/dropzone.js') }}"></script>
+
 <script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.js"></script>
+{{--<script src="//cdn.datatables.net/fixedcolumns/3.0.3/js/dataTables.fixedColumns.js"></script>--}}
+
   <script type="text/javascript">
+
+    var dzfullpath = $('.button-selected').attr('data-fullpath');
+    var templatename = $('.button-selected').attr('data-template-name');
+    var typeid = $('.button-selected').attr('data-type-id');
+    var homework_id = '';
+    var due_date = '';
+    var accept_date = '';
 
 $(document).ready(function() {
     $('#example').dataTable( {
@@ -305,22 +317,59 @@ $(document).ready(function() {
 //} );
 $(document).ready( function () {
 
-    $('#example1').dataTable( {
+    var table=$('#example1').dataTable( {
         "scrollX": true,
+        @if(!\Auth::user()->isStudent())
         "sDom": 'T<"clear">lfrtip',
         "oTableTools": {
         "sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
             "aButtons": [
                 {
                     "sExtends": "xls",
+                    "sButtonText": "Export report send homework with excel",
+                    "sToolTip": "Export report send with excel",
+                     "sMessage": "Generated by DataTables",
                     "sTitle": "Report Sending ",
                     "sFileName": "<?php echo $course['co']."-".$course['sec'] ?> - *.xls"
                 }
+
             ]
-        }
+
+        },
+        @endif
+        "columnDefs": [
+            {"sClass": "a-right",},
+            { "width": "4%", "targets": 0 },
+            { "width": "25%", "targets": 1 },
+            { "width": "2%", "targets": 2 },
+            { "bSortable": false, "aTargets": [ 0 ] }
+          ]
+
     } );
+     new $.fn.dataTable.FixedColumns( table, {
+            leftColumns: 1
+
+        } );
 } );
 
-    </script>
+$(".student-button").on('click',  function(){
 
+    var path = $(this).attr("data-path");
+    var fullpath = '{{\Session::get('semester')}}' + '_' + '{{\Session::get('year')}}' + '/'
+    + '{{$course['co']}}' + '/' + '{{$course['sec']}}' + '/' + path.replace('./','');
+
+    $(this).attr('data-fullpath', fullpath);
+    $('button').removeClass('button-selected');
+    $(this).toggleClass('button-selected');
+    dzfullpath = $('.button-selected').attr('data-fullpath');
+    templatename = $('.button-selected').attr('data-template-name');
+    typeid = $('.button-selected').attr('data-type-id');
+    homework_id =  $('.button-selected').attr('data-homework-id');
+    due_date = $('.button-selected').attr('data-duedate');
+    accept_date = $('.button-selected').attr('data-acceptdate');
+    $('#upload-modal').modal('toggle');
+});
+
+    </script>
+@include('partials.dropzone')
 @endsection

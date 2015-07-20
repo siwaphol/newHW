@@ -31,8 +31,13 @@
             $semester=Session::get('semester');
             $year=substr(Session::get('year'),-2);
 
-            $fileupload_name = 'https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
-                        $fileupload='../temp/file.xlsx';
+            if($sec=='000'){
+             $fileupload_name = 'https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=001&border=1&mime=xlsx&ctype=&';
+
+             }else {
+
+                     $fileupload_name = 'https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$course.'&SECLEC='.$sec.'&SECLAB=000&border=1&mime=xlsx&ctype=&';
+                 }                        $fileupload='../temp/file.xlsx';
 
                         //chmod($fileupload, 0755);
                         	//chmod($fileupload_name, 0755);
@@ -117,6 +122,7 @@
 
       ?>
        <?php
+
        $student=DB::select('select re.student_id as studentid,stu.firstname_th as firstname_th,stu.lastname_th as lastname_th ,re.status as status
                                           from course_student  re
                                           left join users stu on re.student_id=stu.id
@@ -126,14 +132,16 @@
        $count=count($student);
         $coid=DB::select('select * from course_section c where c.course_id=? and c.section=? and c.semester=? and c.year=?',array($course,$sec,Session::get('semester'),Session::get('year')));
        ?>
+       <?php // return redirect()->action('HomeController@preview',array('course'=>$course,'sec'=>$sec));
+       ?>
            <div class="container">
                <div class="row">
                    <div class="col-md-10 col-md-offset-1">
                        <div class="panel panel-default">
-                           <div class="panel-heading" align="center">ข้อมูลนักศึกษา</div>
+                           <div class="panel-heading" align="center">Student enrollment</div>
 
                            <div class="panel-body">
-                               <h3 align="center">กระบวนวิชา {{$course}}  ตอน {{$sec}} </h3>
+                               <h3 align="center">{{$course}} || {{$sec}} </h3>
 
                                {{--<h4><a href="{{ url('/students/create/'.$coid[0]->id) }}">เพิ่มนักศึกษา</a></h4>--}}
 
@@ -148,12 +156,12 @@
                                    <table class="table" id="example" cellspacing="0" width="100%" >
                                        <thead>
                                        <tr>
-                                          <th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>สถานะ</th><th>delete</th>
+                                          <th>Student ID</th><th>Name</th><th>Status</th><th>Delete</th>
                                       </tr>
                                        </thead>
                                        <tfoot>
                                        <tr>
-                                          <th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th><th>สถานะ</th><th>delete</th>
+                                          <th>Student ID</th><th>Name</th><th>Status</th><th>Delete</th>
                                       </tr>
                                        </tfoot>
                                        <tbody>

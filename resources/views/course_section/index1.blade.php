@@ -25,13 +25,13 @@ $i=1;
         <thead>
             <tr>
 
-                <th>ที่</th>
+                <th>No</th>
                 <th>รหัสวิชา</th>
                 <th>ชื่อกระบวนวิชา</th>
                 <th>ตอน</th>
                 <th>อาจารย์</th>
-                <th>แก้ไข</th>
-                <th>ลบ</th>
+                <th>Edit</th>
+                <th>Delete</th>
 
 
             </tr>
@@ -45,8 +45,8 @@ $i=1;
                 <td>{{$key->coursename}}</td>
                 <td>{{$key->sectionid}}</td>
                  <td>{{$key->firstname}}  {{$key->lastname}}</td>
-                <td>{!! link_to_action('Course_SectionController@edit','แก้ไข',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
-                 <td>{!! link_to_action('Course_SectionController@delete','ลบ',array('id'=>$key->id,'course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
+                <td>{!! link_to_action('Course_SectionController@edit','Edit',array('course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
+                 <td>{!! link_to_action('Course_SectionController@delete','Delete',array('id'=>$key->id,'course'=>$key->courseid,'sec'=>$key->sectionid))!!}</td>
 
 
             </tr>
