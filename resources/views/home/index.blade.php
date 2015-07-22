@@ -185,11 +185,11 @@ $i=1;
   $(document).ready(function() {
       $('#example').dataTable( {
           "order": [[ 0, "asc" ]],
-          "scrollX": true,
+         // "scrollX": true,
           "columnDefs": [
                       {"sClass": "a-right",},
-                      { "width": "4%", "targets": 0 },
-                      { "width": "45%", "targets": 1 }
+                      { "width": "12%", "targets": 0 },
+                      { "width": "35%", "targets": 1 }
 //                      { "width": "2%", "targets": 2 }
           //            { "bSortable": false, "aTargets": [ 0 ] }
                     ]
@@ -201,11 +201,11 @@ $i=1;
    $(document).ready(function() {
         $('#example1').dataTable( {
             "order": [[ 0, "asc" ]],
-            "scrollX": true,
+           // "scrollX": true,
             "columnDefs": [
               {"sClass": "a-right",},
-              { "width": "4%", "targets": 0 },
-              { "width": "45%", "targets": 1 }
+              { "width": "10 %", "targets": 0 },
+              { "width": "35%", "targets": 1 }
 //                      { "width": "2%", "targets": 2 }
   //            { "bSortable": false, "aTargets": [ 0 ] }
             ]
