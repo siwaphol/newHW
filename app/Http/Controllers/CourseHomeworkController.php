@@ -385,7 +385,7 @@ class CourseHomeworkController extends Controller {
         $data  = [];
         foreach($distinct_homework_by_course as $aHomework){
             $extension = DB::select("SELECT extension FROM homework_types WHERE id=?",array($aHomework->type_id));
-            $type_with_extension = $aHomework->type_id . '(' . $extension[0]->extension .')';
+            $type_with_extension =  $extension[0]->extension;
             $obj = new \stdClass;
             $obj->name = $aHomework->name;
             $obj->type_id = $type_with_extension;

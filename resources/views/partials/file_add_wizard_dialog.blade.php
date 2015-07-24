@@ -12,30 +12,34 @@
               <div class="form-group">
                 <label class="control-label col-sm-2" for="homeworkname">Name<i style="color: red;">*</i></label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" name="homeworkname" id="homeworkname" placeholder="Ex. lab01_{id} ,lab01_{section}_{id}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="homeworkname" id="homeworkname" placeholder="Ex. lab01_{id} ,{id}_lab01_1">
+                        <span class="input-group-addon" id="homework-ext-label">no extension selected</span>
+                    </div>
                 </div>
               </div>
             <div class="form-group">
               <label class="control-label col-sm-2" for="section">File Type<i style="color: red;">*</i></label>
               <div class="col-sm-8">
                 <select id="filetype-list">
+                    <option value="">no extension</option>
                   @foreach($filetype_list as $a_file_type)
-                      <option value="{{$a_file_type->id}}">{{$a_file_type->id}} ({{$a_file_type->extension}})</option>
+                      <option value="{{$a_file_type->id}}">{{$a_file_type->extension}}</option>
                   @endforeach
-                  <option value="newfiletype">Create new file type</option>
+                  <option value="newfiletype">others...</option>
                 </select>
               </div>
             </div>
+              {{--<div class="form-group newfiletype" style="display:none;">--}}
+                {{--<label class="control-label col-sm-2" for="newfiletypeid">New id<i style="color: red;">*</i></label>--}}
+                {{--<div class="col-sm-8">--}}
+                  {{--<input type="text" class="form-control" name="newfiletypeid" id="newfiletypeid" placeholder="Ex. word, powerpoint (no space)">--}}
+                {{--</div>--}}
+              {{--</div>--}}
               <div class="form-group newfiletype" style="display:none;">
-                <label class="control-label col-sm-2" for="newfiletypeid">New id<i style="color: red;">*</i></label>
+                <label class="control-label col-sm-2" for="newextension">Extension<i style="color: red;">*</i></label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" name="newfiletypeid" id="newfiletypeid" placeholder="Ex. word, powerpoint (no space)">
-                </div>
-              </div>
-              <div class="form-group newfiletype" style="display:none;">
-                <label class="control-label col-sm-2" for="newfiletypeextension">Extension<i style="color: red;">*</i></label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" name="newfiletypeextension" id="newfiletypeextension" placeholder="Ex. c,cpp (use comma for multiple extension)">
+                  <input type="text" class="form-control" name="newextension" id="newextension" maxlength="20" placeholder="Ex. c, cpp (use comma for multiple extension)">
                 </div>
               </div>
               <div class="form-group">
@@ -85,16 +89,22 @@
 @include('partials.datetimepickermodal')
 
 <script>
-    $('#addFileModal').modalSteps({
-      completeCallback: function(){alert('COMPLETE !!');}
-    });
 
-    $("#DTcaller").on('click',  function(){
-        $('#dataTimePickerModal').modal('toggle');
-    });
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
+
+        var baseUrl = "{{ url('/') }}";
+        var token = "{{ Session::getToken() }}";
+
+        $('#addFileModal').modalSteps({
+          completeCallback: function(){alert('COMPLETE !!');}
+        });
+
+        $("#DTcaller").on('click',  function(){
+            $('#dataTimePickerModal').modal('toggle');
+        });
+
         $('#section-list').multiselect({
             includeSelectAllOption: true,
             allSelectedText: 'All section selected',
@@ -219,16 +229,39 @@
                });
             }
         });
+
         $('#filetype-list').multiselect({
             onChange: function(element, checked) {
                 if(checked === true) {
                     if(element.val() === 'newfiletype'){
                         $('.newfiletype').show();
+                        $('#homework-ext-label').html(trimed_text);
                     }else{
                         $('.newfiletype').hide();
+
+                        $('#homework-ext-label').html(element.html());
                     }
                 }
             }
+        });
+
+        $('#newextension').on('input',function(){
+            var trimed_text = $(this).val().replace(/ /g,'');
+            if(!trimed_text==''){
+                //check if , is at the end of string
+                patt = /,$/g;
+                if(patt.test(trimed_text)){
+                    trimed_text = trimed_text.substring(0, trimed_text.length - 1);
+                    trimed_text = trimed_text.replace(/,/g,', .');
+                }else{
+                    trimed_text = trimed_text.replace(/,/g,', .');
+                }
+
+                trimed_text = '.' + trimed_text;
+                trimed_text = trimed_text.toLowerCase();
+            }
+
+            $('#homework-ext-label').html(trimed_text);
         });
     });
 </script>
