@@ -67,6 +67,13 @@
                 </div>
               </div>
 
+                <div id="errorDisplay" class="alert alert-danger hidden">
+                    <strong>??????????</strong><br><br>
+                    <ul>
+
+                    </ul>
+                </div>
+
               <div id="sectionTimeDatePicker" class="sectionRemovable">
 
               </div>
@@ -80,7 +87,7 @@
         <button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="cancel" data-dismiss="modal"></button>
         <button type="button" class="btn btn-warning js-btn-step" data-orientation="previous"></button>
         <button type="button" class="btn btn-success js-btn-step" data-orientation="next"></button>
-        {{--<button type="button" class="btn btn-success" id="DTcaller">DT Modal</button>--}}
+        <button type="button" class="btn btn-success" id="DTcaller" data-dismiss="modal">Test button</button>
       </div>
     </div>
   </div>
@@ -94,15 +101,54 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
+        //starttest
+        var changingTxt = "";
+
+        $('#dtpicker_modal').datetimepicker({
+            inline: true,
+            sideBySide: true,
+            locale: 'en',
+            format: 'DD/MM/YYYY HH:mm',
+            defaultDate: moment("23:59:00","hh:mm:ss")
+        });
+        function changeCurrentDateText(cText){
+            changingTxt = cText;
+
+            if(!$.trim($(cText).val()).length){
+                $('#dtpicker_modal').data("DateTimePicker").date(moment("23:59:59","hh:mm:ss"));
+            }else{
+                $('#dtpicker_modal').data("DateTimePicker").date($(cText).val());
+            }
+            $('#dateTimePickerModal').modal('toggle');
+        }
+        function checkModalStepBeforeComplete(){
+            $('#errorDisplay ul').empty();
+            var hasError = false;
+            $('#sectionTimeDatePicker input').each(function() {
+                if($.trim($(this).val()).length !== 16){
+                    hasError= true;
+                    $('#errorDisplay ul').append('<li>It Should not be empty</li>');
+                    //input should be in format of asdaffddfdf
+                }else if(!moment($(this).val(), 'DD/MM/YYYY HH:mm', true).isValid()){
+                    hasError = true;
+                    $('#errorDisplay ul').append('<li>Incorrect format</li>');
+                    //date input is incorrect
+                }
+            });
+        }
+
+        $("#DT_OK_button").on("click",function(){
+            $(changingTxt).val($('#dtpicker_modal').data("DateTimePicker").date().format("DD/MM/YYYY HH:mm"));
+        });
+        //endtest
+
         var baseUrl = "{{ url('/') }}";
         var token = "{{ Session::getToken() }}";
 
         $('#addFileModal').modalSteps({
-          completeCallback: function(){alert('COMPLETE !!');}
-        });
-
-        $("#DTcaller").on('click',  function(){
-            $('#dataTimePickerModal').modal('toggle');
+          completeCallback: function(){
+              checkModalStepBeforeComplete();
+              $('#addFileModal').modal('hide');}
         });
 
         $('#section-list').multiselect({
@@ -123,20 +169,38 @@
                                 "Section " + element.val()+
                             "</div>" +
                             "<div class='panel-body'>" +
+//                                "<div class='form-group section" + element.val() + "'>" +
+//                                "  <label class='control-label col-sm-3' style='text-align: left;' for='dueDate" + element.val() + "'>Due Date</label>" +
+//                                "  <div class='col-sm-6 input-group date clsDatePicker' id='duedatetimepicker" + element.val() + "'>" +
+//                                "    <input type='text' class='form-control' name='dueDate" + element.val() + "' id='dueDate" + element.val() + "'/>" +
+//                                "    <span class='input-group-addon'>" +
+//                                "      <span class='glyphicon glyphicon-calendar'></span>" +
+//                                "    </span>" +
+//                                "  </div>" +
+//                                "</div>" +
+//                                "<div class='form-group section" + element.val() + "'>" +
+//                                "  <label class='control-label col-sm-3' style='text-align: left;' for='acceptUntil" + element.val() + "'>Accept Until</label>" +
+//                                "  <div class='col-sm-6 input-group date clsDatePicker' id='acceptdatetimepicker" + element.val() + "'>" +
+//                                "    <input type='text' class='form-control' name='acceptUntil" + element.val() + "' id='acceptUntil" + element.val() + "'/>" +
+//                                "    <span class='input-group-addon'>" +
+//                                "      <span class='glyphicon glyphicon-calendar'></span>" +
+//                                "    </span>" +
+//                                "  </div>" +
+//                                "</div>" +
                                 "<div class='form-group section" + element.val() + "'>" +
                                 "  <label class='control-label col-sm-3' style='text-align: left;' for='dueDate" + element.val() + "'>Due Date</label>" +
-                                "  <div class='col-sm-6 input-group date clsDatePicker' id='duedatetimepicker" + element.val() + "'>" +
+                                "  <div class='col-sm-6 input-group date clsDatePicker'>" +
                                 "    <input type='text' class='form-control' name='dueDate" + element.val() + "' id='dueDate" + element.val() + "'/>" +
-                                "    <span class='input-group-addon'>" +
+                                "    <span class='input-group-addon' id='btn_due_date" + element.val() + "'>" +
                                 "      <span class='glyphicon glyphicon-calendar'></span>" +
                                 "    </span>" +
                                 "  </div>" +
                                 "</div>" +
                                 "<div class='form-group section" + element.val() + "'>" +
                                 "  <label class='control-label col-sm-3' style='text-align: left;' for='acceptUntil" + element.val() + "'>Accept Until</label>" +
-                                "  <div class='col-sm-6 input-group date clsDatePicker' id='acceptdatetimepicker" + element.val() + "'>" +
+                                "  <div class='col-sm-6 input-group date clsDatePicker'>" +
                                 "    <input type='text' class='form-control' name='acceptUntil" + element.val() + "' id='acceptUntil" + element.val() + "'/>" +
-                                "    <span class='input-group-addon'>" +
+                                "    <span class='input-group-addon' id='btn_accept_date" + element.val() + "'>" +
                                 "      <span class='glyphicon glyphicon-calendar'></span>" +
                                 "    </span>" +
                                 "  </div>" +
@@ -144,26 +208,35 @@
                             "</div>"+
                             "</div>"+
                               "");
-                            var due_date = "#duedatetimepicker" + element.val();
-                            $(due_date).datetimepicker({
-                                locale: 'en',
-                                format: 'DD/MM/YYYY HH:mm',
-                                defaultDate: moment("00:00:00","hh:mm:ss"),
-                                                            widgetPositioning: {
-                                                                horizontal: 'right',
-                                                                vertical: 'auto'
-                                                            }
+                            var current_dbtn = "#btn_due_date" + element.val();
+                            var current_abtn = "#btn_accept_date" + element.val();
+                            var current_sec = element.val();
+                            $(current_dbtn).on('click',function(){
+                                changeCurrentDateText("#dueDate" + current_sec);
                             });
-                            var accept_date = "#acceptdatetimepicker" + element.val();
-                            $(accept_date).datetimepicker({
-                                locale: 'en',
-                                format: 'DD/MM/YYYY HH:mm',
-                                defaultDate: moment("23:59:00","hh:mm:ss"),
-                                                                widgetPositioning: {
-                                                                    horizontal: 'right',
-                                                                    vertical: 'auto'
-                                                                }
+                            $(current_abtn).on('click',function(){
+                                changeCurrentDateText("#acceptUntil" + current_sec);
                             });
+//                            var due_date = "#duedatetimepicker" + element.val();
+//                            $(due_date).datetimepicker({
+//                                locale: 'en',
+//                                format: 'DD/MM/YYYY HH:mm',
+//                                defaultDate: moment("00:00:00","hh:mm:ss"),
+//                                                            widgetPositioning: {
+//                                                                horizontal: 'right',
+//                                                                vertical: 'auto'
+//                                                            }
+//                            });
+//                            var accept_date = "#acceptdatetimepicker" + element.val();
+//                            $(accept_date).datetimepicker({
+//                                locale: 'en',
+//                                format: 'DD/MM/YYYY HH:mm',
+//                                defaultDate: moment("23:59:00","hh:mm:ss"),
+//                                                                widgetPositioning: {
+//                                                                    horizontal: 'right',
+//                                                                    vertical: 'auto'
+//                                                                }
+//                            });
                         }
                      }
                      else if(checked === false) {
@@ -182,48 +255,55 @@
                             "Section " + $(this).val()+
                         "</div>" +
                         "<div class='panel-body'>" +
-                            "<div class='form-group section" + $(this).val() + "'>" +
-                            "  <label class='control-label col-sm-3' style='text-align: left;' for='dueDate" + $(this).val() + "'>Due Date</label>" +
-                            "  <div class='col-sm-6 input-group date clsDatePicker' id='duedatetimepicker" + $(this).val() + "'>" +
-                            "    <input type='text' class='form-control' name='dueDate" + $(this).val() + "' id='dueDate" + $(this).val() + "'/>" +
-                            "    <span class='input-group-addon'>" +
-                            "      <span class='glyphicon glyphicon-calendar'></span>" +
-                            "    </span>" +
-                            "  </div>" +
-                            "</div>" +
-                            "<div class='form-group section" + $(this).val() + "'>" +
-                            "  <label class='control-label col-sm-3' style='text-align: left;' for='acceptUntil" + $(this).val() + "'>Accept Until</label>" +
-                            "  <div class='col-sm-6 input-group date clsDatePicker' id='acceptdatetimepicker" + $(this).val() + "'>" +
-                            "    <input type='text' class='form-control' name='acceptUntil" + $(this).val() + "' id='acceptUntil" + $(this).val() + "'/>" +
-                            "    <span class='input-group-addon'>" +
-                            "      <span class='glyphicon glyphicon-calendar'></span>" +
-                            "    </span>" +
-                            "  </div>" +
-                            "</div>" +
+//                            "<div class='form-group section" + $(this).val() + "'>" +
+//                            "  <label class='control-label col-sm-3' style='text-align: left;' for='dueDate" + $(this).val() + "'>Due Date</label>" +
+//                            "  <div class='col-sm-6 input-group date clsDatePicker' id='duedatetimepicker" + $(this).val() + "'>" +
+//                            "    <input type='text' class='form-control' name='dueDate" + $(this).val() + "' id='dueDate" + $(this).val() + "'/>" +
+//                            "    <span class='input-group-addon'>" +
+//                            "      <span class='glyphicon glyphicon-calendar'></span>" +
+//                            "    </span>" +
+//                            "  </div>" +
+//                            "</div>" +
+//                            "<div class='form-group section" + $(this).val() + "'>" +
+//                            "  <label class='control-label col-sm-3' style='text-align: left;' for='acceptUntil" + $(this).val() + "'>Accept Until</label>" +
+//                            "  <div class='col-sm-6 input-group date clsDatePicker' id='acceptdatetimepicker" + $(this).val() + "'>" +
+//                            "    <input type='text' class='form-control' name='acceptUntil" + $(this).val() + "' id='acceptUntil" + $(this).val() + "'/>" +
+//                            "    <span class='input-group-addon'>" +
+//                            "      <span class='glyphicon glyphicon-calendar'></span>" +
+//                            "    </span>" +
+//                            "  </div>" +
+//                            "</div>" +
+                                //starttest
+                                "<div class='form-group section" + $(this).val() + "'>" +
+                                "  <label class='control-label col-sm-3' style='text-align: left;' for='dueDate" + $(this).val() + "'>Due Date</label>" +
+                                "  <div class='col-sm-6 input-group date clsDatePicker'>" +
+                                "    <input type='text' class='form-control' name='dueDate" + $(this).val() + "' id='dueDate" + $(this).val() + "'/>" +
+                                "    <span class='input-group-addon' id='btn_due_date" + $(this).val() + "'>" +
+                                "      <span class='glyphicon glyphicon-calendar'></span>" +
+                                "    </span>" +
+                                "  </div>" +
+                                "</div>" +
+                                "<div class='form-group section" + $(this).val() + "'>" +
+                                "  <label class='control-label col-sm-3' style='text-align: left;' for='acceptUntil" + $(this).val() + "'>Accept Until</label>" +
+                                "  <div class='col-sm-6 input-group date clsDatePicker'>" +
+                                "    <input type='text' class='form-control' name='acceptUntil" + $(this).val() + "' id='acceptUntil" + $(this).val() + "'/>" +
+                                "    <span class='input-group-addon' id='btn_accept_date" + $(this).val() + "'>" +
+                                "      <span class='glyphicon glyphicon-calendar'></span>" +
+                                "    </span>" +
+                                "  </div>" +
+                                "</div>" +
+                                //endtest
                         "</div>"+
                         "</div>"+
                           "");
-                        var due_date = "#duedatetimepicker" + $(this).val();
-                        $(due_date).datetimepicker({
-                            
-                            locale: 'en',
-                            format: 'DD/MM/YYYY HH:mm',
-                            defaultDate: moment("00:00:00","hh:mm:ss"),
-                                                            widgetPositioning: {
-                                                                horizontal: 'right',
-                                                                vertical: 'auto'
-                                                            }
+                        var current_dbtn = "#btn_due_date" + $(this).val();
+                        var current_abtn = "#btn_accept_date" + $(this).val();
+                        var current_sec = $(this).val();
+                        $(current_dbtn).on('click',function(){
+                            changeCurrentDateText("#dueDate" + current_sec);
                         });
-                        var accept_date = "#acceptdatetimepicker" + $(this).val();
-                        $(accept_date).datetimepicker({
-                            
-                            locale: 'en',
-                            format: 'DD/MM/YYYY HH:mm',
-                            defaultDate: moment("23:59:00","hh:mm:ss"),
-                                                            widgetPositioning: {
-                                                                horizontal: 'right',
-                                                                vertical: 'auto'
-                                                            }
+                        $(current_abtn).on('click',function(){
+                            changeCurrentDateText("#acceptUntil" + current_sec);
                         });
                     }
                });

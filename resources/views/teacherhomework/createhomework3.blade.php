@@ -39,6 +39,7 @@
             </thead>
 
         </table>
+
     </div>
 @endsection
 
@@ -48,8 +49,9 @@
     <script type="text/javascript" src="{{ asset('/js/bootstrap/transition.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/bootstrap/collapse.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/js/jquery-bootstrap-modal-steps.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/jquery-bootstrap-modal-steps.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/bootstrap-multiselect/bootstrap-multiselect.js') }}"></script>
+    {{--<script type="text/javascript" src="{{ asset('/js/validator.min.js') }}"></script>--}}
 
     <!-- Add File Modal -->
     @include('partials.file_add_wizard_dialog')

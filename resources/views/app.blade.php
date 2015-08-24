@@ -23,7 +23,7 @@
 </head>
 <body>
 
-	@include ('partials.nav')
+	@include('partials.nav')
 </br>
 </br>
 </br>
