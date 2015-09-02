@@ -31,6 +31,7 @@ Route::get('testexcel','ExcelFileController@index');
 //Route::post('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_post_long')->where('path', '.+');
 Route::get('coursehomeworkdata/{course_id}', 'CourseHomeworkController@getHomeworkCreateData');
 Route::get('homework/create/{course_id}','CourseHomeworkController@homeworkCreate');
+Route::post('homework/create','CourseHomeworkController@homeworkPostCreate');
 //James Homework create
 //Route::get('homework/create','Homework1Controller@create');
 
