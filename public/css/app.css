@@ -6239,7 +6239,7 @@ label,
 }
 
 .clsDatePicker {
-    z-index: 100000;
+    z-index: 10000;
 }
 
 .clsAboveDatePicker {
@@ -6265,4 +6265,8 @@ div[class^="section"], div[class*=" section"] > .panel-heading {
 div[class^="section"], div[class*=" section"] > .panel-body {
     padding: 5px;
     padding-left: 15px;
+}
+
+.table > tfoot > tr > th  {
+    text-align: center;
 }

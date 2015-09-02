@@ -59,6 +59,7 @@ class CustomUserProvider implements UserProvider {
         //ITSC authentication use this if run in production
 //
         $sauth = Itscapi::authen_with_ITSC_api($credentials['email'], $credentials['password']);
+
         if ($sauth->success == true)
         {
             $query = $this->createModel()->newQuery();

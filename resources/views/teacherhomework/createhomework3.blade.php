@@ -39,6 +39,7 @@
             </thead>
 
         </table>
+
     </div>
 @endsection
 
@@ -48,8 +49,9 @@
     <script type="text/javascript" src="{{ asset('/js/bootstrap/transition.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/bootstrap/collapse.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/js/jquery-bootstrap-modal-steps.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/jquery-bootstrap-modal-steps.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/bootstrap-multiselect/bootstrap-multiselect.js') }}"></script>
+    {{--<script type="text/javascript" src="{{ asset('/js/validator.min.js') }}"></script>--}}
 
     <!-- Add File Modal -->
     @include('partials.file_add_wizard_dialog')
@@ -103,7 +105,7 @@
             "scrollX": true,
             processing: true,
             serverSide: true,
-            ajax: '{{ url("coursehomeworkdata/204111") }}',
+            ajax: '{{ url("coursehomeworkdata") }}{{'/'.$course_id}}',
             columns: [
                         {data: 'name', name: 'name'},
                         {data: 'type_id', name: 'type_id'},
@@ -113,15 +115,7 @@
                         @foreach($section_list as $aSection)
                             {data: 'accept_until'+'{{$aSection->section}}',name: 'accept_until'+'{{$aSection->section}}' },
                         @endforeach
-//                        {data: 'due_date', name: 'due_date'},
-//                        {data: 'accept_until', name: 'accept_until'},
-//                        {data: 'created_by', name: 'created_by'}
-                    ],
-            "createdRow": function ( row, data, index ) {
-                if ( data['status'] == 'Waiting') {
-                    $('td', row).eq(1).addClass('highlight');
-                }
-            }
+                    ]
         } );
 
     } );

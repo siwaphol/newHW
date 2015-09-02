@@ -507,14 +507,13 @@ $(document).ready( function () {
         },
 
         "columnDefs": [
-            {"sClass": "a-right",},
+            {"sClass": "a-right"},
             { "width": "4%", "targets": 0 },
             { "width": "25%", "targets": 1 },
             { "width": "2%", "targets": 2 }
 //            { "bSortable": false, "aTargets": [ 0 ] }
           ]
           @endif
-
     } );
      $('a.toggle-vis').on( 'click', function (e) {
             e.preventDefault();
