@@ -1,7 +1,7 @@
 <?php
 /**
  * An helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.0.33 on 2015-08-09.
+ * Generated for Laravel 5.0.33 on 2015-07-22.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -5732,7 +5732,7 @@ namespace {
          * @param array $cookies The COOKIE parameters
          * @param array $files The FILES parameters
          * @param array $server The SERVER parameters
-         * @param string|resource $content The raw body data
+         * @param string $content The raw body data
          * @api 
          * @static 
          */
@@ -8350,7 +8350,7 @@ namespace {
          * @param array $cookies The COOKIE parameters
          * @param array $files The FILES parameters
          * @param array $server The SERVER parameters
-         * @param string|resource $content The raw body data
+         * @param string $content The raw body data
          * @api 
          * @static 
          */

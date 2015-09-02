@@ -153,3 +153,4 @@ Route::get('semesteryear/{id}/edit','SemesteryearController@edit');
 Route::post('semesteryear/create/save','SemesteryearController@store');
 Route::patch('semesteryear/update/{id}','SemesteryearController@update');
 Route::post('semesteryear/showlist','SemesteryearController@showlist');
+

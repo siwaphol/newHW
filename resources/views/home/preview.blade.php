@@ -101,36 +101,36 @@
         </div>
     </div>
  @endif
-<div class="col-md-10 col-md-offset-2">
-@if(Auth::user()->isAdmin() || Auth::user()->isTeacher())
+{{--<div class="col-md-10 col-md-offset-2">--}}
+{{--@if(Auth::user()->isAdmin() || Auth::user()->isTeacher())--}}
 {{--<div class="dropdown">--}}
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-   Add Student
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li>{!! link_to_action('StudentsController@insert','Import student from registration office',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}
-    </li>
-    <li>{!! link_to_action('StudentsController@selectexcel','Import student from Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}
-    </li>
-    <li><a href="{{ url('/students/create/'.$coid[0]->id) }}">Add student</a></li>
+  {{--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">--}}
+   {{--Add Student--}}
+    {{--<span class="caret"></span>--}}
+  {{--</button>--}}
+  {{--<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">--}}
+    {{--<li>{!! link_to_action('StudentsController@insert','Import student from registration office',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}--}}
+    {{--</li>--}}
+    {{--<li>{!! link_to_action('StudentsController@selectexcel','Import student from Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}--}}
+    {{--</li>--}}
+    {{--<li><a href="{{ url('/students/create/'.$coid[0]->id) }}">Add student</a></li>--}}
 
-  </ul>
+  {{--</ul>--}}
 {{--</div>--}}
 {{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@insert','เพิ่มรายชื่อนักศึกษาจากสำนักทะเบียน',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>--}}
 {{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@selectexcel','เพิ่มรายชื่อนักศึกษาจากไฟล์ Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>--}}
 {{--<button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','เพิ่มนักศึกษาช่วยสอน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
-<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','Export student list',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
-<a href="{{url('/homework/create')}}{{'/'.$course['co']}}" class="btn btn-default" role="button">Create Homework</a>
+{{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','Export student list',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
+{{--<button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@index','Manage Homework',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
 {{--<button type="button" class="btn btn-default">{!! link_to_action('CourseHomeworkController@result','ผลการส่งการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
-@if(Auth::user()->isAdmin() || Auth::user()->isTeacher())
-<button type="button" class="btn btn btn-default " data-toggle="modal" data-target="#editsend">Edit homework status</button>
-@endif
-@endif
-@if(Auth::user()->isAdmin() || Auth::user()->isTeacher()||Auth::user()->isStudentandTa()||Auth::user()->isTa())
-<button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@exportzip','download all homework ',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>'','path'=>'','type'=>'0'))!!}</button>
-@endif
-</div>
+{{--@if(Auth::user()->isAdmin() || Auth::user()->isTeacher())--}}
+{{--<button type="button" class="btn btn btn-default " data-toggle="modal" data-target="#editsend">Edit homework status</button>--}}
+{{--@endif--}}
+{{--@endif--}}
+{{--@if(Auth::user()->isAdmin() || Auth::user()->isTeacher()||Auth::user()->isStudentandTa()||Auth::user()->isTa())--}}
+{{--<button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@exportzip','download all homework ',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>'','path'=>'','type'=>'0'))!!}</button>--}}
+{{--@endif--}}
+{{--</div>--}}
 
 
 
@@ -180,6 +180,36 @@ $month=array('01'=>'Jan',
 ?>
                 <div class="container">
                     <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                    @if(Auth::user()->isAdmin() || Auth::user()->isTeacher())
+                    {{--<div class="dropdown">--}}
+                      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                       Add Student
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li>{!! link_to_action('StudentsController@insert','Import student from registration office',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}
+                        </li>
+                        <li>{!! link_to_action('StudentsController@selectexcel','Import student from Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}
+                        </li>
+                        <li><a href="{{ url('/students/create/'.$coid[0]->id) }}">Add student</a></li>
+
+                      </ul>
+                    {{--</div>--}}
+                    {{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@insert','เพิ่มรายชื่อนักศึกษาจากสำนักทะเบียน',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>--}}
+                    {{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@selectexcel','เพิ่มรายชื่อนักศึกษาจากไฟล์ Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>--}}
+                    {{--<button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','เพิ่มนักศึกษาช่วยสอน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
+                    <button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','Export student list',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
+                    <button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@index','Manage Homework',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
+                    {{--<button type="button" class="btn btn-default">{!! link_to_action('CourseHomeworkController@result','ผลการส่งการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
+                    @if(Auth::user()->isAdmin() || Auth::user()->isTeacher())
+                    <button type="button" class="btn btn btn-default " data-toggle="modal" data-target="#editsend">Edit homework status</button>
+                    @endif
+                    @endif
+                    @if(Auth::user()->isAdmin() || Auth::user()->isTeacher()||Auth::user()->isStudentandTa()||Auth::user()->isTa())
+                    <button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@exportzip','download all homework ',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>'','path'=>'','type'=>'0'))!!}</button>
+                    @endif
+                    </div>
                         <div class="col-md-10 col-md-offset-1">
                             <div class="panel panel-default">
                                 {{--<div class="panel-heading" align="center">ข้อมูลนักศึกษา</div>--}}
@@ -335,7 +365,7 @@ $month=array('01'=>'Jan',
 
                                                 $sql=DB::select('SELECT * from homework where course_id=? and section=?
                                                                   and semester=? and year=?
-                                                                order by id ',
+                                                                order by name ',
                                                                 array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
 
                                                 $count=count($sql);
@@ -364,7 +394,7 @@ $month=array('01'=>'Jan',
                                                 $sql=DB::select('SELECT * from course_student
                                                                   where course_id=? and section=?
                                                                   and semester=? and year=?
-                                                                order by id ',
+                                                                order by student_id ',
                                                                 array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
 
                                                 $count=count($sql);
@@ -465,7 +495,7 @@ $(document).ready( function () {
             "aButtons": [
                 {
                     "sExtends": "xls",
-                    "sButtonText": "Export homework reprot ",
+                    "sButtonText": "Export homework report ",
                     "sToolTip": "Export report send with excel",
                      "sMessage": "Generated by DataTables",
                     "sTitle": "Report Sending ",
@@ -483,8 +513,7 @@ $(document).ready( function () {
             { "width": "2%", "targets": 2 }
 //            { "bSortable": false, "aTargets": [ 0 ] }
           ]
-        @endif
-
+          @endif
     } );
      $('a.toggle-vis').on( 'click', function (e) {
             e.preventDefault();
