@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "52872b34a3cb851da67253ee703742ca",
+    "hash": "31bac662a459943c224bb3999762d58a",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -1148,16 +1148,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.9",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "c42bed650525ec9ea1a83b715e37f4fc690f99aa"
+                "reference": "3475ce0b1b5cab41f012905c4c58ad645088f7c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/c42bed650525ec9ea1a83b715e37f4fc690f99aa",
-                "reference": "c42bed650525ec9ea1a83b715e37f4fc690f99aa",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/3475ce0b1b5cab41f012905c4c58ad645088f7c9",
+                "reference": "3475ce0b1b5cab41f012905c4c58ad645088f7c9",
                 "shasum": ""
             },
             "require": {
@@ -1225,7 +1225,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2015-07-13 09:25:28"
+            "time": "2015-07-21 19:35:53"
         },
         {
             "name": "league/fractal",
@@ -1783,6 +1783,54 @@
                 "shell"
             ],
             "time": "2015-03-26 18:43:54"
+        },
+        {
+            "name": "roumen/sitemap",
+            "version": "v2.5.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RoumenDamianoff/laravel-sitemap.git",
+                "reference": "f29c465f2dbee562c354e79ba17ef7c0ae9f29fe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RoumenDamianoff/laravel-sitemap/zipball/f29c465f2dbee562c354e79ba17ef7c0ae9f29fe",
+                "reference": "f29c465f2dbee562c354e79ba17ef7c0ae9f29fe",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Roumen\\Sitemap": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roumen Damianoff",
+                    "email": "roumen@dawebs.com",
+                    "homepage": "https://roumen.it",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple sitemap generator for Laravel.",
+            "homepage": "https://roumen.it/projects/laravel-sitemap",
+            "keywords": [
+                "Sitemap",
+                "generator",
+                "laravel"
+            ],
+            "time": "2015-06-12 16:49:42"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2745,16 +2793,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v5.8.1",
+            "version": "v5.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "c947a80931be826fb324e020fe4f25ac41055fb5"
+                "reference": "39f3acea215492abe91e315359318c7694f3c08b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/c947a80931be826fb324e020fe4f25ac41055fb5",
-                "reference": "c947a80931be826fb324e020fe4f25ac41055fb5",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/39f3acea215492abe91e315359318c7694f3c08b",
+                "reference": "39f3acea215492abe91e315359318c7694f3c08b",
                 "shasum": ""
             },
             "require": {
@@ -2796,7 +2844,7 @@
                 "laravel4",
                 "laravel5"
             ],
-            "time": "2015-07-16 11:11:26"
+            "time": "2015-07-22 01:35:16"
         }
     ],
     "packages-dev": [

@@ -20,14 +20,43 @@ $result =DB::select('SELECT re.student_id,st.firstname_th,st.lastname_th,st.emai
           where  re.course_id=? and re.section=?
           and re.semester=? and re.year=?
           order by re.student_id asc',array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
+$homework=DB::select('select * from homework where course_id=? and  section=?
+                        and semester=? and year=?',array($course['co'],$course['sec'],Session::get('semester'),Session::get('year')));
 
 $count=count($result);
+$month=array('01'=>'Jan',
+             '02'=>'Feb',
+             '03'=>'Mar',
+             '04'=>'Apr',
+             '05'=>'May',
+             '06'=>'June',
+             '07'=>'July',
+             '08'=>'Aug',
+             '09'=>'Sept',
+             '10'=>'Oct',
+             '11'=>'Nov',
+             '12'=>'Dec'
 
+);
 $row = 1;
 $objPHPExcel->getActiveSheet()->setCellValue('A'.$row, 'No')
                               ->setCellValue('B'.$row, 'Student ID')
                               ->setCellValue('C'.$row, 'Name')
-                              ->setCellValue('D'.$row, 'Email');
+                              ->setCellValue('D'.$row, 'Email')
+      foreach($homework as $key1)
+
+
+          $pattern = '/(_?\{)(.*)(\}_?)/i';
+          $replacement = '';
+          $name = preg_replace($pattern, $replacement, $key1->name);
+
+          //$name= explode('{',$key1->name);
+
+
+        ->setCellValue( $name.$key1->due_date.$month[date("m", strtotime($key1->due_date)).date("d", strtotime($key1->accept_date)).$month[date("m", strtotime($key1->accept_date)));
+
+
+
 
 
 $row++;
@@ -41,7 +70,7 @@ for($i=0;$i<$count;$i++) {
    $row++;
 }
 $objPHPExcel->getActiveSheet()->setTitle('นักศึกษาวิชา'.$course['co'].' ตอน '.$course['sec']);
-$name='รายชื่อนักศึกษากระบวนวิชา'.$course['co'].' ตอน '.$course['sec'].'.xlsx';
+$name='ผลการส่งการบ้านกระบวนวิชา'.$course['co'].' ตอน '.$course['sec'].'.xlsx';
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
                 $objPHPExcel->setActiveSheetIndex(0);
 

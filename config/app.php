@@ -152,7 +152,8 @@ return [
         'App\Providers\AppzcoderCrudGeneratorServiceProvider', //provider crud
         'yajra\Datatables\DatatablesServiceProvider',
         'Chumper\Zipper\ZipperServiceProvider',
-        'Maatwebsite\Excel\ExcelServiceProvider'
+        'Maatwebsite\Excel\ExcelServiceProvider',
+        'Roumen\Sitemap\SitemapServiceProvider'
 
 	],
 
