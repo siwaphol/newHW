@@ -439,4 +439,9 @@ class CourseHomeworkController extends Controller {
         return $homework_status;
     }
 
+    public function homeworkPostCreate(Request $request)
+    {
+        $coure_no = $request['homeworkname'];
+    }
+
 }

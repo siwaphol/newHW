@@ -152,14 +152,7 @@
             $('#dateTimePickerModal').modal('toggle');
         }
 
-        function addSpaceBetweenWord(no_space_text){
-
-
-
-            return added_space_text;
-        }
-
-        function checkModalStepBeforeComplete() {
+        function checkErrorBeforeModalStepComplete() {
             $('#errorDisplay ul').empty();
             var hasError = false;
 
@@ -177,6 +170,8 @@
                     //date input is incorrect
                 }
             });
+
+            return hasError;
         }
 
         function getSectionInputString(section_text){
@@ -220,7 +215,9 @@
 
         $('#addFileModal').modalSteps({
             completeCallback: function () {
-                checkModalStepBeforeComplete();
+                if(!checkErrorBeforeModalStepComplete()){
+                    console.log($('.addFileForm').serialize());
+                }
                 //$('#addFileModal').modal('hide');
             }
         });

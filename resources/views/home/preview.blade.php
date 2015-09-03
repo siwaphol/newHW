@@ -319,8 +319,7 @@
 
                                                     <?php
                                                     $sql = DB::select('select * from homework_student where homework_id = ? and student_id=?
-                                                                          and course_id=? and section=?
-                                                                          ', array($key2->id, $item->studentid, $course['co'], $course['sec']));
+                                                                       and course_id=? and section=?', array($key2->id, $item->studentid, $course['co'], $course['sec']));
                                                     $hw = count($sql);
 
                                                     if ($hw > 0) {
