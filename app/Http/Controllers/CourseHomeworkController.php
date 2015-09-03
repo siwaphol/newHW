@@ -439,9 +439,11 @@ class CourseHomeworkController extends Controller {
         return $homework_status;
     }
 
-    public function homeworkPostCreate(Request $request)
+    public function homeworkPostCreate()
     {
-        $coure_no = $request['homeworkname'];
+        $input = Input::all();
+        $new_input = explode("&",$input['aData']);
+        $coure_no = $new_input['homeworkname'];
     }
 
 }

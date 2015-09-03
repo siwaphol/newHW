@@ -211,12 +211,26 @@
         //endtest
 
         var baseUrl = "{{ url('/') }}";
+        var baseHomeworkCreate = 'homework/create';
         var token = "{{ Session::getToken() }}";
 
         $('#addFileModal').modalSteps({
             completeCallback: function () {
                 if(!checkErrorBeforeModalStepComplete()){
-                    console.log($('.addFileForm').serialize());
+                    console.log($('.addFileForm').serialize()+'&'+$('.addFileForm-selected-section').serialize());
+                    console.log(baseUrl+'/homework/create');
+                    var mydata = $('.addFileForm').serialize()+'&'+$('.addFileForm-selected-section').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: '/newHW/public/homework/create',
+                        data: {aData: mydata, _token: token},
+                        success: function(data){
+                            return data;
+                        },
+                        error: function(data){
+                            console.log(data);
+                        }
+                    });
                 }
                 //$('#addFileModal').modal('hide');
             }

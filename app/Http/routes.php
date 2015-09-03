@@ -25,15 +25,9 @@ Route::get('testexcel','ExcelFileController@index');
 //Route::get('course/{course_id}', 'CourseHomeworkController@show');
 
 //Nong old homework create
-//Route::get('homework/create/{course_id}','CourseHomeworkController@create');
-//Route::post('homework/create/{course_id}','CourseHomeworkController@create_post' );
-//Route::get('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_get_long')->where('path', '.+');
-//Route::post('homework/create/{course_id}/{path?}', 'CourseHomeworkController@create_post_long')->where('path', '.+');
 Route::get('coursehomeworkdata/{course_id}', 'CourseHomeworkController@getHomeworkCreateData');
 Route::get('homework/create/{course_id}','CourseHomeworkController@homeworkCreate');
 Route::post('homework/create','CourseHomeworkController@homeworkPostCreate');
-//James Homework create
-//Route::get('homework/create','Homework1Controller@create');
 
 Route::get('homework/result','CourseHomeworkController@result' );
 //homework
