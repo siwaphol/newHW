@@ -197,6 +197,15 @@ class Course_SectionController extends Controller
         $result = @file_get_contents($fn,false,$context);
         return $result;
     }
+    /**
+     * @input text from web page (not html value)
+     * @return collection of all course
+     */
+    private function turnHTMLtoCollection(){
+
+
+        return false;
+    }
     public function auto(){
         $postdata = http_build_query(
             array(
@@ -215,6 +224,12 @@ class Course_SectionController extends Controller
         $semester=Session::get('semester');
         $year=substr(Session::get('year'),-2);
         $result = file_get_contents('https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/search.php?act=search', false, $context);
+
+        $course_array = explode('•',strip_tags($result));
+        array_shift($course_array);
+        //dd($course_array);
+        dd(substr($course_array[0],0,5));
+
         $line=preg_split("/((\r?\n)|(\r\n?))/", $result);
         $count=count($line);
         $a_cells = array_slice(preg_split('/(?:<\/td>\s*|)<td[^>]*>/', $result), 1);

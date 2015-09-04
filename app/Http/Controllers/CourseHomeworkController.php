@@ -444,6 +444,9 @@ class CourseHomeworkController extends Controller {
         $input = Input::all();
         $new_input = explode("&",$input['aData']);
         $coure_no = $new_input['homeworkname'];
+
+
+        return "success";
     }
 
 }

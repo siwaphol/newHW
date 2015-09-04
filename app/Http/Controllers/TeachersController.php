@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Teachers;
 //use Illuminate\Http\Request;
+use App\User;
 use Carbon\Carbon;
 use Response;
 use View;
@@ -20,7 +21,7 @@ class TeachersController extends Controller {
 	 */
 	public function index()
 	{
-		$teachers =DB::select('select * from users where role_id=0100');
+		$teachers = DB::select('select * from users where role_id=0100');
 		return view('teachers.index', compact('teachers'));
 	}
 
@@ -111,7 +112,6 @@ class TeachersController extends Controller {
 	 */
 	public function destroy($id)
 	{
-
 		$Teachers=DB::delete('delete from users where id=?',array($id));
 		return redirect('teachers');
 	}
