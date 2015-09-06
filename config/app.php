@@ -153,7 +153,7 @@ return [
         'yajra\Datatables\DatatablesServiceProvider',
         'Chumper\Zipper\ZipperServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
-        'Roumen\Sitemap\SitemapServiceProvider'
+        //'Roumen\Sitemap\SitemapServiceProvider'
 
 	],
 

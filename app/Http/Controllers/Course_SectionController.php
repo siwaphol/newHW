@@ -3,8 +3,11 @@
 use App\Http\Requests\course_section;
 use App\Http\Controllers\Controller;
 use DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Course_Section as CS;
+use Illuminate\Support\Collection;
+use Log;
 use Session;
 use Illuminate\Http\RedirectResponse;
 use App\Course;
@@ -201,12 +204,82 @@ class Course_SectionController extends Controller
      * @input text from web page (not html value)
      * @return collection of all course
      */
-    private function turnHTMLtoCollection(){
+//    protected function turnHTMLtoCollection($courseArray){
+//        //Assumming first line is "204100 - IT AND MODERN LIFE (11 Sections)"
+//        $regex_for_course_no = '/204[0-9]{3}/';
+//        $regex_for_course_name = '/-(.*?)\(/';
+//        $regex_for_sections = '/\((.*?)\)/';
+//        $result_collection = array();
+//
+//        foreach($courseArray as $aCourse){
+//            preg_match($regex_for_course_no, $aCourse, $match);
+//            $course_no = $match[0];
+//            preg_match($regex_for_course_name, $aCourse, $match);
+//            $course_name = trim($match[1]);
+//            preg_match($regex_for_sections, $aCourse, $match);
+//            $temp = explode(' ',$match[1]);
+//            $section_count = $temp[0];
+//
+//            preg_match_all('/'.$course_name.'\b.*$/m',$aCourse,$all_lines_contain_course_name);
+//
+//            //Assume each line will be like "$course_name 001000"
+//            array_shift($all_lines_contain_course_name[0]);
+//            array_push($result_collection,$all_lines_contain_course_name[0]);
+//        }
+//
+//        dd($result_collection);
+//        return false;
+//    }
+    protected function turnHTMLtoCollection($courseArray){
 
+    }
 
-        return false;
+    protected function getTeacherName($inputString)
+    {
+        //<td in title="
+        $inputString = str_replace('<br>','&',$inputString);
+        $inputString = str_replace('</br>','&',$inputString);
+        $inputString = str_replace('<b>co-instructor</b>','&',$inputString);
+
+        $found_name_th = false;
+        $f_index = strpos($inputString,'<td in title=');
+        $pos = $f_index;
+        $stringArray = str_split($inputString);
+        $a_tag = '';
+        $teacher_name_th = '';
+        $teacher_name_en = '';
+        while($a_tag !== '</td>'){
+            if(substr($a_tag,-1) === '>'){
+                $a_tag='';
+            }
+            if($stringArray[$pos]=== '<'){
+                $teacher_name_en = $a_tag;
+                $a_tag = '';
+            }
+            $a_tag .= $stringArray[$pos];
+            if($stringArray[$pos]==='"' && !$found_name_th){
+                $pos = $pos + 1;
+                while($stringArray[$pos]!=='"'){
+                    $teacher_name_th .= $stringArray[$pos];
+                    $a_tag .= $stringArray[$pos];
+                    $pos = $pos + 1;
+                }
+                $a_tag .= $stringArray[$pos]; //closing "
+                $found_name_th = true;
+            }
+
+            $pos = $pos+1;
+        }
+        return array('teacher_name_th'=>$teacher_name_th,'teacher_name_en'=>$teacher_name_en);
     }
     public function auto(){
+        $regex_for_course_no = '/204[0-9]{3}/';
+//        $one_course_array = array('id'=>'204111','sections'=>array(array('no'=>'001'),array('no'=>'002')));
+//        array_push($one_course_array['sections'],array('no'=>'oh my god'));
+//        $collection = array();
+//        array_push($collection,$one_course_array);
+//        dd($collection);
+
         $postdata = http_build_query(
             array(
                 'op' => 'precourse',
@@ -223,12 +296,108 @@ class Course_SectionController extends Controller
         $context  = stream_context_create($opts);
         $semester=Session::get('semester');
         $year=substr(Session::get('year'),-2);
+        //test
+        $year='58';
+        //end test
         $result = file_get_contents('https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/search.php?act=search', false, $context);
 
+        $e_result = explode('<span coursetitle>',$result);
+        array_shift($e_result);
+        $all_courses_array = array();
+
+        //test
+//        dd($e_result);
+        foreach($e_result as $aCourse){
+            //for closed course will be <tr coursedata close>
+            $e2_result= explode('<tr coursedata',$aCourse);
+//            dd($e2_result);
+            preg_match('/([0-9]{6}) - (.*?) \(([0-9]{1,2}) Section[s]?\)/',strip_tags($e2_result[0]),$matches);
+            $a_course_array = array();
+            if(count($matches)==4){
+                $course_no = $matches[1];
+                $course_name = $matches[2];
+                $course_section_count = $matches[3];
+                //array_push($a_course_array,['id'=>$course_no],['name'=>$course_name],['sections'=>array()]);
+                $a_course_array = array('id'=>$course_no,'name'=>$course_name,'sections'=>array());
+                try {
+                    Course::findOrFail($course_no);
+                }catch (ModelNotFoundException $e){
+                    Log::info($e->getMessage() . '\nNew Course was created: ' .$course_no.' '.$course_name);
+                    $new_course = new Course();
+                    $new_course->id = $course_no;
+                    $new_course->name = ucwords($course_name);
+                    $new_course->save();
+                }
+            }else{
+                Log::error('Cannot find course details in this block of text: ' . strip_tags($e2_result[0]));
+                continue;
+            }
+            array_shift($e2_result);
+
+            foreach ($e2_result as $aSection) {
+                $a_section_array = array();
+                preg_match('/SECLEC=([0-9]{3})&SECLAB=([0-9]{3})/', $aSection, $section_matches);
+                if(count($section_matches)==3) {
+                    if ($section_matches[1] === '000') {
+                        $course_sec = $section_matches[2];
+                    } else {
+                        $course_sec = $section_matches[1];
+                    }
+                    $a_section_array = array_add($a_section_array,'no',$course_sec);
+                    //array_push($a_section_array,'no'=>$course_sec);
+                }else{
+                    Log::error('Cannot find course section in this block of text: ' . $aSection);
+                    continue;
+                }
+//                preg_match('/<td in title="(.*)">(.*)<\/td>/', $aSection, $section_teacher);
+                $teacher_names = $this->getTeacherName($aSection);
+
+//                preg_match('/<td in title="(.*)">[a-zA-Z| ]*<\/td>/u', $aSection, $section_teacher);
+//                if(count($section_teacher)==3) {
+//                    $section_teacher_th = trim($section_teacher[1]);
+//                    $section_teacher_en = trim($section_teacher[2]);
+//                    $a_section_array = array_add($a_section_array,'teacher_name_th',$section_teacher_th);
+//                    $a_section_array = array_add($a_section_array,'teacher_name_en',$section_teacher_en);
+//                }else{
+//                    Log::error('Cannot find course teacher(s) in this block of text: ' . $aSection);
+//                    continue;
+//                }
+                $a_section_array = array_add($a_section_array,'teacher_name_th',$teacher_names['teacher_name_th']);
+                $a_section_array = array_add($a_section_array,'teacher_name_en',$teacher_names['teacher_name_en']);
+                //push one section to course
+                array_push($a_course_array['sections'],$a_section_array);
+            }
+            //push one course to all courses array
+            array_push($all_courses_array,$a_course_array);
+
+        } //end foreach foreach($e_result as $aCourse)
+        //end test
+        dd($all_courses_array);
+//        $e2_result= explode('<tr coursedata >',$e_result[0]);
+//        array_shift($e2_result);
+//        preg_match('/<td left>(.*?)<\/td>/',$e2_result[0],$matches);
+//        $course_name = trim($matches[1]);
+//        preg_match('/SECLEC=([0-9]{3})&SECLAB=([0-9]{3})/',$e2_result[0],$section_matches);
+//        if($section_matches[1]==='000'){
+//            $course_sec = $section_matches[2];
+//        }else{
+//            $course_sec = $section_matches[1];
+//        }
+//        preg_match('/<td in title="(.*)">(.*)<\/td>/',$e2_result[0],$section_teacher);
+//        $section_teacher_th = $section_teacher[1];
+//        $section_teacher_en = $section_teacher[2];
+        dd('Aha its here now');
+
+        preg_match_all('/<tr coursedata >(.|\s)*<\/tr>$/',$e_result[0],$matches);
+        dd($matches);
         $course_array = explode('•',strip_tags($result));
         array_shift($course_array);
-        //dd($course_array);
-        dd(substr($course_array[0],0,5));
+        $course_array = array_map('trim',$course_array);
+        //loop start from now
+        //preg_match($regex_for_course_no,$course_array[0],$match);
+        $courseCollection = $this->turnHTMLtoCollection($course_array);
+
+        dd('testSiwaphol');
 
         $line=preg_split("/((\r?\n)|(\r\n?))/", $result);
         $count=count($line);
