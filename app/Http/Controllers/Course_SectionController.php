@@ -335,7 +335,7 @@ class Course_SectionController extends Controller
     }
     public function auto(){
 
-        return view('admin.course_section_import');
+//        return view('admin.course_section_import');
 
         $postdata = http_build_query(
             array(
@@ -416,13 +416,13 @@ class Course_SectionController extends Controller
         //if search (use English first name and last name) and did not found
         $semester = Session::get("semester");
         $year = Session::get("year");
-        $summary = '';
+        //success 0 = success , 1= duplicate, 2=fail
+        $overview = array('course_id'=>array(),'course_name'=>array(),'section'=>array(),'teacher_name'=>array(),'success'=>array(),'detail'=>array());
+        $count_summary = array(0,0,0);
+
         foreach($all_courses_array as $aCourse){
-            $summary .= '\ncourse id: ' . $aCourse['id'] . ' course name: ' . $aCourse['name'];
             foreach($aCourse['sections'] as $aSection){
-                $summary .= ' &section : ' . $aSection['no'];
                 foreach($aSection['teacher'] as $aTeacher){
-                    $summary .= ' &teacher : ' . $aTeacher['firstname_en'] . ' ' . $aTeacher['lastname_en'];
                     $old_course_section = null;
                     $teacher = null;
                     //find if there is this teacher in database
@@ -445,7 +445,6 @@ class Course_SectionController extends Controller
                         $new_employee->year = $year;
                         $new_employee->save();
                         $teacher_id = $new_employee->id;
-                        $summary .= ' (New Teacher create, teacher id: ' . $new_employee->id . ')';
                     }
                     //find if there is course section with the exact same courseid,section,teacherid,semester,year
                     try{
@@ -455,7 +454,13 @@ class Course_SectionController extends Controller
                             ->where('semester', $semester)
                             ->where('year', $year)->firstOrFail();
 
-                        $summary .= '(Already has this section in database)';
+                        array_push($overview['course_id'],$aCourse['id']);
+                        array_push($overview['course_name'],$aCourse['name']);
+                        array_push($overview['section'],$aSection['no']);
+                        array_push($overview['teacher_name'],$aTeacher['firstname_en'] .' ' . $aTeacher['lastname_en'] . ' ' . $aTeacher['firstname_th'] . ' ' . $aTeacher['lastname_th']);
+                        array_push($overview['success'],1);
+                        array_push($overview['detail'],'Duplicate course section is already exist.');
+                        $count_summary[1] = $count_summary[1] + 1;
                     }catch (ModelNotFoundException $e){
                         $course_section_model = new \App\Course_Section();
                         $course_section_model->course_id = $aCourse['id'];
@@ -463,15 +468,38 @@ class Course_SectionController extends Controller
                         $course_section_model->teacher_id = $teacher_id;
                         $course_section_model->semester = $semester;
                         $course_section_model->year = $year;
-                        $course_section_model->save();
+                        $save_result = $course_section_model->save();
 
-                        $summary .= ' (Succesfully add new course section)';
+                        array_push($overview['course_id'],$aCourse['id']);
+                        array_push($overview['course_name'],$aCourse['name']);
+                        array_push($overview['section'],$aSection['no']);
+                        array_push($overview['teacher_name'],$aTeacher['firstname_en'] .' ' . $aTeacher['lastname_en'] . ' ' . $aTeacher['firstname_th'] . ' ' . $aTeacher['lastname_th']);
+
+                        if($save_result){
+                            array_push($overview['success'],0);
+                            array_push($overview['detail'],'');
+                            $count_summary[0] = $count_summary[0] + 1;
+                        }else{
+                            array_push($overview['success'],2);
+                            array_push($overview['detail'],'Fail to create new course section data.');
+                            $count_summary[2] = $count_summary[2] + 1;
+                        }
                     }
+                }
+                if(count($aSection['teacher'])==0){
+                    //In case no teacher name found
+                    array_push($overview['course_id'],$aCourse['id']);
+                    array_push($overview['course_name'],$aCourse['name']);
+                    array_push($overview['section'],$aSection['no']);
+                    array_push($overview['teacher_name'],'');
+                    array_push($overview['success'],2);
+                    array_push($overview['detail'],'Cannot find teacher name or only "Staff" found.');
+                    $count_summary[2] = $count_summary[2] + 1;
                 }
             }
         }
         //endtest
-
-        return view('admin.course_section_import',compact('summary'));
+        $count_overview = $count_summary[0]+$count_summary[1]+$count_summary[2];
+        return view('admin.course_section_import',compact('overview','count_summary','count_overview'));
     }
 }

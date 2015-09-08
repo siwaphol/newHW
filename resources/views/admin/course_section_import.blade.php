@@ -126,30 +126,22 @@
                     </tfoot>
 
                     <tbody>
+                        @for($i = 0; $i < $count_overview; $i++)
                         <tr>
-                            <td>204111</td>
-                            <td>FUN CS</td>
-                            <td>001</td>
-                            <td>Siwaphol Boonpan</td>
-                            <td><span class="label label-success">Added</span></td>
-                            <td></td>
+                            <td>{{$overview['course_id'][$i]}}</td>
+                            <td>{{$overview['course_name'][$i]}}</td>
+                            <td>{{$overview['section'][$i]}}</td>
+                            <td>{{$overview['teacher_name'][$i]}}</td>
+                            @if($overview['success'][$i]==0)
+                                <td><span class="label label-success">Added</span></td>
+                            @elseif($overview['success'][$i]==1)
+                                <td><span class="label label-warning">Duplicate</span></td>
+                            @elseif($overview['success'][$i]==2)
+                                <td><span class="label label-danger">Fail</span></td>
+                            @endif
+                            <td>{{$overview['detail'][$i]}}</td>
                         </tr>
-                        <tr>
-                            <td>204112</td>
-                            <td>FUN CS 2</td>
-                            <td>001</td>
-                            <td>Siwaphol Boonpan</td>
-                            <td><span class="label label-warning">No Change</span></td>
-                            <td>Duplicate course exist</td>
-                        </tr>
-                        <tr>
-                            <td>204112</td>
-                            <td>FUN CS 2</td>
-                            <td>001</td>
-                            <td>Siwaphol Boonpan</td>
-                            <td><span class="label label-warning">No Change</span></td>
-                            <td>Not found teacher name or only "Staff" found</td>
-                        </tr>
+                        @endfor
                     </tbody>
                 </table>
             </div>
@@ -170,7 +162,7 @@
                     var api = this.api(), data;
 
                     // Update footer
-                    $('#total_footer').html('This is total that succesfully add to the footer.');
+                    $('#total_footer').html('Total : '+ {{$count_summary[0]}} +' Added '+ {{$count_summary[1]}} +' Duplicate '+ {{$count_summary[2]}} +' Fail.');
 
                 },
                 "dom" : 'l<"#mycustombutton.dataTables_filter">ftipr'
@@ -182,7 +174,7 @@
                         '<select id="success_select">' +
                             '<option value="All">All</option>' +
                             '<option value="Added">Added</option>' +
-                            '<option value="No Change">No Change</option>' +
+                            '<option value="Duplicate">Duplicate</option>' +
                             '<option value="Fail">Fail</option>' +
                         '</select>' +
                     '</label>');
