@@ -8,7 +8,7 @@ class Course_Section extends Model {
 
     protected $table = 'course_section';
 
-    protected $appends = ['course_name'];
+    protected $appends = ['course_name','enroll_count'];
     protected $fillable = ['id','course_id','section', 'teacher_id', 'semester', 'year'];
 
     /**
@@ -18,6 +18,12 @@ class Course_Section extends Model {
     {
         $local_course_name = DB::select('SELECT name FROM courses where id=? ', array( $this->attributes['course_id'] ));
         return $local_course_name[0]->name;
+    }
+    public function getEnrollCountAttribute()
+    {
+        $count = DB::select('SELECT COUNT(*) AS enroll_count FROM course_student WHERE course_id=? AND section=? AND semester=? AND year=? AND TRIM(status)="" ',
+            array( $this->attributes['course_id'],$this->attributes['section'], $this->attributes['semester'], $this->attributes['year']));
+        return $count[0]->enroll_count;
     }
 
     /**

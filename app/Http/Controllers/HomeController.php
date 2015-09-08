@@ -68,76 +68,21 @@ class HomeController extends Controller
     {
         $assist = DB::select('select * from course_ta cs');
         if (\Auth::user()->isAdmin()) {
-//            $result = DB::select('select DISTINCT cs.course_id as courseid
-//                              ,cs.section as sectionid
-//                              ,co.name as coursename
-//                              ,cs.id as id
-//                              from course_section cs
-//                              left join courses co on cs.course_id=co.id
-//                              where cs.semester=? and cs.year=?
-//                              order by cs.course_id,cs.section
-//                              ', array(Session::get('semester'), Session::get('year')));
             $result = Course_Section::semesterAndYear(Session::get('semester'),Session::get('year'))->orderBy('course_id','section')->get();
         }
         if (\Auth::user()->isTeacher()) {
-//            $result = DB::select('select DISTINCT cs.course_id as courseid
-//                              ,cs.section as sectionid
-//                              ,co.name as coursename
-//                              ,cs.id as id
-//                              from course_section cs
-//                              left join courses co on cs.course_id=co.id
-//                              WHERE cs.semester=? and cs.year=? and cs.teacher_id=?
-//                              order by cs.course_id,cs.section
-//                              ', array(Session::get('semester'), Session::get('year'), Auth::user()->id));
-            $result = Course_Section::teaching(Auth::user()->id,Session::get('semester'), Session::get('year'));
+            $result = Course_Section::teaching(Auth::user()->id,Session::get('semester'), Session::get('year'))->orderBy('course_id','section')->get();
         }
         if (\Auth::user()->isTa()) {
-//            $result = DB::select('select DISTINCT  cs.course_id as courseid
-//                              ,cs.section as sectionid
-//                              ,co.name as coursename
-//                              ,cs.id as id
-//                              from course_ta cs
-//                              left join courses co on cs.course_id=co.id
-//                              WHERE cs.semester=? and cs.year=? and cs.student_id=?
-//                              order by cs.course_id,cs.section
-//                              ', array(Session::get('semester'), Session::get('year'), Auth::user()->id));
-            $result = Course_Ta::assist(Auth::user()->id,Session::get('semester'), Session::get('year'));
+            $result = Course_Ta::assist(Auth::user()->id,Session::get('semester'), Session::get('year'))->orderBy('course_id','section')->get();
         }
         if (\Auth::user()->isStudent()) {
-//            $result = DB::select('select DISTINCT cs.course_id as courseid
-//                              ,cs.section as sectionid
-//                              ,co.name as coursename
-//                              ,cs.id as id
-//                              from course_student cs
-//                              left join courses co on cs.course_id=co.id
-//                              WHERE cs.semester=? and cs.year=? and cs.student_id=?
-//                              order by cs.course_id,cs.section
-//                              ', array(Session::get('semester'), Session::get('year'), Auth::user()->id));
             $result = Course_Student::enroll(Auth::user()->id,Session::get('semester'), Session::get('year'))->get();
         }
-        //}
         if (\Auth::user()->isStudentandTa()) {
-//            $result = DB::select('select DISTINCT  cs.course_id as courseid
-//                              ,cs.section as sectionid
-//                              ,co.name as coursename
-//                              ,cs.id as id
-//                              from course_ta cs
-//                              left join courses co on cs.course_id=co.id
-//                              WHERE cs.semester=? and cs.year=? and cs.student_id=?
-//                              order by cs.course_id,cs.section
-//                              ', array(Session::get('semester'), Session::get('year'), Auth::user()->id));
             $result = Course_Student::enroll(Auth::user()->id,Session::get('semester'), Session::get('year'))->get();
-//            $assist = DB::select('select DISTINCT cs.course_id as courseid
-//                              ,cs.section as sectionid
-//                              ,co.name as coursename
-//                              ,cs.id as id
-//                              from course_student cs
-//                              left join courses co on cs.course_id=co.id
-//                              WHERE cs.semester=? and cs.year=? and cs.student_id=?
-//                              order by cs.course_id,cs.section
-//                              ', array(Session::get('semester'), Session::get('year'), Auth::user()->id));
-            $assist = Course_Ta::assist(Auth::user()->id,Session::get('semester'), Session::get('year'));
 
+            $assist = Course_Ta::assist(Auth::user()->id,Session::get('semester'), Session::get('year'))->get();
         }
 
         return view('home.index', compact('result', 'assist'));

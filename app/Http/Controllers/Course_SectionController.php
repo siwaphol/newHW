@@ -2,6 +2,7 @@
 
 use App\Http\Requests\course_section;
 use App\Http\Controllers\Controller;
+use App\User;
 use DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -230,13 +231,12 @@ class Course_SectionController extends Controller
 //        dd($result_collection);
 //        return false;
 //    }
-    protected function turnHTMLtoCollection($courseArray){
-
-    }
 
     protected function getTeacherName($inputString)
     {
-        //<td in title="
+
+        $exclude_teacher_name_en = 'staff';
+
         $inputString = str_replace('<br>','&',$inputString);
         $inputString = str_replace('</br>','&',$inputString);
         $inputString = str_replace('<b>co-instructor</b>','&',$inputString);
@@ -248,7 +248,13 @@ class Course_SectionController extends Controller
         $a_tag = '';
         $teacher_name_th = '';
         $teacher_name_en = '';
-        while($a_tag !== '</td>'){
+        while($a_tag !== '</td>' && $pos < strlen($inputString)){
+            if($stringArray[$pos]=== '&'){
+                $a_tag .= $stringArray[$pos];
+                while($stringArray[$pos]=== '&' && $pos < strlen($inputString) ){
+                    $pos = $pos + 1;
+                }
+            }
             if(substr($a_tag,-1) === '>'){
                 $a_tag='';
             }
@@ -259,7 +265,7 @@ class Course_SectionController extends Controller
             $a_tag .= $stringArray[$pos];
             if($stringArray[$pos]==='"' && !$found_name_th){
                 $pos = $pos + 1;
-                while($stringArray[$pos]!=='"'){
+                while($stringArray[$pos]!=='"' && $pos < strlen($inputString)){
                     $teacher_name_th .= $stringArray[$pos];
                     $a_tag .= $stringArray[$pos];
                     $pos = $pos + 1;
@@ -267,18 +273,69 @@ class Course_SectionController extends Controller
                 $a_tag .= $stringArray[$pos]; //closing "
                 $found_name_th = true;
             }
-
             $pos = $pos+1;
         }
-        return array('teacher_name_th'=>$teacher_name_th,'teacher_name_en'=>$teacher_name_en);
+        $teacher_name_th = trim($teacher_name_th);
+        $teacher_name_en = trim($teacher_name_en);
+        if(substr($teacher_name_th,-1)==='&'){
+            $teacher_name_th = substr($teacher_name_th,0,strlen($teacher_name_th)-1);
+        }
+        if(substr($teacher_name_en,-1)==='&'){
+            $teacher_name_en = substr($teacher_name_en,0,strlen($teacher_name_en)-1);
+        }
+        $teacher_name_th = str_replace('#13;','',$teacher_name_th);
+        $teacher_name_en = str_replace('#13;','',$teacher_name_en);
+        //turn multiple spaces to single whitespace
+        $teacher_name_th = preg_replace('!\s+!', ' ', $teacher_name_th);
+        $teacher_name_en = preg_replace('!\s+!', ' ', $teacher_name_en);
+
+        $teacher_for_section_array = array();
+        $one_teacher_array = array('firstname_en'=>'','lastname_en'=>'','firstname_th'=>'','lastname_th'=>'');
+        //turn multiple teacher name to array
+        $name_th_array = explode("&",$teacher_name_th);
+        $name_en_array = explode("&",$teacher_name_en);
+        //trim
+        $name_th_array = array_map('trim',$name_th_array);
+        $name_en_array = array_map('trim',$name_en_array);
+
+        for($i=0; $i<count($name_en_array); $i++){
+            $uppercase_name = ucwords($name_en_array[$i]);
+
+            $firstname_en = "";
+            $lastname_en = "";
+            $firstname_th = "";
+            $lastname_th = "";
+            if(strtoupper($uppercase_name)!==strtoupper($exclude_teacher_name_en)){
+                $temp_en = explode(' ',$uppercase_name);
+                if(count($temp_en)==2){
+                    $firstname_en = trim($temp_en[0]);
+                    $lastname_en = trim($temp_en[1]);
+                }else if(count($temp_en)==1){
+                    $firstname_en = trim($temp_en[0]);
+                    $lastname_en = "";
+                }
+                $temp_th = explode(' ',$name_th_array[$i]);
+                if(count($temp_th)==2){
+                    $firstname_th = trim($temp_th[0]);
+                    $lastname_th = trim($temp_th[1]);
+                }else if(count($temp_th)==1){
+                    $firstname_th = trim($temp_th[0]);
+                    $lastname_th = "";
+                }
+                $one_teacher_array['firstname_en'] = $firstname_en;
+                $one_teacher_array['lastname_en']  = $lastname_en;
+                $one_teacher_array['firstname_th'] = $firstname_th;
+                $one_teacher_array['lastname_th']  = $lastname_th;
+
+                array_push($teacher_for_section_array,$one_teacher_array);
+            }
+        }
+
+        return $teacher_for_section_array;
     }
     public function auto(){
-        $regex_for_course_no = '/204[0-9]{3}/';
-//        $one_course_array = array('id'=>'204111','sections'=>array(array('no'=>'001'),array('no'=>'002')));
-//        array_push($one_course_array['sections'],array('no'=>'oh my god'));
-//        $collection = array();
-//        array_push($collection,$one_course_array);
-//        dd($collection);
+
+        return view('admin.course_section_import');
 
         $postdata = http_build_query(
             array(
@@ -293,31 +350,27 @@ class Course_SectionController extends Controller
                 'content' => $postdata
             )
         );
-        $context  = stream_context_create($opts);
+//        $context  = stream_context_create($opts);
         $semester=Session::get('semester');
         $year=substr(Session::get('year'),-2);
-        //test
-        $year='58';
-        //end test
-        $result = file_get_contents('https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/search.php?act=search', false, $context);
-
+//        $result = file_get_contents('https://www3.reg.cmu.ac.th/regist'.$semester.$year.'/public/search.php?act=search', false, $context);
+        //this is for test
+        $result = \File::get('C:\xampp\htdocs\newHW\temp\regist157.txt');
+        //end this is for test
         $e_result = explode('<span coursetitle>',$result);
         array_shift($e_result);
         $all_courses_array = array();
 
-        //test
-//        dd($e_result);
         foreach($e_result as $aCourse){
             //for closed course will be <tr coursedata close>
             $e2_result= explode('<tr coursedata',$aCourse);
-//            dd($e2_result);
+
             preg_match('/([0-9]{6}) - (.*?) \(([0-9]{1,2}) Section[s]?\)/',strip_tags($e2_result[0]),$matches);
             $a_course_array = array();
             if(count($matches)==4){
                 $course_no = $matches[1];
                 $course_name = $matches[2];
                 $course_section_count = $matches[3];
-                //array_push($a_course_array,['id'=>$course_no],['name'=>$course_name],['sections'=>array()]);
                 $a_course_array = array('id'=>$course_no,'name'=>$course_name,'sections'=>array());
                 try {
                     Course::findOrFail($course_no);
@@ -344,26 +397,13 @@ class Course_SectionController extends Controller
                         $course_sec = $section_matches[1];
                     }
                     $a_section_array = array_add($a_section_array,'no',$course_sec);
-                    //array_push($a_section_array,'no'=>$course_sec);
                 }else{
                     Log::error('Cannot find course section in this block of text: ' . $aSection);
                     continue;
                 }
-//                preg_match('/<td in title="(.*)">(.*)<\/td>/', $aSection, $section_teacher);
-                $teacher_names = $this->getTeacherName($aSection);
+                $t_array_for_section = $this->getTeacherName($aSection);
+                $a_section_array = array_add($a_section_array,'teacher',$t_array_for_section);
 
-//                preg_match('/<td in title="(.*)">[a-zA-Z| ]*<\/td>/u', $aSection, $section_teacher);
-//                if(count($section_teacher)==3) {
-//                    $section_teacher_th = trim($section_teacher[1]);
-//                    $section_teacher_en = trim($section_teacher[2]);
-//                    $a_section_array = array_add($a_section_array,'teacher_name_th',$section_teacher_th);
-//                    $a_section_array = array_add($a_section_array,'teacher_name_en',$section_teacher_en);
-//                }else{
-//                    Log::error('Cannot find course teacher(s) in this block of text: ' . $aSection);
-//                    continue;
-//                }
-                $a_section_array = array_add($a_section_array,'teacher_name_th',$teacher_names['teacher_name_th']);
-                $a_section_array = array_add($a_section_array,'teacher_name_en',$teacher_names['teacher_name_en']);
                 //push one section to course
                 array_push($a_course_array['sections'],$a_section_array);
             }
@@ -371,148 +411,67 @@ class Course_SectionController extends Controller
             array_push($all_courses_array,$a_course_array);
 
         } //end foreach foreach($e_result as $aCourse)
-        //end test
-        dd($all_courses_array);
-//        $e2_result= explode('<tr coursedata >',$e_result[0]);
-//        array_shift($e2_result);
-//        preg_match('/<td left>(.*?)<\/td>/',$e2_result[0],$matches);
-//        $course_name = trim($matches[1]);
-//        preg_match('/SECLEC=([0-9]{3})&SECLAB=([0-9]{3})/',$e2_result[0],$section_matches);
-//        if($section_matches[1]==='000'){
-//            $course_sec = $section_matches[2];
-//        }else{
-//            $course_sec = $section_matches[1];
-//        }
-//        preg_match('/<td in title="(.*)">(.*)<\/td>/',$e2_result[0],$section_teacher);
-//        $section_teacher_th = $section_teacher[1];
-//        $section_teacher_en = $section_teacher[2];
-        dd('Aha its here now');
 
-        preg_match_all('/<tr coursedata >(.|\s)*<\/tr>$/',$e_result[0],$matches);
-        dd($matches);
-        $course_array = explode('•',strip_tags($result));
-        array_shift($course_array);
-        $course_array = array_map('trim',$course_array);
-        //loop start from now
-        //preg_match($regex_for_course_no,$course_array[0],$match);
-        $courseCollection = $this->turnHTMLtoCollection($course_array);
+        //test here is where we put all section details to Course_Section model
+        //if search (use English first name and last name) and did not found
+        $semester = Session::get("semester");
+        $year = Session::get("year");
+        $summary = '';
+        foreach($all_courses_array as $aCourse){
+            $summary .= '\ncourse id: ' . $aCourse['id'] . ' course name: ' . $aCourse['name'];
+            foreach($aCourse['sections'] as $aSection){
+                $summary .= ' &section : ' . $aSection['no'];
+                foreach($aSection['teacher'] as $aTeacher){
+                    $summary .= ' &teacher : ' . $aTeacher['firstname_en'] . ' ' . $aTeacher['lastname_en'];
+                    $old_course_section = null;
+                    $teacher = null;
+                    //find if there is this teacher in database
+                    try {
+                        $teacher = User::where('firstname_en',trim($aTeacher['firstname_en']))
+                            ->where('lastname_en',trim($aTeacher['lastname_en']))->firstOrFail();
+                        $teacher_id = $teacher->id;
+                    }catch (ModelNotFoundException $e){
+                        $last_emp_id = User::lastEmployee()->id;
+                        $new_employee = new User();
+                        $new_id = intval($last_emp_id) + 1;
+                        $new_employee->id = str_pad((string)$new_id,9,"0",STR_PAD_LEFT);
+                        $new_employee->role_id = '0100';
+                        $new_employee->firstname_th = $aTeacher['firstname_th'];
+                        $new_employee->lastname_th = $aTeacher['lastname_th'];
+                        $new_employee->firstname_en = $aTeacher['firstname_en'];
+                        $new_employee->lastname_en = $aTeacher['lastname_en'];
+                        $new_employee->faculty_id = '05';
+                        $new_employee->semester = $semester;
+                        $new_employee->year = $year;
+                        $new_employee->save();
+                        $teacher_id = $new_employee->id;
+                        $summary .= ' (New Teacher create, teacher id: ' . $new_employee->id . ')';
+                    }
+                    //find if there is course section with the exact same courseid,section,teacherid,semester,year
+                    try{
+                        $course_section_model = \App\Course_Section::where('course_id', $aCourse['id'])
+                            ->where('section', $aSection['no'])
+                            ->where('teacher_id', $teacher_id)
+                            ->where('semester', $semester)
+                            ->where('year', $year)->firstOrFail();
 
-        dd('testSiwaphol');
+                        $summary .= '(Already has this section in database)';
+                    }catch (ModelNotFoundException $e){
+                        $course_section_model = new \App\Course_Section();
+                        $course_section_model->course_id = $aCourse['id'];
+                        $course_section_model->section = $aSection['no'];
+                        $course_section_model->teacher_id = $teacher_id;
+                        $course_section_model->semester = $semester;
+                        $course_section_model->year = $year;
+                        $course_section_model->save();
 
-        $line=preg_split("/((\r?\n)|(\r\n?))/", $result);
-        $count=count($line);
-        $a_cells = array_slice(preg_split('/(?:<\/td>\s*|)<td[^>]*>/', $result), 1);
-        $a_cells1 = array_slice(preg_split('/(?:<\/span>\s*|)<span[^>]*>/', $result), 1);
-        $n=count($a_cells1);
-        $i=2;
-        while ($i<$n) {
-            $ex=explode( " ", $a_cells1[$i] );
-
-            $course_id=$ex[1];
-            $course = substr($a_cells1[$i],12,-10);
-            $course = substr($course,0,-14);
-            $course = substr($course,4,-1);
-            $course=explode( "<",$course);
-
-            $coursename= $course[0];
-            //dd($coursename);
-            $i=$i+3;
-            $co=DB::select('select * from courses where id=?',array($course_id));
-            if(count($co)==0){
-                $c=new Course();
-                $c->id=$course_id;
-                $c->name=$coursename;
-                $c->save();
+                        $summary .= ' (Succesfully add new course section)';
+                    }
+                }
             }
-
-
-
         }
-        $n=count($a_cells);
-        $i=2;
-        while ($i<=$n) {
-            $name=$a_cells[$i];
-            $name = substr($name,1,-1);
-          //  dd($coursename);
-            $i=$i+1;
-            $section=$a_cells[$i];
-            //$exp=explode('<gray>',$section);
-            //$a = array_slice(preg_split('/(?:<\/gray>\s*|)<gray[^>]*>/', $section), 1);
-            $l=strlen($section);
-            if($l>3){
-                $section='000';
-            }
-            $i=$i+7;
+        //endtest
 
-            $ext=explode(" ", $a_cells[$i]);
-            $i=$i+12;
-            $m=0;
-            foreach ($ext as $key => $value) {
-                $va[$m]= $value;
-                $m++;
-            }
-            $fname=$va[0];
-            if($fname=='<gray>'){
-                $fname='staff';
-            }
-            $ext=explode("<", $va[2]);
-            $lname=$ext[0];
-            $co=DB::select('select * from courses ');
-//dd($name);
-//dd($co[0]->name);
-            for($v=0;$v<count($co);$v++){
-                if($co[$v]->name==$name) {
-                    $cid = $co[$v]->id;
-                }
-            }
-            //dd($cid);
-            $ck=DB::select('select * from course_section cs
-                        where cs.course_id=? and cs.section=?
-                          and cs.semester=? and cs.year=?',array($cid,$section,Session::get('semester'),Session::get('year')));
-            $id='';
-            if(count($ck)==0){
-                $ctea=DB::select('select * from users where firstname_en=?
-                                and lastname_en=? ',array($fname,$lname));
-                if(count($ctea)>0){
-
-                    $id=$ctea[0]->id;
-                }
-
-                if(count($ctea)==0){
-                    $findid=DB::select('select max(id) as maxid from users where role_id=1000 or role_id=0100');
-
-                    $id=intval($findid[0]->maxid);
-                    $id+=1;
-                    $id=str_pad($id, 9, "0", STR_PAD_LEFT);
-                    $firstname_en=$fname;
-                    $lastname_en=$lname;
-
-                    $teacher=DB::insert('insert into users (id,role_id,firstname_en,lastname_en)values(?,?,?,?)',array($id,'0100',$fname,$lname));
-
-
-                }
-//                $co=DB::select('select id from courses where name = ?',array($name));
-//                dd($co);
-//                for($n1=0;$n1<count($co);$n1++) {
-                    $cs = new CS();
-                    $cs->course_id = $cid;
-                    $cs->section = $section;
-                    $cs->teacher_id = $id;
-                    $cs->semester = Session::get('semester');
-                    $cs->year = Session::get('year');
-                    $cs->save();
-//                }
-
-            }
-
-        }
-
-
-
-
-
-        //return   redirect('course');
-        return new RedirectResponse(url('home'));
-   // return view('course_section.autoinsert');
+        return view('admin.course_section_import',compact('summary'));
     }
 }

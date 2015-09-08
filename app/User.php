@@ -25,7 +25,7 @@ class User extends Model implements AuthenticatableContract {
 	 * @var array
 	 */
 	protected $fillable = [ 'id','username', 'role_id','firstname_th','firstname_en','lastname_th',
-                            'lastname_en','email','faculty_id'];
+                            'lastname_en','email','faculty_id','semester','year'];
 
     protected $primaryKey = 'id';
 
@@ -97,6 +97,10 @@ class User extends Model implements AuthenticatableContract {
         return $query->where('role_id', 'like', '___1');
     }
 
+    public function scopeLastEmployee($query)
+    {
+        return $query->where('id', '<' , '000010000')->orderBy('id','desc')->first();
+    }
     /**
      * Accessor Function
      */
@@ -158,4 +162,5 @@ class User extends Model implements AuthenticatableContract {
             return $course_list;
         }
     }
+
 }

@@ -6270,3 +6270,30 @@ div[class^="section"], div[class*=" section"] > .panel-body {
 .table > tfoot > tr > th  {
     text-align: center;
 }
+
+button.dim {
+  display: inline-block;
+  color: #FFF;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 6px;
+  margin-right: 10px;
+  position: relative;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: 600;
+  margin-bottom: 20px !important;
+}
+
+button.btn-warning.dim {
+  box-shadow: 0 0 0 #F79D3C inset, 0 5px 0 0 #F79D3C, 0 10px 5px #999;
+}
+
+.tabs-container .panel-body {
+  background: #FFF none repeat scroll 0% 0%;
+  border: 1px solid #E7EAEC;
+  border-radius: 2px;
+  padding: 20px;
+  position: relative;
+}

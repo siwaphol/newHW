@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading" align="center">Course Section</div>
+                    <div class="panel-heading" align="center">Course Overview</div>
 
                     <div class="panel-body">
                         @if (\Auth::user()->isAdmin())
@@ -23,6 +23,7 @@
                                         <th>Course No</th>
                                         <th>Title</th>
                                         <th>Section</th>
+                                        <th>Enroll</th>
                                         @if(Auth::user()->isAdmin())
                                             <th>Edit</th>
                                             <th>Delete</th>
@@ -34,6 +35,7 @@
                                         <th>Course No</th>
                                         <th>Title</th>
                                         <th>Section</th>
+                                        <th>Enroll</th>
                                         @if(Auth::user()->isAdmin())
                                             <th>Edit</th>
                                             <th>Delete</th>
@@ -47,6 +49,7 @@
                                         <td>{{$key->course_id}}</td>
                                         <td>{!! link_to_action('HomeController@preview',$key->course_name,array('course'=>$key->course_id,'sec'=>$key->section))!!}</td>
                                         <td>{!! link_to_action('HomeController@preview',$key->section,array('course'=>$key->course_id,'sec'=>$key->section))!!}</td>
+                                        <td>{{$key->enroll_count}}</td>
                                         @if(Auth::user()->isAdmin())
                                             <td>{!! link_to_action('Course_SectionController@edit','Edit',array('course'=>$key->course_id,'sec'=>$key->section))!!}</td>
                                             <td>
@@ -120,7 +123,8 @@
                     {"sClass": "a-right",},
                     {"width": "12%", "targets": 0},
                     {"width": "35%", "targets": 1}
-                ]
+                ],
+                "order": [[ 0, 'asc' ], [ 2, 'asc' ]]
             });
         });
         $(document).ready(function () {
