@@ -362,8 +362,8 @@ class CourseHomeworkController extends Controller {
     public function homeworkCreate($course_id){
         $section_list = DB::select("SELECT section FROM course_section WHERE course_id = ? and semester=? and year=?",array($course_id,\Session::get('semester'),\Session::get('year')));
         $filetype_list = DB::select("SELECT id,extension FROM homework_types");
-
-        return view('teacherhomework.createhomework3',['course_id'=>$course_id,'section_list'=>$section_list,'filetype_list'=>$filetype_list]);
+        $homeworks = DB::select("SELECT * FROM homework WHERE course_id=? AND semester=? AND year=?",array($course_id,\Session::get('semester'),\Session::get('year')));
+        return view('teacherhomework.createhomework3',['course_id'=>$course_id,'section_list'=>$section_list,'filetype_list'=>$filetype_list,'homeworks'=>$homeworks]);
     }
 
     public function getHomeworkCreateData($course_id){
@@ -443,7 +443,7 @@ class CourseHomeworkController extends Controller {
     {
         $input = Input::all();
         $new_input = explode("&",$input['aData']);
-        $coure_no = $new_input['homeworkname'];
+        $coure_no = $new_input['course_no'];
 
 
         return "success";

@@ -176,58 +176,27 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                @if(Auth::user()->isAdmin() || Auth::user()->isTeacher())
-                    {{--<div class="dropdown">--}}
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Add Student
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li>{!! link_to_action('StudentsController@insert','Import student from registration office',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}
-                        </li>
-                        <li>{!! link_to_action('StudentsController@selectexcel','Import student from Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}
-                        </li>
-                        <li><a href="{{ url('/students/create/'.$coid[0]->id) }}">Add student</a></li>
-
-                    </ul>
-                    {{--</div>--}}
-                    {{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@insert','เพิ่มรายชื่อนักศึกษาจากสำนักทะเบียน',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>--}}
-                    {{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@selectexcel','เพิ่มรายชื่อนักศึกษาจากไฟล์ Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>--}}
-                    {{--<button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','เพิ่มนักศึกษาช่วยสอน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
-                    <button type="button"
-                            class="btn btn-default">{!! link_to_action('StudentsController@export','Export student list',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
-                    {{--<button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@index','Manage Homework',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
-                    {!! link_to_action('CourseHomeworkController@homeworkCreate','Manage Homework',array('course'=>$course['co']),array('role'=>'button','class'=>'btn btn-default') )!!}
-                    {{--<button type="button" class="btn btn-default">{!! link_to_action('CourseHomeworkController@result','ผลการส่งการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
-                    @if(Auth::user()->isAdmin() || Auth::user()->isTeacher())
-                        <button type="button" class="btn btn btn-default " data-toggle="modal" data-target="#editsend">
-                            Edit homework status
-                        </button>
-                    @endif
-                @endif
-                @if(Auth::user()->isAdmin() || Auth::user()->isTeacher()||Auth::user()->isStudentandTa()||Auth::user()->isTa())
-                    <button type="button"
-                            class="btn btn-default">{!! link_to_action('Homework1Controller@exportzip','download all homework ',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>'','path'=>'','type'=>'0'))!!}</button>
-                @endif
-            </div>
-            <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    {{--<div class="panel-heading" align="center">ข้อมูลนักศึกษา</div>--}}
-
                     <div class="panel-body">
-                        {{--<h3 align="center">กระบวนวิชา {{$course['co']}}  ตอน {{$course['sec']}} </h3>--}}
+                        @if(Auth::user()->isAdmin() || Auth::user()->isTeacher()||Auth::user()->isStudentandTa()||Auth::user()->isTa())
+                            <div class="dropdown">
+                                @if(Auth::user()->isAdmin() || Auth::user()->isTeacher())
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Add Student<span class="caret"></span></button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li>{!! link_to_action('StudentsController@insert','Import student from registration office',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</li>
+                                    <li>{!! link_to_action('StudentsController@selectexcel','Import student from Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</li>
+                                    <li><a href="{{ url('/students/create/'.$coid[0]->id) }}">Add Student</a></li>
+                                </ul>
+                                {!! link_to_action('StudentsController@export','Export Student List',array('course'=>$course['co'],'sec'=>$course['sec']),array('role'=>'button','class'=>'btn btn-default'))!!}
+                                {!! link_to_action('CourseHomeworkController@homeworkCreate','Manage Homework',array('course'=>$course['co']),array('role'=>'button','class'=>'btn btn-default') )!!}
+                                <button type="button" class="btn btn btn-default " data-toggle="modal" data-target="#editsend">Edit Homework Status</button>
+                                @endif
+                                    {!! link_to_action('Homework1Controller@exportzip','Download All Homework ',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>'','path'=>'','type'=>'0'), array('role'=>'button','class'=>'btn btn-default'))!!}
+                            </div>
+                        @endif
+
                         <h4 align="center">Students enrollment </h4>
 
-                        {{--<h4><a href="{{ url('/students/create/'.$coid[0]->id) }}">เพิ่มนักศึกษา</a></h4>--}}
-
-                        {{--{!! Form::open(['url' => 'students/export']) !!}--}}
-
-                        {{--<input type="hidden" name="course" id="course" value='{{$course['co']}}'>--}}
-                        {{--<input type="hidden" name="sec" id="sec" value='{{$course['sec']}}'>--}}
-
-                        {{--<button type="submit" class="btn btn-link">export csv</button>--}}
-                        {{--{!! Form::close() !!}--}}
                         <div class="table-responsive">
                             <div>
                                 {{--Hide column: <a class="toggle-vis" data-column="1">Name</a> - <a class="toggle-vis" data-column="2">Status</a>--}}
@@ -242,13 +211,10 @@
                                     @endif
                                     @if(count($homework)>0)
                                         @foreach($homework as $key1)
-
                                             <?php
                                             $pattern = '/(_?\{)(.*)(\}_?)/i';
                                             $replacement = '';
                                             $name = preg_replace($pattern, $replacement, $key1->name);
-
-                                            //$name= explode('{',$key1->name);
                                             ?>
 
                                             <th><p align="center">{{$name}}<br/><span
@@ -439,14 +405,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                    {{--<div class="form-group" align="center">--}}
-                                    {{--<div class="col-md-4 col-md-offset-4">--}}
-                                    {{--{!!  Form::label('hwname', 'สถานะ') !!}--}}
-                                    {{--<select id="hws" name="hws" class="form-control">--}}
-                                    {{--<option selected value="">เลือกสถานะ</option>--}}
-                                    {{--</select>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
 
                                     <div class="form-group" align="center">
                                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}"/>
@@ -498,12 +456,7 @@
                 "scrollX": true
             });
         });
-        //$(document).ready(function() {
-        //    $('#example1').dataTable( {
-        //        "order": [[ 0, "desc" ]],
-        //        "scrollX": true
-        //    } );
-        //} );
+
         $(document).ready(function () {
 
             var table = $('#example1').dataTable({

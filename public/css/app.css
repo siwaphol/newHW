@@ -6297,3 +6297,7 @@ button.btn-warning.dim {
   padding: 20px;
   position: relative;
 }
+
+a:hover {
+  cursor:pointer;
+}

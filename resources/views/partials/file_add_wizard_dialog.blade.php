@@ -1,4 +1,4 @@
-<div class="modal fade" id="addFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" style="overflow-y: scroll;" id="addFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -22,35 +22,30 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="section">File Type<i
-                                            style="color: red;">*</i></label>
-
+                            <div class="form-group file-type-select">
+                                <label class="control-label col-sm-2" for="section">File Type<i style="color: red;">*</i></label>
                                 <div class="col-sm-8">
                                     <select id="filetype-list">
-                                        <option value="">no extension</option>
+                                        <option value="null">no extension</option>
                                         @foreach($filetype_list as $a_file_type)
                                             <option value="{{$a_file_type->id}}">{{$a_file_type->extension}}</option>
                                         @endforeach
                                         <option value="newfiletype">others...</option>
                                     </select>
+                                    <input type="text" class="form-control hidden" id="extension" name="extension">
                                 </div>
                             </div>
+                            {{--test--}}
                             {{--<div class="form-group newfiletype" style="display:none;">--}}
-                            {{--<label class="control-label col-sm-2" for="newfiletypeid">New id<i style="color: red;">*</i></label>--}}
-                            {{--<div class="col-sm-8">--}}
-                            {{--<input type="text" class="form-control" name="newfiletypeid" id="newfiletypeid" placeholder="Ex. word, powerpoint (no space)">--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            <div class="form-group newfiletype" style="display:none;">
-                                <label class="control-label col-sm-2" for="newextension">Extension<i
-                                            style="color: red;">*</i></label>
+                                {{--<label class="control-label col-sm-2" for="newextension">Extension<i--}}
+                                            {{--style="color: red;">*</i></label>--}}
 
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="newextension" id="newextension"
-                                           maxlength="20" placeholder="Ex. c, cpp (use comma for multiple extension)">
-                                </div>
-                            </div>
+                                {{--<div class="col-sm-8">--}}
+                                    {{--<input type="text" class="form-control" name="newextension" id="newextension"--}}
+                                           {{--maxlength="20" placeholder="Ex. c, cpp (use comma for multiple extension)">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--end test--}}
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="filedetail">Detail</label>
 
@@ -177,7 +172,7 @@
         function getSectionInputString(section_text){
 
             return "" +
-                    "<div class='panel panel-info section" + section_text + "'>" +
+                    "<div class='panel panel-info section" + section_text + "' id='section-panel'>" +
                     "<div class='panel-heading'>" +
                     "Section " + section_text +
                     "</div>" +
@@ -213,6 +208,7 @@
         var baseUrl = "{{ url('/') }}";
         var baseHomeworkCreate = 'homework/create';
         var token = "{{ Session::getToken() }}";
+        var course_no = "{{$course_id}}";
 
         $('#addFileModal').modalSteps({
             completeCallback: function () {
@@ -223,7 +219,7 @@
                     $.ajax({
                         type: "POST",
                         url: '/newHW/public/homework/create',
-                        data: {aData: mydata, _token: token},
+                        data: {aData: mydata, _token: token, course_no:course_no},
                         success: function(data){
                             return data;
                         },
@@ -293,35 +289,60 @@
             onChange: function (element, checked) {
                 if (checked === true) {
                     if (element.val() === 'newfiletype') {
-                        $('.newfiletype').show();
-                        $('#homework-ext-label').html(trimed_text);
+                        $('.file-type-select').after(''+
+                        '<div class="form-group newfiletype"">'+
+                            '<label class="control-label col-sm-2" for="newextension">Extension<i style="color: red;">*</i></label>' +
+                            '<div class="col-sm-8">' +
+                                '<input type="text" class="form-control" name="newextension" id="newextension" maxlength="20" placeholder="Ex. c, cpp (use comma for multiple extension)">' +
+                            '</div>'+
+                        '</div>');
+                        $('#newextension').on('input', function () {
+                            var trimed_text = $(this).val().replace(/ /g, '');
+                            if (!trimed_text == '') {
+                                //check if , is at the end of string
+                                patt = /,$/g;
+                                if (patt.test(trimed_text)) {
+                                    trimed_text = trimed_text.substring(0, trimed_text.length - 1);
+                                    trimed_text = trimed_text.replace(/,/g, ', .');
+                                } else {
+                                    trimed_text = trimed_text.replace(/,/g, ', .');
+                                }
+
+                                trimed_text = '.' + trimed_text;
+                                trimed_text = trimed_text.toLowerCase();
+                            }
+
+                            $('#homework-ext-label').html(trimed_text);
+                        });
+                        $('#homework-ext-label').html('');
                     } else {
-                        $('.newfiletype').hide();
+                        $('.newfiletype').remove();
 
                         $('#homework-ext-label').html(element.html());
+                        $('#extension').val(element.html());
                     }
                 }
             }
         });
 
-        $('#newextension').on('input', function () {
-            var trimed_text = $(this).val().replace(/ /g, '');
-            if (!trimed_text == '') {
-                //check if , is at the end of string
-                patt = /,$/g;
-                if (patt.test(trimed_text)) {
-                    trimed_text = trimed_text.substring(0, trimed_text.length - 1);
-                    trimed_text = trimed_text.replace(/,/g, ', .');
-                } else {
-                    trimed_text = trimed_text.replace(/,/g, ', .');
-                }
-
-                trimed_text = '.' + trimed_text;
-                trimed_text = trimed_text.toLowerCase();
-            }
-
-            $('#homework-ext-label').html(trimed_text);
-        });
+//        $('#newextension').on('input', function () {
+//            var trimed_text = $(this).val().replace(/ /g, '');
+//            if (!trimed_text == '') {
+//                //check if , is at the end of string
+//                patt = /,$/g;
+//                if (patt.test(trimed_text)) {
+//                    trimed_text = trimed_text.substring(0, trimed_text.length - 1);
+//                    trimed_text = trimed_text.replace(/,/g, ', .');
+//                } else {
+//                    trimed_text = trimed_text.replace(/,/g, ', .');
+//                }
+//
+//                trimed_text = '.' + trimed_text;
+//                trimed_text = trimed_text.toLowerCase();
+//            }
+//
+//            $('#homework-ext-label').html(trimed_text);
+//        });
     });
 </script>
 

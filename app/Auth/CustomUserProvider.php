@@ -143,9 +143,10 @@ class CustomUserProvider implements UserProvider {
 
             return $query->first();
         }
-        return redirect('/login')->withErrors([
-            'email' => 'The credentials you entered did not match our records. Try again?',
-        ]);
+//        return redirect('/login')->withErrors([
+//            'email' => 'The credentials you entered did not match our records. Try again?',
+//        ]);
+        return null;
     }
 
     protected function findUser($userDetails)
