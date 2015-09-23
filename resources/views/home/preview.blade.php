@@ -191,7 +191,8 @@
                                 {!! link_to_action('CourseHomeworkController@homeworkCreate','Manage Homework',array('course'=>$course['co']),array('role'=>'button','class'=>'btn btn-default') )!!}
                                 <button type="button" class="btn btn btn-default " data-toggle="modal" data-target="#editsend">Edit Homework Status</button>
                                 @endif
-                                    {!! link_to_action('Homework1Controller@exportzip','Download All Homework ',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>'','path'=>'','type'=>'0'), array('role'=>'button','class'=>'btn btn-default'))!!}
+                                    {{--{!! link_to_action('Homework1Controller@exportzip','Download All Homework ',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>'','path'=>'','type'=>'0'), array('role'=>'button','class'=>'btn btn-default'))!!}--}}
+                                    <a href="#" type="button">Export zip (in progress...)</a>
                             </div>
                         @endif
 
@@ -239,8 +240,15 @@
                                             @if(Auth::user()->isStudent())
 
                                                 <th>
-                                                    <button type="button" data-path="{{$key1->path}}"
-                                                            data-fullpath="temp" data-template-name="{{$key1->name}}"
+                                                    {{--<button type="button" data-path="{{$key1->path}}"--}}
+                                                            {{--data-fullpath="temp" data-template-name="{{$key1->name}}"--}}
+                                                            {{--data-type-id="{{$key1->type_id}}"--}}
+                                                            {{--data-homework-id="{{$key1->id}}"--}}
+                                                            {{--data-duedate="{{$key1->due_date}}"--}}
+                                                            {{--data-acceptdate="{{$key1->accept_date}}"--}}
+                                                            {{--class="btn btn-default student-button"><i--}}
+                                                                {{--class="fa fa-upload"></i></button>--}}
+                                                    <button type="button"  data-template-name="{{$key1->name}}"
                                                             data-type-id="{{$key1->type_id}}"
                                                             data-homework-id="{{$key1->id}}"
                                                             data-duedate="{{$key1->due_date}}"
@@ -252,7 +260,8 @@
                                             @endif
                                             @if(Auth::user()->isTeacher()||Auth::user()->isAdmin()||Auth::user()->isStudentandTa()||Auth::user()->isTa())
                                                 <th>
-                                                    <p align="center">{!! link_to_action('Homework1Controller@exportzip','',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name,'path'=>$key1->path,'type'=>'1'),array('class'=>'glyphicon glyphicon-download-alt'))!!}</p>
+                                                    {{--<p align="center">{!! link_to_action('Homework1Controller@exportzip','',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name,'path'=>$key1->path,'type'=>'1'),array('class'=>'glyphicon glyphicon-download-alt'))!!}</p>--}}
+                                                    <a href="#" type="button">Export to zip file(In progress...)</a>
                                                 </th>
 
                                             @endif
@@ -443,7 +452,7 @@
 
     <script type="text/javascript">
 
-        var dzfullpath = $('.button-selected').attr('data-fullpath');
+//        var dzfullpath = $('.button-selected').attr('data-fullpath');
         var templatename = $('.button-selected').attr('data-template-name');
         var typeid = $('.button-selected').attr('data-type-id');
         var homework_id = '';

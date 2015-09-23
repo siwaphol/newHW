@@ -2,10 +2,12 @@
 
 use App\Homework;
 use App\HomeworkFolder;
+use App\HomeworkType;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Course;
 use DB;
@@ -13,6 +15,7 @@ use Session;
 use Input;
 use Validator;
 use Response;
+use Log;
 
 class CourseHomeworkController extends Controller {
 
@@ -361,8 +364,12 @@ class CourseHomeworkController extends Controller {
 
     public function homeworkCreate($course_id){
         $section_list = DB::select("SELECT section FROM course_section WHERE course_id = ? and semester=? and year=?",array($course_id,\Session::get('semester'),\Session::get('year')));
-        $filetype_list = DB::select("SELECT id,extension FROM homework_types");
-        $homeworks = DB::select("SELECT * FROM homework WHERE course_id=? AND semester=? AND year=?",array($course_id,\Session::get('semester'),\Session::get('year')));
+        //$filetype_list = DB::select("SELECT id,extension FROM homework_types");
+        $filetype_list = HomeworkType::orderBy('id')->get();
+        $homeworks = Homework::where("course_id","=",$course_id)
+            ->where("semester","=",\Session::get('semester'))
+            ->where("year","=",\Session::get('year'))->get();
+        //$homeworks = DB::select("SELECT * FROM homework WHERE course_id=? AND semester=? AND year=?",array($course_id,\Session::get('semester'),\Session::get('year')));
         return view('teacherhomework.createhomework3',['course_id'=>$course_id,'section_list'=>$section_list,'filetype_list'=>$filetype_list,'homeworks'=>$homeworks]);
     }
 
@@ -439,14 +446,61 @@ class CourseHomeworkController extends Controller {
         return $homework_status;
     }
 
-    public function homeworkPostCreate()
+    public function homeworkPostCreate(Request $request)
     {
         $input = Input::all();
-        $new_input = explode("&",$input['aData']);
-        $coure_no = $new_input['course_no'];
+        parse_str($input['aData'], $new_input);
+        $course_no = $input['course_no'];
+        $keys = array_keys($new_input);
+        $section_arr = array();
+        $exp = '/dueDate([0-9]*)/';
+        $type_id = $new_input['extension'];
 
+        foreach ($keys as $key){
+            if (preg_match($exp, $key,$matches) == 1){
+                array_push($section_arr,$matches[1]);
+            }
+        }
 
-        return "success";
+        if(array_key_exists('newextension',$new_input)){
+            $no_whitespace_extension = str_replace(' ','',$new_input['extension']);
+            HomeworkType::create(['extension'=> $no_whitespace_extension]);
+            $type_id = HomeworkType::where('extension','=',$no_whitespace_extension)->first()->id;
+
+            $message =  "we have new extension with id: " . $type_id;
+        }else{
+            $message = "old extension";
+        }
+
+        $date = new \DateTime();
+        $section_success_arr = array();
+        foreach($section_arr as $aSection){
+            try {
+                Homework::create(['course_id' => $course_no
+                    , 'section' => $aSection
+                    , 'name' => $new_input['homeworkname']
+                    , 'type_id' => $type_id
+                    , 'detail' => $new_input['filedetail']
+                    , 'assign_date' => $date
+                    , 'due_date' => $new_input['dueDate' . $aSection]
+                    , 'accept_date' => $new_input['acceptUntil' . $aSection]
+                    , 'created_by' => \Auth::user()->id
+                    , 'semester' => Session::get('semester')
+                    , 'year' => Session::get('year')]);
+                $status="success";
+            }catch (QueryException $e){
+                if($e->getCode() == 23000 && $e->errorInfo[1] == 1062){
+                    $status = "duplicate";
+                    Log::error("Duplicate in \"homework\" table(course_id,section,name,type_id,semester,year) :" .$e->getMessage());
+                }else{
+                    $status = "fail";
+                    Log::error("Fail to create homework :" .$e->getMessage());
+                }
+            }
+            $section_success_arr = array_add($section_success_arr,$aSection,$status);
+        }
+
+        return response()->json(['message'=> $message,'status'=> $section_success_arr]);
     }
 
 }

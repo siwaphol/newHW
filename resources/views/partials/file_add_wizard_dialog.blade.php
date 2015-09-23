@@ -26,7 +26,6 @@
                                 <label class="control-label col-sm-2" for="section">File Type<i style="color: red;">*</i></label>
                                 <div class="col-sm-8">
                                     <select id="filetype-list">
-                                        <option value="null">no extension</option>
                                         @foreach($filetype_list as $a_file_type)
                                             <option value="{{$a_file_type->id}}">{{$a_file_type->extension}}</option>
                                         @endforeach
@@ -207,7 +206,7 @@
 
         var baseUrl = "{{ url('/') }}";
         var baseHomeworkCreate = 'homework/create';
-        var token = "{{ Session::getToken() }}";
+        var token = "{{ csrf_token() }}";
         var course_no = "{{$course_id}}";
 
         $('#addFileModal').modalSteps({
@@ -220,8 +219,13 @@
                         type: "POST",
                         url: '/newHW/public/homework/create',
                         data: {aData: mydata, _token: token, course_no:course_no},
+                        beforeSend: function(){
+                            $('#section-panel > .panel-heading').each(function(){
+                                $(this).append('<i class="fa fa-spinner fa-pulse"></i>');
+                            });
+                        },
                         success: function(data){
-                            return data;
+                            console.log(data);
                         },
                         error: function(data){
                             console.log(data);
@@ -313,13 +317,14 @@
                             }
 
                             $('#homework-ext-label').html(trimed_text);
+                            $('#extension').val($('#homework-ext-label').html());
                         });
                         $('#homework-ext-label').html('');
                     } else {
                         $('.newfiletype').remove();
 
                         $('#homework-ext-label').html(element.html());
-                        $('#extension').val(element.html());
+                        $('#extension').val(element.val());
                     }
                 }
             }

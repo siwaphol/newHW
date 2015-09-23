@@ -65,10 +65,10 @@ class CreateCourseTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('courses');
-        Schema::drop('course_section');
-        Schema::drop('course_student');
-        Schema::drop('course_ta');
+        Schema::dropIfExists('courses');
+        Schema::dropIfExists('course_section');
+        Schema::dropIfExists('course_student');
+        Schema::dropIfExists('course_ta');
     }
 
 }

@@ -29,7 +29,7 @@ class CreateCurrentSemesterYearTable extends Migration {
 	 */
 	public function down()
 	{
-        Schema::drop('semester_year');
+        Schema::dropIfExists('semester_year');
 	}
 
 }

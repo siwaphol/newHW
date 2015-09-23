@@ -69,7 +69,7 @@
             @foreach($homeworks as $aHomework)
                 <tr>
                     <td><a>{{$aHomework->name}}</a></td>
-                    <td>{{$aHomework->type_id}}</td>
+                    <td>{{$aHomework->extension}}</td>
                     <td>{{$aHomework->section}}</td>
                     <td>{{$aHomework->due_date}}</td>
                     <td>{{$aHomework->accept_date}}</td>
@@ -107,14 +107,14 @@
             else {
                 // not first visit, so alert
                 alert('You refreshed!');
-                clear_file_add_modal();
+                init_file_add_modal();
             }
 
-            function clear_file_add_modal(){
+            function init_file_add_modal(){
                 $('#homeworkname').val('');
                 $('#homework-ext-label').html('no extension selected');
-                $('#filetype-list').val('null');
-                $('#extension').val('null');
+                $('#filetype-list').val($("#filetype-list option:first").val());
+                $('#extension').val('000');
                 $('#filedetail').val('');
                 $('#section-list').multiselect('deselectAll', false);
                 $('#section-list').multiselect('updateButtonText');

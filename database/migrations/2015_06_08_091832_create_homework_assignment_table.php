@@ -18,9 +18,8 @@ class CreateHomeworkAssignmentTable extends Migration {
             $table->char('course_id',6);
             $table->char('section',3)->nullable();
             $table->string('name',50);
-            $table->string('type_id',10)->nullable();
+            $table->char('type_id',3)->nullable();
             $table->string('detail',100)->nullable();
-            $table->string('path',255);
             $table->timestamp('assign_date');
             $table->timestamp('due_date');
             $table->timestamp('accept_date');
@@ -28,6 +27,8 @@ class CreateHomeworkAssignmentTable extends Migration {
             $table->char('semester',1);
             $table->char('year',4);
             $table->timestamps();
+
+            $table->unique(array('course_id','section','name','type_id','semester','year'));
         });
 
         Schema::create('homework_student', function(Blueprint $table)
@@ -45,21 +46,9 @@ class CreateHomeworkAssignmentTable extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('homework_folder', function(Blueprint $table)
-        {
-            $table->increments('id');
-            $table->char('course_id',6);
-            $table->char('section',3);
-            $table->string('name',100);
-            $table->string('path',255);
-            $table->char('semester',1);
-            $table->char('year',4);
-            $table->timestamps();
-        });
-
         Schema::create('homework_types', function(Blueprint $table)
         {
-            $table->string('id',10);
+            $table->char('id',3);
             $table->string('extension',100);
             $table->timestamps();
 
@@ -75,10 +64,9 @@ class CreateHomeworkAssignmentTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('homework');
-        Schema::drop('homework_student');
-        Schema::drop('homework_folder');
-        Schema::drop('homework_types');
+        Schema::dropIfExists('homework');
+        Schema::dropIfExists('homework_student');
+        Schema::dropIfExists('homework_types');
     }
 
 }

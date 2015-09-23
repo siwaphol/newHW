@@ -46,7 +46,7 @@ class UsersTableSeeder extends Seeder {
         User::create([
             'id' => '540510828',
             'username' => 'siwaphol_boonpan',
-            'role_id' => '0011',
+            'role_id' => '1000',
             'firstname_th' => 'ศิวพล',
             'firstname_en' => 'Siwaphol',
             'lastname_th' => 'บุญปั๋น',
@@ -215,9 +215,8 @@ class HomeworkTableSeeder extends Seeder
             'course_id' => '204111',
             'section' => '001',
             'name' => 'lab01_{id}',
-            'type_id' => 'word',
+            'type_id' => '001',
             'detail' => 'Homework description goes here.',
-            'path' => './lab01',
             'assign_date' => '2015-06-26 00:00:00',
             'due_date' => '2015-06-30 00:00:00',
             'accept_date' => '2015-07-01 00:00:00',
@@ -230,9 +229,8 @@ class HomeworkTableSeeder extends Seeder
             'course_id' => '204100',
             'section' => '001',
             'name' => 'lab01_{id}',
-            'type_id' => 'word',
+            'type_id' => '001',
             'detail' => 'Homework description goes here.',
-            'path' => '.',
             'assign_date' => '2015-06-26 00:00:00',
             'due_date' => '2015-06-30 00:00:00',
             'accept_date' => '2015-07-01 00:00:00',
@@ -254,26 +252,27 @@ class HomeworkTableSeeder extends Seeder
             'year' => '2557',
             'created_at' => $date,
             'updated_at' => $date]);
-        DB::table('homework_folder')->insert([
-            'course_id' => '204111',
-            'section' => '001',
-            'name' => 'lab01',
-            'path' => '.',
-            'semester' => '1',
-            'year' => '2557',
-            'created_at' => $date,
-            'updated_at' => $date]);
         DB::table('homework_types')->insert(
-            ['id' => 'word',
-            'extension' => 'doc,docx',
+            ['id' => '000',
+                'extension' => 'no extension',
+                'created_at' => $date,
+                'updated_at' => $date]);
+        DB::table('homework_types')->insert(
+            ['id' => '001',
+                'extension' => 'paper homework',
+                'created_at' => $date,
+                'updated_at' => $date]);
+        DB::table('homework_types')->insert(
+            ['id' => '002',
+            'extension' => '.doc,.docx',
             'created_at' => $date,
             'updated_at' => $date]);
-        DB::table('homework_types')->insert(['id' => 'excel',
-            'extension' => 'xls,xlsx',
+        DB::table('homework_types')->insert(['id' => '003',
+            'extension' => '.xls,.xlsx',
             'created_at' => $date,
             'updated_at' => $date]);
-        DB::table('homework_types')->insert(['id' => 'c',
-            'extension' => 'c,cpp',
+        DB::table('homework_types')->insert(['id' => '004',
+            'extension' => '.c,.cpp',
             'created_at' => $date,
             'updated_at' => $date]);
     }

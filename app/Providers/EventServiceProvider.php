@@ -1,5 +1,6 @@
 <?php namespace App\Providers;
 
+use App\HomeworkType;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -26,7 +27,14 @@ class EventServiceProvider extends ServiceProvider {
 	{
 		parent::boot($events);
 
-		//
+		HomeworkType::creating(function($homeworktype){
+			$last_homework_id = HomeworkType::max('id');
+			$homeworktype->id = str_pad(++$last_homework_id,3,'0',STR_PAD_LEFT);
+		});
+        HomeworkType::saving(function($homeworktype){
+            $last_homework_id = HomeworkType::max('id');
+            $homeworktype->id = str_pad(++$last_homework_id,3,'0',STR_PAD_LEFT);
+        });
 	}
 
 }
