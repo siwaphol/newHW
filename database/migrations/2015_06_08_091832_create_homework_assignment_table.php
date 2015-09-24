@@ -53,6 +53,7 @@ class CreateHomeworkAssignmentTable extends Migration {
             $table->timestamps();
 
             $table->primary('id');
+            $table->unique('extension');
         });
 
     }

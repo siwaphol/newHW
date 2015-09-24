@@ -5,6 +5,7 @@ use App\Course;
 use App\Course_Section;
 use App\Course_Student;
 use App\Course_Ta;
+use App\Homework;
 use Auth;
 use Request;
 use Session;
@@ -90,42 +91,45 @@ class HomeController extends Controller
 
     public function preview()
     {
-        $course = $_GET['course'];
-        $sec = $_GET['sec'];
+        $course_no = $_GET['course'];
+        $section = $_GET['sec'];
 
         $teachers = DB::select('select cs.id as id,tea.id as teacher_id,tea.firstname_en as firstname,tea.lastname_en as lastname
                             from course_section cs
                             LEFT  join users tea on cs.teacher_id=tea.id
-                            where cs.semester=? and cs.year=? and cs.course_id=? and cs.section=?', array(Session::get('semester'), Session::get('year'), $course, $sec));
+                            where cs.semester=? and cs.year=? and cs.course_id=? and cs.section=?', array(Session::get('semester'), Session::get('year'), $course_no, $section));
         $ta = DB::select('select ct.id as id,tea.id as ta_id,tea.firstname_th as firstname,tea.lastname_th as lastname
                             from course_ta ct
                             LEFT  join users tea on ct.student_id=tea.id
-                            where ct.semester=? and ct.year=? and ct.course_id=? and ct.section=?', array(Session::get('semester'), Session::get('year'), $course, $sec));
+                            where ct.semester=? and ct.year=? and ct.course_id=? and ct.section=?', array(Session::get('semester'), Session::get('year'), $course_no, $section));
 
         if (Auth::user()->isAdmin() || Auth::user()->isTeacher()) {
-            $student = DB::select('select * from users where role_id=0001');
+//            $student = DB::select('select * from users where role_id=0001');
+            $student = User::student()->get();
         }
         if (Auth::user()->isStudent()) {
-            $student = DB::select('select * from users where id=?', array(Auth::user()->id));
+            $student = User::find(Auth::user()->id);
+//            $student = DB::select('select * from users where id=?', array(Auth::user()->id));
         }
-        $homework = DB::select('select * from homework where course_id=? and section=?
-                                and semester=? and year=?', array($course, $sec, Session::get('semester'), Session::get('year')));
+
+        $homework = Homework::fromCourseAndSection($course_no,$section,Session::get('semester'),Session::get('year'))->get();
+
         if (Auth::user()->isAdmin() || Auth::user()->isTeacher() || Auth::user()->isTa() || Auth::user()->isStudentandTa()) {
             $sent = DB::select('select cs.student_id as studentid,stu.firstname_th as firstname,stu.lastname_th as lastname,cs.status as status
                             from course_student cs
                             left join users stu on cs.student_id=stu.id
                            where cs.course_id=? and cs.section=? and cs.semester=? and cs.year=?',
-                array($course, $sec, Session::get('semester'), Session::get('year')));
+                array($course_no, $section, Session::get('semester'), Session::get('year')));
         }
         if (Auth::user()->isStudent()) {
             $sent = DB::select('select cs.student_id as studentid,stu.firstname_th as firstname,stu.lastname_th as lastname,cs.status as status
                             from course_student cs
                             left join users stu on cs.student_id=stu.id
                            where cs.course_id=? and cs.section=? and cs.semester=? and cs.year=? and cs.student_id=?',
-                array($course, $sec, Session::get('semester'), Session::get('year'), Auth::user()->id));
+                array($course_no, $section, Session::get('semester'), Session::get('year'), Auth::user()->id));
         }
 
-        return view('home.preview', compact('teachers', 'ta', 'student', 'homework', 'sent'))->with('course', array('co' => $course, 'sec' => $sec));
+        return view('home.preview', compact('teachers', 'ta', 'student', 'homework', 'sent'))->with('course', array('co' => $course_no, 'sec' => $section));
 
     }
 

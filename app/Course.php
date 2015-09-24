@@ -12,9 +12,9 @@ class Course extends Model {
 
     protected $primaryKey = 'id';
 
-    public function teacher(){
-        return $this->belongsTo('App\Teacher');
-    }
+//    public function teacher(){
+//        return $this->belongsTo('App\Teacher');
+//    }
 
     /**
      * Get the students associated with the given course
@@ -27,6 +27,10 @@ class Course extends Model {
 
     public function users(){
         return $this->belongsToMany('App\User', 'course_student', 'course_id', 'student_id')->withTimestamps();
+    }
+
+    public function teachers(){
+        return $this->belongsToMany('App\User', 'course_section', 'course_id', 'teacher_id')->withTimestamps();
     }
 
 }

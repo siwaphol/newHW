@@ -45,8 +45,9 @@
 
                         <div class="panel-body">
                             {{--<h1>semesteryears</h1>--}}
-                            <button type="button"
-                                    class="btn btn-default">{!! link_to_action('AssistantsController@create','Add Teaching Assistant',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>
+                            {{--<button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','Add Teaching Assistant',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
+                            {!! link_to_action('AssistantsController@create','Add Teaching Assistant',array('course'=>$course['co'],'sec'=>$course['sec']),array('role'=>'button','class'=>'btn btn-default'))!!}
+
                             <div class="table-responsive">
                                 <table class="table" id="example" cellspacing="0" width="100%">
                                     <thead>
@@ -168,11 +169,6 @@
 
     @endif
 
-    <?php
-
-    $month = array('01' => 'Jan', '02' => 'Feb', '03' => 'Mar', '04' => 'Apr', '05' => 'May', '06' => 'June', '07' => 'July', '08' => 'Aug', '09' => 'Sept', '10' => 'Oct', '11' => 'Nov', '12' => 'Dec');
-
-    ?>
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -183,9 +179,9 @@
                                 @if(Auth::user()->isAdmin() || Auth::user()->isTeacher())
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Add Student<span class="caret"></span></button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li>{!! link_to_action('StudentsController@insert','Import student from registration office',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</li>
-                                    <li>{!! link_to_action('StudentsController@selectexcel','Import student from Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</li>
-                                    <li><a href="{{ url('/students/create/'.$coid[0]->id) }}">Add Student</a></li>
+                                    <li>{!! link_to_action('StudentsController@insert','From reg.cmu.ac.th',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</li>
+                                    <li>{!! link_to_action('StudentsController@selectexcel','From Excel File',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</li>
+                                    <li><a href="{{ url('/students/create/'.$coid[0]->id) }}">Custom ...</a></li>
                                 </ul>
                                 {!! link_to_action('StudentsController@export','Export Student List',array('course'=>$course['co'],'sec'=>$course['sec']),array('role'=>'button','class'=>'btn btn-default'))!!}
                                 {!! link_to_action('CourseHomeworkController@homeworkCreate','Manage Homework',array('course'=>$course['co']),array('role'=>'button','class'=>'btn btn-default') )!!}
@@ -218,11 +214,14 @@
                                             $name = preg_replace($pattern, $replacement, $key1->name);
                                             ?>
 
-                                            <th><p align="center">{{$name}}<br/><span
-                                                            class="label label-warning">{{date("d", strtotime($key1->due_date)).$month[date("m", strtotime($key1->due_date))]}}</span><br/><span
-                                                            class="label label-danger">{{date("d", strtotime($key1->accept_date)).$month[date("m", strtotime($key1->accept_date))]}}</span>
-                                                </p></th>
-
+                                            <th>
+                                                <p align="center">{{$name}}<br/>
+                                                    {{--<span class="label label-warning">{{date("d", strtotime($key1->due_date)).$month[date("m", strtotime($key1->due_date))]}}</span><br/>--}}
+                                                    {{--<span class="label label-danger">{{date("d", strtotime($key1->accept_date)).$month[date("m", strtotime($key1->accept_date))]}}</span>--}}
+                                                    <span class="label label-warning">{{$key1->s_due_date}}</span><br/>
+                                                    <span class="label label-danger">{{$key1->s_accept_date}}</span>
+                                                </p>
+                                            </th>
                                         @endforeach
                                     @endif
 
@@ -253,6 +252,7 @@
                                                             data-homework-id="{{$key1->id}}"
                                                             data-duedate="{{$key1->due_date}}"
                                                             data-acceptdate="{{$key1->accept_date}}"
+                                                            data-accept-filename="{{str_replace('{id}',\Auth::user()->id,$key1->name)}}"
                                                             class="btn btn-default student-button"><i
                                                                 class="fa fa-upload"></i></button>
                                                 </th>
@@ -514,22 +514,21 @@
 
         });
 
-
+        //when upload button is clicked in preview page
         $(".student-button").on('click', function () {
 
-            var path = $(this).attr("data-path");
-            var fullpath = '{{\Session::get('semester')}}' + '_' + '{{\Session::get('year')}}' + '/'
-                    + '{{$course['co']}}' + '/' + '{{$course['sec']}}' + '/' + path.replace('./', '');
+            //var path = $(this).attr("data-path");
+            //var fullpath = '{{\Session::get('semester')}}' + '_' + '{{\Session::get('year')}}' + '/' + '{{$course['co']}}' + '/' + '{{$course['sec']}}' + '/' + path.replace('./', '');
 
-            $(this).attr('data-fullpath', fullpath);
-            $('button').removeClass('button-selected');
-            $(this).toggleClass('button-selected');
-            dzfullpath = $('.button-selected').attr('data-fullpath');
-            templatename = $('.button-selected').attr('data-template-name');
-            typeid = $('.button-selected').attr('data-type-id');
-            homework_id = $('.button-selected').attr('data-homework-id');
-            due_date = $('.button-selected').attr('data-duedate');
-            accept_date = $('.button-selected').attr('data-acceptdate');
+            //$(this).attr('data-fullpath', fullpath);
+            //$('button').removeClass('button-selected');
+            //$(this).toggleClass('button-selected');
+           // dzfullpath = $('.button-selected').attr('data-fullpath');
+            //templatename = $('.button-selected').attr('data-template-name');
+            //typeid = $('.button-selected').attr('data-type-id');
+            //homework_id = $('.button-selected').attr('data-homework-id');
+           // due_date = $('.button-selected').attr('data-duedate');
+            //accept_date = $('.button-selected').attr('data-acceptdate');
             $('#upload-modal').modal('toggle');
         });
 

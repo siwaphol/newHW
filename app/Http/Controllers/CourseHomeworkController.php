@@ -464,8 +464,12 @@ class CourseHomeworkController extends Controller {
 
         if(array_key_exists('newextension',$new_input)){
             $no_whitespace_extension = str_replace(' ','',$new_input['extension']);
-            HomeworkType::create(['extension'=> $no_whitespace_extension]);
-            $type_id = HomeworkType::where('extension','=',$no_whitespace_extension)->first()->id;
+            try {
+                HomeworkType::create(['extension' => $no_whitespace_extension]);
+                $type_id = HomeworkType::where('extension', '=', $no_whitespace_extension)->first()->id;
+            }catch(QueryException $e){
+                $message = "New extension is exist in database";
+            }
 
             $message =  "we have new extension with id: " . $type_id;
         }else{

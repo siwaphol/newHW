@@ -33,7 +33,6 @@
           },
           init: function () {
             this.on("sending", function(file, xhr, data) {
-                data.append("path", dzfullpath);
                 data.append("template_name", templatename);
                 data.append("type_id", typeid);
                 data.append("student_id", '{{\Auth::user()->id}}');

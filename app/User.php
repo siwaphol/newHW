@@ -31,8 +31,19 @@ class User extends Model implements AuthenticatableContract {
 
     public $incrementing = false;
 
-    public function courses(){
-        return $this->belongsToMany('App\Course', 'course_student', 'student_id', 'course_id')->withTimestamps();
+    public function teachcourses(){
+        return $this->belongsToMany('App\Course', 'course_section', 'teacher_id', 'course_id')->withTimestamps();
+    }
+
+    public function teaching()
+    {
+        return $this->hasMany('App\Course_Section','teacher_id');
+    }
+
+    public function teachingCourseSection($course_no,$section)
+    {
+        $all_teach_course = $this->hasMany('App\Course_Section','teacher_id');
+        return $all_teach_course->get();
     }
 
     public function getHomeworkWithStatus($course_id,$section)
@@ -152,7 +163,6 @@ class User extends Model implements AuthenticatableContract {
     }
 
     public function getCourseList(){
-
         if($this->isAdmin()){
 
             $course_list = DB::select('SELECT DISTINCT course_id FROM course_section where semester=? and year=?',array(Session::get('semester'),Session::get('year')));
@@ -162,5 +172,7 @@ class User extends Model implements AuthenticatableContract {
             return $course_list;
         }
     }
+
+
 
 }
