@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="{{ asset('/css/dropzone/dropzone.css') }}"/>
     {{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"--}}
     {{--xmlns="http://www.w3.org/1999/html">--}}
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    {{--<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css">--}}
+    <link rel="stylesheet" href="{{ asset('/libs/datatables/tabletools-2.2.4/css/dataTables.tableTools.css') }}"/>
+    {{--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">--}}
+    <link rel="stylesheet" href="{{ asset('/libs/font-awesome-4.4.0/css/font-awesome.min.css') }}"/>
     {{--<link rel="stylesheet" type="text/css" href=" //cdn.datatables.net/fixedcolumns/3.0.3/css/dataTables.fixedColumns.css">--}}
     {{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"--}}
     {{--xmlns="http://www.w3.org/1999/html">--}}
@@ -207,19 +209,19 @@
                                         <th>Status</th>
                                     @endif
                                     @if(count($homework)>0)
-                                        @foreach($homework as $key1)
+                                        @foreach($homework as $aHomework)
                                             <?php
                                             $pattern = '/(_?\{)(.*)(\}_?)/i';
                                             $replacement = '';
-                                            $name = preg_replace($pattern, $replacement, $key1->name);
+                                            $name = preg_replace($pattern, $replacement, $aHomework->name);
                                             ?>
 
                                             <th>
                                                 <p align="center">{{$name}}<br/>
-                                                    {{--<span class="label label-warning">{{date("d", strtotime($key1->due_date)).$month[date("m", strtotime($key1->due_date))]}}</span><br/>--}}
-                                                    {{--<span class="label label-danger">{{date("d", strtotime($key1->accept_date)).$month[date("m", strtotime($key1->accept_date))]}}</span>--}}
-                                                    <span class="label label-warning">{{$key1->s_due_date}}</span><br/>
-                                                    <span class="label label-danger">{{$key1->s_accept_date}}</span>
+                                                    {{--<span class="label label-warning">{{date("d", strtotime($aHomework->due_date)).$month[date("m", strtotime($aHomework->due_date))]}}</span><br/>--}}
+                                                    {{--<span class="label label-danger">{{date("d", strtotime($aHomework->accept_date)).$month[date("m", strtotime($aHomework->accept_date))]}}</span>--}}
+                                                    <span class="label label-warning">{{$aHomework->s_due_date}}</span><br/>
+                                                    <span class="label label-danger">{{$aHomework->s_accept_date}}</span>
                                                 </p>
                                             </th>
                                         @endforeach
@@ -235,32 +237,29 @@
                                         <th>Status</th>
                                     @endif
                                     @if(count($homework)>0)
-                                        @foreach($homework as $key1)
+                                        @foreach($homework as $aHomework)
                                             @if(Auth::user()->isStudent())
 
                                                 <th>
-                                                    {{--<button type="button" data-path="{{$key1->path}}"--}}
-                                                            {{--data-fullpath="temp" data-template-name="{{$key1->name}}"--}}
-                                                            {{--data-type-id="{{$key1->type_id}}"--}}
-                                                            {{--data-homework-id="{{$key1->id}}"--}}
-                                                            {{--data-duedate="{{$key1->due_date}}"--}}
-                                                            {{--data-acceptdate="{{$key1->accept_date}}"--}}
+                                                    {{--<button type="button" data-path="{{$aHomework->path}}"--}}
+                                                            {{--data-fullpath="temp" data-template-name="{{$aHomework->name}}"--}}
+                                                            {{--data-type-id="{{$aHomework->type_id}}"--}}
+                                                            {{--data-homework-id="{{$aHomework->id}}"--}}
+                                                            {{--data-duedate="{{$aHomework->due_date}}"--}}
+                                                            {{--data-acceptdate="{{$aHomework->accept_date}}"--}}
                                                             {{--class="btn btn-default student-button"><i--}}
                                                                 {{--class="fa fa-upload"></i></button>--}}
-                                                    <button type="button"  data-template-name="{{$key1->name}}"
-                                                            data-type-id="{{$key1->type_id}}"
-                                                            data-homework-id="{{$key1->id}}"
-                                                            data-duedate="{{$key1->due_date}}"
-                                                            data-acceptdate="{{$key1->accept_date}}"
-                                                            data-accept-filename="{{str_replace('{id}',\Auth::user()->id,$key1->name)}}"
-                                                            class="btn btn-default student-button"><i
-                                                                class="fa fa-upload"></i></button>
+                                                    <button type="button"
+                                                            data-homework-id="{{$aHomework->id}}"
+                                                            data-accept-filename="{{str_replace('{id}',\Auth::user()->id,$aHomework->name)}}"
+                                                            data-accept-filetype="{{$aHomework->extension}}"
+                                                            class="btn btn-default student-button"><i class="fa fa-upload"></i></button>
                                                 </th>
 
                                             @endif
                                             @if(Auth::user()->isTeacher()||Auth::user()->isAdmin()||Auth::user()->isStudentandTa()||Auth::user()->isTa())
                                                 <th>
-                                                    {{--<p align="center">{!! link_to_action('Homework1Controller@exportzip','',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$key1->name,'path'=>$key1->path,'type'=>'1'),array('class'=>'glyphicon glyphicon-download-alt'))!!}</p>--}}
+                                                    {{--<p align="center">{!! link_to_action('Homework1Controller@exportzip','',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>$aHomework->name,'path'=>$aHomework->path,'type'=>'1'),array('class'=>'glyphicon glyphicon-download-alt'))!!}</p>--}}
                                                     <a href="#" type="button">Export to zip file(In progress...)</a>
                                                 </th>
 
@@ -443,61 +442,123 @@
     </div>
 @endsection
 @section('footer')
-    <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
+    {{--<script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>--}}
     <script type="text/javascript" src="{{ asset('/js/dropzone/dropzone.js') }}"></script>
 
-    <script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.js"></script>
-
+    {{--<script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.js"></script>--}}
+    <script src="{{ asset('/libs/datatables/tabletools-2.2.4/js/dataTables.tableTools.js') }}"></script>
     {{--<script src="//cdn.datatables.net/fixedcolumns/3.0.3/js/dataTables.fixedColumns.js"></script>--}}
 
     <script type="text/javascript">
 
-//        var dzfullpath = $('.button-selected').attr('data-fullpath');
         var templatename = $('.button-selected').attr('data-template-name');
         var typeid = $('.button-selected').attr('data-type-id');
         var homework_id = '';
         var due_date = '';
         var accept_date = '';
+        var baseUrl = "{{ url('/') }}";
+        var token = "{{ Session::getToken() }}";
+        var student_id = "{{\Auth::user()->id}}";
+        var homework_id = '';
+        var _course_id = '{{$course['co']}}';
+        var _section = '{{$course['sec']}}';
+        var _uploadURL = 'uploadFiles';
+        var _sFileName = '{{$course['co']}}' + '-' + '{{$course['sec']}}' + '-*.xls';
+        var _isStudent = {{\Auth::user()->isStudent()}};
+        var _sSwfPath = '{{asset('/libs/datatables/tabletools-2.2.4/swf/copy_csv_xls_pdf.swf')}}';
 
         $(document).ready(function () {
+
+            console.log(_sFileName);
+            //Declaration
+            var table;
+
+            function initTable(){
+                if(!_isStudent){
+                    table = $('#example1').dataTable({
+                        "scrollX": true,
+                        "sDom": 'T<"clear">lfrtip',
+                        "oTableTools": {
+                            "sSwfPath": _sSwfPath,
+                            "aButtons": [
+                                {
+                                    "sExtends": "xls",
+                                    "sButtonText": "Export homework report ",
+                                    "sToolTip": "Export report send with excel",
+                                    "sMessage": "Generated by DataTables",
+                                    "sTitle": "Report Sending ",
+                                    "sFileName": _sFileName
+                                }
+                            ]
+                        },
+                        "columnDefs": [
+                            {"sClass": "a-right"},
+                            {"width": "4%", "targets": 0},
+                            {"width": "25%", "targets": 1},
+                            {"width": "2%", "targets": 2}
+                        ]
+                    });
+                }else{
+                    table = $('#example1').dataTable({
+                        "scrollX": true
+                    });
+                }
+            }
+
+            function onSubmit() {
+                var msgErr = ""
+                if ($("#hw").val() == "") {
+                    msgErr += "Please select homework\n"
+                }
+                if ($("#stu").val() == "") {
+                    msgErr += "Please select student\n"
+                }
+                if ($("status").val() == "") {
+                    msgErr += "Please select status\n"
+                }
+                if (msgErr != "") {
+                    alert(msgErr)
+                    return false
+                } else {
+                    return true
+                }
+            }
+            //End Declaration
+
             $('#example').dataTable({
                 "order": [[3, "desc"]],
                 "scrollX": true
             });
-        });
 
-        $(document).ready(function () {
+            initTable();
 
-            var table = $('#example1').dataTable({
-                "scrollX": true,
-                @if(!\Auth::user()->isStudent())
-                "sDom": 'T<"clear">lfrtip',
-                "oTableTools": {
-                    "sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
-                    "aButtons": [
-                        {
-                            "sExtends": "xls",
-                            "sButtonText": "Export homework report ",
-                            "sToolTip": "Export report send with excel",
-                            "sMessage": "Generated by DataTables",
-                            "sTitle": "Report Sending ",
-                            "sFileName": "<?php echo $course['co']."-".$course['sec'] ?> - *.xls"
-                        }
-
-                    ]
-
-                },
-
-                "columnDefs": [
-                    {"sClass": "a-right"},
-                    {"width": "4%", "targets": 0},
-                    {"width": "25%", "targets": 1},
-                    {"width": "2%", "targets": 2}
+            //var table = $('#example1').dataTable({
+            //    "scrollX": true,
+            //    @if(!\Auth::user()->isStudent())
+            //    "sDom": 'T<"clear">lfrtip',
+            //    "oTableTools": {
+            //        "sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
+            //        "aButtons": [
+            //            {
+            //                "sExtends": "xls",
+            //                "sButtonText": "Export homework report ",
+            //                "sToolTip": "Export report send with excel",
+            //                "sMessage": "Generated by DataTables",
+            //                "sTitle": "Report Sending ",
+            //                "sFileName": _sFileName
+            //            }
+            //        ]
+            //    },
+            //    "columnDefs": [
+            //        {"sClass": "a-right"},
+            //        {"width": "4%", "targets": 0},
+            //        {"width": "25%", "targets": 1},
+            //        {"width": "2%", "targets": 2}
 //            { "bSortable": false, "aTargets": [ 0 ] }
-                ]
-                @endif
-
-            });
+            //    ]
+            //    @endif
+            //});
+            //test
             $('a.toggle-vis').on('click', function (e) {
                 e.preventDefault();
 
@@ -507,54 +568,20 @@
                 // Toggle the visibility
                 column.visible(!column.visible());
             });
-//     new $.fn.dataTable.FixedColumns( table, {
-//            leftColumns: 1
-//
-//        } );
+            //end test
 
-        });
+            //when upload button is clicked in preview page
+            $(".student-button").on('click', function () {
+                $('button').removeClass('student-button-selected');
+                $(this).toggleClass('student-button-selected');
 
-        //when upload button is clicked in preview page
-        $(".student-button").on('click', function () {
-
-            //var path = $(this).attr("data-path");
-            //var fullpath = '{{\Session::get('semester')}}' + '_' + '{{\Session::get('year')}}' + '/' + '{{$course['co']}}' + '/' + '{{$course['sec']}}' + '/' + path.replace('./', '');
-
-            //$(this).attr('data-fullpath', fullpath);
-            //$('button').removeClass('button-selected');
-            //$(this).toggleClass('button-selected');
-           // dzfullpath = $('.button-selected').attr('data-fullpath');
-            //templatename = $('.button-selected').attr('data-template-name');
-            //typeid = $('.button-selected').attr('data-type-id');
-            //homework_id = $('.button-selected').attr('data-homework-id');
-           // due_date = $('.button-selected').attr('data-duedate');
-            //accept_date = $('.button-selected').attr('data-acceptdate');
-            $('#upload-modal').modal('toggle');
+                $('#upload-modal .modal-title').html('Upload File <p class="text-primary">' + $('.student-button-selected').attr('data-accept-filename') + '(' + $('.student-button-selected').attr('data-accept-filetype') + ')</p>');
+                homework_id = $('.student-button-selected').attr('data-homework-id');
+                $('#upload-modal').modal('toggle');
+            });
         });
 
     </script>
-
-    <script type="text/javascript">
-        function onSubmit() {
-            var msgErr = ""
-            if ($("#hw").val() == "") {
-                msgErr += "Please select homework\n"
-            }
-            if ($("#stu").val() == "") {
-                msgErr += "Please select student\n"
-            }
-            if ($("status").val() == "") {
-                msgErr += "Please select status\n"
-            }
-            if (msgErr != "") {
-                alert(msgErr)
-                return false
-            } else {
-                return true
-            }
-        }
-    </script>
-
 
     @include('partials.dropzone')
 @endsection

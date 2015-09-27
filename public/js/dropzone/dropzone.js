@@ -1416,6 +1416,7 @@
                             formData.append(key, value);
                         }
                     }
+
                     for (_j = 0, _len1 = files.length; _j < _len1; _j++) {
                         file = files[_j];
                         this.emit("sending", file, xhr, formData);
@@ -1446,6 +1447,7 @@
                         file = files[_m];
                         formData.append("" + this.options.paramName + (this.options.uploadMultiple ? "[]" : ""), file, file.name);
                     }
+
                     return xhr.send(formData);
                 };
 

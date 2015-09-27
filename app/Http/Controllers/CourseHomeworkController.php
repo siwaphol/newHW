@@ -236,6 +236,8 @@ class CourseHomeworkController extends Controller {
 
         $input = Input::all();
 
+        return Response::make("Haha this is error." , 400);
+
         $rules = array(
             'file' => 'max:5000',
         );

@@ -40,10 +40,19 @@ class User extends Model implements AuthenticatableContract {
         return $this->hasMany('App\Course_Section','teacher_id');
     }
 
-    public function teachingCourseSection($course_no,$section)
+    public function submittedHomework()
+    {
+        return $this->hasMany('App\HomeworkStudent','student_id');
+    }
+
+    public function teachingCourseSection($course_no,$section,$semester,$year)
     {
         $all_teach_course = $this->hasMany('App\Course_Section','teacher_id');
-        return $all_teach_course->get();
+        return $all_teach_course->where('course_id','=',$course_no)
+            ->where('section','=',$section)
+            ->where('semester','=',$semester)
+            ->where('year','=',$year)
+            ->get();
     }
 
     public function getHomeworkWithStatus($course_id,$section)
