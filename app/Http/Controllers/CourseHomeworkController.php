@@ -6,6 +6,7 @@ use App\HomeworkType;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ use Input;
 use Validator;
 use Response;
 use Log;
+use File;
 
 class CourseHomeworkController extends Controller {
 
@@ -235,58 +237,60 @@ class CourseHomeworkController extends Controller {
     public function uploadFiles() {
 
         $input = Input::all();
+        $destinationPath = 'uploads';
+        $binPath = 'uploads/bin';
+        $maxSize = '5000'; // 5 MB
 
-        return Response::make("Haha this is error." , 400);
-
+        //Check max size
         $rules = array(
-            'file' => 'max:5000',
+            'file' => 'max:'.$maxSize,
         );
-
         $validation = Validator::make($input, $rules);
-
         if ($validation->fails()) {
             return Response::make($validation->errors()->first() , 400);
         }
-        $correct_file_name = str_replace('{id}',$input['student_id'],$input['template_name']);
-        $user_submitted_file_name= str_replace('.'.Input::file('file')->getClientOriginalExtension() ,'',Input::file('file')->getClientOriginalName());
-        $filename_arr = [];
 
-        if($correct_file_name !== $user_submitted_file_name){
-            return Response::make("file name is not correct." , 400);
+        $homework_template = Homework::find($input['homework_id']);
+        $fullname_hw_array = $homework_template->createFullFilename($input['student_id']);
+        //Check file name
+        if(!in_array($input['file']->getClientOriginalName(),$fullname_hw_array)){
+            return Response::make("File name is incorrect" , 400);
         }
 
-        $extension = DB::select("SELECT extension FROM homework_types WHERE id=?",array($input['type_id']));
-        $splited_ext= array();
-        if(count($extension)>0){
-            $found = false;
-            $splited_ext = explode(',',$extension[0]->extension);
-            foreach($splited_ext as $aExt){
-                array_push($filename_arr, $user_submitted_file_name.'.'.$aExt);
-                if(Input::file('file')->getClientOriginalExtension() === $aExt){
-                    $found = true;
-                }
-            }
-            if(!$found){
-                return Response::make("file extension is not correct." , 400);
-            }
+        $semester_year = Session::get('semester') . '_' . Session::get('year');
+
+        //insert try catch here
+        $destinationPath .= '/' . $semester_year;
+        if(!file_exists($destinationPath)){
+            mkdir($destinationPath, 0777);
+        }
+        $destinationPath .= '/' . $homework_template->course_id;
+        if(!file_exists($destinationPath)){
+            mkdir($destinationPath, 0777);
+        }
+        $destinationPath .= '/' . $homework_template->section;
+        if(!file_exists($destinationPath)){
+            mkdir($destinationPath, 0777);
+        }
+        $destinationPath .= '/' . $homework_template->no_id_name;
+        if(!file_exists($destinationPath)){
+            mkdir($destinationPath, 0777);
         }
 
-        $destinationPath = 'uploads'; // upload path
-        $extension = Input::file('file')->getClientOriginalExtension(); // getting file extension
-//        $fileName = rand(11111, 99999) . '.' . $extension; // renameing image
-        $fileName = Input::file('file')->getClientOriginalName();
-
-        $splited_path = explode('/',$input['path']);
-        $filename = $destinationPath;
-        foreach($splited_path as $aPath){
-            $filename = $destinationPath . "/" . $aPath ;
-            if (!file_exists($filename)) {
-                mkdir($destinationPath . "/" . $aPath, 0777);
-            }
-            $destinationPath = $destinationPath . "/" . $aPath;
-        }
         //Upload file to server
-        $upload_success = Input::file('file')->move($destinationPath, $fileName); // uploading file to given path
+        $date = new Carbon();
+        foreach($fullname_hw_array as $aHW){
+            if(file_exists($destinationPath . '/' . $aHW)){
+                if(!file_exists($binPath . '/' . $input['student_id'])){
+                    mkdir($binPath . '/' . $input['student_id'], 0777);
+                }
+                File::move($destinationPath . '/' . $aHW,$binPath . '/' . $input['student_id'] . '/' . $date->format('Ymd_hi_') . $aHW);
+            }
+        }
+
+        $upload_success = $input['file']->move($destinationPath, $input['file']->getClientOriginalName()); // uploading file to given path
+
+        return Response::make("Finished" , 200);
 
         if ($upload_success) {
 

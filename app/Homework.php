@@ -9,7 +9,7 @@ class Homework extends Model {
     protected $table = 'homework';
 
     //s is short for simple :P
-    protected $appends = ['extension','s_due_date','s_accept_date'];
+    protected $appends = ['extension','s_due_date','s_accept_date','no_id_name'];
     protected $fillable = ['course_id', 'section', 'name', 'type_id'
         ,'detail', 'assign_date', 'due_date'
         ,'accept_date','created_by','semester','year'];
@@ -39,6 +39,11 @@ class Homework extends Model {
         return $date->format('d M');
     }
 
+    public function getNoIdNameAttribute()
+    {
+        $pattern = '/[_]?+\{id\}[_]?/';
+        return preg_replace($pattern,'',$this->attributes['name']);
+    }
     /**
      * Scope
      */
@@ -48,5 +53,24 @@ class Homework extends Model {
             ->where('section','=',$section)
             ->where('semester','=',$semester)
             ->where('year','=',$year);
+    }
+
+    /**
+     * Custom funciton
+     */
+    public function createFullFilename($student_id)
+    {
+        $fullname_arr = array();
+        //Need some help here dont let it be static like this use config instead
+        if($this->attributes['type_id']==='000' || $this->attributes['type_id']==='001'){
+            array_push($fullname_arr,str_replace('{id}',$student_id,$this->attributes['name']));
+        }else{
+            $filename = str_replace('{id}',$student_id,$this->attributes['name']);
+            $extension = explode(',',$this->extension);
+            foreach($extension as $aExt){
+                array_push($fullname_arr,$filename.$aExt);
+            }
+        }
+        return $fullname_arr;
     }
 }

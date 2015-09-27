@@ -415,7 +415,7 @@
                                     </div>
 
                                     <div class="form-group" align="center">
-                                        <input type="hidden" name="_token" value="{{{ csrf_token() }}}"/>
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 
                                         <div class="col-md-4 col-md-offset-4">
                                             <input type="submit" name="ok" value="Edit" class="form-control"/>

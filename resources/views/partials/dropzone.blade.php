@@ -28,7 +28,6 @@
 			course_id: _course_id,
 			section: _section
 		  },
-         dictResponseError: 'Server not Configured',
          autoQueue: false,
         init: function () {
             this.on("sending", function(file, xhr, data) {
