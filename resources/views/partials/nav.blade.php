@@ -14,9 +14,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
             <ul class="nav navbar-nav navbar-right">
-                @if (Auth::guest())
-
-                @else
+                @if(!Auth::guest())
                     @if (Auth::user()->isAdmin())
                         <li class="dropdown">
                             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -40,7 +38,10 @@
                         </li>
                     @endif
 
-                    <li><a href="{{url('home')}}">Home</a></li>
+                    <li><a href="{{url('home')}}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
+                    @if(Auth::user()->isStudent() || Auth::user()->isStudentandTa())
+                        <li><a href="#bin"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></li>
+                    @endif
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-expanded="false">{{ Auth::user()->firstname_th . " " . Auth::user()->lastname_th }}
@@ -50,20 +51,12 @@
                         </ul>
                     </li>
                 @endif
-
             </ul>
             @if (!Auth::guest())
                 @if (Auth::user()->isTeacher() || Auth::user()->isAdmin())
                     <ul class="nav navbar-nav navbar-right">
-                        <!-- Trigger the modal with a button -->
-                        {{--{{\Session::get('semester')}}/{{Session::get('year')}}--}}
-                        {{--<button type="button" class="btn " data-toggle="modal" data-target="#myModal"> {{\Session::get('semester')}}/{{Session::get('year')}}เปลี่ยน</button>--}}
-
-                        <!-- Modal -->
                         <div id="myModal" class="modal fade" role="dialog">
-
                             <div class="modal-dialog">
-
                                 <!-- Modal content-->
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -73,7 +66,7 @@
                                     <div class="modal-body">
                                         <script type="text/javascript">
                                             function onSubmit() {
-                                                var msgErr = ""
+                                                var msgErr = "";
                                                 if ($("#year").val() == "") {
                                                     msgErr += "Please select year\n"
                                                 }
@@ -81,7 +74,7 @@
                                                     msgErr += "Please select semester\n"
                                                 }
                                                 if (msgErr != "") {
-                                                    alert(msgErr)
+                                                    alert(msgErr);
                                                     return false
                                                 } else {
                                                     return true
@@ -89,10 +82,10 @@
                                             }
 
                                             function Listsemester(SelectValue) {
-                                                frmyear.semester.length = 0
+                                                frmyear.semester.length = 0;
                                                 //*** Insert null Default Value ***//
-                                                var myOption = new Option('Select Semester', '')
-                                                frmyear.semester.options[frmyear.semester.length] = myOption
+                                                var myOption = new Option('Select Semester', '');
+                                                frmyear.semester.options[frmyear.semester.length] = myOption;
                                                 <?php
 
                                                 $intRows = 0;
@@ -117,8 +110,8 @@
                                                 mySubList[x, 0] = strGroup;
                                                 mySubList[x, 1] = strValue;
                                                 if (mySubList[x, 0] == SelectValue) {
-                                                    var myOption = new Option(mySubList[x, 1])
-                                                    frmyear.semester.options[frmyear.semester.length] = myOption
+                                                    var myOption = new Option(mySubList[x, 1]);
+                                                    frmyear.semester.options[frmyear.semester.length] = myOption;
                                                 }
                                                 <?php
                                                 }
@@ -132,8 +125,6 @@
                                              }*/
 
                                         </script>
-
-
                                         <div class="portlet" align="right">
                                             <div class="portlet-body form" align="center">
                                                 <form action="semester" method="post" name="frmyear" id="frmyear"
@@ -180,7 +171,7 @@
 
                                                         <div class="form-group" align="center">
                                                             <input type="hidden" name="_token"
-                                                                   value="{{{ csrf_token() }}}"/>
+                                                                   value="{{ csrf_token() }}"/>
 
                                                             <div class="col-md-4 col-md-offset-4">
                                                                 <input type="submit" name="ok" value="Change"

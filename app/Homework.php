@@ -14,16 +14,19 @@ class Homework extends Model {
         ,'detail', 'assign_date', 'due_date'
         ,'accept_date','created_by','semester','year'];
 
+    public function extension(){
+        return $this->hasMany('App\HomeworkType','id','type_id')->first();
+    }
     /**
      * Accessor Function
      */
     public function getExtensionAttribute()
     {
-        $aType = DB::select('SELECT extension FROM homework_types where id=? ', array( $this->attributes['type_id'] ));
-        return $aType[0]->extension;
+        return $this->hasOne('App\HomeworkType','id','type_id')->first()->extension;
     }
 
-    public function getSubmitterAndSendStatus(){
+    public function getSubmitterAndSendStatus()
+    {
         return $this->belongsToMany('App\User', 'course_student', 'course_id', 'student_id')->withTimestamps();
     }
 

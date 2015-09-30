@@ -2,6 +2,7 @@
 
 use App\Homework;
 use App\HomeworkFolder;
+use App\HomeworkStudent;
 use App\HomeworkType;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -236,10 +237,13 @@ class CourseHomeworkController extends Controller {
 
     public function uploadFiles() {
 
+        //need $input['submitted_at'] or $submitted_date
         $input = Input::all();
         $destinationPath = 'uploads';
         $binPath = 'uploads/bin';
         $maxSize = '5000'; // 5 MB
+        $maxBinSize = 20000000; // 20 MB
+        $submitted_date = Carbon::now(new \DateTimeZone('Asia/Bangkok'));
 
         //Check max size
         $rules = array(
@@ -260,29 +264,34 @@ class CourseHomeworkController extends Controller {
         $semester_year = Session::get('semester') . '_' . Session::get('year');
 
         //insert try catch here
-        $destinationPath .= '/' . $semester_year;
+        $destinationPath = $destinationPath . '/' . $semester_year . '/' . $homework_template->course_id .
+            '/' . $homework_template->section . '/' . $homework_template->no_id_name;
         if(!file_exists($destinationPath)){
-            mkdir($destinationPath, 0777);
-        }
-        $destinationPath .= '/' . $homework_template->course_id;
-        if(!file_exists($destinationPath)){
-            mkdir($destinationPath, 0777);
-        }
-        $destinationPath .= '/' . $homework_template->section;
-        if(!file_exists($destinationPath)){
-            mkdir($destinationPath, 0777);
-        }
-        $destinationPath .= '/' . $homework_template->no_id_name;
-        if(!file_exists($destinationPath)){
-            mkdir($destinationPath, 0777);
-        }
+            mkdir($destinationPath, 0777, true);
+        };
 
         //Upload file to server
         $date = new Carbon();
+        $student_bin = $binPath . '/' . $input['student_id'];
         foreach($fullname_hw_array as $aHW){
             if(file_exists($destinationPath . '/' . $aHW)){
-                if(!file_exists($binPath . '/' . $input['student_id'])){
-                    mkdir($binPath . '/' . $input['student_id'], 0777);
+                if(!file_exists($student_bin)){
+                    mkdir($student_bin, 0777);
+                }
+                //Check if this student file size exceed limit
+                $all_std_files = File::allFiles($student_bin);
+                $sum_size = 0;
+                $oldest_date = '99999999_9999';
+                foreach($all_std_files as $aFile){
+                    $sum_size = $sum_size + $aFile->getSize();
+                    $temp = substr($aFile->getFileName(),0,13);
+                    if($temp < $oldest_date){
+                        $oldest_file = $aFile->getFileName();
+                        $oldest_date = $temp;
+                    }
+                }
+                if($sum_size+$input['file']->getSize() > $maxBinSize){
+                    File::delete($student_bin . '/' . $oldest_file);
                 }
                 File::move($destinationPath . '/' . $aHW,$binPath . '/' . $input['student_id'] . '/' . $date->format('Ymd_hi_') . $aHW);
             }
@@ -290,81 +299,32 @@ class CourseHomeworkController extends Controller {
 
         $upload_success = $input['file']->move($destinationPath, $input['file']->getClientOriginalName()); // uploading file to given path
 
-        return Response::make("Finished" , 200);
+//        return Response::make("Finished" , 200);
 
         if ($upload_success) {
 
-            $student_homework = DB::table('homework_student')
-                ->where('course_id','=',$input['course_id'] )
-                ->where('section','=',$input['section'] )
-                ->where('homework_id','=',$input['homework_id'] )
-                ->whereIn('homework_name',$filename_arr)
-                ->where('semester','=',Session::get('semester') )
-                ->where('year','=',Session::get('year') )->get();
-
-            $date = (new \DateTime)->setTimezone(new \DateTimeZone('Asia/Bangkok'))->format('Y-m-d H:i:s');
-
-            $status = '';
-            if($date <= $input['due_date'] ){
+            if($submitted_date <= $homework_template->due_date){
                 $status = '1';
-            }
-            if($date >= $input['due_date']){
+            }else if($submitted_date <= $homework_template->accept_date){
                 $status = '2';
-            }
-            if($date >= $input['accept_date']){
+            }else{
                 $status = '3';
             }
 
-            if(count($student_homework) > 0){
-                if($student_homework[0]->homework_name !== Input::file('file')->getClientOriginalName()){
-                    $filename = $destinationPath.'/'.$student_homework[0]->homework_name;
+            $input_homework = ['course_id'=>$input['course_id'],'section'=>$input['section'],
+                'homework_id'=>$input['homework_id'], 'student_id'=>$input['student_id'],
+                'semester'=>Session::get('semester'), 'year'=>Session::get('year')];
+            $accept_homework = ['course_id'=>$input['course_id'],'section'=>$input['section'],
+                'homework_id'=>$input['homework_id'], 'homework_name'=>$input['file']->getClientOriginalName(),
+                'student_id'=>$input['student_id'], 'status'=>$status,
+                'submitted_at'=>$submitted_date,
+                'semester'=>Session::get('semester'), 'year'=>Session::get('year')];
 
-                    if (\File::exists($filename)) {
-                        if(!file_exists('uploads/bin/'.$input['student_id'])){
-                            mkdir('uploads/bin/'.$input['student_id'], 0777);
-                        }
-                        $temp = explode('.',$student_homework[0]->homework_name);
-                        $temp_date = (new \DateTime)->setTimezone(new \DateTimeZone('Asia/Bangkok'))->format('Ymd_Hi');
-                        \File::move($filename,'uploads/bin/'.$input['student_id'].'/'.$temp[0] .'_'.$temp_date.'.'.$temp[1]);
-                        //\File::delete($filename);
-                    }
+            HomeworkStudent::updateOrCreate($input_homework,$accept_homework);
 
-                    $new_file_name = Input::file('file')->getClientOriginalName();
-                }else{
-                    $new_file_name = $student_homework[0]->homework_name;
-                }
-                $tempdate = $student_homework[0]->created_at;
-                DB::table('homework_student')
-                    ->where('course_id','=',$input['course_id'] )
-                    ->where('section','=',$input['section'] )
-                    ->where('homework_id','=',$input['homework_id'] )
-                    ->whereIn('homework_name',$filename_arr)
-                    ->where('semester','=',Session::get('semester') )
-                    ->where('year','=',Session::get('year') )
-                    ->update(['status' => $status,
-                        'homework_name' => $new_file_name,
-                        'submitted_at' => $date,
-                        'created_at' => $student_homework[0]->created_at,
-                        'updated_at' => $date]);
-            }else{
-
-                DB::table('homework_student')->insert(
-                    ['course_id' => $input['course_id'],
-                        'section' => $input['section'],
-                        'homework_id' => $input['homework_id'],
-                        'homework_name' => Input::file('file')->getClientOriginalName(),
-                        'student_id' => $input['student_id'],
-                        'status' => $status,
-                        'submitted_at' => $date,
-                        'semester' => Session::get('semester'),
-                        'year' => Session::get('year'),
-                        'created_at' => $date,
-                        'updated_at' => $date]
-                );
-            }
-            return Response::json('success', 200);
+            return Response::make('success', 200);
         } else {
-            return Response::json('error', 400);
+            return Response::make('Internal server error' , 500);
         }
     }
 
@@ -380,8 +340,6 @@ class CourseHomeworkController extends Controller {
     }
 
     public function getHomeworkCreateData($course_id){
-        //$homework_status = \Auth::user()->getHomeworkWithStatus('204111','001');
-
         //new Nong
         $homework_list = new Collection();
         $sections = array();

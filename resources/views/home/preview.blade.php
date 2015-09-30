@@ -112,38 +112,6 @@
             </div>
         </div>
     @endif
-    {{--<div class="col-md-10 col-md-offset-2">--}}
-    {{--@if(Auth::user()->isAdmin() || Auth::user()->isTeacher())--}}
-    {{--<div class="dropdown">--}}
-    {{--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">--}}
-    {{--Add Student--}}
-    {{--<span class="caret"></span>--}}
-    {{--</button>--}}
-    {{--<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">--}}
-    {{--<li>{!! link_to_action('StudentsController@insert','Import student from registration office',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}--}}
-    {{--</li>--}}
-    {{--<li>{!! link_to_action('StudentsController@selectexcel','Import student from Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}--}}
-    {{--</li>--}}
-    {{--<li><a href="{{ url('/students/create/'.$coid[0]->id) }}">Add student</a></li>--}}
-
-    {{--</ul>--}}
-    {{--</div>--}}
-    {{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@insert','เพิ่มรายชื่อนักศึกษาจากสำนักทะเบียน',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>--}}
-    {{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@selectexcel','เพิ่มรายชื่อนักศึกษาจากไฟล์ Excel',array('ddlCourse'=>$course['co'],'ddlSection'=>$course['sec']))!!}</button>--}}
-    {{--<button type="button" class="btn btn-default">{!! link_to_action('AssistantsController@create','เพิ่มนักศึกษาช่วยสอน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
-    {{--<button type="button" class="btn btn-default">{!! link_to_action('StudentsController@export','Export student list',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
-    {{--<button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@index','Manage Homework',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
-    {{--<button type="button" class="btn btn-default">{!! link_to_action('CourseHomeworkController@result','ผลการส่งการบ้าน',array('course'=>$course['co'],'sec'=>$course['sec']))!!}</button>--}}
-    {{--@if(Auth::user()->isAdmin() || Auth::user()->isTeacher())--}}
-    {{--<button type="button" class="btn btn btn-default " data-toggle="modal" data-target="#editsend">Edit homework status</button>--}}
-    {{--@endif--}}
-    {{--@endif--}}
-    {{--@if(Auth::user()->isAdmin() || Auth::user()->isTeacher()||Auth::user()->isStudentandTa()||Auth::user()->isTa())--}}
-    {{--<button type="button" class="btn btn-default">{!! link_to_action('Homework1Controller@exportzip','download all homework ',array('course'=>$course['co'],'sec'=>$course['sec'],'homeworkname'=>'','path'=>'','type'=>'0'))!!}</button>--}}
-    {{--@endif--}}
-    {{--</div>--}}
-
-
 
     @if(Auth::user()->isTeacher()||Auth::user()->isAdmin()||Auth::user()->isTa())
         <?php
