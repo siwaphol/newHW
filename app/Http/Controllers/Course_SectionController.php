@@ -15,7 +15,6 @@ use App\Course;
 class Course_SectionController extends Controller
 {
 
-    //
     public function index()
     {
         $result = DB::select('select cs.course_id as courseid

@@ -168,6 +168,17 @@
             return hasError;
         }
 
+        // function removeA(arr) {
+        //     var what, a = arguments, L = a.length, ax;
+        //     while (L > 1 && arr.length) {
+        //         what = a[--L];
+        //         while ((ax= arr.indexOf(what)) !== -1) {
+        //             arr.splice(ax, 1);
+        //         }
+        //     }
+        //     return arr;
+        // }
+
         function getSectionInputString(section_text){
 
             return "" +
@@ -208,6 +219,7 @@
         var baseHomeworkCreate = 'homework/create';
         var token = "{{ csrf_token() }}";
         var course_no = "{{$course_id}}";
+        var selected_section_array = [];
 
         $('#addFileModal').modalSteps({
             completeCallback: function () {
@@ -225,10 +237,22 @@
                             });
                         },
                         success: function(data){
-                            console.log(data);
+                            //nong in progress
+                            console.log("success");
+                            for (var i = 0; i < selected_section_array.length; i++) {
+                                console.log(selected_section_array + ":" + data.status[selected_section_array[i]])
+                            };
+                            // console.log(data);
+                            // for(var section_status in data.result) {
+                            //     console.log(section_status);
+                            // }
+                            //end nong in progress
+                            // console.log(data);
+                            //if in production uncomment line under this line
+                            // $('#addFileModal').modal('hide');
                         },
                         error: function(data){
-                            console.log(data);
+                            console.log("error: " + data);
                         }
                     });
                 }
@@ -242,11 +266,19 @@
             onChange: function (element, checked) {
                 if (typeof element === 'undefined') {
                     if (checked === false) {
+                        //remove an unselected section from section array
+                        var index = selected_section_array.indexOf(element.val());
+                        selected_section_array.splice(index, 1);
+
                         $('#sectionTimeDatePicker').empty();
                         $('#errorDisplay').addClass('hidden');
                     }
                 } else {
                     if (checked === true) {
+                        //push a section number to section array
+                        console.log(element.val());
+                        selected_section_array.push(element.val());
+
                         var this_section = "section" + element.val();
                         if (!$('.' + this_section)[0]) {
                             $('#sectionTimeDatePicker').append(getSectionInputString(element.val()));
@@ -272,6 +304,11 @@
             onSelectAll: function () {
                 $('#section-list option').each(function () {
                     var this_section = "section" + $(this).val();
+                    var index = selected_section_array.indexOf($(this).val());
+                    //if an item is not in selected array
+                    if(index !== -1){
+                        selected_section_array.push($(this).val());
+                    }
                     if (!$('.' + this_section)[0]) {
                         $('#sectionTimeDatePicker').append(getSectionInputString($(this).val()));
 

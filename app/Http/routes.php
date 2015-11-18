@@ -126,6 +126,7 @@ Route::get('students/manualimport','StudentsController@manualimport');
 Route::post('students/manualinsert','StudentsController@manualinsert');
 Route::get('students/autoimport','StudentsController@autoimport');
 Route::get('students/selectexcel','StudentsController@selectexcel');
+Route::get('students/auto_import_ajax','StudentsController@auto_import_ajax');
 
 //homework_assignment
 //Route::get('homework_assignment','Homework_assignmentController@index');

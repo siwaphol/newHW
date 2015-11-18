@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Course_Section;
 use App\Http\Requests\Formstudents;
 use App\Http\Controllers\Controller;
 
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
 use DB;
+use Excel;
 class StudentsController extends Controller {
 
 	/**
@@ -183,8 +185,46 @@ class StudentsController extends Controller {
     }
     public function autoimport()
     {
-
         return view('students.autoinsert');
+    }
+
+    public function auto_import_ajax()
+    {
+        //for test only
+        $fileupload_name = "https://www3.reg.cmu.ac.th/regist158/public/stdtotal_xlsx.php?var=maxregist&COURSENO=204100&SECLEC=001&SECLAB=000&border=1&mime=xlsx&ctype=&";
+        //end for test only
+        $fileupload='../temp/file.xlsx';
+        $result = null;
+        //get semester and year from Session
+        $semester = Session::get('semester');
+        $year = Session::get('year');
+        $year_2char = substr(Session::get('year'),-2);
+        //nong for test only
+        $semester = '1';
+        $year = '2557';
+        $year_2char = '57';
+        //end nong for test only
+        //get all sections with current semester and year
+        $all_course_sections = Course_Section::semesterAndYear($semester,$year)->get();
+
+        $course_no = '';
+        $seclec = '';
+        foreach($all_course_sections as $aSection){
+            $seclab = $aSection->section === '000' ? '001':'000';
+            $xlsx_url = 'https://www3.reg.cmu.ac.th/regist'.$semester.$year_2char.'/public/stdtotal_xlsx.php?var=maxregist&COURSENO='.$aSection->course_id.'&SECLEC='.$aSection->section.'&SECLAB='.$seclab.'&border=1&mime=xlsx&ctype=&';
+            if(copy($fileupload_name,$fileupload)){
+                $result = Excel::load($fileupload, function($reader) {
+                })->get();
+                dd($result->toArray());
+//            $result->dd();
+
+            }
+        }
+
+        return null; //this will return json
+    }
+    public function auto_import_ajax2($course_no, $section){
+
     }
     public function selectexcel(){
         $course = $_GET['ddlCourse'];
